@@ -1,5 +1,16 @@
 # CRM Telecom — system state
 
+## Sprint continuation — 2026-10-20, unit28
+
+W5 reports exact a9e deployment6ad78f6c810c781fba4f5880 and API/page A/B controls
+in issue67/6295242000/6295591477; independent Oier access and visual acceptance remain
+blocked. Successor branch `codex/demo-cloud-composition-20261020` composes PR174,
+the two reviewed W5 platform commits and Oier172/173. Own63browser/38controlsPASS,
+1physicalSKIP, inventory123/87 and global lint/defaultbuildTypes44PASS; no hosted
+acceptance inherited. [Bounded handoff](../integration/UNIT_28_DEMO_COMPOSITION_20261020.md).
+Final SHA/tree/CI and deployment request in issue67; a9e/174 stay frozen. No new SQL,
+workflow171, Storage or production. Historical checkpoints below retain their sources.
+
 ## Current master integration — 2026-10-20
 
 Product/check sourcebd0b353c76f8d10e09a82183008ad41e2da878e5/tree7b34b9e3862368997d95d10aadd24e920ff42aa8,

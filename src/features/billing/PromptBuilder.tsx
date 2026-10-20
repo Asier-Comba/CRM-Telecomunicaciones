@@ -44,11 +44,31 @@ export function PromptBuilder({
         rec.current.onresult = null
         rec.current.onend = null
         rec.current.onerror = null
-        rec.current.abort()
+        try { rec.current.abort() } catch { /* Retired callbacks must stay retired even if the browser refuses cleanup. */ }
       }
     },
     [],
   )
+  function editText(value: string) {
+    const speech = rec.current
+    if (speech) {
+      speech.onresult = null
+      if (listening) {
+        try {
+          speech.abort()
+          speech.onend = null
+          speech.onerror = null
+          rec.current = null
+          setListening(false)
+          setMessage('Dictado detenido para conservar tu corrección.')
+        } catch {
+          setMessage('No se pudo detener el dictado. Pulsa «Detener dictado» antes de continuar.')
+        }
+      }
+    }
+    setText(value)
+    setSource('text')
+  }
   function dictate() {
     if (listening) {
       rec.current?.stop()
@@ -77,7 +97,15 @@ export function PromptBuilder({
       setText((base + next).slice(0, 2000))
       if (next.trim()) setSource('audio')
     }
-    speech.onend = () => setListening(false)
+    speech.onend = () => {
+      speech.onresult = null
+      speech.onerror = null
+      speech.onend = null
+      if (rec.current === speech) {
+        rec.current = null
+        setListening(false)
+      }
+    }
     speech.onerror = () => {
       setListening(false)
       setMessage('No se pudo completar el dictado.')
@@ -108,7 +136,7 @@ export function PromptBuilder({
         maxLength={2000}
         rows={3}
         value={text}
-        onChange={(e) => {setText(e.target.value);setSource('text')}}
+        onChange={(e) => editText(e.target.value)}
         placeholder="Factura a Bilbao Industrial Demo SL por servicio de conectividad de 1.200 euros + IVA, vencimiento en 15 días"
         className={`${control} w-full`}
       />
