@@ -1,0 +1,139 @@
+{
+  "unit": "OIER_SPEECH_ERROR25",
+  "claim": 6302225903,
+  "base": "8ee0b9ba61cd45072fbce75f12c6e684e3f3e6a6",
+  "tests": "964795d5a1eb50844ad21db19be95f2d48aa7a9a",
+  "fix": "cec4434223aae42d3758742d35d0af3a7df5c8e0",
+  "environment": "CONTROLLED_HTTP_SPEECH_STUB_REAL_COMPONENTS_NOT_MICROPHONE_OR_AUTH_DB",
+  "browser": {
+    "before": {
+      "attempt": "night-unit03-attempt24",
+      "stats": {
+        "startTime": "2026-10-20T20:43:17.423Z",
+        "duration": 62600.035,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "project": "controlled-http-390",
+          "status": "failed",
+          "observation": {
+            "expected": "Factura para Bilbao Telecom Demo SL de 450 euros por instalación de fibra",
+            "actual": "Transcripción anterior que no pertenece al nuevo dictado",
+            "newSessionStillListening": 0
+          },
+          "screenshot": "before-390.png",
+          "errors_count": 3,
+          "screenshot_sha256": "fd18e08117e7e87c9b52b02d398686199c08cb0f10136d6deefd67780dbac649"
+        },
+        {
+          "project": "controlled-http-768",
+          "status": "failed",
+          "observation": {
+            "expected": "Factura para Bilbao Telecom Demo SL de 450 euros por instalación de fibra",
+            "actual": "Transcripción anterior que no pertenece al nuevo dictado",
+            "newSessionStillListening": 0
+          },
+          "screenshot": "before-768.png",
+          "errors_count": 3,
+          "screenshot_sha256": "3389c9704fac7683dcae639cd161e2db6d7bf00f75404930b8165120059a3164"
+        },
+        {
+          "project": "controlled-http-1440",
+          "status": "failed",
+          "observation": {
+            "expected": "Factura para Bilbao Telecom Demo SL de 450 euros por instalación de fibra",
+            "actual": "Transcripción anterior que no pertenece al nuevo dictado",
+            "newSessionStillListening": 0
+          },
+          "screenshot": "before-1440.png",
+          "errors_count": 3,
+          "screenshot_sha256": "bb1931263ba29e52e4c17fc75b2dbb4d24ed531ca225938bf0a67020bb165f8a"
+        }
+      ]
+    },
+    "after": {
+      "attempt": "night-unit03-attempt25",
+      "stats": {
+        "startTime": "2026-10-20T20:45:23.097Z",
+        "duration": 87279.94,
+        "expected": 42,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "project": "controlled-http-390",
+          "status": "passed",
+          "observation": {
+            "expected": "Factura para Bilbao Telecom Demo SL de 450 euros por instalación de fibra",
+            "actual": "Factura para Bilbao Telecom Demo SL de 450 euros por instalación de fibra",
+            "newSessionStillListening": 1
+          },
+          "screenshot": "after-390.png",
+          "errors_count": 0,
+          "screenshot_sha256": "33cb96db496985860a1ef8be0a205158c5c0ddc24c0e17bad239a72cc267a7fa"
+        },
+        {
+          "project": "controlled-http-768",
+          "status": "passed",
+          "observation": {
+            "expected": "Factura para Bilbao Telecom Demo SL de 450 euros por instalación de fibra",
+            "actual": "Factura para Bilbao Telecom Demo SL de 450 euros por instalación de fibra",
+            "newSessionStillListening": 1
+          },
+          "screenshot": "after-768.png",
+          "errors_count": 0,
+          "screenshot_sha256": "9eb4d8ebdd81b22d5418664de9931c119cd1a1c9019678da886bf1df99539f9c"
+        },
+        {
+          "project": "controlled-http-1440",
+          "status": "passed",
+          "observation": {
+            "expected": "Factura para Bilbao Telecom Demo SL de 450 euros por instalación de fibra",
+            "actual": "Factura para Bilbao Telecom Demo SL de 450 euros por instalación de fibra",
+            "newSessionStillListening": 1
+          },
+          "screenshot": "after-1440.png",
+          "errors_count": 0,
+          "screenshot_sha256": "1ff4fd44189e0c0a33b03725f2a912c452fcca3fe4472ee673932119069b07f7"
+        }
+      ]
+    }
+  },
+  "first_fixture_attempt": {
+    "attempt": "night-unit03-attempt23",
+    "result": "3FAIL",
+    "classification": "TEST_SETUP_CONFOUND_NOT_QUALIFIED_CAUSAL_BASELINE",
+    "cause": "Second recognition correctly appends to existing text. Initial sequence also tested a late result before restart, contaminating the base. Corrected test starts failed session with no transcript, isolating old callbacks during new session.",
+    "product_modified": false,
+    "original_test_sha256": "59b4596bef99b8891907c03d307dfa59db0b6028f85d9018e69cdee696140765"
+  },
+  "quality": {
+    "source": "cec4434223aae42d3758742d35d0af3a7df5c8e0",
+    "lint_exit": 0,
+    "typecheck_exit": 0,
+    "build_exit": 0,
+    "build_route_rows_observed": 75,
+    "static_pages_generated": 44
+  },
+  "log_hashes": {
+    "speech-error25-before-browser.log": "35c8cf1dda508d2acdf8fec431eb66d5d5f9c22b336f8497ca99990e26a0e450",
+    "speech-error25-before-corrected.log": "c01a96582995e99d95bc20876c07fe8ce2dc382a466c37ed66da6d7dfbc1a191",
+    "speech-error25-after-browser.log": "977edf65df87d47a2e1db547c1d1ad884a974226a38ef77ff089b3d1714201bb",
+    "speech-error25-lint.log": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98",
+    "speech-error25-types.log": "27c9437fa7920186ba60a7f450eebc6a42226080fa588ecf43fda4c66031c055",
+    "speech-error25-build.log": "17f7a52cc52bf5e6f5cf985439c54a8ec1b1fd0aa872e0ade8d98e5abde31d4f"
+  },
+  "visual": "BEFORE390_AND_AFTER390_768_1440_REVIEWED_DICTATION_PANEL_ONLY_NOT_FULL_MODULE",
+  "cloud": "NOT_RUN",
+  "real_microphone": "NOT_RUN",
+  "live_model": "NOT_RUN",
+  "writes": "NO_COMMANDS_ASSERTED_HTTP_ONLY_NOT_RLS_PROOF",
+  "budget_eur": 0,
+  "release": "NOT_ACCEPTED"
+}
