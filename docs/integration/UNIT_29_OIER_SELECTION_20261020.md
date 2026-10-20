@@ -18,9 +18,11 @@ tools/integration_qa/oier-selection.config.ts selecciona los bancos existentes s
 alterar assertions, tiempos o reintentos.48/48 Chromium PASS (39facturación+9cliente),
 sin retries/skips/flaky. HTTP/SpeechStub controlados: no Auth/DB/cloud/micrófono.
 Evidencia local separada qa-selection29/selection-before01,before02,after01.
-Lint/tipos/build globales y aceptación real-local del nuevo HEAD están PENDING
-en este checkpoint; su resultado final se publica por SHA en issue67. No desplegar
-esta copia de recuperación como candidata cualificada.
+Lint global, tipos y build por defecto44páginas PASS sobre los mismos blobs de
+producto, cierre6300282743. HEAD remoto verificado f315ee7a2b6fce212f8b878be84a64faca9d2e30,
+árbol227380533a7230d7967557313085b85dfa80bea2. Su aceptación real-local está en
+run39488102448; resultado por SHA en issue67. No desplegar esta copia como candidata
+cualificada mientras queden gates abiertos.
 
 ## Emisión original — conservación y límites
 

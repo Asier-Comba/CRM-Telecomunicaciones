@@ -1,5 +1,18 @@
 # CRM Telecom — system state
 
+## Sprint continuation — 2026-10-20, units29/30
+
+PR175 reuses its integration branch: Oier21/22 exact selections accepted and
+reproduced before/after (5parser+3conceptUI+6focus FAIL →16concept/24parser/48UI PASS).
+Caller20 adopted only for diagnosis; original issue effect/cause UNKNOWN.
+Own30 adds explicit immutable sold-version selection for service creation using
+the existing optional canonical field;18UI/15contracts/lint/types/defaultbuild44
+PASS locally on dbc904ac. [Selection/evidence](../integration/UNIT_29_OIER_SELECTION_20261020.md),
+[three-create contract and acceptance window](../integration/UNIT_30_TELECOM_THREE_CREATES_20261020.md).
+No inherited hosted acceptance, telecom physical journey NOT_RUN; W5 resource/
+fixtures/window and independent Oier access required. CORE162 remains two writes.
+SQL87/Storage/AI writes unchanged. Final remote SHA/tree and CI in issue67.
+
 ## Sprint continuation — 2026-10-20, unit28
 
 W5 reports exact a9e deployment6ad78f6c810c781fba4f5880 and API/page A/B controls
