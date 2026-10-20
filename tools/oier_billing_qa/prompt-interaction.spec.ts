@@ -118,6 +118,7 @@ test('refused stop explains recovery without losing text or permitting a proposa
  expect(r.proposals()).toEqual([]);r.assertNoCommands();expect(r.pageErrors).toEqual([])
  await page.getByRole('button',{name:'Detener dictado',exact:true}).click()
  await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()
+ await expect(page.getByRole('status').filter({hasText:'No se pudo detener el dictado.'})).toHaveCount(0)
  await generate(page,simple)
  expect(r.proposals()).toHaveLength(1);r.assertNoCommands();expect(r.pageErrors).toEqual([])
 })
