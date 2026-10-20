@@ -1,0 +1,138 @@
+{
+  "missing_fixture_outcomes_not_independent_causal_reproductions": true,
+  "cause": "UNKNOWN",
+  "w1_backend_checks": 3815,
+  "protected_bank_or_timing_changed": false,
+  "teardown": "PASS",
+  "manual_reruns": 0,
+  "previous137_F736": "PRESERVED_NOT_RELABELLED_OR_FIXED_BY_ANALOGY",
+  "bounded_observation": {
+    "contract": "w2.portfolio-bounded-search-observation.v1",
+    "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+    "document_changed": false,
+    "truncated": false,
+    "rows": [
+      {
+        "kind": "search",
+        "status": "ok",
+        "failed": false,
+        "dto": "valid",
+        "expected_reference": true,
+        "candidates": 2
+      },
+      {
+        "kind": "expected_contract",
+        "status": "ok",
+        "failed": false,
+        "dto": "pending",
+        "expected_reference": null,
+        "candidates": null
+      }
+    ]
+  },
+  "failure_details": [
+    {
+      "check": "portfolio_manual_service_line_renewal_source",
+      "action": "portfolio_manual_service_line_renewal_source:2",
+      "kind": "TIMEOUT"
+    },
+    {
+      "check": "calendar_manual_renewal_update_resolve",
+      "action": "calendar_manual_renewal_update_resolve",
+      "kind": "ACTION_FAILED",
+      "error_tag": "RENEWAL_FIXTURE_MISSING"
+    },
+    {
+      "check": "portfolio_service_line_labels_and_transitions",
+      "action": "portfolio_service_line_labels_and_transitions:5",
+      "kind": "ACTION_FAILED",
+      "error_tag": "COMMAND_FAILED"
+    },
+    {
+      "check": "portfolio_permanence_create_update_cancel_and_renewal_dismiss",
+      "action": "portfolio_permanence_create_update_cancel_and_renewal_dismiss:1",
+      "kind": "TIMEOUT"
+    },
+    {
+      "check": "billing_exact_lines_discount_tax_withholding_fx_review_and_replay",
+      "action": "billing_mobile_rows:current_detail_390",
+      "kind": "ACTION_FAILED",
+      "error_tag": "BILLING_REAL_RELATION_FIXTURE_MISSING"
+    },
+    {
+      "check": "opportunity_actual_product_links_same_customer_replay_cas_mobile",
+      "action": "opportunity_actual_product_links_same_customer_replay_cas_mobile",
+      "kind": "ACTION_FAILED",
+      "error_tag": "LINK_SERVICE_FIXTURE_MISSING"
+    },
+    {
+      "check": "document_real_target_drag_invalid_no_request",
+      "action": "document_drag:target",
+      "kind": "TIMEOUT"
+    },
+    {
+      "check": "customer360_exact_summary_safe_contacts_independent_domains",
+      "action": "customer360_exact_summary_safe_contacts_independent_domains",
+      "kind": "ACTION_FAILED",
+      "error_tag": "C360_ADDITIONAL_INVENTORY_FIXTURE_MISSING"
+    },
+    {
+      "check": "case_normal_customer_contract_service_line_creation_and_actual_ancestry",
+      "action": "case:create_relation_fixture",
+      "kind": "ACTION_FAILED",
+      "error_tag": "CASE_RELATION_FIXTURE_MISSING"
+    },
+    {
+      "check": "case_metadata_assignment_states_resolve_reopen_exact_lost_response",
+      "action": "case_metadata_assignment_states_resolve_reopen_exact_lost_response",
+      "kind": "ACTION_FAILED",
+      "error_tag": "CASE_FIXTURE_MISSING"
+    },
+    {
+      "check": "case_private_notes_explicit_cursor_reveal_revocation_closed_history_and_global_cancel",
+      "action": "case_private_notes_explicit_cursor_reveal_revocation_closed_history_and_global_cancel",
+      "kind": "ACTION_FAILED",
+      "error_tag": "CASE_FIXTURE_MISSING"
+    },
+    {
+      "check": "case_viewer_current_normal_detail_no_notes_or_writes_three_widths",
+      "action": "case_viewer_current_normal_detail_no_notes_or_writes_three_widths",
+      "kind": "ACTION_FAILED",
+      "error_tag": "CASE_VIEWER_FIXTURE_MISSING"
+    }
+  ],
+  "actual_tested_merge": "767afab002371a18e4825c7c7257926e77f40e84",
+  "trees_equal": true,
+  "run": 39390500305,
+  "release": "NOT_ACCEPTED",
+  "SSR_native_submit_hypothesis": "NOT_ESTABLISHED_SEARCH_POST_OBSERVED_DOCUMENT_UNCHANGED",
+  "request": 6287148538,
+  "missing_fixture_outcomes": 8,
+  "tested_tree": "ca97ac9a6c1b05ef6c05d375db4319fbc5d99236",
+  "UI_failed": [
+    "portfolio_manual_service_line_renewal_source",
+    "calendar_manual_renewal_update_resolve",
+    "portfolio_service_line_labels_and_transitions",
+    "portfolio_permanence_create_update_cancel_and_renewal_dismiss",
+    "billing_exact_lines_discount_tax_withholding_fx_review_and_replay",
+    "opportunity_actual_product_links_same_customer_replay_cas_mobile",
+    "document_real_target_drag_invalid_no_request",
+    "customer360_exact_summary_safe_contacts_independent_domains",
+    "case_normal_customer_contract_service_line_creation_and_actual_ancestry",
+    "case_metadata_assignment_states_resolve_reopen_exact_lost_response",
+    "case_private_notes_explicit_cursor_reveal_revocation_closed_history_and_global_cancel",
+    "case_viewer_current_normal_detail_no_notes_or_writes_three_widths"
+  ],
+  "head_tree": "ca97ac9a6c1b05ef6c05d375db4319fbc5d99236",
+  "environment": "LOCAL_SUPABASE_DOCKER",
+  "w2_takeover_checks": 227,
+  "staging": "NOT_TESTED",
+  "w1_acceptance": "PASS",
+  "workflow_head": "a32cacc0ebc9cfb0ea9f100b4b9b9f1a13ba4474",
+  "w2_acceptance": "PASS_LOCAL_IMPORT_VALIDATION_PROTECTED_STAGING_AND_EXTERNAL_IDENTITIES",
+  "result": "FAIL",
+  "bounded_scope": "ONLY_OBSERVER_AT_FREEZE_NOT_APPLICATION_BODY_CONSUMPTION_OR_CAUSE",
+  "job": 118520587604,
+  "first_failure": "portfolio_manual_service_line_renewal_source:2 TIMEOUT",
+  "UI_passed": 101
+}

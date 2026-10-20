@@ -8,32 +8,31 @@
     "documents_fixture": "Original3FAIL27NOT_RUN and original harness kept separate from18causalFAIL. Baseline source files retained verbatim as .txt to avoid execution/typechecking.",
     "remote137": "Supabase39345324892 FAIL at tested merge419693a5,112UI passed1layout:portfolio:390:dialog_visible TIMEOUT. Drawer visible in original failure screenshot; full causal explanation unknown. Not F736; assertions/timeouts unchanged,0manual reruns.",
     "unit22_interruption": "Original attempt08 log/artifacts plus INTERRUPTED.json retained; no final counts invented. Clock gap01:00to05:55UTC; no continuous execution claimed. Same-source attempt09 complete141PASS. Interrupted checkpoint24c remains in Git history.",
-    "quota_a32": "NativePostgres118520588121 Docker toomanyrequests:Data limit exceeded,3runnerinternalpulls before tests;0manual retry. Exact pin verified, marker unit22; knownW5request not duplicated. No test/restore acceptance inferred."
+    "quota_a32": "NativePostgres118520588121 Docker toomanyrequests:Data limit exceeded,3runnerinternalpulls before tests;0manual retry. Exact pin verified, marker unit22; knownW5request not duplicated. No test/restore acceptance inferred.",
+    "remote_a32": {
+      "other_failures": "See original failure_details; no blanket root-cause assignment",
+      "missing_fixture_outcomes": 8,
+      "cause": "UNKNOWN",
+      "observer": "Search valid/expected present; expected portfolio200/dtopending atfreeze",
+      "result": "FAIL_101UI_PASS12FAIL",
+      "request": 6287148538
+    }
   },
   "HIGH": "FIVE_OPEN",
   "base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
   "remote_checks": {
     "PR161": {
-      "prior_f2_provenance": "evidence/unit22-remote-f2-supabase-safe.json",
-      "active": "SUPABASE_LAST_OBSERVED_IN_PROGRESS_REFRESH_BEFORE_ANY_PR_PUSH",
+      "all_terminal": "VERIFIED_AFTER_UNIT25",
+      "CI": "FAIL_5HIGH_SCAN_NATIVE_PIN_QUOTA_BEFORE_TESTS",
+      "request": 6287148538,
+      "manual_retry": 0,
+      "next": "May fast-forward existingPR only after preserving this exact failure and fresh terminal guard; no inheritedPASS or causal fix claimed.",
+      "safe": "evidence/remote-a32-safe.json",
+      "Supabase": "FAIL_101PASS12FAIL",
+      "actual_tested_merge": "767afab002371a18e4825c7c7257926e77f40e84",
+      "local486_QA9e": "NOT_THIS_REMOTE_SOURCE",
       "W4": "FAIL_INDEPENDENT",
-      "CI": "FAIL_5HIGH_SECRETSCAN_NATIVE_IMAGE_QUOTA",
-      "head": "a32cacc0ebc9cfb0ea9f100b4b9b9f1a13ba4474",
-      "current486": "NOT_RUN_NO_INHERITANCE",
-      "Native": {
-        "result": "FAIL_PULL_BEFORE_TESTS",
-        "actual_tested_sha": null,
-        "safe": "evidence/unit24-a32-native-quota-safe.json",
-        "manual_retry": 0,
-        "same_pin": true,
-        "previousf2": "DIFFERENT_SHA_NOT_POSITIVE_CONTROL_FOR_A32_RETRY",
-        "job": 118520588121
-      },
-      "runs": [
-        39390500329,
-        39390500305,
-        39390500351
-      ]
+      "head": "a32cacc0ebc9cfb0ea9f100b4b9b9f1a13ba4474"
     },
     "PR160": {
       "runs": [
