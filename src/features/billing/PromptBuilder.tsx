@@ -107,8 +107,14 @@ export function PromptBuilder({
       }
     }
     speech.onerror = () => {
-      setListening(false)
-      setMessage('No se pudo completar el dictado.')
+      speech.onresult = null
+      speech.onend = null
+      speech.onerror = null
+      if (rec.current === speech) {
+        rec.current = null
+        setListening(false)
+        setMessage('No se pudo completar el dictado.')
+      }
     }
     rec.current = speech
     try {
