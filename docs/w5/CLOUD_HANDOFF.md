@@ -108,9 +108,24 @@ Con la admisión aprobada: desplegar el SHA candidato del integrador por el work
 | Guardar borrador | PASS | Supabase: `billing_invoices` `draft`, sin número reservado, 30000/6300/36300 céntimos, 1 línea, sin duplicado |
 | Recargar → borrador recuperado | PASS | Lista: "Borrador A · 2026-10-20 · 363,00 €" |
 | Dictado por voz | NOT_VERIFIED | Botón presente; micrófono real no probado |
-| Negativos (otra empresa, fuera de cohorte) | NOT_RUN en esta demo | Cubiertos en sondas anteriores, no sobre este deploy |
+| Negativo: misma empresa, fuera de cohorte (viewer) | PASS | Supabase autentica; proxy redirige a `/login?error=staging_access_denied`; páginas privadas redirigen; APIs producto y facturación 403 `access_denied` |
+| Negativo: owner de otra empresa (B), fuera de cohorte | PASS | Login confirmado en Supabase; enlace directo al Customer360 de la empresa A redirige; APIs 403 `access_denied` |
 
 Defectos observados para el integrador:
 1. **Admisión en Netlify Edge** (corregido en `e42cfd59`, pendiente de ACK): el proxy corre como función Edge (Deno); su `process.env` no contiene `NODE_ENV` y Netlify no permite definirlo, así que la admisión era `invalid` y el sitio respondía 503 incluso en `/login`.
 2. Textos de UI: el aviso "Integración local · … base local" aparece también en staging.
 3. Dashboard muestra 0 en todo con el filtro "Mi actividad" aunque hay 11 clientes (filtro por defecto confuso para una demo).
+
+### Mapa de módulos sobre el deploy `6ad75c93` (20/10, lectura con owner de cohorte)
+
+| Módulo | Estado alojado |
+|---|---|
+| Dashboard, Clientes, Customer360, Facturación | HOSTED_TESTED (lectura y escritura, §10) |
+| Cartera, Contratos, Servicios, Portabilidades, SIM/eSIM, Incidencias, Equipos, Oportunidades, Calendario, Centro de atención, Inbox, Configuración, Informes | Cargan contra Supabase sin errores; 0 registros en la empresa sintética. Escritura NOT_RUN |
+| Catálogo Telecom | Carga, **vacío**: sin operadores ni tarifas no se pueden demostrar contratos, servicios y líneas |
+| Documentos | Metadatos sí; subida/descarga deshabilitadas (P0 Storage) |
+| Asistente IA | Solo lectura, "en preparación" (escrituras IA OFF) |
+
+Observaciones UX para el integrador: la página de login no muestra mensaje para `error=staging_access_denied`; el aviso "Integración local" aparece en staging.
+
+Siguiente unidad W5: sembrar por la propia UI un catálogo sintético mínimo (1 operador, 1 tarifa, 1 versión) y un contrato/servicio/línea para "Bilbao Telecom Demo", y verificar escritura + recarga de cada módulo.
