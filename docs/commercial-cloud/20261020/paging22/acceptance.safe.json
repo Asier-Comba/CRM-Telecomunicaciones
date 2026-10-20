@@ -1,0 +1,178 @@
+{
+  "unit": "OIER_CUSTOMER_PAGING22",
+  "claim": 6298317033,
+  "owner": "Oier_ISOLATED_PROPOSAL_Asier_INTEGRATION",
+  "base": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+  "before_source": "6ca6f42cb58470d12699c4adf32e1b636cf7106f",
+  "after_source": "d5922d843cac660f6bc954875a289267c5299f2b",
+  "before": {
+    "stats": {
+      "startTime": "2026-10-20T17:33:42.557Z",
+      "duration": 89430.55,
+      "expected": 0,
+      "skipped": 0,
+      "unexpected": 6,
+      "flaky": 0
+    },
+    "observed_cases": [
+      {
+        "title": "customer paging restores keyboard location after success at 390",
+        "status": "failed",
+        "focus": [
+          {
+            "name": "focus-after-page",
+            "tag": "BODY"
+          }
+        ],
+        "failure_is_focus_assertion": true
+      },
+      {
+        "title": "customer paging restores keyboard location after denial and retry at 390",
+        "status": "failed",
+        "focus": [
+          {
+            "name": "focus-after-denial",
+            "tag": "BODY"
+          }
+        ],
+        "failure_is_focus_assertion": true
+      },
+      {
+        "title": "customer paging restores keyboard location after success at 768",
+        "status": "failed",
+        "focus": [
+          {
+            "name": "focus-after-page",
+            "tag": "BODY"
+          }
+        ],
+        "failure_is_focus_assertion": true
+      },
+      {
+        "title": "customer paging restores keyboard location after denial and retry at 768",
+        "status": "failed",
+        "focus": [
+          {
+            "name": "focus-after-denial",
+            "tag": "BODY"
+          }
+        ],
+        "failure_is_focus_assertion": true
+      },
+      {
+        "title": "customer paging restores keyboard location after success at 1440",
+        "status": "failed",
+        "focus": [
+          {
+            "name": "focus-after-page",
+            "tag": "BODY"
+          }
+        ],
+        "failure_is_focus_assertion": true
+      },
+      {
+        "title": "customer paging restores keyboard location after denial and retry at 1440",
+        "status": "failed",
+        "focus": [
+          {
+            "name": "focus-after-denial",
+            "tag": "BODY"
+          }
+        ],
+        "failure_is_focus_assertion": true
+      }
+    ],
+    "report_sha256": "fe9e50d6048622d9c4418b2ec8ce7abc27ff8508e78b0fbc6594ef2d872f1d7b"
+  },
+  "after": {
+    "stats": {
+      "startTime": "2026-10-20T17:36:07.294Z",
+      "duration": 21718.757999999998,
+      "expected": 9,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "report_sha256": "ad08bc0423ce5b2272e2bbdfabb892451f9e174be01b8f65b68c342ab139f189",
+    "covered": [
+      "keyboard_page_success",
+      "keyboard_page_back",
+      "403_visible_not_empty",
+      "keyboard_retry",
+      "no_focus_steal_when_other_control_chosen",
+      "old_customer_rows_cursor_filter_retired",
+      "late_response_not_applied_to_new_customer"
+    ]
+  },
+  "environment": "CONTROLLED_HTTP_ACTUAL_COMPONENT_REPOSITORY_AND_DTO_NOT_AUTH_DB_CLOUD",
+  "writes": 0,
+  "writes_evidence": "TEST_ASSERTS_NO_COMMAND_OPERATIONS",
+  "physical_RLS": "NOT_RUN",
+  "screen_reader_hardware": "NOT_RUN_DOM_FOCUS_AND_LIVE_REGION_ONLY",
+  "lint": "PASS_GLOBAL_EXIT0",
+  "build": "PASS_OWN_DEFAULT_TURBOPACK_TYPES44_EXIT0",
+  "visual": {
+    "widths": [
+      390,
+      768,
+      1440
+    ],
+    "scope": "Loaded page2 with service21 and focused page indicator; cards/table, no full Customer360 acceptance or hosted proof."
+  },
+  "integration_check": {
+    "base": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+    "source": "d5922d843cac660f6bc954875a289267c5299f2b",
+    "selected_commits": [
+      "6ca6f42cb58470d12699c4adf32e1b636cf7106f",
+      "d5922d843cac660f6bc954875a289267c5299f2b"
+    ],
+    "files": [
+      "src/features/customers/CustomerDomainPages.tsx",
+      "tests/e2e-preview/customer-domain-scope.spec.ts"
+    ],
+    "patch_sha256": "86a7bd4e7dc2436bf335bf95e7a38d52eec2ad589a8058b197b16698c8cb40e7",
+    "apply_check": "PASS_OWN_TEMP_INDEX_NO_OWNER_SOURCE_OR_BRANCH_WRITES",
+    "domain_read_and_effect_byte_identical": true,
+    "integration": "NOT_ACK_NOT_MERGED_NOT_HOSTED",
+    "release": "NOT_ACCEPTED"
+  },
+  "supabase_connector": {
+    "operation": "list_projects",
+    "result": "EMPTY_PROJECT_LIST",
+    "target": "zgwotxnyqzfuzcnmgvtn",
+    "target_visible": false,
+    "SQL_executed": false,
+    "scope": "CONNECTOR_VISIBILITY_ONLY_NOT_BACKEND_HEALTH_OR_AUTH_RLS_TEST",
+    "cloud_writes": false,
+    "permissions_changed": false
+  },
+  "pending": [
+    "Asier_selects_concept21_and_caller20",
+    "original175_invoice_effect_and_cause_UNKNOWN",
+    "W5_private_quote_and_QA_window",
+    "telecom16_scope_and_service_price_ACK",
+    "fiveHIGH_Storage_W4"
+  ],
+  "business_ai_writes": "OFF",
+  "live_voice": "NOT_RUN",
+  "live_model": "NOT_RUN",
+  "release": "NOT_ACCEPTED",
+  "logs": [
+    {
+      "file": "work/customer-paging22-before.log",
+      "sha256": "ff1e0197b2a0eff645fb6b17cb6a409377ee971e396f4b418273779e58977820"
+    },
+    {
+      "file": "work/customer-paging22-after.log",
+      "sha256": "1a15b2f2bac62ffadbdf6844b0166c49ef03028e865468ea5358d357396d1fbd"
+    },
+    {
+      "file": "work/customer-paging22-lint.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "file": "work/customer-paging22-build.log",
+      "sha256": "867edc2c23c19be2f55a5df595949d22875db628c4cf994e6adf6b19b276ecee"
+    }
+  ]
+}
