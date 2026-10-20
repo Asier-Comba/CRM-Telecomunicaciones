@@ -197,13 +197,23 @@ It now starts at the ordinary /catalog route, selects its created operator and
 keeps exact receipt, immutable terms and reload/readback assertions. Fixed phases
 are logged without IDs, credentials or response bodies. No product/SQL change.
 Qualified final after04:4PASS (one journey at1440 plus three existing term-scope
-regressions at390/768/1440); TypeScript PASS. Earlier after03 runs the same helper
+regressions at390/768/1440); final-path lint and TypeScript PASS. Earlier after03 runs the same helper
 three times at1440, not three-width acceptance. Initial before01 browser-path,
 after01 syntax and after02 encoding setup failures remain unqualified evidence.
 The first lint attempt referenced the test path moved into canonical preview
 collection and fails ENOENT; the final-path lint is recorded separately.
 The first100bf real-local catalog TIMEOUT and mobile portfolio TIMEOUT remain FAIL.
 Only a new exact-source physical run can qualify this helper and publication.
+
+## Unit26: remaining integrated persistence wording
+
+Only three literals change: Sidebar says integration of a test environment and
+requires server confirmation/current permissions; customer archive confirmation
+describes the same requirement. Exact-delta comparison against dea6bfea proves
+no other product change in those two files. Existing local-only billing keeps
+its truthful local labels. No new logic, permissions, transport, receipts or SQL.
+The final candidate's build and runtime regression are recorded by its own CI;
+this textual cleanup is not evidence of hosted persistence or a successful write.
 
 ## Work in order
 

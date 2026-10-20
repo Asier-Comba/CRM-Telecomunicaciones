@@ -66,7 +66,7 @@ function ScopedCustomerDetail({ id }: { id: string }) {
 
       {edit && !('display_name'in customer) && <CustomerEditor customer={customer} onClose={()=>setEdit(false)} onSaved={async()=>{setEdit(false);setMessage('Cliente guardado.');await load()}} onReload={async()=>{setEdit(false);await load();setMessage('Versión actual recargada. Abre el editor para revisar los cambios.')}}/>}
       {contact && <ContactEditor customerId={id} contact={contact==='new'?undefined:contact} onClose={()=>setContact(null)} onSaved={async()=>{setContact(null);setMessage('Contacto guardado.');await load()}} onReload={async()=>{setContact(null);await load()}}/>}
-      <ConfirmDialog cancelDisabled={archiveUncertain} confirmLabel={archiveUncertain?'Reintentar la misma acción':'Confirmar'} open={confirm} title={customer.status==='archived'?'Restaurar cliente':'Archivar cliente'} description={archiveUncertain?'El resultado está pendiente de confirmación. Reintenta la misma acción antes de cerrar.':'El cambio se guardará en la base de prueba local.'} loading={busy} error={error} onConfirm={archive} onCancel={()=>{if(!busy&&!archiveUncertain){setConfirm(false);archiveIntent.current=null}}}/>
+      <ConfirmDialog cancelDisabled={archiveUncertain} confirmLabel={archiveUncertain?'Reintentar la misma acción':'Confirmar'} open={confirm} title={customer.status==='archived'?'Restaurar cliente':'Archivar cliente'} description={archiveUncertain?'El resultado está pendiente de confirmación. Reintenta la misma acción antes de cerrar.':'El servidor confirmará el cambio según tus permisos vigentes.'} loading={busy} error={error} onConfirm={archive} onCancel={()=>{if(!busy&&!archiveUncertain){setConfirm(false);archiveIntent.current=null}}}/>
     </>}
   </div>
 }

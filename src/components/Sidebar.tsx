@@ -125,10 +125,10 @@ export function Sidebar({ onClose }: { onClose?: () => void } = {}) {
       <div className="m-3 rounded-lg bg-indigo-50 px-3 py-3">
         <p className="flex gap-2 text-xs font-semibold text-indigo-800">
           <ShieldCheck className="h-4 w-4" />
-          {integrated?'Integración local':'Entorno de consulta'}
+          {integrated?'Integración de prueba':'Entorno de consulta'}
         </p>
         <p className="mt-1 text-[11px] leading-4 text-indigo-600">
-          {integrated?'Cambios guardados con permisos en la base de prueba.':'Las acciones que requieren conexión aparecen desactivadas.'}
+          {integrated?'Cada cambio requiere confirmación del servidor y permisos vigentes.':'Las acciones que requieren conexión aparecen desactivadas.'}
         </p>
       </div>
       <div className="flex items-center gap-2 border-t border-slate-100 px-4 py-3">
