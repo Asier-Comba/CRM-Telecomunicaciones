@@ -22,17 +22,20 @@
   "base": "888ecaae57e9021ca0cb25d4da0657c1f6ac9b40",
   "remote_checks": {
     "PR161": {
-      "all_terminal": "VERIFIED_AFTER_UNIT25",
-      "CI": "FAIL_5HIGH_SCAN_NATIVE_PIN_QUOTA_BEFORE_TESTS",
-      "request": 6287148538,
+      "head": "2b31aa215d4c1738856d4aff153f4b462f573fa4",
       "manual_retry": 0,
-      "next": "May fast-forward existingPR only after preserving this exact failure and fresh terminal guard; no inheritedPASS or causal fix claimed.",
-      "safe": "evidence/remote-a32-safe.json",
-      "Supabase": "FAIL_101PASS12FAIL",
-      "actual_tested_merge": "767afab002371a18e4825c7c7257926e77f40e84",
-      "local486_QA9e": "NOT_THIS_REMOTE_SOURCE",
-      "W4": "FAIL_INDEPENDENT",
-      "head": "a32cacc0ebc9cfb0ea9f100b4b9b9f1a13ba4474"
+      "active": "REFRESH_BEFORE_ANY_PR_PUSH",
+      "native_quota": "a32_BEFORE_TESTS;0MANUAL_RETRY",
+      "security": "5HIGH_W4_INDEPENDENT",
+      "prior_a32": {
+        "safe": "evidence/remote-a32-safe.json",
+        "request": 6287148538,
+        "actual_tested_merge": "767afab002371a18e4825c7c7257926e77f40e84",
+        "missing_fixture_outcomes": 8,
+        "result": "FAIL101UI_PASS12FAIL",
+        "cause": "UNKNOWN"
+      },
+      "current0ed": "NOT_RUN_NO_INHERITANCE"
     },
     "PR160": {
       "runs": [
@@ -48,12 +51,13 @@
   "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
   "branch": "oier/portfolio-receipt-readback-20261020",
   "next": {
-    "security": "5HIGH,W4 independent scan review,W5EdgeAccess/cache,quota markers0manual retries,137causeUNKNOWN;writesOFF,issue10OPEN,releaseNOT_ACCEPTED.",
-    "publish": "Same recovery alias while PRa32controls active; no cancellation/duplicate PR or source promotion. Refresh actualruns before anyPRadvance; ACKexactAsier for integration.",
-    "independent": "UNIT26 CLAIM6286944295: prepare sim.cancel causal bank using existing telecom-resource, prepared manual SIM without line or ICCID/EID. Prove wrong same-version state/source remount before editing Sims consumer. Keep ReviewedCommand primitive/backend/identifier sources/W4W5 untouched. Old-read safe-lock positive must not be misreported as causal failure."
+    "independent": "Inspect PortabilityDetail receipt/read refresh with original causalbank before consumer correction, after fresh CLAIM. Also consider scoped last-read context copy for confirmed pending SIM view; do not edit ReviewedCommand/sharedcontracts without authority. No primitiveW5 or realoperator calls.",
+    "publish": "Same recovery alias while PR2b31controls active. Refresh run/head before anylater normalfast-forward of existingPR; no cancel/force/duplicate, newremote controls required, exactAsierACK forintegration.",
+    "security": "5HIGH,W4scanreview,W5EdgeAccess/cache,oldquotas/F736/137preserved; writesOFF,issue10OPEN,releaseNOT_ACCEPTED.",
+    "integration": "REQUEST6287148538 body/server/client correlation on exacta32source remains; no SSR/native-submit fix inferred from passiveobserver. Keep original fixture failures separate from causal product findings."
   },
-  "unit": 25,
-  "claim": 6286688145,
+  "unit": 26,
+  "claim": 6286944295,
   "scope": "Actual product/repository/validators, synthetic loopback HTTP; real voice/model/hostedAuthDB/staging persistence NOT_RUN",
   "StorageP0": "OPEN",
   "source_blobs": {
@@ -63,11 +67,12 @@
     "src/features/portfolio/IntegratedPortfolio.tsx": "42d84eda2f9596742a0c8f6a2b03dc1a2046be32",
     "src/features/calendar/IntegratedCalendar.tsx": "c8f8c19fa818d5a31a9e2551fa08e1aa9c2e28ed",
     "src/features/inbox/IntegratedInbox.tsx": "c1a89dbfcc81d8d12461a7379598343c4edf88a7",
-    "src/features/catalog/IntegratedCatalog.tsx": "5222c823f4a646b01c7a03c7da20e2450759c119"
+    "src/features/catalog/IntegratedCatalog.tsx": "5222c823f4a646b01c7a03c7da20e2450759c119",
+    "src/features/sims/Sims.tsx": "60ed29a157404f7500b81016b4b99ceaf20b615e"
   },
   "release": "NOT_ACCEPTED",
   "W4": "INDEPENDENT",
-  "source": "486e854b2be6e5364867c0a7a08e3496291069ef",
+  "source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
   "delivery": "DOCS_ONLY_COMMIT_CONTAINS_MEASURED_CODE_UNCHANGED",
   "baseline": {
     "source": "27da91d671b342f52ce4cd12be070a4da846b02e",
@@ -138,35 +143,54 @@
       "catalog_blob_equals888": true,
       "failed": 6,
       "attempt": "catalog-create-attempt01"
+    },
+    "sim_receipt_readback": {
+      "failed": 6,
+      "attempt": "sim-readback-attempt01",
+      "source": "5d49583d622e615d936e6a22310ad5d56e3f4f2d",
+      "stale_read": "ALREADY_LOCKED_POSITIVE_NOT_NEW_CAUSAL_FAILURE",
+      "cause": "Same-version incompatible state/source replaced editor and discarded confirmed recovery",
+      "passed": 9
     }
   },
   "checks": {
-    "previous_global_checks": "243BROWSER81LOGIC_BUILD0_REMAIN_BOUND_TO486_UNIT24_NOT_ASSIGNED_TO_QA9E",
-    "kind": "INDIVIDUAL_CALLER_QA_ONLY_APPLICATION_UNCHANGED",
-    "scope": "Active manual operator, owner fixture, actual UI/repository/DTOs controlled syntheticHTTP; AuthDB/provider/live model NOT_RUN",
-    "application_diff": "EMPTY_VERIFIED_SRC_PACKAGES_SCRIPTS_SUPABASE_WORKFLOWS",
-    "browser_unique": 15,
-    "qa_source": "9e82fe970bd64252448c5e15f0e94bba748874d1",
-    "visual": "MANUAL_PLAN_UNCONFIRMED390_REVIEWED_PARENT_NAME_CODE_FIBER_RETAINED",
-    "causal_failure": "NONE_OBSERVED_NO_RED_INVENTED",
-    "browser_bank": {
-      "startTime": "2026-10-20T06:29:42.607Z",
-      "duration": 45727.352,
-      "expected": 15,
+    "source_binding": "evidence/unit26-source-binding.json",
+    "protected_primitive": "UNCHANGED_BLOB_EQUALS888",
+    "browser_existing_regression": {
+      "startTime": "2026-10-20T06:56:10.804Z",
+      "duration": 186558.494,
+      "expected": 93,
       "skipped": 0,
       "unexpected": 0,
       "flaky": 0
     },
-    "qa_quality": {
+    "quality": {
+      "typescript_stage": "PREFLIGHT_BEFORE_BROWSER;BUILD_ALSO_TYPECHECKS",
+      "protected_primitive": "UNCHANGED_VERIFIED",
+      "source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
+      "build": 0,
       "lint": 0,
-      "build": "NOT_RERUN_UNCHANGED_APPLICATION;SEE_486_UNIT24",
-      "qa_source": "9e82fe970bd64252448c5e15f0e94bba748874d1",
-      "previous243_81": "NOT_ASSIGNED_TO_QA_SHA",
-      "application_reference": "486e854b2be6e5364867c0a7a08e3496291069ef",
       "typescript": 0,
-      "application_diff": "EMPTY_VERIFIED_BEFORE_TESTS"
+      "typescript_source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
+      "bootstrap": 0
     },
-    "application_reference": "486e854b2be6e5364867c0a7a08e3496291069ef"
+    "acceptance": "INDIVIDUAL_MANUAL_PREPARED_SIM_CANCEL_NO_LINE_ICCID_EID; no activation/replacement/provider promotion",
+    "source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
+    "visual": "REGISTERED_QUERY_PENDING390_AND_COHERENT_CANCELLED390_REVIEWED; existing generic refresh error retained by unchanged primitive, no blanket UX/security acceptance",
+    "bootstrap": {
+      "failed": 0,
+      "passed": 90
+    },
+    "scope": "Actual component/repository/closedDTOs, synthetic controlledHTTP; hostedAuthDB/live model/operator NOT_RUN",
+    "browser_composed": {
+      "startTime": "2026-10-20T06:56:10.724Z",
+      "duration": 412232.77099999995,
+      "expected": 204,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "browser_unique": 297
   },
   "claims": {
     "unit15": 6279498568,
@@ -180,7 +204,8 @@
     "unit22": 6280644922,
     "unit23": 6280777069,
     "unit24": 6286430656,
-    "unit25": 6286688145
+    "unit25": 6286688145,
+    "unit26": 6286944295
   },
   "completed_unit15": {
     "integration": "DRAFT_ASIER_EXACT_ACK_REQUIRED",
@@ -260,7 +285,10 @@
     "catalog-create-attempt01": "cc491b8_CAUSAL_6FAIL9PASS",
     "composed-attempt11": "486e854_174PASS",
     "regression-attempt10": "486e854_69PASS_INCLUDES_EXISTING3VERSIONTERMS_DEFAULT_MODE",
-    "catalog-plan-attempt01": "QA9e82fe9_ON_UNCHANGED_APPLICATION486_15PASS;NO243GLOBAL_PASS_ASSIGNMENT_TO_QA_SHA"
+    "catalog-plan-attempt01": "QA9e82fe9_ON_UNCHANGED_APPLICATION486_15PASS;NO243GLOBAL_PASS_ASSIGNMENT_TO_QA_SHA",
+    "sim-readback-attempt01": "5d49583_CAUSAL_6FAIL9PASS",
+    "composed-attempt12": "0edc07d_204PASS_INCLUDES_PLAN15_FRESH_ON_THIS_SOURCE",
+    "regression-attempt11": "0edc07d_93PASS_INCLUDES_SIM_REPLACEMENT_READ18_AND_RESOURCE_SCOPE6"
   },
   "cloud": "W5 Edge Access/deploy/cohort/window/roles/actions/cleanup; no bypass;87migrations untouched, no resellpro",
   "changes": {
@@ -275,7 +303,8 @@
     "document_context": "Reuse scoped identity wrapper pattern: retire state and pending reads on supplied customer/target-kind/id change; same identity preserves filter/search despite fresh inline object. Existing keyed CustomerDocuments untouched; global DocumentsPage source reviewed, hosted navigation/AuthDB NOT_RUN.",
     "inbox_intent": "Retain exact reviewed command after transport/internal_safe response; locked original note or new conversation, truthful unknown-result copy and existing Drawer closeDisabled. Positive refusal and success preserved. Individual acceptance ONLY add internal note and create conversation; not all Inbox operations. No external send.",
     "inbox_receipt_readback": "Before clearing intent/draft or success notice, require non-read-marker conversation version >= receipt; equal version requires matching status. Retain confirmed receipt and perform query-only recovery when incompatible. Read-marker operations retain existing separate read_version behavior; exact and later legitimate state remain usable. Individual acceptance confirmed add-note and positive markers, not all Inbox or security acceptance.",
-    "catalog_create": "Only CatalogCreate: retain pending intent for transport/internal_safe, derive uncertainty from error state, reuse Drawer closeDisabled and clarify result unknown. Existing catalog UI test resource gains opt-in IntegratedCatalog entry; default VersionTerms verified by existing3cases, resource not duplicated. Backend/contracts/OperatorDetail/VersionTerms unchanged."
+    "catalog_create": "Only CatalogCreate: retain pending intent for transport/internal_safe, derive uncertainty from error state, reuse Drawer closeDisabled and clarify result unknown. Existing catalog UI test resource gains opt-in IntegratedCatalog entry; default VersionTerms verified by existing3cases, resource not duplicated. Backend/contracts/OperatorDetail/VersionTerms unchanged.",
+    "sim_receipt_readback": "Consumer Sims only: retain typed validatedSimReceipt, supply to localrefresh callback, reject older/incompatible sameversion id/status/source before setCore/editor replacement. Query-only recovery, no repeatedcommand. ReviewedCommand/backend/identifiers/W5 untouched. No independent acceptance of all SIM operations."
   },
   "AI_commercial_writes": "OFF",
   "completed_unit17": {
@@ -615,7 +644,7 @@
       }
     }
   },
-  "qa_source": "9e82fe970bd64252448c5e15f0e94bba748874d1",
+  "qa_source": "0edc07decb7a6ea806652a851fa2afb8654ed147",
   "individual_acceptance": {
     "unit25": {
       "operation": "plan.create",
@@ -636,5 +665,39 @@
       ],
       "caller": "Operator list -> operator detail -> new plan -> frozen review -> filtered plan catalog"
     }
+  },
+  "completed_unit25": {
+    "delivery": "a4785f4d6697de3a6cf9fbea5026c9221bc774da",
+    "checks": {
+      "previous_global_checks": "243BROWSER81LOGIC_BUILD0_REMAIN_BOUND_TO486_UNIT24_NOT_ASSIGNED_TO_QA9E",
+      "kind": "INDIVIDUAL_CALLER_QA_ONLY_APPLICATION_UNCHANGED",
+      "scope": "Active manual operator, owner fixture, actual UI/repository/DTOs controlled syntheticHTTP; AuthDB/provider/live model NOT_RUN",
+      "application_diff": "EMPTY_VERIFIED_SRC_PACKAGES_SCRIPTS_SUPABASE_WORKFLOWS",
+      "browser_unique": 15,
+      "qa_source": "9e82fe970bd64252448c5e15f0e94bba748874d1",
+      "visual": "MANUAL_PLAN_UNCONFIRMED390_REVIEWED_PARENT_NAME_CODE_FIBER_RETAINED",
+      "causal_failure": "NONE_OBSERVED_NO_RED_INVENTED",
+      "browser_bank": {
+        "startTime": "2026-10-20T06:29:42.607Z",
+        "duration": 45727.352,
+        "expected": 15,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "qa_quality": {
+        "lint": 0,
+        "build": "NOT_RERUN_UNCHANGED_APPLICATION;SEE_486_UNIT24",
+        "qa_source": "9e82fe970bd64252448c5e15f0e94bba748874d1",
+        "previous243_81": "NOT_ASSIGNED_TO_QA_SHA",
+        "application_reference": "486e854b2be6e5364867c0a7a08e3496291069ef",
+        "typescript": 0,
+        "application_diff": "EMPTY_VERIFIED_BEFORE_TESTS"
+      },
+      "application_reference": "486e854b2be6e5364867c0a7a08e3496291069ef"
+    },
+    "qa_source": "9e82fe970bd64252448c5e15f0e94bba748874d1",
+    "source": "486e854b2be6e5364867c0a7a08e3496291069ef",
+    "handoff": 6287018635
   }
 }

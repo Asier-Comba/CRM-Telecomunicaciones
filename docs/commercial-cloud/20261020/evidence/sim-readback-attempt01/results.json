@@ -1,0 +1,917 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "-c",
+      "tools/oier_commercial_qa/sim-readback.config.ts"
+    ],
+    "configFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.config.ts",
+    "rootDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/sim-readback-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-390",
+        "name": "controlled-http-390",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "sim-readback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/sim-readback-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-768",
+        "name": "controlled-http-768",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "sim-readback.spec.ts"
+        ],
+        "timeout": 45000
+      },
+      {
+        "outputDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/oier-commercial-20261020/sim-readback-attempt01/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "controlled-http-1440",
+        "name": "controlled-http-1440",
+        "testDir": "C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_commercial_qa",
+        "testIgnore": [],
+        "testMatch": [
+          "sim-readback.spec.ts"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "sim-readback.spec.ts",
+      "file": "sim-readback.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "SIM cancellation receipt keeps coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1429,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:52:16.157Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoic2ltLmNhbmNlbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJlM2NhMDk5NC1lMTQ3LTRkNWYtYjJkYS1mY2MwYzkwZmM4NDQiLCJpZCI6IjQwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV0sInJlYWRiYWNrcyI6MSwicmV2aWV3Q291bnQiOjEsInJldHJ5Q291bnQiOjF9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-4a2905a3a7807806e1ac",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5132,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                      "column": 24,
+                      "line": 40
+                    },
+                    "snippet": "  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                        "column": 24,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:52:21.713Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNpbS5jYW5jZWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiNjA3YjNjYTAtYjUyMi00ODg0LTk3NTMtZGU5ZTllM2ZmNDdhIiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxfX1dLCJyZWFkYmFja3MiOjEsInJldmlld0NvdW50IjoxLCJyZXRyeUNvdW50IjowfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                    "column": 24,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-f24271bf2f40f2652728",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent wrong_source readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4885,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                      "column": 24,
+                      "line": 40
+                    },
+                    "snippet": "  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                        "column": 24,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:52:27.888Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNpbS5jYW5jZWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiMWNiYWIzNzgtZDRhNy00OTA4LTg1ZTQtOTRiNjMwMzI5ZTVmIiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxfX1dLCJyZWFkYmFja3MiOjEsInJldmlld0NvdW50IjoxLCJyZXRyeUNvdW50IjowfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-390\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-390\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                    "column": 24,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-7828d8f4e70d1f186d87",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent exact readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1001,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:52:37.464Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-30b7d75c5c098a7a0bf7",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-390",
+              "projectName": "controlled-http-390",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 930,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:52:43.592Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-76718be5f432b3e43fc7",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1486,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:52:45.625Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoic2ltLmNhbmNlbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJkYzY0NTA4Ni1jNjIzLTQ3OGItODU2MC04NjFlZDcyNGQxYTEiLCJpZCI6IjQwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV0sInJlYWRiYWNrcyI6MSwicmV2aWV3Q291bnQiOjEsInJldHJ5Q291bnQiOjF9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-2a33a8be94ee1831c7c8",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5093,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                      "column": 24,
+                      "line": 40
+                    },
+                    "snippet": "  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                        "column": 24,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:52:52.135Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNpbS5jYW5jZWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiNzEwZWVlY2MtYjBlMi00MTVhLTlhYjgtZmVkOTA1OGRkMTIxIiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxfX1dLCJyZWFkYmFja3MiOjEsInJldmlld0NvdW50IjoxLCJyZXRyeUNvdW50IjowfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                    "column": 24,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-44a50534497a2675e2b5",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent wrong_source readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5293,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                      "column": 24,
+                      "line": 40
+                    },
+                    "snippet": "  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                        "column": 24,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:52:58.442Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNpbS5jYW5jZWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiOThkMmFhNmQtMzAxMi00NTRkLWExNTMtZTUzNDZjNGY4NWMyIiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxfX1dLCJyZWFkYmFja3MiOjEsInJldmlld0NvdW50IjoxLCJyZXRyeUNvdW50IjowfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-768\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-768\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                    "column": 24,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-1d564cceac73642c55b9",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent exact readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 840,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:53:10.778Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-bbac765ddfa189c3a9f7",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-768",
+              "projectName": "controlled-http-768",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 771,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:53:15.023Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-6c6354cae42a8e7e17dd",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent stale readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1336,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:53:16.851Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoic3RhbGUiLCJjb21tYW5kcyI6W3sib3BlcmF0aW9uIjoic2ltLmNhbmNlbCIsImlucHV0Ijp7ImNvbW1hbmRfaWQiOiJjYzYwZDNmNC0wZDZjLTQzNGUtOTA2YS1lNTY5ZmI1YzVlNmQiLCJpZCI6IjQwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIsImV4cGVjdGVkX3ZlcnNpb24iOjF9fV0sInJlYWRiYWNrcyI6MSwicmV2aWV3Q291bnQiOjEsInJldHJ5Q291bnQiOjF9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-fdcd6b3d60ec4ee0331e",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent wrong_status readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4917,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                      "column": 24,
+                      "line": 40
+                    },
+                    "snippet": "  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                        "column": 24,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:53:23.583Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc3RhdHVzIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNpbS5jYW5jZWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiYjkxNGRjZTItZDA0Yy00MWRkLWI2MWItODBjM2M5ODhiZTgxIiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxfX1dLCJyZWFkYmFja3MiOjEsInJldmlld0NvdW50IjoxLCJyZXRyeUNvdW50IjowfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-931cc-erent-wrong-status-readback-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                    "column": 24,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-db2f62f52abe68298cfd",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent wrong_source readback",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 7,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4963,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24",
+                    "location": {
+                      "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                      "column": 24,
+                      "line": 40
+                    },
+                    "snippet": "  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                        "column": 24,
+                        "line": 40
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeEnabled\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Actualizar lectura', exact: true })\nExpected: enabled\nTimeout: 4000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeEnabled\" with timeout 4000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Actualizar lectura', exact: true })\u001b[22m\n\n\n  38 |    const retry=page.getByRole('button',{name:'Actualizar lectura',exact:true})\n  39 |    await info.attach('confirmed-readback-observation',{body:JSON.stringify({mode,commands,readbacks,reviewCount:await review.count(),retryCount:await retry.count()}),contentType:'application/json'})\n> 40 |    await expect(retry).toBeEnabled();await expect(review).toBeDisabled();await expect(confirm).toHaveCount(0)\n     |                        ^\n  41 |    await expect(page.getByRole('status').filter({hasText:'Cambio registrado. Reintentar solo actualiza la lectura.'})).toBeVisible()\n  42 |    await retry.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`sim-${mode}-registered.png`)})\n  43 |    corrected=true;await retry.click()\n    at C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts:40:24"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:53:29.617Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "confirmed-readback-observation",
+                      "contentType": "application/json",
+                      "body": "eyJtb2RlIjoid3Jvbmdfc291cmNlIiwiY29tbWFuZHMiOlt7Im9wZXJhdGlvbiI6InNpbS5jYW5jZWwiLCJpbnB1dCI6eyJjb21tYW5kX2lkIjoiZmNiYjY0YzAtZTYzMi00NmQxLTlhMzctYzUyOGUwNjFmZTQzIiwiaWQiOiI0MDAwMDAwMC0wMDAwLTQwMDAtODAwMC0wMDAwMDAwMDAwMDEiLCJleHBlY3RlZF92ZXJzaW9uIjoxfX1dLCJyZWFkYmFja3MiOjEsInJldmlld0NvdW50IjoxLCJyZXRyeUNvdW50IjowfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-1440\\error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\oier-commercial-20261020\\sim-readback-attempt01\\artifacts\\sim-readback-SIM-cancellat-5e950-erent-wrong-source-readback-controlled-http-1440\\trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "C:\\Users\\oier.dunabeitia\\Documents\\Codex\\2026-10-08\\files-pasted-by-the-user-crm\\work\\crm-oier-commercial-20261020\\tools\\oier_commercial_qa\\sim-readback.spec.ts",
+                    "column": 24,
+                    "line": 40
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-0bb933b4e3baa1bb3856",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent exact readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1049,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:53:41.205Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-cbbb5b2c56e2862d4493",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        },
+        {
+          "title": "SIM cancellation receipt keeps coherent newer readback",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "controlled-http-1440",
+              "projectName": "controlled-http-1440",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 934,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-20T06:53:47.303Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "efa82ebcf352005a90bb-ad32c6b3774bf9bfe52b",
+          "file": "sim-readback.spec.ts",
+          "line": 8,
+          "column": 88
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-20T06:52:15.636Z",
+    "duration": 92999.45300000001,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 6,
+    "flaky": 0
+  }
+}
