@@ -122,10 +122,10 @@ Defectos observados para el integrador:
 |---|---|
 | Dashboard, Clientes, Customer360, Facturación | HOSTED_TESTED (lectura y escritura, §10) |
 | Cartera, Contratos, Servicios, Portabilidades, SIM/eSIM, Incidencias, Equipos, Oportunidades, Calendario, Centro de atención, Inbox, Configuración, Informes | Cargan contra Supabase sin errores; 0 registros en la empresa sintética. Escritura NOT_RUN |
-| Catálogo Telecom | Carga, **vacío**: sin operadores ni tarifas no se pueden demostrar contratos, servicios y líneas |
+| Catálogo Telecom | HOSTED_TESTED escritura: operador "Operador Demo Fibra" y tarifa "Fibra 300 Mb Empresa" (fibra) creados por la UI y persistidos (Supabase: activos). **Versiones de tarifa: el backend tiene `plan_version.create` pero ninguna pantalla lo expone en este SHA** → no se pueden crear precios desde la UI |
 | Documentos | Metadatos sí; subida/descarga deshabilitadas (P0 Storage) |
 | Asistente IA | Solo lectura, "en preparación" (escrituras IA OFF) |
 
 Observaciones UX para el integrador: la página de login no muestra mensaje para `error=staging_access_denied`; el aviso "Integración local" aparece en staging.
 
-Siguiente unidad W5: sembrar por la propia UI un catálogo sintético mínimo (1 operador, 1 tarifa, 1 versión) y un contrato/servicio/línea para "Bilbao Telecom Demo", y verificar escritura + recarga de cada módulo.
+Siguiente unidad W5: contrato manual, servicio y línea para "Bilbao Telecom Demo" por la UI, con escritura + recarga por módulo (pendiente: la ventana del navegador estaba minimizada). Para el integrador: pantalla de alta de versión de tarifa; el sitio escribe en el portapapeles del usuario al confirmar altas.
