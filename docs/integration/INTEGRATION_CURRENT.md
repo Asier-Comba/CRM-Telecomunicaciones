@@ -34,6 +34,19 @@ out-of-cohort negatives; these are distinct from admitted A/B tenant isolation.
 The previous3b80 disposable real-local4042backend/114UI/710preview results retain
 their exact source; no result is inherited by this Edge composition.
 
+## Unit17: explicit profile87 compatibility
+
+Adopted only the six paths of PR164 `a1ab802092ba38c7aca2dfea451922a3dcfa05c4`.
+The old85/86 loader/manifest, hosted SQL and all87 migration blobs are unchanged.
+Own baseline5PASS/1FAIL of6 documents the obsolete assertion that strict86 would
+admit an87 checkout. Owner correction now asserts that refusal and adds an explicit
+exact87 profile. Own13/13 closure/negative controls and targeted lint PASS. No native
+resource was started locally. W5 run39425772055/job118637826429 independently read:
+source a1ab,87/profile_87, completion_primitive/restart/teardown PASS; full23 and
+verifiedAbsence NOT_RUN. That physical result is not inherited by our composition.
+Our newly adopted workflow must run on the new source. Legacy86 workflows remain
+enabled and their strict refusal is recorded separately; no waiver or SQL delivery.
+
 ## Work in order
 
 Review/adopt exact W5 profile87; classify its successful physical completion
