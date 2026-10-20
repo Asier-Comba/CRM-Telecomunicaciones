@@ -2,12 +2,12 @@ import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import test from 'node:test'
-import { isExpectedNativeImage, NATIVE_POSTGRES_OFFICIAL_IMAGE } from '../../scripts/security/native-postgres/expected-image.mjs'
+import { isExpectedNativeImage, NATIVE_POSTGRES_OFFICIAL_IMAGE, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE } from '../../scripts/security/native-postgres/expected-image.mjs'
 
 const cli = fileURLToPath(new URL('../../scripts/security/native-postgres/expected-image.mjs', import.meta.url))
 
 test('native container boundary accepts the exact official reference and existing local tag', () => {
-  for (const image of ['postgres:16', NATIVE_POSTGRES_OFFICIAL_IMAGE]) {
+  for (const image of ['postgres:16', NATIVE_POSTGRES_OFFICIAL_IMAGE, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE]) {
     assert.equal(isExpectedNativeImage(image), true)
     assert.equal(spawnSync(process.execPath, [cli, image], { encoding: 'utf8' }).status, 0)
   }
@@ -22,7 +22,13 @@ test('native container boundary rejects registry, publisher, version, digest and
     'public.ecr.aws/docker/library/postgres:16',
     ' ' + NATIVE_POSTGRES_OFFICIAL_IMAGE, NATIVE_POSTGRES_OFFICIAL_IMAGE + ':extra',
     '', null, undefined, { toString: () => NATIVE_POSTGRES_OFFICIAL_IMAGE },
+    NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE.replace('docker.io', 'untrusted.invalid'),
+    NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE.replace('library/', 'untrusted/'),
+    NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE.slice(0, -1) + '0',
+    NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE.replace('docker.io/', ''),
+    'docker.io/library/postgres:16', NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE + ':extra',
   ]) assert.equal(isExpectedNativeImage(image), false)
+  assert.equal(NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE.split('@')[1], NATIVE_POSTGRES_OFFICIAL_IMAGE.split('@')[1])
 })
 
 test('shell entry point fails closed without printing untrusted input', () => {
