@@ -1,0 +1,151 @@
+{
+  "unit": "OIER_BILLING_CORRECTION14",
+  "claim": 6295207633,
+  "base": "a9e977adf90b1e83cded23fb54aefc696839d014",
+  "source": "853d30cd936b888ccfeedd8981a3d5773185f7dc",
+  "environment": "ACTUAL_COMPONENTS_REPOSITORY_PARSERS_CONTROLLED_HTTP_AND_SPEECH_STUB",
+  "attempts": [
+    {
+      "attempt": "night-unit03-attempt03",
+      "stats": {
+        "startTime": "2026-10-20T14:58:03.353Z",
+        "duration": 38065.202000000005,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "original_sha256": "c007c6124959377cace1f61a61fc4958424547f918a281a50d5933bb1ca32436"
+    },
+    {
+      "attempt": "night-unit03-attempt04",
+      "stats": {
+        "startTime": "2026-10-20T14:59:09.140Z",
+        "duration": 77042.245,
+        "expected": 36,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "original_sha256": "fda06c2a539bd303fe48ea6938c5da7aa16de7df6aea2a096882de6714fbe00c"
+    },
+    {
+      "attempt": "night-unit03-attempt05",
+      "stats": {
+        "startTime": "2026-10-20T15:01:18.240Z",
+        "duration": 25555.773,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "original_sha256": "ba7071f3fceccd5e9151a5a423287cf1638a3caef038c59ae51d678cc97101e9"
+    },
+    {
+      "attempt": "night-unit03-attempt06",
+      "stats": {
+        "startTime": "2026-10-20T15:02:15.197Z",
+        "duration": 78838.985,
+        "expected": 36,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "original_sha256": "e29a24181607540225d610ccd5fd4348f8fe36dadc7cbf0f3e24988651eda22b"
+    },
+    {
+      "attempt": "dialog-attempt14",
+      "stats": {
+        "startTime": "2026-10-20T15:03:35.296Z",
+        "duration": 45472.163,
+        "expected": 12,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "original_sha256": "bc68e406fbaf1565abf0d9243e5ef833949f5ff350981acf7676b1e9babc9a8f"
+    },
+    {
+      "attempt": "intent-attempt14",
+      "stats": {
+        "startTime": "2026-10-20T15:04:21.676Z",
+        "duration": 33317.542,
+        "expected": 9,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "original_sha256": "d4aa533aacdd2660d8a1dbf8ec32c9473bdbdebaa3ede55d55ba3794b850f6f8"
+    }
+  ],
+  "original_defect": {
+    "source": "4fc43cbb",
+    "failures": 3,
+    "cause": "onresult keeps applying captured base plus interim transcript after manual textarea editing"
+  },
+  "intermediate": {
+    "source": "53628c39",
+    "browser": 36,
+    "cleanup_negative_source": "04ba20e6",
+    "cleanup_negative_failures": 3,
+    "cause": "Ended recognizer remains referenced; unmount calls an abort that the controlled browser boundary refuses"
+  },
+  "final": {
+    "prompt_cases": 36,
+    "dialog_races": 12,
+    "intent_races": 9,
+    "retries": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "lint": "PASS",
+    "default_next_build_types44": "PASS",
+    "build_log_sha256": "defdcff46346f815b5055139f014f084fb995963b1f64010673e4f0c57ad610e"
+  },
+  "changed_application_files": [
+    "src/features/billing/PromptBuilder.tsx"
+  ],
+  "unchanged": [
+    "parser",
+    "billing contracts",
+    "money calculations",
+    "provider",
+    "transport",
+    "SQL",
+    "write flow"
+  ],
+  "images": [
+    {
+      "file": "reviewed-correction-390.png",
+      "sha256": "6442d5f7809d28f4a2c12bff04e1410fcaf04d034c5c04b6b2ac6f35aeb1f050",
+      "width": 390,
+      "source": "853d30cd936b888ccfeedd8981a3d5773185f7dc",
+      "visually_reviewed": true,
+      "scope": "SYNTHETIC_REVIEW_DRAWER_TOP_ONLY_NOT_FULL_EDITOR_OR_REAL_VOICE",
+      "limitation": "390 concept/amount below viewport; controlled related-object denials; no complete module visual acceptance"
+    },
+    {
+      "file": "reviewed-correction-768.png",
+      "sha256": "0575d6b0676d078ea89a67a2f2ddfbd6d1c5810e2daf9f09fbce16048a68a9d0",
+      "width": 768,
+      "source": "853d30cd936b888ccfeedd8981a3d5773185f7dc",
+      "visually_reviewed": true,
+      "scope": "SYNTHETIC_REVIEW_DRAWER_TOP_ONLY_NOT_FULL_EDITOR_OR_REAL_VOICE",
+      "limitation": "390 concept/amount below viewport; controlled related-object denials; no complete module visual acceptance"
+    },
+    {
+      "file": "reviewed-correction-1440.png",
+      "sha256": "a434341311afbd888f88f1b35d009c39fc02a6107577b566cc0b0d0f5d38cfaf",
+      "width": 1440,
+      "source": "853d30cd936b888ccfeedd8981a3d5773185f7dc",
+      "visually_reviewed": true,
+      "scope": "SYNTHETIC_REVIEW_DRAWER_TOP_ONLY_NOT_FULL_EDITOR_OR_REAL_VOICE",
+      "limitation": "390 concept/amount below viewport; controlled related-object denials; no complete module visual acceptance"
+    }
+  ],
+  "actual_microphone": "NOT_RUN",
+  "hosted": "NOT_RUN",
+  "auth_db": "NOT_RUN",
+  "live_model": "NOT_RUN",
+  "business_ai_writes": "OFF",
+  "release": "NOT_ACCEPTED"
+}
