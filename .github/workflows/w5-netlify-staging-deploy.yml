@@ -1,0 +1,91 @@
+name: W5 Netlify private staging deploy
+# Deploys exactly one reviewed SHA to the private staging preview, then proves
+# the site is still private. Manual only: no deploy on push, no arbitrary HEAD.
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: 'Full 40-character commit SHA reviewed for staging'
+        required: true
+        type: string
+      reason:
+        description: 'Why this SHA (PR, unit, approval reference)'
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: w5-netlify-staging-deploy
+  cancel-in-progress: false
+jobs:
+  deploy:
+    name: Build, deploy and verify private staging preview
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Protected environment: owner approval and the two secrets live here.
+    environment: staging
+    env:
+      NETLIFY_CLI: netlify-cli@27.11.2
+      STAGING_URL: https://crm-telecom-staging-preview.netlify.app
+    steps:
+      - name: Reject anything but a full SHA
+        env:
+          SHA: ${{ inputs.sha }}
+        run: |
+          [[ "$SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::sha must be 40 lowercase hex characters"; exit 1; }
+      - name: Exact reviewed source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.sha }}
+      - name: Checked-out tree is the requested SHA
+        env:
+          SHA: ${{ inputs.sha }}
+        run: test "$(git rev-parse HEAD)" = "$SHA"
+      - name: Existing Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Existing application dependencies
+        run: npm ci
+      - name: Type check and migration closures
+        run: |
+          npm run typecheck
+          if [ -f tests/bootstrap/owned-consumer-migration-profile87.test.mjs ]; then
+            node --test tests/bootstrap/owned-consumer-migration-profile87.test.mjs
+          else
+            echo "::warning::source has no profile87 closure test; migration set not verified by this deploy"
+          fi
+      - name: Build with the site environment and deploy
+        id: deploy
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          SHA: ${{ inputs.sha }}
+        run: |
+          test -n "$NETLIFY_AUTH_TOKEN" && test -n "$NETLIFY_SITE_ID" || { echo "::error::staging environment secrets missing"; exit 1; }
+          npx --yes "$NETLIFY_CLI" deploy --build --prod --site "$NETLIFY_SITE_ID" --message "w5 staging $SHA" --json > deploy.json
+          node -e "const d=require('./deploy.json');if(!d.deploy_id)process.exit(1);console.log('deploy_id='+d.deploy_id)" >> "$GITHUB_OUTPUT"
+      - name: Smoke test that anonymous visitors are still denied
+        run: |
+          for path in / /login /dashboard /clients /api/health/live; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$STAGING_URL$path")
+            echo "$path -> $code"
+            [ "$code" = "401" ] || { echo "::error::$path answered $code to an anonymous visitor"; exit 1; }
+          done
+      - name: Deployment record
+        env:
+          SHA: ${{ inputs.sha }}
+          REASON: ${{ inputs.reason }}
+          DEPLOY_ID: ${{ steps.deploy.outputs.deploy_id }}
+        run: |
+          {
+            echo "### Private staging deploy"
+            echo "| Field | Value |"
+            echo "|---|---|"
+            echo "| Source SHA | \`$SHA\` |"
+            echo "| Deploy ID | \`$DEPLOY_ID\` |"
+            echo "| Reason | $REASON |"
+            echo "| Anonymous access | 401 on 5 routes |"
+            echo "| Authenticated E2E | not run by this workflow |"
+          } >> "$GITHUB_STEP_SUMMARY"
