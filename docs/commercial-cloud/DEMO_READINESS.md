@@ -30,7 +30,7 @@ Cada PR contiene fuentes exactas, casos fallidos y evidencias propias. No sumar 
 Snapshot exacto enDEMO_STATUS15.json. Sin cancelaciones, reruns ni publicación encima de checks activos.
 
 - PR170: CI39451802607FAIL. Checkout realc43a55ba/árbol4fa2100f es mezclaa9e+0d00; **no** árbol de head0d00. Quality669bootstrap/827assistant/lint/types/build44PASS; gate5HIGHFAIL. Preview718=359desktop+359mobile, unión exacta propia, sóloSYNTHETIC_PREVIEW. Nativo general falla cuota antes de checkout: sin prueba de producto. Supabase39451803219 pendiente al corte.
-- PR172: quality118734033533 sobre0c5ce385/árbolf69510ba idéntico a4bfddd3a:664bootstrap/827assistant/lint/types/build44PASS; gate5HIGHFAIL. CI39453449139 y Supabase39453448961 pendientes al corte. No trasladar115de a9e a esta fuente.
+- PR172: quality118734033533 sobre0c5ce385/árbolf69510ba idéntico a4bfddd3a:664bootstrap/827assistant/lint/types/build44PASS; gate5HIGHFAIL. CI39453449139FAIL por5HIGH; preview718 propio/árbol0c5 verificado y nativo general118734033068PASS (no recursoW5/full23). Supabase39453448961 pendiente al corte. No trasladar115de a9e a esta fuente.
 - PR173: controles recién publicados, CI39454896937/Supabase39454896864 pendientes.57locales no equivalen a su CI/AuthDB física.
 - W4/historyFAIL y plataforma/vendor mantienen sus fallos. Un job de secreto exitoso no es aprobación independiente. Perfil87/reinicio W5, nativo general/restauración, ausencia/full23 y release son alcances distintos.
 

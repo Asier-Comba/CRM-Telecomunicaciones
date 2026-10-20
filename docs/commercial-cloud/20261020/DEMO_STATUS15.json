@@ -68,7 +68,6 @@
   ],
   "ci_observed": [
     {
-      "head": "0d00e41a97d5d609b0b87b9b8f65d0c28d7a44ce",
       "runs": [
         {
           "id": 39451803219,
@@ -94,10 +93,10 @@
           "status": "completed",
           "conclusion": "failure"
         }
-      ]
+      ],
+      "head": "0d00e41a97d5d609b0b87b9b8f65d0c28d7a44ce"
     },
     {
-      "head": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd",
       "runs": [
         {
           "id": 39453448961,
@@ -117,10 +116,10 @@
           "status": "completed",
           "conclusion": "failure"
         }
-      ]
+      ],
+      "head": "4bfddd3aa3b7936fe4a61522f8fa11c65dfd9ccd"
     },
     {
-      "head": "5f00ab8bf2f1f9cc93ec9a8f88d5a9aaa3842e1e",
       "runs": [
         {
           "id": 39454896936,
@@ -140,7 +139,8 @@
           "status": "in_progress",
           "conclusion": null
         }
-      ]
+      ],
+      "head": "5f00ab8bf2f1f9cc93ec9a8f88d5a9aaa3842e1e"
     }
   ],
   "qualified_CI": [
@@ -173,7 +173,13 @@
       "build": 44,
       "lint_types": "PASS",
       "quality_result": "FAIL_5_HIGH",
-      "whole_ci": "PENDING_AT_SNAPSHOT"
+      "whole_ci": "FAIL_5_HIGH",
+      "preview_artifact": 12281230380,
+      "preview_exact_union": 718,
+      "preview_per_project": 359,
+      "preview_scope": "SYNTHETIC_PREVIEW_ONLY_NOT_AUTH_STAGING_OR_RELEASE",
+      "native_general_job": 118734033068,
+      "native_general": "PASS_NOT_W5_RESOURCE_OR_FULL23"
     }
   ],
   "cloud": {
