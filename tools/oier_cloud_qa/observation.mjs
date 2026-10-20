@@ -1,5 +1,5 @@
 import {origin,projectRef} from './preflight.mjs'
-const routes=new Set(['/','/login','/dashboard','/clients','/facturacion','/api/product/v1/queries','/api/product/v1/commands','/api/billing/v1','/auth/v1/token','/auth/v1/logout','/auth/v1/user'])
+const routes=new Set(['/','/login','/dashboard','/clients','/facturacion','/api/product/v1/queries','/api/product/v1/commands','/api/billing/v1/queries','/api/billing/v1/commands','/auth/v1/token','/auth/v1/logout','/auth/v1/user'])
 /** Deliberately no raw URL/query/body/headers/errors/IDs/credentials in the result. */
 export function safeResponseObservation(url,method,status,contentType){
  let parsed

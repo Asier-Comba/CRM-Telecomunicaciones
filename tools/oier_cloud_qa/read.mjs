@@ -1,7 +1,7 @@
 /** Browser-context read only; no credentials or raw bodies are returned. */
 export async function browserRead({operation,id}){
 
-   const response=await fetch(operation==='customer.editor'?'/api/product/v1/queries':'/api/billing/v1',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({operation,input:{id}})})
+   const response=await fetch(operation==='customer.editor'?'/api/product/v1/queries':'/api/billing/v1/queries',{method:'POST',credentials:'same-origin',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({operation,input:{id}})})
    const data=await response.json()
    if(!response.ok)return{http:response.status,denied:[403,404].includes(response.status)&&Object.keys(data).sort().join(',')==='error,ok'&&data.ok===false&&['access_denied','not_found'].includes(data.error)}
    const record=operation==='customer.editor'?data.data:data.data?.invoice
