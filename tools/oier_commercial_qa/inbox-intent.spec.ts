@@ -43,6 +43,7 @@ for(const action of ['note','create'] as const)for(const mode of ['transport','m
     await dialog.getByRole('button',{name:'Cerrar panel',exact:true}).click({force:true});await expect(dialog).toBeVisible()
     await page.keyboard.press('Escape');await expect(dialog).toBeVisible()
    }
+   await page.screenshot({path:info.outputPath(`inbox-${action}-${mode}-unconfirmed.png`)})
    await retry.click();await expect.poll(()=>commands.length).toBe(2)
    expect(commands[1]).toEqual(commands[0])
   }else if(mode==='denied'){
