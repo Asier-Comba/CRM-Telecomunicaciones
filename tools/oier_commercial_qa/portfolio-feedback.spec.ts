@@ -31,7 +31,8 @@ for(const mode of ['pending_to_success','pending_to_denial','retry_after_denial'
   await expect(section.getByRole('button',{name:'Consultar cartera',exact:true})).toBeDisabled()
   await expect(section.getByText('Consulta un cliente o activo para ver sus resultados.',{exact:true})).toHaveCount(0)
   await expect(section.getByRole('region',{name:'Resultados de la consulta de cartera',exact:true}).getByRole('status')).toHaveCount(0)
-  if(mode==='pending_to_success')await page.screenshot({path:info.outputPath('pending-search.png')})
+  await expect(section.getByRole('status').filter({hasText:'Consultando la cartera…'})).toBeInViewport()
+  if(mode==='pending_to_success')await section.screenshot({path:info.outputPath('pending-search.png')})
   if(mode==='pending_to_success'){
    await held[0].fulfill({json:{ok:true,data:search}})
    await expect(section.locator(`article[data-portfolio-id="${id}"]`)).toContainText('Synthetic search result')
