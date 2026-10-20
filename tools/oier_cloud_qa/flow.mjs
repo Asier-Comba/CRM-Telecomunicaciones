@@ -61,7 +61,12 @@ export async function hostedFlow(page,manifest,env,journal,saveJournal,report){
   await page.getByLabel('Email',{exact:true}).waitFor({state:'visible'})
   // Filling errors are never emitted by the runner; no credential-bearing artifacts are enabled.
   await page.getByLabel('Email',{exact:true}).fill(env[`OIER_CLOUD_QA_${who}_EMAIL`])
-  await page.getByLabel('Contraseña',{exact:true}).fill(env[`OIER_CLOUD_QA_${who}_PASSWORD`])
+  // REQUEST6290183089: the compiled label currently associates its recovery button.
+  // Use the existing unique input placeholder; no login/label or browser resource change.
+  const password=page.getByPlaceholder('Introduce tu contraseña',{exact:true})
+  await password.waitFor({state:'visible'})
+  invariant(await password.count()===1&&await password.evaluate(el=>el.tagName==='INPUT'&&el.type==='password'))
+  await password.fill(env[`OIER_CLOUD_QA_${who}_PASSWORD`])
   const [auth]=await Promise.all([page.waitForResponse(r=>new URL(r.url()).origin===authOrigin&&new URL(r.url()).pathname==='/auth/v1/token'&&r.request().method()==='POST'),page.getByRole('button',{name:'Iniciar sesión',exact:true}).click()])
   const identity=await auth.json();authenticated=auth.ok()
   invariant(auth.ok()&&identity.user?.id===manifest[`actor${who}`].id)
