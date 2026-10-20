@@ -44,7 +44,7 @@ export function PromptBuilder({
         rec.current.onresult = null
         rec.current.onend = null
         rec.current.onerror = null
-        rec.current.abort()
+        try { rec.current.abort() } catch { /* Retired callbacks must stay retired even if the browser refuses cleanup. */ }
       }
     },
     [],
@@ -97,7 +97,15 @@ export function PromptBuilder({
       setText((base + next).slice(0, 2000))
       if (next.trim()) setSource('audio')
     }
-    speech.onend = () => setListening(false)
+    speech.onend = () => {
+      speech.onresult = null
+      speech.onerror = null
+      speech.onend = null
+      if (rec.current === speech) {
+        rec.current = null
+        setListening(false)
+      }
+    }
     speech.onerror = () => {
       setListening(false)
       setMessage('No se pudo completar el dictado.')
