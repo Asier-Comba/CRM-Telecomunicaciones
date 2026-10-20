@@ -1,0 +1,179 @@
+{
+  "unit": "OIER_REVIEW8EE24",
+  "claim": 6302100590,
+  "source": "8ee0b9ba61cd45072fbce75f12c6e684e3f3e6a6",
+  "tree": "bbf296ae7b97cf64ae939cd2689e5c18f17a7688",
+  "kind": "INDEPENDENT_SOURCE_AND_ORIGINAL_ARTIFACT_REVIEW_NOT_NEW_PHYSICAL_EXECUTION",
+  "binding": {
+    "checkout": "8b906a6e5483098cc713251330358a6f1d5098b4",
+    "checkout_tree": "bbf296ae7b97cf64ae939cd2689e5c18f17a7688",
+    "parents": [
+      "a9e977adf90b1e83cded23fb54aefc696839d014",
+      "8ee0b9ba61cd45072fbce75f12c6e684e3f3e6a6"
+    ],
+    "head": "8ee0b9ba61cd45072fbce75f12c6e684e3f3e6a6",
+    "head_tree": "bbf296ae7b97cf64ae939cd2689e5c18f17a7688",
+    "tree_equal": true
+  },
+  "selection": [
+    {
+      "path": "src/features/billing/parse.ts",
+      "expected": "649d9f49ee4c43f1d43e4c7b7af72cb6b1990474",
+      "actual": "649d9f49ee4c43f1d43e4c7b7af72cb6b1990474",
+      "equal": true
+    },
+    {
+      "path": "tools/oier_billing_qa/prompt-interaction.spec.ts",
+      "expected": "4b01920872329c2e88034b5df3684f6ae18fec56",
+      "actual": "4b01920872329c2e88034b5df3684f6ae18fec56",
+      "equal": true
+    },
+    {
+      "path": "tools/oier_billing_qa/concept-acceptance.mjs",
+      "expected": "97bb9be12d6fe2e8653ee7de0c663d64f8ccebac",
+      "actual": "97bb9be12d6fe2e8653ee7de0c663d64f8ccebac",
+      "equal": true
+    },
+    {
+      "path": "src/features/customers/CustomerDomainPages.tsx",
+      "expected": "c74443ba1f810a99f7535576ad2c3c74f76638da",
+      "actual": "c74443ba1f810a99f7535576ad2c3c74f76638da",
+      "equal": true
+    },
+    {
+      "path": "tests/e2e-preview/customer-domain-scope.spec.ts",
+      "expected": "7aefc6e5f6fe100cab9e8a791cf50447c6eca1fa",
+      "actual": "7aefc6e5f6fe100cab9e8a791cf50447c6eca1fa",
+      "equal": true
+    }
+  ],
+  "dictation173_blob_equal": true,
+  "physical": {
+    "run": 39492445322,
+    "job": 118868853983,
+    "artifact": 12298385248,
+    "zip_sha256": "027b55a9648a44e3af8d428ca9d7c1a7e4ef161ac57b165dad5121440de985c7",
+    "environment": "LOCAL_SUPABASE_DOCKER",
+    "migrations": 87,
+    "backend_w1": 3815,
+    "backend_w2": 227,
+    "ui_unique": 116,
+    "failed_list_present": false,
+    "failed_list": null,
+    "auth": "PASS_LOCAL_AUTH_IDENTITY_ONLY_NOT_HOSTED_ROUTING",
+    "auth_cleanup": "PASS_LOCAL_SESSIONS_ONLY",
+    "server_exit": {
+      "code": 0,
+      "signal": null
+    },
+    "telecom_three_create": "PASS_3_UI_CREATES_RELOAD_PINNED_TERMS_SINGLE_COMMAND_RECEIPT_AUDIT_NO_ACTIVATION",
+    "issue_observations": [
+      {
+        "mode": "LOST_REPLY",
+        "click_attempted": true,
+        "click_returned": true,
+        "request_intercepted": true,
+        "backend_returned": true,
+        "backend_status": 200,
+        "api_receipt_valid": true,
+        "alert_observed": true,
+        "close_guard_observed": true,
+        "fault_injection_started": "CONNECTION_ABORT",
+        "before_backend": {
+          "observation": "READ_ONLY",
+          "command_fingerprint": "1f80b95b786d5ae38e35ba1a1f0cbca44d20e90486ca6efb64dec9cd7bbffea2",
+          "ledger_rows": 0,
+          "receipt_rows": 0,
+          "audit_rows": 0,
+          "entity_rows": 1,
+          "entity_version": 1,
+          "entity_issued": false,
+          "receipt_audit_entity_coherent": false
+        },
+        "after_backend": {
+          "observation": "READ_ONLY",
+          "command_fingerprint": "1f80b95b786d5ae38e35ba1a1f0cbca44d20e90486ca6efb64dec9cd7bbffea2",
+          "ledger_rows": 1,
+          "receipt_rows": 1,
+          "audit_rows": 1,
+          "entity_rows": 1,
+          "entity_version": 2,
+          "entity_issued": true,
+          "receipt_audit_entity_coherent": true
+        },
+        "final_phase": "billing_uncertain:invoice.issue:same_command_replay",
+        "request_count": 2,
+        "body_unchanged": true,
+        "at_exit": {
+          "observation": "READ_ONLY",
+          "command_fingerprint": "1f80b95b786d5ae38e35ba1a1f0cbca44d20e90486ca6efb64dec9cd7bbffea2",
+          "ledger_rows": 1,
+          "receipt_rows": 1,
+          "audit_rows": 1,
+          "entity_rows": 1,
+          "entity_version": 2,
+          "entity_issued": true,
+          "receipt_audit_entity_coherent": true
+        }
+      },
+      {
+        "mode": "INVALID_RECEIPT",
+        "click_attempted": true,
+        "click_returned": true,
+        "request_intercepted": true,
+        "backend_returned": true,
+        "backend_status": 200,
+        "api_receipt_valid": true,
+        "alert_observed": true,
+        "close_guard_observed": true,
+        "fault_injection_started": "MALFORMED_JSON",
+        "before_backend": {
+          "observation": "READ_ONLY",
+          "command_fingerprint": "91d0d769872eab87eb8e97efdba7ae1faf633248a3cf5cf66669ea4fe573fc3f",
+          "ledger_rows": 0,
+          "receipt_rows": 0,
+          "audit_rows": 0,
+          "entity_rows": 1,
+          "entity_version": 1,
+          "entity_issued": false,
+          "receipt_audit_entity_coherent": false
+        },
+        "after_backend": {
+          "observation": "READ_ONLY",
+          "command_fingerprint": "91d0d769872eab87eb8e97efdba7ae1faf633248a3cf5cf66669ea4fe573fc3f",
+          "ledger_rows": 1,
+          "receipt_rows": 1,
+          "audit_rows": 1,
+          "entity_rows": 1,
+          "entity_version": 2,
+          "entity_issued": true,
+          "receipt_audit_entity_coherent": true
+        },
+        "final_phase": "billing_invalid_receipt:invoice.issue:same_command_replay",
+        "request_count": 2,
+        "body_unchanged": true,
+        "at_exit": {
+          "observation": "READ_ONLY",
+          "command_fingerprint": "91d0d769872eab87eb8e97efdba7ae1faf633248a3cf5cf66669ea4fe573fc3f",
+          "ledger_rows": 1,
+          "receipt_rows": 1,
+          "audit_rows": 1,
+          "entity_rows": 1,
+          "entity_version": 2,
+          "entity_issued": true,
+          "receipt_audit_entity_coherent": true
+        }
+      }
+    ],
+    "teardown": "PASS"
+  },
+  "finding": "NO_ACTIONABLE_DEFECT_IN_THE_REVIEWED_SELECTION_SOLD_TERMS_AND_NEW_REPLAY_EVIDENCE",
+  "scope_limits": [
+    "NO_NEW_PRODUCT_TEST_RUN",
+    "NO_OWN_HOSTED_AUTHENTICATED_EXECUTION",
+    "NO_W4_SECURITY_APPROVAL",
+    "ORIGINAL_39458747653_CAUSE_AND_EFFECT_UNKNOWN",
+    "OTHER_PRODUCT_ASYNC_EDGES_REMAIN_TO_BE_CHECKED"
+  ],
+  "release": "NOT_ACCEPTED"
+}
