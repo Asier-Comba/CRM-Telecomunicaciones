@@ -1,0 +1,38 @@
+{
+  "unit": "OIER_BILLING_RECEIPT19",
+  "claim": 6296632348,
+  "checkout": "97a849c500307273b7b776b79248c4e234b80fdd",
+  "application_source": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+  "bank": "tests/e2e-preview/billing-invalid-receipt.spec.ts",
+  "modified": false,
+  "stats": {
+    "startTime": "2026-10-20T16:08:14.273Z",
+    "duration": 22000.043,
+    "expected": 6,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "errors": 0,
+  "workers": 1,
+  "retries": 0,
+  "scope": "HTTP_CONTROLLED_COMPONENTS_NOT_AUTH_DB_OR_HOSTED",
+  "effect_model": "IN_MEMORY_NOT_DURABLE_DB",
+  "original_physical_cause": "UNKNOWN",
+  "original_physical_effect": "UNKNOWN_NOT_RETRIED",
+  "discovery_attempt01": {
+    "status": "NO_TESTS_FOUND_BEFORE_EXECUTION",
+    "path": "work/billing-receipt19.log",
+    "sha256": "98287cabe76633920bea2ca26647127556c9d0e1e95b2cd9be23d44bda426cc5",
+    "reason": "Anchored grep did not match full titles"
+  },
+  "execution_attempt02": {
+    "report": "work/qa-billing-receipt19-attempt02/results.json",
+    "sha256": "1ce3907ca59f3502729570ce8f49520f098fe6150e25e4d51938a1a4c65cafb4",
+    "log_sha256": "9e1aca6ca4bd4a329d3bc004cf215d193dd8f369850140f98715bb984f3a554b"
+  },
+  "build": "NOT_RERUN_NO_APP_OR_BANK_CHANGE_PRIOR_REVIEW18_SOURCE_QUALIFIED",
+  "live_voice": "NOT_RUN",
+  "live_model": "NOT_RUN",
+  "release": "NOT_ACCEPTED"
+}
