@@ -1,0 +1,29 @@
+{
+  "scope": "PROPOSED_TELECOM16_THREE_CREATIONS_NOT_CORE",
+  "source": "2de857051e9e84aad5e1a1bd088afcee98ba717c",
+  "portfolio_source_unchanged_from": "a9e977adf90b1e83cded23fb54aefc696839d014",
+  "checks": [
+    {
+      "operation": "contract.create_manual",
+      "example_input_valid": true,
+      "example_receipt_valid": true,
+      "added_authority_rejected": true
+    },
+    {
+      "operation": "service.create_manual",
+      "example_input_valid": true,
+      "example_receipt_valid": true,
+      "added_authority_rejected": true
+    },
+    {
+      "operation": "line.create_manual",
+      "example_input_valid": true,
+      "example_receipt_valid": true,
+      "added_authority_rejected": true
+    }
+  ],
+  "classification": "LOCAL_PARSER_EXAMPLE_VALIDATION_ONLY_NOT_PRODUCT_AUTH_DB_CLOUD_ACCEPTANCE",
+  "network_or_dispatch": "NOT_CALLED",
+  "business_ai_writes": "OFF",
+  "release": "NOT_ACCEPTED"
+}

@@ -55,3 +55,9 @@ Asier conserva integración/producto; CoworkW5 hosting,SQL,Storage,infra y entre
 Conservar F736/CASE_NOTE_CURSOR/a32/137 y causas desconocidas.100bf catálogo pudo escribir antes del timeout según errata6294158041: estadoUNKNOWN, nunca repetir a ciegas. Artefactos/fixtures fallidos y conteos no medidos permanecen separados; no fabricar ceros/full23.
 
 Siguiente: cerrar las ejecuciones propias ya iniciadas por SHA/artefacto, sin repetir verdes. W5 entrega acceso/ventana; ejecutar CORE162 una vez con journal, después acordar segunda unidad telecom. Guion5–10min: acceso/versión→dashboard→cliente/360→texto300+IVA→revisión→draft→recarga; añadir telecom/voz únicamente si aceptados en ese deploy. **IA comercial writesOFF, modelo vivoNOT_RUN, issue10OPEN, releaseNOT_ACCEPTED.**
+
+## Revisión174 y siguiente alcance preparado
+
+Revisión independiente Oier174 sobre2de85705:12casos propios/lint/typesPASS, sin modificar fuente/banco ni PR nueva, sin hallazgo accionable en el delta acotado; no seguridad/release. Evidencia c27e87db, REVIEW174.md en su rama, handoff6295862372. No sumar esos12 a los controles173.
+
+[PropuestaTELECOM16](20261020/TELECOM_SCOPE16_PROPOSAL.md): tres altas UI contract→service→line desde fixtures publicados, draft/pending/pending, máximo3solicitudes, sin activación/identificadores/SQL. CORE intacto2mutaciones; no ejecución autorizada. Incluye ACK/ventana/limpieza/negativas sólolectura; precio del servicio no se infiere de contrato. Validación local de ejemplos de schema, no prueba de negocio.

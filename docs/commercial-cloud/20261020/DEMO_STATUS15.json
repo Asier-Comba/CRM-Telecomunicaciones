@@ -447,5 +447,33 @@
     "voice_model": "NOT_RUN",
     "release": "NOT_ACCEPTED"
   },
-  "latest_handoff": 6295672911
+  "latest_handoff": 6295672911,
+  "independent_review174": {
+    "PR174_comment": 6295862020,
+    "hosted": "NOT_RUN",
+    "unit": "OIER_REVIEW174_15",
+    "release": "NOT_ACCEPTED",
+    "handoff": 6295862372,
+    "published_ref": "c27e87db630a42d5161a30b08624497136bdf263",
+    "own_tests": 12,
+    "own_lint_types": "PASS",
+    "source": "2de857051e9e84aad5e1a1bd088afcee98ba717c",
+    "finding": "NO_ACTIONABLE_FINDING_IN_SCOPED_DELTA"
+  },
+  "second_scope_proposal16": {
+    "claim": 6295919214,
+    "document": "TELECOM_SCOPE16_PROPOSAL.md",
+    "kind": "PROPOSAL_NOT_RUNNER_MANIFEST",
+    "dispatch_authorized": false,
+    "core_changed": false,
+    "proposed_max_mutation_requests": 3,
+    "operations": [
+      "contract.create_manual",
+      "service.create_manual",
+      "line.create_manual"
+    ],
+    "required": "EXACT_OWNER_W5_ACK_PRIVATE_WINDOW_FIXTURES_CLEANUP",
+    "contract_validation": "SCHEMA_EXAMPLES_ONLY_NO_RUNTIME_DISPATCH",
+    "service_pricing": "DO_NOT_INFER_SERVICE_VERSION_INHERITANCE_FROM_CONTRACT"
+  }
 }
