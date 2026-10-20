@@ -2,6 +2,14 @@
 
 ## Nocturnal continuation — 2026-10-21, units32–34
 
+39 aligns the legacy native financial scope observer after Oier's series UI:
+actual AST expression3FAIL→25PASS, fixd41fc652, lint/syntax/typesPASS, no product/
+money/SQL/timeout change. [Evidence](../integration/UNIT_39_FINANCIAL_SCOPE_OBSERVER_20261021.md).
+162 completed5SUCCESS/4FAIL:87/4042/115UI+one old-copy TIMEOUT; catalog and layout
+passed.788preview,672bootstrap/827assistant/defaultbuild44/native restorePASS;
+5HIGH/vendor/W4 blocked. Original285 startup and394587 emission UNKNOWN preserved.
+Final successor source/tree and its own CI are bound in issue67, not inherited162.
+
 38 corrects catalog OBSERVER paging (not UI): own1PASS/2FAIL→6PASS, code307e123e.
 [Failure and scope](../integration/UNIT_38_CATALOG_OBSERVER_20261021.md).
 285 CI completed5SUCCESS/4FAIL: Supabase87/4042/114UI+2TIMEOUT/teardownPASS,
