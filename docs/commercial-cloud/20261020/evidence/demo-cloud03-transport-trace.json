@@ -1,0 +1,102 @@
+{
+  "unit": "DEMO-CLOUD-03",
+  "candidate": "3b80c50d13bc0a9a52f6662de46a1e8b9581c62b",
+  "scope": "STATIC_SOURCE_TRACE_NOT_RUNTIME_OR_HOSTED_ACCEPTANCE",
+  "blobs": [
+    {
+      "path": "src/app/(saas)/layout.tsx",
+      "blob": "b61d46fcfe17364fc15808d951f818e7c29221f8"
+    },
+    {
+      "path": "src/app/(saas)/dashboard/page.tsx",
+      "blob": "078de3ac2e84d8e8f361c2b5e62ec017cc34baee"
+    },
+    {
+      "path": "src/app/(saas)/clients/page.tsx",
+      "blob": "13ff0324aca01228dd544fa1f859e643a8973935"
+    },
+    {
+      "path": "src/app/(saas)/clients/[id]/page.tsx",
+      "blob": "0315e6ec7396e5865086ef42db789358a116627e"
+    },
+    {
+      "path": "src/app/(saas)/facturacion/page.tsx",
+      "blob": "27dccadd4666ecf45b33e68c4d035ac060ad9caf"
+    },
+    {
+      "path": "src/features/product/integration/mode.ts",
+      "blob": "29555e771aa8ee24def6f54b2fda7267b1fe8115"
+    },
+    {
+      "path": "src/features/product/integration/Provider.tsx",
+      "blob": "4f3509f6dbb6c5a482a3ea65f927377eb9600f6b"
+    },
+    {
+      "path": "src/features/product/integration/repository.ts",
+      "blob": "abe2915572f5daeedfe177f591bd60d5a3e14b16"
+    },
+    {
+      "path": "src/lib/server/product-staging-admission-v1.ts",
+      "blob": "4f45077eccea02aa575e7a6ec27d7460f1fa9990"
+    },
+    {
+      "path": "src/lib/server/supabase-user.ts",
+      "blob": "c947a6e5853975c4b0946ab66d81c55bf696877b"
+    },
+    {
+      "path": "src/lib/server/product-user-factory-v1.ts",
+      "blob": "1165c58ec387455a6440be19dd0d4ef7651ebc3f"
+    },
+    {
+      "path": "src/lib/server/billing-user-factory-v1.ts",
+      "blob": "4dd09e1ac1531d68907b6e4068315431859d9582"
+    },
+    {
+      "path": "src/lib/server/billing-service-v1.ts",
+      "blob": "f624eca779c20ec1ebdb45b61afe8e94a07e6063"
+    },
+    {
+      "path": "src/features/product/ui.tsx",
+      "blob": "8e4d5ef4e3dbef5825a141fdae7bed71ecab9b73"
+    },
+    {
+      "path": "src/features/billing/IntegratedBilling.tsx",
+      "blob": "4ddfe7ecb33c303f97a8b0c8d8bbd7568974276c"
+    }
+  ],
+  "selection": "integratedProductAllowed -> server ProductProvider(integrated) -> IntegratedLocalProductRepository; mode identifier remains integrated_local in staging",
+  "transport": "same-origin POST /api/product/v1/queries|commands and /api/billing/v1/queries|commands -> closed parsers -> user factory -> createUserServerClient -> user JWT cookie SDK -> tenant-authorized RPC",
+  "staging": "readStagingAdmissionV1 pins exact origin/project, synthetic getUser/cohort; invalid or absent declared-hosted admission fails closed. No flags configured here.",
+  "fallback_review": "No silent replacement of failed reads by SyntheticProductRepository observed in reviewed core flow. This is static scope only, not all modules or deployed settings.",
+  "copy_finding": {
+    "consumer": "src/features/billing/IntegratedBilling.tsx",
+    "file": "src/features/product/ui.tsx",
+    "owner": "Asier shared Provider/ui and billing composition",
+    "request": "Choose truthful environment-aware or neutral integrated copy without changing flags/repository contracts/gates or claiming hosted persistence.",
+    "observed": "Integración local/base local/servidor local also selected when integratedProductAllowed permits staging",
+    "meaning": "MISLEADING_COPY_IN_PROPOSED_STAGING_PATH_NOT_PROOF_OF_MOCK_PERSISTENCE"
+  },
+  "runner_route": {
+    "pass": 1,
+    "fix": "99bfde9252ccc4ead41a6b9c25eff08e46bd0f4c",
+    "baseline": "8e0f190a477c9248db0434e0a7401327b4d77685",
+    "scope": "LOCAL_REQUEST_COMPARISON_NOT_REAL_TENANT_DENIAL",
+    "registered": "/api/billing/v1/queries",
+    "repository_identical_in_qa_and_candidate": true,
+    "fail": 1,
+    "actual_repository_blob": "abe2915572f5daeedfe177f591bd60d5a3e14b16",
+    "old": "/api/billing/v1"
+  },
+  "supabase": {
+    "project_visible_to_connector": false,
+    "retry_SQL": 0,
+    "no_business_or_Auth_rows_requested": true,
+    "healthy_or_broken_DB_conclusion": "NONE",
+    "W5": "Request exact signatures of seven candidate RPCs via existing authorized connection, no new resource.",
+    "list_projects": {
+      "projects": []
+    },
+    "metadata": "DENIED"
+  },
+  "release": "NOT_ACCEPTED"
+}

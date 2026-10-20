@@ -38,9 +38,9 @@ Ninguna fila es HOSTED_PASS hoy. La evidencia controlada y el parser determinist
 
 ## Banco existente, preparado para ejecutar
 
-`tools/oier_cloud_qa` se conserva y amplía; no se regenera. Fuente QA `49a032cfb0f82c850f8fec4f9ae3c150d6394699`: 12 controles locales del runner, lint y TypeScript completos. Preflight real sin manifest: NOT_RUN/código 2 antes de navegador/red/cloud. No son 12 casos alojados. La aplicación permanece en la referencia `49bc`; no se repiten ni reasignan sus 357/96/build.
+`tools/oier_cloud_qa` se conserva y amplía; no se regenera. Fuente QA `99bfde9252ccc4ead41a6b9c25eff08e46bd0f4c`: 14 controles locales del runner y transporte, lint y TypeScript completos. Preflight real sin manifest: NOT_RUN/código 2 antes de navegador/red/cloud. No son 14 casos alojados. La aplicación permanece en la referencia `49bc`; no se repiten ni reasignan sus 357/96/build.
 
-Manifest consumidor v2 exige fuente/deploy coincidentes, referencias exactas de los responsables, ventana vigente y roles ya existentes owner/admin A/B (facturación exige esos roles). Incluye cliente sintético previo A y cliente/factura propios B. Comprueba workspace/rol de servidor antes de escribir, cliente tras recarga, dos operaciones máximas y primer fallo saneado. Preserva los dos fallos originales de requisitos de rol del banco en 79cc, corregidos en 49a0. No modifica permisos para hacerlos pasar. [Checkpoint QA](20261020/DEMO_CLOUD02.json).
+Manifest consumidor v2 exige fuente/deploy coincidentes, referencias exactas de los responsables, ventana vigente y roles ya existentes owner/admin A/B (facturación exige esos roles). Incluye cliente sintético previo A y cliente/factura propios B. Comprueba workspace/rol de servidor antes de escribir, cliente tras recarga, dos operaciones máximas y primer fallo saneado. Preserva los dos fallos originales de requisitos de rol del banco en 79cc, corregidos en 49a0. No modifica permisos para hacerlos pasar. [Checkpoint QA vigente](20261020/DEMO_CLOUD03.json); [unidad anterior conservada](20261020/DEMO_CLOUD02.json).
 
 ## Riesgos y responsables
 
@@ -61,3 +61,12 @@ Manifest consumidor v2 exige fuente/deploy coincidentes, referencias exactas de 
 5. 8–10 min: solo si hay aceptación propia de voz u otro módulo en ese deploy, añadirlo. Excluir PDF/Storage, funcionalidades desactivadas y cualquier ruta no probada.
 
 Antes de cambiar a DEMO_READY deben cumplirse acceso, identidad de deploy, login, persistencia de cliente/borrador, aislamiento y ausencia de P0 crítico en estas rutas. Release comercial exige además seguridad/W4/CI/backups/restore y aceptación canónica; una demo privada no los sustituye.
+## Actualización de contrato y CI de la candidata
+
+DEMO-CLOUD-03 conserva un fallo original del banco: invoice.get apuntaba a /api/billing/v1, ruta no registrada. La comparación con el repositorio real y su ruta registrada dio 1 PASS/1 FAIL en8e0f;99bf corrige únicamente la consulta QA a /api/billing/v1/queries. El repositorio comparado tiene el mismo blob abe2915 en la QA y la candidata. No se ha demostrado un fallo del CRM alojado ni ejecutado un negativo AuthDB con ese transporte controlado.
+
+La consulta exclusiva de metadata de siete RPC en el proyecto staging fue denegada por el conector (ProtocolError -32600); una consulta de descubrimiento devolvió projects vacío. No se consultaron filas de negocio/Auth ni se cambiaron credenciales/permisos; no se concluye que la DB esté rota. Las firmas y una nueva comprobación de migración87 quedan NOT_VERIFIED/NOT_RUN. W5 puede entregarlas por su conexión ya autorizada, sin duplicar recurso.
+
+CI39415508342, checkout realmente probado b955c12919e74ef36ec22f1a54b16cf23bf3b427, árbol a8dc2e8d878aef2d0b5eaadbe30ba9dfd9241722 idéntico a3b80: unión exacta de preview710PASS(355desktop/355mobile), artefacto12261303666. Es SYNTHETIC_PREVIEW_ONLY, sin Auth staging. Global655/656bootstrap con fallo estricto85/86contra87 y5HIGH; nativo falló antes de checkout por cuota de imagen, sin SHA/pruebas medidos, tres pulls internos y cero reruns pedidos por Oier. Secret scan de ese job PASS no aprueba W4/all-ref. Supabase39415508242 seguía en curso en esta captura; no se inventan sus resultados. [Evidencia segura](20261020/evidence/demo-cloud03-candidate-ci-safe.json).
+
+Trazabilidad estática: el modo staging válido selecciona IntegratedLocalProductRepository, que usa API real y SDK de usuario con RPC autorizado; su identificador sigue siendo integrated_local. Por eso los avisos locales de PreviewNotice y Facturación también se mostrarían en staging. Es una incoherencia de presentación que debe revisar Asier, no prueba de persistencia mock. No se observó fallback silencioso en las rutas núcleo revisadas; esto no acredita configuración desplegada ni todos los módulos. No se cambia una primitiva o un contrato para ocultarlo.

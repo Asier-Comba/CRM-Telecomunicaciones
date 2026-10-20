@@ -1,0 +1,46 @@
+(node:31568) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:31568) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/src/features/product/integration/repository.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to C:\Users\oier.dunabeitia\Documents\Codex\2026-10-08\files-pasted-by-the-user-crm\work\crm-oier-commercial-20261020\package.json.
+✔ hosted customer.editor uses the actual product repository route and request envelope (17.8342ms)
+✖ hosted invoice.get uses the actual product repository route and request envelope (3.2115ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 405.1598
+
+✖ failing tests:
+
+test at tools\oier_cloud_qa\read.test.mjs:8:58
+✖ hosted invoice.get uses the actual product repository route and request envelope (3.2115ms)
+  AssertionError [ERR_ASSERTION]: QA must use the same registered endpoint, credentials, cache and closed envelope as the real UI repository
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      body: {
+        input: {
+          id: '10000000-0000-4000-8000-000000000001'
+        },
+  ...
+      method: 'POST',
+  +   url: '/api/billing/v1'
+  -   url: '/api/billing/v1/queries'
+    }
+  
+      at TestContext.<anonymous> (file:///C:/Users/oier.dunabeitia/Documents/Codex/2026-10-08/files-pasted-by-the-user-crm/work/crm-oier-commercial-20261020/tools/oier_cloud_qa/read.test.mjs:16:9)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { url: '/api/billing/v1', method: 'POST', credentials: 'same-origin', cache: 'no-store', body: { operation: 'invoice.get', input: [Object] } },
+    expected: { url: '/api/billing/v1/queries', method: 'POST', credentials: 'same-origin', cache: 'no-store', body: { operation: 'invoice.get', input: [Object] } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
