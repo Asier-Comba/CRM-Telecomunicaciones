@@ -1,0 +1,52 @@
+{
+  "unit": "DEMO-VISUAL-01",
+  "claim": 6290413045,
+  "candidate": "3b80c50d13bc0a9a52f6662de46a1e8b9581c62b",
+  "actual_source": "b955c12919e74ef36ec22f1a54b16cf23bf3b427",
+  "tree": "a8dc2e8d878aef2d0b5eaadbe30ba9dfd9241722",
+  "run": 39415508242,
+  "artifact": 12262346907,
+  "environment": "LOCAL_SUPABASE_DOCKER_SYNTHETIC_UI",
+  "reviewed_images": 18,
+  "widths": [
+    390,
+    768,
+    1440
+  ],
+  "reviewed_archive": "demo-visual01-reviewed-images.zip",
+  "image_manifest": "demo-visual01-image-manifest.json",
+  "original_bytes_all_verified": true,
+  "new_tests_run": "NONE_EXISTING_SUCCESSFUL_ARTIFACT_REUSED",
+  "source_changes": "NONE",
+  "new_functional_bug": "NOT_DEMONSTRATED",
+  "review_scope": "CAPTURED_STATES_ONLY_NOT_COMPLETE_VISUAL_ACCEPTANCE",
+  "observations": [
+    "Billing EUR KPI cards reflow to two mobile columns; labels/totals/comparison scope readable in reviewed frames.",
+    "Billing list uses stacked mobile invoice cards; number or draft reference, status, due label, total, view/open actions and pagination readable. Tablet wrapping and desktop table readable in captured portions.",
+    "Customer360 counts fit two mobile/four tablet columns. Contacts/actions wrap without overlap in captured lower panels; mobile customer form fields/save/close fit.",
+    "Confirmed invoice390/768 shows server receipt/status/total and separate PDF actions; issued30.25EUR fixture is not the required300/21/363 draft scenario or approved hosted PDF."
+  ],
+  "coverage_gaps": [
+    {
+      "finding": "Desktop Customer360 summary remains Consultando in both top/lower captures; editor390 assignees still Consultando responsables",
+      "classification": "CAPTURE_READINESS_GAP_NOT_PROOF_OF_PERMANENT_LOADING_OR_PRODUCT_FAILURE",
+      "source": "scripts/security/supabase-local/product-browser-acceptance.mjs:367",
+      "evidence": [
+        "customer360-1440.png",
+        "customer360-lower-1440.png",
+        "customer-editor-390.png"
+      ],
+      "reason": "Layout bank waits first article for customer360, not completed authoritative summary; images alone do not prove query outcome.",
+      "owner": "Asier",
+      "request": "On next relevant changed-source qualification preserve loading images distinctly; capture loaded/error summary using Resumen real del cliente region and Recuentos completos text only after settled result. Capture assignee resolved/error state; do not force roles, replace original artifacts, extend timeouts or call this a causal product fix."
+    }
+  ],
+  "copy_finding": "Local labels are correct in this local environment. Source review shows same identifier selected in proposed staging; owner must choose truthful context before demo. Not evidence of mock persistence.",
+  "fullPage_limit": "Nested main scroll means top/lower capture portions; no claim that every offscreen control is reviewed. Different fixtures/stages are not numeric cross-width comparisons.",
+  "hosted_visual": "NOT_RUN",
+  "voice_real": "NOT_RUN",
+  "W4": "INDEPENDENT",
+  "IA_writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "next": "Owner capture-readiness adjustment with next relevant source, W5 exact private deploy/window/cohort. No unchanged green rerun or further isolated synthetic unit."
+}
