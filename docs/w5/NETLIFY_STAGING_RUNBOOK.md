@@ -79,5 +79,8 @@ forward-only and are never rolled back by a frontend redeploy.
 | 2026-10-19 | `6ad65d383d678cbd9747b2fb` | `bb16afe` + toml | W5 #159 hosted mode | 401 | not run |
 | 2026-10-19 | `6ad6693262c82905fcf6bc40` | `2f1b6dd7` + toml | W5 #159 hosted mode | 401 | not run |
 
+| 2026-10-20 | `6ad75304f4d30466aa878e8c` | `3b80c50d` + toml | integrator staging admission | 401 | blocked: 503 on Netlify Edge (admission invalid, no NODE_ENV) |
+| 2026-10-20 | `6ad75c93ac4914f9005f4767` | `e42cfd59` + toml | integrator admission + W5 NODE_ENV fix, cohort of 1 synthetic owner | 401 | PASS: login, client create/reload, text invoice draft save/reload |
+
 The #159 hosted mode is superseded by the integrator's stricter staging
 admission; the next deploy should use that admission, not #159's.
