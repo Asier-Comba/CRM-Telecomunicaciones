@@ -72,8 +72,8 @@
         {
           "id": 39451803219,
           "name": "Supabase local acceptance",
-          "status": "in_progress",
-          "conclusion": null
+          "status": "completed",
+          "conclusion": "success"
         },
         {
           "id": 39451802799,
@@ -130,8 +130,8 @@
         {
           "id": 39454896937,
           "name": "CI",
-          "status": "in_progress",
-          "conclusion": null
+          "status": "completed",
+          "conclusion": "failure"
         },
         {
           "id": 39454896864,
@@ -180,6 +180,28 @@
       "preview_scope": "SYNTHETIC_PREVIEW_ONLY_NOT_AUTH_STAGING_OR_RELEASE",
       "native_general_job": 118734033068,
       "native_general": "PASS_NOT_W5_RESOURCE_OR_FULL23"
+    },
+    {
+      "quality_job": 118739067912,
+      "quality_result": "FAIL_5_HIGH",
+      "head": "5f00ab8bf2f1f9cc93ec9a8f88d5a9aaa3842e1e",
+      "equal": true,
+      "source": "a332bb0642a2766e47275657769fbc8ad52d6453",
+      "head_tree": "0697aaacd182d7987ee6d67b6685895177d9bf81",
+      "bootstrap": 664,
+      "parents": [
+        "a9e977adf90b1e83cded23fb54aefc696839d014",
+        "5f00ab8bf2f1f9cc93ec9a8f88d5a9aaa3842e1e"
+      ],
+      "whole_CI": "FAIL_5_HIGH",
+      "assistant": 827,
+      "build": 44,
+      "tree": "0697aaacd182d7987ee6d67b6685895177d9bf81",
+      "preview_job": 118743860903,
+      "preview_artifact": 12281306457,
+      "preview_exact_union": 718,
+      "preview_per_project": 359,
+      "preview_scope": "SYNTHETIC_PREVIEW_ONLY_NOT_AUTH_STAGING_OR_RELEASE"
     }
   ],
   "cloud": {
@@ -193,7 +215,29 @@
       "invoice.create_draft"
     ],
     "second_telecom_scope": "SEPARATE_OPERATIONS_LIMITS_FIXTURES_AND_APPROVAL_REQUIRED",
-    "anonymous_own_read": "HTTP_401_NO_BODY_NO_CREDENTIALS_NOT_AUTH_RLS_PROOF"
+    "anonymous_own_read": "HTTP_401_NO_BODY_NO_CREDENTIALS_NOT_AUTH_RLS_PROOF",
+    "W5_new_AB_report": {
+      "ref": 6295591477,
+      "source_report": "PR157_15475541_SECTION11",
+      "attribution": "REPORTED_BY_W5_NOT_EXECUTED_BY_OIER",
+      "positiveA": "REPORTED_200",
+      "positiveB": "REPORTED_200_CREATE_RECEIPT_READBACK",
+      "B_reads_A": "REPORTED_404",
+      "B_modifies_A": "REPORTED_404_NO_ROW_CHANGE",
+      "suspended_in_cohort": "REPORTED_403",
+      "outside_cohort": "REPORTED_403_SEPARATE_FROM_RLS",
+      "accounts_after_window": "B_SUSPENDED_VIEWER_REBANNED_PASSWORDS_RANDOM_NO_SESSIONS_ONLY_A_REMAINS",
+      "independent_Oier": "BLOCKED_PRIVATE_NETLIFY_FREE_OWNER_ONLY",
+      "private_window": "NOT_DELIVERED",
+      "source_owner_action": "CHOOSE_LEGITIMATE_PRIVATE_COLLABORATOR_ACCESS_NO_COST_OR_PROTECTION_CHANGE_AUTHORIZED"
+    },
+    "private_access_docs": "https://docs.netlify.com/manage/security/secure-access-to-sites/project-visibility/",
+    "W5_source_review": {
+      "blob": "94cadbc69731a89b4db8f1806413c8d43d5d0480",
+      "review": "SECTION11_READ_ONLY_REPORTED_EVIDENCE_NOT_OWN_EXECUTION",
+      "path": "docs/w5/CLOUD_HANDOFF.md",
+      "source": "15475541c4cd1792c47a39dc1240d37b1da7e5c1"
+    }
   },
   "matrix": {
     "TEL_014": "LOCAL_MASTER115_POSITIVE_CLOUD_NOT_ACCEPTED",
@@ -224,5 +268,184 @@
     "live_model": "NOT_RUN",
     "release": "NOT_ACCEPTED"
   },
-  "next": "Close existing exact-source own CI using safe artifacts when terminal, without rerun/push. Review/integration by Asier only. CORE162 only after W5 independent private access/A-B window and fixtures; no owner session or mutation expansion."
+  "next": "Close existing exact-source own CI using safe artifacts when terminal, without rerun/push. Review/integration by Asier only. CORE162 only after W5 independent private access/A-B window and fixtures; no owner session or mutation expansion.",
+  "portfolio12_real_local": {
+    "contract": "oier.portfolio12.real-local-qualified.v1",
+    "run": 39451803219,
+    "job": 118728268039,
+    "artifact": 12281480895,
+    "head": "0d00e41a97d5d609b0b87b9b8f65d0c28d7a44ce",
+    "source": "c43a55ba8dc043a94df93f8f93eb115e204e7fdd",
+    "tree": "4fa2100fdbe87d02410288fb968556fb0639ed5c",
+    "parents": [
+      "a9e977adf90b1e83cded23fb54aefc696839d014",
+      "0d00e41a97d5d609b0b87b9b8f65d0c28d7a44ce"
+    ],
+    "head_tree_equal": false,
+    "original_zip_sha256": "0a6000f4c852cec58ec8fd36be5f2ab1b1d2f9cf3bdb0039fe4a9c20d07be710",
+    "environment": "LOCAL_SUPABASE_DOCKER_NOT_HOSTED",
+    "migrations": 87,
+    "migration_head": "20261020100000_business_conflict_non_retryable.sql",
+    "backend_w1": 3815,
+    "backend_w2": 227,
+    "ui_observed": 115,
+    "ui_unique": 115,
+    "failed_list_present": false,
+    "failed_list": null,
+    "portfolio_layout_passed": true,
+    "phases": [
+      {
+        "contract": "w2.portfolio-bounded-layout.v1",
+        "width": 1440,
+        "phase": "button_enabled",
+        "completed": true,
+        "elapsed_ms": 2517,
+        "phases": [
+          {
+            "phase": "fill",
+            "elapsed_ms": 2
+          },
+          {
+            "phase": "click",
+            "elapsed_ms": 55
+          },
+          {
+            "phase": "button_enabled",
+            "elapsed_ms": 130
+          }
+        ],
+        "transport": {
+          "contract": "w2.portfolio-bounded-search-observation.v1",
+          "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+          "document_changed": false,
+          "truncated": false,
+          "rows": [
+            {
+              "kind": "search",
+              "status": "ok",
+              "failed": false,
+              "dto": "valid",
+              "expected_reference": true,
+              "candidates": 5
+            },
+            {
+              "kind": "expected_contract",
+              "status": "pending",
+              "failed": false,
+              "dto": "not_observed",
+              "expected_reference": null,
+              "candidates": null
+            }
+          ]
+        },
+        "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+      },
+      {
+        "contract": "w2.portfolio-bounded-layout.v1",
+        "width": 768,
+        "phase": "button_enabled",
+        "completed": true,
+        "elapsed_ms": 1143,
+        "phases": [
+          {
+            "phase": "fill",
+            "elapsed_ms": 1
+          },
+          {
+            "phase": "click",
+            "elapsed_ms": 57
+          },
+          {
+            "phase": "button_enabled",
+            "elapsed_ms": 163
+          }
+        ],
+        "transport": {
+          "contract": "w2.portfolio-bounded-search-observation.v1",
+          "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+          "document_changed": false,
+          "truncated": false,
+          "rows": [
+            {
+              "kind": "search",
+              "status": "ok",
+              "failed": false,
+              "dto": "valid",
+              "expected_reference": true,
+              "candidates": 5
+            },
+            {
+              "kind": "expected_contract",
+              "status": "pending",
+              "failed": false,
+              "dto": "not_observed",
+              "expected_reference": null,
+              "candidates": null
+            }
+          ]
+        },
+        "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+      },
+      {
+        "contract": "w2.portfolio-bounded-layout.v1",
+        "width": 390,
+        "phase": "button_enabled",
+        "completed": true,
+        "elapsed_ms": 1255,
+        "phases": [
+          {
+            "phase": "fill",
+            "elapsed_ms": 1
+          },
+          {
+            "phase": "click",
+            "elapsed_ms": 105
+          },
+          {
+            "phase": "button_enabled",
+            "elapsed_ms": 206
+          }
+        ],
+        "transport": {
+          "contract": "w2.portfolio-bounded-search-observation.v1",
+          "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+          "document_changed": false,
+          "truncated": false,
+          "rows": [
+            {
+              "kind": "search",
+              "status": "ok",
+              "failed": false,
+              "dto": "valid",
+              "expected_reference": true,
+              "candidates": 5
+            },
+            {
+              "kind": "expected_contract",
+              "status": "pending",
+              "failed": false,
+              "dto": "not_observed",
+              "expected_reference": null,
+              "candidates": null
+            }
+          ]
+        },
+        "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+      }
+    ],
+    "auth": "PASS_LOCAL_AUTH_IDENTITY_ONLY_NOT_HOSTED_ROUTING",
+    "auth_cleanup": "PASS_LOCAL_SESSIONS_ONLY",
+    "server": {
+      "code": 0,
+      "signal": null
+    },
+    "teardown": "PASS",
+    "original_100bf_cause": "UNKNOWN",
+    "original_timeout_reproduced": false,
+    "render_limitation": "Expected-contract transport remains pending at enabled-button snapshot; subsequent exact-reference checks separately pass. Do not convert pending/null fields into completed DTO proof.",
+    "hosted": "NOT_RUN",
+    "voice_model": "NOT_RUN",
+    "release": "NOT_ACCEPTED"
+  },
+  "latest_handoff": 6295672911
 }

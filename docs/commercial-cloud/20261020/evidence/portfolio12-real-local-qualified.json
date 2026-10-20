@@ -1,0 +1,178 @@
+{
+  "contract": "oier.portfolio12.real-local-qualified.v1",
+  "run": 39451803219,
+  "job": 118728268039,
+  "artifact": 12281480895,
+  "head": "0d00e41a97d5d609b0b87b9b8f65d0c28d7a44ce",
+  "source": "c43a55ba8dc043a94df93f8f93eb115e204e7fdd",
+  "tree": "4fa2100fdbe87d02410288fb968556fb0639ed5c",
+  "parents": [
+    "a9e977adf90b1e83cded23fb54aefc696839d014",
+    "0d00e41a97d5d609b0b87b9b8f65d0c28d7a44ce"
+  ],
+  "head_tree_equal": false,
+  "original_zip_sha256": "0a6000f4c852cec58ec8fd36be5f2ab1b1d2f9cf3bdb0039fe4a9c20d07be710",
+  "environment": "LOCAL_SUPABASE_DOCKER_NOT_HOSTED",
+  "migrations": 87,
+  "migration_head": "20261020100000_business_conflict_non_retryable.sql",
+  "backend_w1": 3815,
+  "backend_w2": 227,
+  "ui_observed": 115,
+  "ui_unique": 115,
+  "failed_list_present": false,
+  "failed_list": null,
+  "portfolio_layout_passed": true,
+  "phases": [
+    {
+      "contract": "w2.portfolio-bounded-layout.v1",
+      "width": 1440,
+      "phase": "button_enabled",
+      "completed": true,
+      "elapsed_ms": 2517,
+      "phases": [
+        {
+          "phase": "fill",
+          "elapsed_ms": 2
+        },
+        {
+          "phase": "click",
+          "elapsed_ms": 55
+        },
+        {
+          "phase": "button_enabled",
+          "elapsed_ms": 130
+        }
+      ],
+      "transport": {
+        "contract": "w2.portfolio-bounded-search-observation.v1",
+        "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+        "document_changed": false,
+        "truncated": false,
+        "rows": [
+          {
+            "kind": "search",
+            "status": "ok",
+            "failed": false,
+            "dto": "valid",
+            "expected_reference": true,
+            "candidates": 5
+          },
+          {
+            "kind": "expected_contract",
+            "status": "pending",
+            "failed": false,
+            "dto": "not_observed",
+            "expected_reference": null,
+            "candidates": null
+          }
+        ]
+      },
+      "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+    },
+    {
+      "contract": "w2.portfolio-bounded-layout.v1",
+      "width": 768,
+      "phase": "button_enabled",
+      "completed": true,
+      "elapsed_ms": 1143,
+      "phases": [
+        {
+          "phase": "fill",
+          "elapsed_ms": 1
+        },
+        {
+          "phase": "click",
+          "elapsed_ms": 57
+        },
+        {
+          "phase": "button_enabled",
+          "elapsed_ms": 163
+        }
+      ],
+      "transport": {
+        "contract": "w2.portfolio-bounded-search-observation.v1",
+        "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+        "document_changed": false,
+        "truncated": false,
+        "rows": [
+          {
+            "kind": "search",
+            "status": "ok",
+            "failed": false,
+            "dto": "valid",
+            "expected_reference": true,
+            "candidates": 5
+          },
+          {
+            "kind": "expected_contract",
+            "status": "pending",
+            "failed": false,
+            "dto": "not_observed",
+            "expected_reference": null,
+            "candidates": null
+          }
+        ]
+      },
+      "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+    },
+    {
+      "contract": "w2.portfolio-bounded-layout.v1",
+      "width": 390,
+      "phase": "button_enabled",
+      "completed": true,
+      "elapsed_ms": 1255,
+      "phases": [
+        {
+          "phase": "fill",
+          "elapsed_ms": 1
+        },
+        {
+          "phase": "click",
+          "elapsed_ms": 105
+        },
+        {
+          "phase": "button_enabled",
+          "elapsed_ms": 206
+        }
+      ],
+      "transport": {
+        "contract": "w2.portfolio-bounded-search-observation.v1",
+        "scope": "CURRENT_SYNTHETIC_MAIN_DOCUMENT_ONLY_NO_AUTHORIZATION_OR_CAUSE_CLAIM",
+        "document_changed": false,
+        "truncated": false,
+        "rows": [
+          {
+            "kind": "search",
+            "status": "ok",
+            "failed": false,
+            "dto": "valid",
+            "expected_reference": true,
+            "candidates": 5
+          },
+          {
+            "kind": "expected_contract",
+            "status": "pending",
+            "failed": false,
+            "dto": "not_observed",
+            "expected_reference": null,
+            "candidates": null
+          }
+        ]
+      },
+      "render_acceptance": "NOT_MEASURED_BUTTON_ENABLED_IS_NOT_RESULT_READBACK"
+    }
+  ],
+  "auth": "PASS_LOCAL_AUTH_IDENTITY_ONLY_NOT_HOSTED_ROUTING",
+  "auth_cleanup": "PASS_LOCAL_SESSIONS_ONLY",
+  "server": {
+    "code": 0,
+    "signal": null
+  },
+  "teardown": "PASS",
+  "original_100bf_cause": "UNKNOWN",
+  "original_timeout_reproduced": false,
+  "render_limitation": "Expected-contract transport remains pending at enabled-button snapshot; subsequent exact-reference checks separately pass. Do not convert pending/null fields into completed DTO proof.",
+  "hosted": "NOT_RUN",
+  "voice_model": "NOT_RUN",
+  "release": "NOT_ACCEPTED"
+}
