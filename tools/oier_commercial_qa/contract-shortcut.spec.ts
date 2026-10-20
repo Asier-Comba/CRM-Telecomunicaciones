@@ -36,6 +36,7 @@ for(const mode of ['shortcut','manual_selection'] as const)test(`new manual cont
   await expect(drawer.getByRole('combobox',{name:'Cliente del contrato',exact:true})).toHaveValue(customer)
   await expect(drawer.getByLabel('Nombre del nuevo activo',{exact:true})).toHaveCount(0)
   await drawer.getByLabel('Fecha de inicio',{exact:true}).fill(created.start_date)
+  await page.screenshot({path:info.outputPath(`contract-${mode}-review.png`)})
   await drawer.getByRole('button',{name:/^Guardar (activo|contrato) manual$/}).click()
   await expect(drawer).toHaveCount(0)
   await expect(page.locator(`article[data-portfolio-id="${createdId}"]`)).toBeVisible()
