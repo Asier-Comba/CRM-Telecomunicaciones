@@ -32,10 +32,10 @@ function ScopedVersionCreate({plan:initialPlan,onClose,onPublished}:Props){
  const {repository}=useProduct()
  const [plan,setPlan]=useState<PlanRowV1|null>(null),[revision,setRevision]=useState(0),[loading,setLoading]=useState(true)
  const [from,setFrom]=useState(''),[until,setUntil]=useState(''),[currency,setCurrency]=useState('EUR'),[monthly,setMonthly]=useState(''),[setup,setSetup]=useState('')
- const [review,setReview]=useState<Reviewed|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState<unknown>(null)
+ const [review,setReview]=useState<Reviewed|null>(null),[busy,setBusy]=useState(false),[dispatched,setDispatched]=useState(false),[error,setError]=useState<unknown>(null)
  const [recorded,setRecorded]=useState<Recorded|null>(null),[verified,setVerified]=useState(false)
  const pending=useRef<Input|null>(null),confirmed=useRef<Recorded|null>(null),inFlight=useRef(false),mounted=useRef(true)
- const uncertain=!recorded&&error instanceof ProductUiError&&['transport_uncertain','internal_safe'].includes(error.code)
+ const uncertain=dispatched&&!recorded&&error instanceof ProductUiError&&['transport_uncertain','internal_safe'].includes(error.code)
  const conflict=!recorded&&error instanceof ProductUiError&&error.code==='conflict'
  const denied=error instanceof ProductUiError&&error.code==='access_denied'
  useEffect(()=>{mounted.current=true;return()=>{mounted.current=false}},[])
@@ -73,11 +73,12 @@ function ScopedVersionCreate({plan:initialPlan,onClose,onPublished}:Props){
   inFlight.current=true;setBusy(true);setError(null)
   try{
    pending.current??=Object.freeze({...review,command_id:crypto.randomUUID()})
+   setDispatched(true)
    const receipt=await repository.telecom('plan_version.create',pending.current)
    if(!mounted.current)return
-   const saved={receipt,input:pending.current};confirmed.current=saved;setRecorded(saved);pending.current=null
+   const saved={receipt,input:pending.current};confirmed.current=saved;setRecorded(saved);pending.current=null;setDispatched(false)
    await recover(saved)
-  }catch(e){if(mounted.current){setError(e);if(confirmed.current||!(e instanceof ProductUiError&&['transport_uncertain','internal_safe'].includes(e.code)))pending.current=null}}
+  }catch(e){if(mounted.current){setError(e);if(confirmed.current||!(e instanceof ProductUiError&&['transport_uncertain','internal_safe'].includes(e.code))){pending.current=null;setDispatched(false)}}}
   finally{inFlight.current=false;if(mounted.current)setBusy(false)}
  }
  async function reread(){
