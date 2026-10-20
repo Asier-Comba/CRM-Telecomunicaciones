@@ -52,7 +52,7 @@ export async function billingUncertainBrowser({page,origin,sql,wa,customerId,scr
   await button(open).click();await button('Cerrar panel').click();await expect(page.getByRole('dialog')).toHaveCount(0)
  }
  async function draft(label){
-  await expect(button('Nuevo borrador local')).toBeEnabled();await button('Nuevo borrador local').click();await page.getByLabel('Concepto 1',{exact:true}).fill(label);await page.getByLabel('Precio 1',{exact:true}).fill('20');await page.getByRole('checkbox').check();await button('Guardar borrador local').click();await expect(button('Emitir factura')).toBeVisible()
+  await expect(button('Nuevo borrador')).toBeEnabled();await button('Nuevo borrador').click();await page.getByLabel('Concepto 1',{exact:true}).fill(label);await page.getByLabel('Precio 1',{exact:true}).fill('20');await page.getByRole('checkbox').check();await button('Guardar borrador').click();await expect(button('Emitir factura')).toBeVisible()
  }
  await draft('W2X uncertain issue proof')
  for(const [operation,open,title,next]of [['invoice.issue','Emitir factura','Emitir factura','Marcar como cobrada'],['invoice.mark_paid','Marcar como cobrada','Registrar cobro','Revertir cobro'],['invoice.reverse_payment','Revertir cobro','Revertir cobro','Marcar como cobrada']]){

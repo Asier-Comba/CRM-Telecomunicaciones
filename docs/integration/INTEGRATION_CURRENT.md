@@ -123,6 +123,19 @@ resource, SQL or hosted execution. That extra physical check is NOT_RUN until
 the candidate's Supabase CI; its result must not be inferred from48 controls.
 Full composed build follows with caller compatibility; no old build inherited.
 
+## Unit23: integrated billing caller compatibility
+
+Reviewed PR167 follow-up `e89b2358e063719c5bf59c745699177a15673a5c` /
+delivery c38bcf7b. Its six script parents are identical to our checkout; a byte
+comparison proves only the three exact integrated draft labels changed. No SQL,
+financial/permission/effect/replay assertion, timeout or cleanup changed. Preview's
+in-memory product-rebuild labels remain local. Own actual-component selector
+baseline1FAIL, then3/3 widths PASS and targeted lint PASS; no writes from that bank.
+The original owner103PASS/11TIMEOUT real-local result stays failed and separately
+attributed. These selector controls do not prove all eleven causes repaired.
+The next physical candidate run must verify the complete integration and new
+catalog check; expect a collected UI inventory, never a predeclared PASS count.
+
 ## Work in order
 
 Review/adopt exact W5 profile87; classify its successful physical completion
