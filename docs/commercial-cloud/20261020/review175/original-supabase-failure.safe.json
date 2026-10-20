@@ -1,0 +1,59 @@
+{
+  "environment": "LOCAL_SUPABASE_DOCKER_NOT_HOSTED",
+  "run": 39458747653,
+  "job": 118752349311,
+  "artifact": 12282737717,
+  "screenshots_artifact": 12282682770,
+  "checkout": "5f1eb783d737479abafc78d48e61dd05b72156ad",
+  "tree": "6012a6c409733f60282d0ca997d414dd31a11394",
+  "parents": [
+    "a9e977adf90b1e83cded23fb54aefc696839d014",
+    "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd"
+  ],
+  "head": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+  "head_tree": "6012a6c409733f60282d0ca997d414dd31a11394",
+  "equal": true,
+  "result": "FAIL",
+  "migrations": 87,
+  "backend_w1": 3815,
+  "backend_w2": 227,
+  "ui_observed": 114,
+  "ui_unique": 114,
+  "failed_checks": [
+    "billing_invalid_receipt_seven_commands_same_intent_single_persisted_effect"
+  ],
+  "failure_details": [
+    {
+      "check": "billing_invalid_receipt_seven_commands_same_intent_single_persisted_effect",
+      "action": "billing_invalid_receipt:invoice.issue:first_effect",
+      "kind": "TIMEOUT"
+    }
+  ],
+  "billing_receipt_timings": [
+    {
+      "check": "billing_lost_receipt_seven_commands_same_intent_single_persisted_effect",
+      "elapsed_ms": 12612,
+      "result": "PASS"
+    },
+    {
+      "check": "billing_invalid_receipt_seven_commands_same_intent_single_persisted_effect",
+      "elapsed_ms": 11037,
+      "result": "FAIL"
+    }
+  ],
+  "auth": "PASS_LOCAL_AUTH_IDENTITY_ONLY_NOT_HOSTED_ROUTING",
+  "auth_cleanup": "PASS_LOCAL_SESSIONS_ONLY",
+  "server": {
+    "code": 0,
+    "signal": null
+  },
+  "teardown": "PASS",
+  "original_zip_sha256": "4c9fb2e67d58687d0db71407bee496ccc375872b04b11b869be89b8baeaa4522",
+  "original_image_sha256": "7a2248c02d61a70d8dfcfaf03a2eb72a653c1b2dd906e17341c9dec70698494e",
+  "screenshot_observation": "Emitir factura modal: pending result, expected safe alert, Cancel disabled, retry same action available. Final capture does not prove assertion timing or exact persisted effect.",
+  "first_effect_marker": "Groups click, alert, commit verification and close guards. Exact failing assertion UNKNOWN.",
+  "cause": "UNKNOWN",
+  "effect_state": "UNKNOWN_NOT_RETRIED",
+  "hosted": "NOT_RUN_BY_OIER",
+  "release": "NOT_ACCEPTED"
+}

@@ -1,0 +1,99 @@
+{
+  "unit": "OIER_REVIEW175_18",
+  "source": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+  "tree": "6012a6c409733f60282d0ca997d414dd31a11394",
+  "banks": [
+    {
+      "report": "work/qa-demo28/composition-attempt18/results.json",
+      "sha256": "e86d2753354710009ad26b09495a5dc7b2200ef8e4f847eb46121163c084922d",
+      "startTime": "2026-10-20T15:58:54.489Z",
+      "duration": 154776.499,
+      "expected": 63,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "errors": 0,
+      "source": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+      "scope": "CONTROLLED_HTTP_CHROMIUM_NOT_AUTH_DB_CLOUD_VOICE"
+    },
+    {
+      "report": "work/oier-billing-fixes-20261020/dialog-attempt18/results.json",
+      "sha256": "ebf33f06e5af70977471d62eb54111e37f2abc6f94c73eea591ce83f9c90e310",
+      "startTime": "2026-10-20T16:01:48.003Z",
+      "duration": 39734.740999999995,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "errors": 0,
+      "source": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+      "scope": "CONTROLLED_HTTP_CHROMIUM_NOT_AUTH_DB_CLOUD_VOICE"
+    },
+    {
+      "report": "work/oier-billing-fixes-20261020/intent-attempt18/results.json",
+      "sha256": "0937287812c8a7981ea1cc1c2d01cafd5d2445f81b9701bf818460ce10453d8a",
+      "startTime": "2026-10-20T16:02:28.846Z",
+      "duration": 33559.679000000004,
+      "expected": 9,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "errors": 0,
+      "source": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+      "scope": "CONTROLLED_HTTP_CHROMIUM_NOT_AUTH_DB_CLOUD_VOICE"
+    }
+  ],
+  "own_cases": 84,
+  "retries": 0,
+  "source_or_tests_modified": false,
+  "node": "v24.12.0",
+  "npm": "11.6.2",
+  "dependency_lock_sha256": "ada5e9b4ee87407af90d869fff1faf7eced86aa890c1810b8467f699c36314ce",
+  "lint": "PASS_GLOBAL_EXIT0",
+  "build_types": "PASS_DEFAULT_NEXT_TURBOPACK_TYPES44_EXIT0",
+  "visual": {
+    "widths": [
+      390,
+      768,
+      1440
+    ],
+    "scope": "Settled quick portfolio result visible; synthetic inventory intentionally empty. No whole-module/cloud acceptance."
+  },
+  "independent_finding": "NO_ACTIONABLE_FINDING_IN_SCOPED_84_CONTROLLED_CASES",
+  "real_supabase": "FAIL_114_UI_PLUS_ONE_TIMEOUT_SEPARATE_ORIGINAL_ARTIFACT",
+  "original_failure_request": {
+    "checkout": "5f1eb783d737479abafc78d48e61dd05b72156ad",
+    "cause": "UNKNOWN",
+    "run": 39458747653,
+    "artifact": 12282737717,
+    "source": "b9e1eefeea3342b40bdd9584747e9e7ff47bf1cd",
+    "comment": 6296545586
+  },
+  "private_access_request": 6296238416,
+  "live_voice": "NOT_RUN",
+  "live_model": "NOT_RUN",
+  "writes_AI": "OFF",
+  "release": "NOT_ACCEPTED",
+  "logs": [
+    {
+      "file": "work/review175-composition18.log",
+      "sha256": "880ff7c446f6dd9cd1d6b09b83473512cd6bb8d27f3a06f4fa95646158409d6d"
+    },
+    {
+      "file": "work/review175-dialog18.log",
+      "sha256": "2ff2bcc42961a2fb4fee1971b0da436f1c40145ab73fb9ff21dcc0daafdcf9b5"
+    },
+    {
+      "file": "work/review175-intent18.log",
+      "sha256": "18cba3f0427e6d76ed6a61c8bc0b7ecb433020c9a70d7191b9720be2dcfa3cf8"
+    },
+    {
+      "file": "work/review175-lint18.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "file": "work/review175-build18.log",
+      "sha256": "a1ba7496ccf0493da739c246968896480d7d9f035d516b3ae8f92ce46739459a"
+    }
+  ]
+}
