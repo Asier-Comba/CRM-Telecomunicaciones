@@ -1,0 +1,45 @@
+{
+  "unit": "DEMO-CLOUD-04",
+  "claim": 6290532638,
+  "owner_request": 6290183089,
+  "integrator_candidate_confirmation": 6290399103,
+  "candidate": "3b80c50d13bc0a9a52f6662de46a1e8b9581c62b",
+  "qa_source": "31f95826ccfd05b58d27f391f0b576bdc42039e2",
+  "change": "Existing password placeholder locator; unique visible INPUT type=password required before private fill. No login or owner source edited.",
+  "checks": {
+    "typescript_exit": 0,
+    "fail": 0,
+    "preflight_exit": 2,
+    "skip": 0,
+    "targeted_lint_exit": 0,
+    "runner_and_transport": 14
+  },
+  "preflight": "NOT_RUN_MISSING_MANIFEST_BEFORE_BROWSER_ATTACH",
+  "selector_runtime_verification": "NOT_RUN_PENDING_AUTHORIZED_W5_RESOURCE",
+  "owner_observation": {
+    "compiled_login_html_sha256": "f881b0713a16c80a26064c64d6d262536b2c4c83ad576dc234f616f3bcea2f33",
+    "placeholder_matches": 1,
+    "network": "ABORTED_ALL",
+    "type": "password",
+    "node": "INPUT",
+    "own_reproduction": "NOT_CLAIMED",
+    "Auth": "NOT_RUN",
+    "source": "ddf3_PRODUCT_3b80_HEAD",
+    "author": "Asier",
+    "prior_unavailable_local_server_attempts": "Preserved by owner, not inferred product failure",
+    "old_label_matches": 0
+  },
+  "source_review": {
+    "candidate_login_blob": "89d69106325ef0114dea07df648fd8b599b88033",
+    "difference": "Candidate adds staging_access_denied error feedback; password input/placeholder structure unchanged. Read directly from published candidate.",
+    "blobs_equal": false,
+    "own_login_blob": "6bf27573908697c18574361e3c0c4d0bb60b0223"
+  },
+  "application_unchanged": "49bc242c849a019b4b85fd3da1b3a8c9a45ca179",
+  "build": "NOT_RERUN_NO_APPLICATION_CHANGE",
+  "new_browser_or_W5_resource": "NONE",
+  "hosted": "NOT_RUN",
+  "voice_real": "NOT_RUN",
+  "release": "NOT_ACCEPTED",
+  "next": "W5 exact approved deploy/access/cohort/window, then verify selector and existing real flow once. Do not inherit old green or duplicate active checks."
+}

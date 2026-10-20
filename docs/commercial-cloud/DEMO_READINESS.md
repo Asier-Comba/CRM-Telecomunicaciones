@@ -38,9 +38,9 @@ Ninguna fila es HOSTED_PASS hoy. La evidencia controlada y el parser determinist
 
 ## Banco existente, preparado para ejecutar
 
-`tools/oier_cloud_qa` se conserva y amplía; no se regenera. Fuente QA `99bfde9252ccc4ead41a6b9c25eff08e46bd0f4c`: 14 controles locales del runner y transporte, lint y TypeScript completos. Preflight real sin manifest: NOT_RUN/código 2 antes de navegador/red/cloud. No son 14 casos alojados. La aplicación permanece en la referencia `49bc`; no se repiten ni reasignan sus 357/96/build.
+`tools/oier_cloud_qa` se conserva y amplía; no se regenera. Fuente QA `31f95826ccfd05b58d27f391f0b576bdc42039e2`: 14 controles locales del runner y transporte, lint y TypeScript completos. Preflight real sin manifest: NOT_RUN/código 2 antes de navegador/red/cloud. No son 14 casos alojados. La aplicación permanece en la referencia `49bc`; no se repiten ni reasignan sus 357/96/build.
 
-Manifest consumidor v2 exige fuente/deploy coincidentes, referencias exactas de los responsables, ventana vigente y roles ya existentes owner/admin A/B (facturación exige esos roles). Incluye cliente sintético previo A y cliente/factura propios B. Comprueba workspace/rol de servidor antes de escribir, cliente tras recarga, dos operaciones máximas y primer fallo saneado. Preserva los dos fallos originales de requisitos de rol del banco en 79cc, corregidos en 49a0. No modifica permisos para hacerlos pasar. [Checkpoint QA vigente](20261020/DEMO_CLOUD03.json); [unidad anterior conservada](20261020/DEMO_CLOUD02.json).
+Manifest consumidor v2 exige fuente/deploy coincidentes, referencias exactas de los responsables, ventana vigente y roles ya existentes owner/admin A/B (facturación exige esos roles). Incluye cliente sintético previo A y cliente/factura propios B. Comprueba workspace/rol de servidor antes de escribir, cliente tras recarga, dos operaciones máximas y primer fallo saneado. Preserva los dos fallos originales de requisitos de rol del banco en 79cc, corregidos en 49a0. No modifica permisos para hacerlos pasar. [Checkpoint QA vigente](20261020/DEMO_CLOUD04.json); [unidad anterior conservada](20261020/DEMO_CLOUD02.json).
 
 ## Riesgos y responsables
 
@@ -86,3 +86,11 @@ DEMO-VISUAL-01 revisa18PNG del artefacto12262346907, misma fuente b955/árbol a8
 En las zonas capturadas se leen tarjetas/importes/estados/acciones móviles y tablas tablet/escritorio sin superposición material observada; Customer360 adapta contadores y contactos. No se acepta toda la UI por esas imágenes. Las capturasdesktop de resumenCustomer360 aún muestran Consultando, y editor390 aún consulta responsables: el banco de layout espera primer article, no la finalización de esas lecturas. Es una carencia de evidencia cargada, no un fallo permanente del producto demostrado. Se solicita aAsier una precondición de captura de estado cargado/error para su siguiente fuente pertinente, conservando imágenes originales, timeouts, permisos y fallos; no repetir ahora toda la ejecución verde.
 
 Las imágenes locales de factura emitida30,25EUR/PDF no acreditan la propuesta obligatoria300/63/363, su borrador alojado o Storage seguro. Los textos locales son correctos en estas capturas; el problema de contexto staging sigue siendo revisión de fuente pendiente. Visual alojada y voz real permanecen NOT_RUN; DEMO_NOT_READY/release NOT_ACCEPTED.
+
+## Designación del integrador y compatibilidad del login
+
+Asier confirma explícitamente3b80/árbola8dc como candidata de integración para preparar la demo privada, sin orden de despliegue ni release: comentario6290399103. Los seis workflows de esa fuente son terminales; se conservan todos sus fallos y positivos por entorno.
+
+REQUEST6290183089 informa un defecto del selector del banco sobre HTML compilado real de la candidata: getByLabel de contraseña no encuentra el input, mientras el placeholder existente sí devuelve un INPUT/password. El label contiene primero el botón de recuperación. Esta observación Chromium/HTML con red abortada pertenece aAsier; su hash y límites se conservan en el checkpoint04. No se simula una reproducción propia ni un login real.
+
+DEMO-CLOUD-04 adapta únicamente el consumidor al placeholder exacto Introduce tu contraseña, exige visibilidad/unicidad/INPUT/password antes de fill y conserva origen, ventana, actores y gestión privada. No se modifica login, controles compartidos, tiempos, recursos o navegador W5. Nuevo ejecutable31f9582: los14controles propios se vuelven a ejecutar con éxito, lint dirigido/TypeScript PASS; preflight sin bindings NOT_RUN/exit2. Esos controles no prueban el selector en el recurso autorizado; esa comprobación y el E2E alojado siguen NOT_RUN hasta entregaW5. No se llama corrección de accesibilidad del producto a esta adaptación del banco.
