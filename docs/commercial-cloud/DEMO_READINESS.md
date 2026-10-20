@@ -2,7 +2,16 @@
 
 Estado vigente 20/10/2026. Orden4561dee1; [coordinación W0/6301933535](https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6301933535). **DEMO_NOT_READY; RELEASE_NOT_ACCEPTED.** Este es el único estado comercial vivo; el [corte anterior34948905](https://github.com/Asier-Comba/CRM-Telecomunicaciones/blob/34948905cb04d359b7d237516dc98d129da19572/docs/commercial-cloud/DEMO_READINESS.md) conserva el historial detallado. Publicado, integrado, desplegado y aceptado son estados distintos.
 
-## Corte vigente tras revisión24
+## Corte vigente: sucesora Asier y entrega Oier30
+
+- Candidata PR175 **285348a66f4cacdbcfb6d018caaa2effbb2df54e**, árbol **04a400202a4fb2a7ab8116036530d060ec8c4c9b**, congelada. Incluye selección de Oier25 y cambios Asier32–34; Asier35 sigue reclamado por su propietario. En la consulta de este checkpoint: cinco workflows SUCCESS, tres FAIL y Supabase activo. No se cancela ni se publica encima; 8ee no presta sus verdes.
+- [PR178 DRAFT](https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/178), Oier30, fuente **11769380081d7248dc913efc636c5a3ee97b8a5e**: filtro de serie exacta por el lector existente, cursor y cliente/estado preservados, recuperación tras 403 y resumen global claramente rotulado. Código d5299a62 con **22/22** pruebas HTTP controladas, lint/TypeScript/build44 PASS y seis capturas revisadas. [Intentos originales y alcance](https://github.com/Asier-Comba/CRM-Telecomunicaciones/blob/11769380081d7248dc913efc636c5a3ee97b8a5e/docs/commercial-cloud/20261020/INVOICE_SERIES30.md). No Auth/DB, cloud, voz física ni aceptación completa de PAR-103. Asier revisa e integra selectivamente; PR178 congelada durante sus controles.
+- PR177/80d3: [controles propios terminales](20261020/speech25/own-ci-closure.safe.json), no heredados. Supabase39503929216 SUCCESS: checkoutc680df6/árbol1362d30 igual a80d3,87migraciones/4042backend/116UI únicos/server0/teardownPASS. Preview union766 (383+383), sólo sintético. CI falla por cinco HIGH y cuota ECR antes de checkout; W4 all-ref falla con23hallazgos sin publicar material bruto. No rerun ni cancelación. La corrección ya fue seleccionada por Asier en285, no volver a pedir adopción.
+- Revisión26→28 cerró únicamente la colisión duplicada en a137; Asier reporta adopción selectiva33 y sus controles propios. No equivale a aceptación W4, todo srcHEAD, hosting o release.
+- Estudio coste cero27 y paridad29 están cerrados en sus alcances. Ninguna migración de hosting autorizada. Siguiente unidad independiente **Oier31**, claim [6303154547](https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6303154547): reproducir recuperación de una lectura fallida al refrescar, sin tocar dictado ni errores desde respuestas de fondo. Código sólo si hay reproducción causal.
+- El último deploy reportado sigue **a9e /6ad78f6c810c781fba4f5880**; no se atribuye a285,177 o178. Acceso independiente y CORE162 siguen pendientes de contexto propio legítimo. **Presupuesto0EUR; NetlifyFree intacto; IA writesOFF; DEMO_NOT_READY; RELEASE_NOT_ACCEPTED.**
+
+## Corte anterior de revisión24 (evidencia conserva su fuente)
 
 - PR175: **8ee0b9ba61cd45072fbce75f12c6e684e3f3e6a6**, árbolbbf296ae7b97cf64ae939cd2689e5c18f17a7688. Integra21/22/caller20 y selección explícita de versión/condiciones30. No volver a solicitar adopción. Ocho workflows terminales:2SUCCESS/6FAIL; conserva sus gates propios.
 - [Revisión independiente Oier24](https://github.com/Asier-Comba/CRM-Telecomunicaciones/blob/eda01024c7822787f93b2a3bf045c3a50b676cfb/docs/commercial-cloud/20261020/REVIEW8EE24.md): los cinco blobs21/22 y PromptBuilder173 coinciden; versión vendida explícita, sin cargo duplicado ni activación. Fuente/semántica/artefactos revisados, sin volver a ejecutar4042/116/766.
@@ -42,8 +51,8 @@ Telecom separado:3altas manuales contrato→servicio→línea desde catálogo/ve
 
 ## Próxima cola útil
 
-1.25cerrado enPR177, controles remotos propios pendientes; no repetir verdes ni empujar encima de checks. Revisar nuevas entregas reales antes de cambios.
-2.26corregido porW5/28ACK técnico limitado; seguir integración/revisión por su fuente. Publicar evaluación coste0 con uso comercial/límites/Next.js/privacidad; sólo preparar configuración si cumple, nunca migrar automáticamente.
+1. Oier30 publicado en PR178; respetar sus checks. Oier31 reclamado para reproducción causal de recuperación por refresco. Revisar nuevas entregas antes de cambios; no tocar PromptBuilder reclamado por Asier35.
+2.26corregido porW5/28ACK técnico limitado; seguir integración/revisión por su fuente. Estudio27 publicado, configuración de propuesta deshabilitada; no migración automática ni alternativa declarada aceptada.
 3. CORE162 tras ventana real y nuevo deploy; telecom en otra ventana. Voz real sólo con navegador/micrófono consentidos; mientras tanto NOT_VERIFIED. Paridad inmobiliaria sólo lectura y funciones equivalentes, sin otra auditoría general.
 
 Guion privado de5–10min, **sólo cuando ese deploy tenga aceptación propia**: acceso/versión→dashboard/filtros→cliente360→texto300+IVA→revisión→draft→recarga mismoID/importes→catálogo/condiciones→tres altas/recarga→permisos. Omitir voz/emisión/cobro/PDF/Storage no aceptados. Hoy sólo se atribuyen al alojado los resultados API/page-read de W5; todavía no se acredita el recorrido visual independiente en esa URL.
