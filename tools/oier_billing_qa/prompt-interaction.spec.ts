@@ -32,7 +32,7 @@ async function mount(page:Page,{speech=true,mode='valid'}:{speech?:boolean;mode?
   Object.defineProperty(window,'SpeechRecognition',{configurable:true,value:supported?SpeechStub:undefined})
   Object.defineProperty(window,'webkitSpeechRecognition',{configurable:true,value:undefined})
   document.addEventListener('oier:speech',event=>{
-   const detail=(event as CustomEvent<{kind:string;text?:string}>).detail,s=instances.at(-1)
+   const detail=(event as CustomEvent<{kind:string;text?:string;instance?:number}>).detail,s=detail.instance===undefined?instances.at(-1):instances[detail.instance]
    if(detail.kind==='result')s?.onresult?.({results:[[{transcript:detail.text??''}]]})
    else if(detail.kind==='error')s?.onerror?.()
    else if(detail.kind==='end')s?.onend?.()
@@ -103,6 +103,26 @@ test('controlled dictation uses Spanish and waits until stopped before proposing
  await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('soporte')
  expect(r.proposals()[0].input.source).toBe('audio');r.assertNoCommands();expect(r.pageErrors).toEqual([])
 })
+test('refused stop explains recovery without losing text or permitting a proposal',async({page})=>{
+ const r=await mount(page),area=page.getByRole('textbox',{name:'Descripción de la factura',exact:true})
+ await page.getByRole('button',{name:'Dictar',exact:true}).click()
+ await speechEvent(page,'result',simple)
+ await page.evaluate(()=>{
+  const w=window as unknown as {SpeechRecognition:{prototype:{stop:()=>void}}},original=w.SpeechRecognition.prototype.stop
+  w.SpeechRecognition.prototype.stop=function(){w.SpeechRecognition.prototype.stop=original;throw Error('CONTROLLED_STOP_REFUSAL')}
+ })
+ await page.getByRole('button',{name:'Detener dictado',exact:true}).click()
+ await expect(page.getByRole('status').filter({hasText:'No se pudo detener el dictado.'})).toBeVisible()
+ await expect(area).toHaveValue(simple)
+ await expect(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()
+ expect(r.proposals()).toEqual([]);r.assertNoCommands();expect(r.pageErrors).toEqual([])
+ await page.getByRole('button',{name:'Detener dictado',exact:true}).click()
+ await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeVisible()
+ await expect(page.getByRole('status').filter({hasText:'No se pudo detener el dictado.'})).toHaveCount(0)
+ await generate(page,simple)
+ expect(r.proposals()).toHaveLength(1);r.assertNoCommands();expect(r.pageErrors).toEqual([])
+})
+
 test('interim transcripts replace one another and editing changes provenance to text',async({page})=>{
  const r=await mount(page),area=page.getByRole('textbox',{name:'Descripción de la factura',exact:true})
  await area.fill('Factura para');await page.getByRole('button',{name:'Dictar',exact:true}).click()
@@ -120,6 +140,32 @@ test('controlled speech error retains text fallback without proposing',async({pa
  await expect(page.getByRole('button',{name:'Dictar',exact:true})).toBeEnabled()
  expect(r.proposals()).toEqual([])
  await generate(page,simple);await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toBeVisible()
+ r.assertNoCommands();expect(r.pageErrors).toEqual([])
+})
+
+test('failed recognition retires callbacks without corrupting the next session',async({page},info)=>{
+ const r=await mount(page),area=page.getByRole('textbox',{name:'Descripción de la factura',exact:true})
+ const delayed=async(kind:string,text?:string)=>page.evaluate(detail=>document.dispatchEvent(new CustomEvent('oier:speech',{detail})),{kind,text,instance:0})
+ await page.getByRole('button',{name:'Dictar',exact:true}).click()
+ await speechEvent(page,'error')
+ await expect(page.getByRole('status').filter({hasText:'No se pudo completar el dictado.'})).toBeVisible()
+ await page.getByRole('button',{name:'Dictar',exact:true}).click()
+ const current=`Factura para ${label} de 450 euros por instalación de fibra`
+ await speechEvent(page,'result',current)
+ await delayed('result','Transcripción anterior que no pertenece al nuevo dictado')
+ await expect.soft(area).toHaveValue(current)
+ await delayed('error')
+ await expect.soft(page.getByRole('button',{name:'Detener dictado',exact:true})).toHaveCount(1)
+ await expect.soft(page.getByRole('button',{name:'Generar propuesta',exact:true})).toBeDisabled()
+ await info.attach('speech-session-observation',{body:JSON.stringify({expected:current,actual:await area.inputValue(),newSessionStillListening:await page.getByRole('button',{name:'Detener dictado',exact:true}).count()}),contentType:'application/json'})
+ await page.screenshot({path:info.outputPath('speech-retired-session-'+info.project.name+'.png'),fullPage:true})
+ // The current instance remains independently usable, including its normal end.
+ await speechEvent(page,'result',current);await speechEvent(page,'end')
+ await expect(area).toHaveValue(current)
+ await page.getByRole('button',{name:'Generar propuesta',exact:true}).click()
+ await expect(page.getByRole('textbox',{name:'Concepto 1',exact:true})).toHaveValue('instalación de fibra')
+ expect(r.proposals()).toHaveLength(1);expect(r.proposals()[0].input.source).toBe('audio')
+ expect((r.proposals()[0].input.draft as BillingDraftV1).lines[0].unit_price_minor).toBe(45000)
  r.assertNoCommands();expect(r.pageErrors).toEqual([])
 })
 

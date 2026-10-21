@@ -1,5 +1,52 @@
 # CRM Telecom — system state
 
+## Nocturnal continuation — 2026-10-21, units32–34
+
+39 aligns the legacy native financial scope observer after Oier's series UI:
+actual AST expression3FAIL→25PASS, fixd41fc652, lint/syntax/typesPASS, no product/
+money/SQL/timeout change. [Evidence](../integration/UNIT_39_FINANCIAL_SCOPE_OBSERVER_20261021.md).
+162 completed5SUCCESS/4FAIL:87/4042/115UI+one old-copy TIMEOUT; catalog and layout
+passed.788preview,672bootstrap/827assistant/defaultbuild44/native restorePASS;
+5HIGH/vendor/W4 blocked. Original285 startup and394587 emission UNKNOWN preserved.
+Final successor source/tree and its own CI are bound in issue67, not inherited162.
+
+38 corrects catalog OBSERVER paging (not UI): own1PASS/2FAIL→6PASS, code307e123e.
+[Failure and scope](../integration/UNIT_38_CATALOG_OBSERVER_20261021.md).
+285 CI completed5SUCCESS/4FAIL: Supabase87/4042/114UI+2TIMEOUT/teardownPASS,
+preview766 and bootstrap672/assistant827PASS. Catalog target-first-page assumption
+reproduced separately; native cause still not fully proven. Portfolio1440 startup
+before_effect/0Authrequests/5scripts200, causeUNKNOWN; W5 diagnostic request open.
+Final successor needs own exactCI; original emission39458747653UNKNOWN, never replayed.
+
+37 now selects Oier31 explicit-refresh fixe2966be4 after36; own3FAIL→22PASS,
+targetedlint/typesPASS. [Refresh evidence](../integration/UNIT_37_BILLING_REFRESH_20261021.md).
+30/31 decisions delivered to Oier; final successor source/tree and its own CI
+are recorded in issue67. No blanket acceptance of earlier or hosted results.
+
+36 selects Oier178 exact two-file delta60d7634f with attributed history:
+[invoice series](../integration/UNIT_36_INVOICE_SERIES_20261021.md), own3FAIL→19PASS
+controlled UI. Current source keeps35's settled stop cleanup; its own global/CI
+results are bound in issue67. Oier's next refresh31 claim remains separate.
+
+Follow-up35: [settled stop recovery](../integration/UNIT_35_SPEECH_STOP_RECOVERY_20261021.md)
+reproduces stale error3FAIL→45PASS, code64b0dfc5, targetedlint/typesPASS. Only the
+current session clears its recovered error.285348a6 is the preserved CI checkpoint;
+final successor source/tree and own CI are in issue67, not inherited from285.
+
+PR175 same integration branch. Oier177 exact tests/fix selected5715a024/3d658fdd:
+own3FAIL→42PASS. Stop-refusal34 independently reproduced3FAIL→45PASS full billing
+regression; product31661d07. Four reviewed W5 deltas adopted21a92356/e2592c54/
+d7fabf22/b9fc810f:122PASS/1physicalSKIP, composition/inventory123/87/verifyPASS.
+Historical composition does not bind current src; historical86 is not87 acceptance.
+Global lint/defaultbuild44PASS. Exact final source/tree/types/CI in issue67.
+[Handoff](../integration/NIGHT_32_34_20261021.md),
+[module evidence](../integration/COMMERCIAL_MODULE_STATE_20261021.md).
+Previous8ee Supabase39492445322 did pass87/4042/116UI and threecreates/SQLobservation;
+its checks are not inherited. Original39458747653 cause/effectUNKNOWN, never replayed.
+Budget0EUR definitive, Pro rejected. W5 owns hosted delivery/access; Oier independent
+QA. Voice realNOT_RUN, hosted successorNOT_RUN, IAwritesOFF, RELEASE_NOT_ACCEPTED.
+
+
 ## Sprint continuation — 2026-10-20, units29/30
 
 PR175 reuses its integration branch: Oier21/22 exact selections accepted and
