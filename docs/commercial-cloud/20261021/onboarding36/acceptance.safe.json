@@ -1,0 +1,225 @@
+{
+  "unit": "OIER_ONBOARDING_VERIFICATION36",
+  "base": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+  "tests": "e436f12323308bf61099fc4c98dd02228c7fc078",
+  "fix": "ad54ad38ce45c01de41cae7635452b1cf4e6210c",
+  "scope": "Real onboarding page/Button in Chromium; controlled SDK/navigation boundary and loopback HTTP. NOT real Auth/DB or hosted onboarding.",
+  "before": [
+    {
+      "title": "onboarding verification failure session-error recovers explicitly at 390",
+      "status": "failed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-throw recovers explicitly at 390",
+      "status": "failed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-error recovers explicitly at 390",
+      "status": "failed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-throw recovers explicitly at 390",
+      "status": "failed",
+      "retries": 0
+    }
+  ],
+  "after": [
+    {
+      "title": "onboarding verification failure session-error recovers explicitly at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-throw recovers explicitly at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-error recovers explicitly at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-throw recovers explicitly at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified unconfigured retains routing at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified no-session retains routing at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified active retains routing at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified empty retains routing at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-error recovers explicitly at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-throw recovers explicitly at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-error recovers explicitly at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-throw recovers explicitly at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified unconfigured retains routing at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified no-session retains routing at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified active retains routing at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified empty retains routing at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-error recovers explicitly at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-throw recovers explicitly at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-error recovers explicitly at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-throw recovers explicitly at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified unconfigured retains routing at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified no-session retains routing at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified active retains routing at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified empty retains routing at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding ignores session completion after unmount",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding ignores memberships completion after unmount",
+      "status": "passed",
+      "retries": 0
+    }
+  ],
+  "widths": [
+    390,
+    768,
+    1440
+  ],
+  "sdk_failures": [
+    "returned session error with partial data",
+    "thrown session error",
+    "returned membership error",
+    "thrown membership error"
+  ],
+  "synthetic_writes": 0,
+  "workspace_created": false,
+  "membership_query": "workspace_members select id, workspace:workspaces!inner(status); user_id synthetic-user; status active; workspace.status active; limit 1",
+  "static_atomic_controls": {
+    "pass": 3,
+    "scope": "Existing source/static assertions; NOT SQL execution"
+  },
+  "images": [
+    {
+      "file": "onboarding-error-1440.png",
+      "sha256": "6406e631629a71516e174d5b6208e9e0eb23c00ed185cd04c58a9d47fdde32c6",
+      "review": "VISUALLY_INSPECTED"
+    },
+    {
+      "file": "onboarding-error-390.png",
+      "sha256": "ed1341c3ee34a3b611c5cbe9ff9de7e5a6abf8199f992bc0b6519cdfd793a737",
+      "review": "VISUALLY_INSPECTED"
+    },
+    {
+      "file": "onboarding-error-768.png",
+      "sha256": "18574a9e344eab60c578ed3f8501e3f3b6c93bdb7c7df313338c44c90ff7e4d1",
+      "review": "VISUALLY_INSPECTED"
+    },
+    {
+      "file": "onboarding-recovered-1440.png",
+      "sha256": "5eae267a105874fadf83e51de34ae1c4403ee28a194a14c7454311908a77a622",
+      "review": "VISUALLY_INSPECTED"
+    },
+    {
+      "file": "onboarding-recovered-390.png",
+      "sha256": "db75b556a4a5a3a9b39a715beec0ea36066ff5ef17845c6a6b2f6a10fdec5b9c",
+      "review": "VISUALLY_INSPECTED"
+    },
+    {
+      "file": "onboarding-recovered-768.png",
+      "sha256": "92bb84dfcc59e4384faa996582fd6641230d25cbc6c94b318b5cf8b1a4a7f55a",
+      "review": "VISUALLY_INSPECTED"
+    }
+  ],
+  "API_SQL_contracts_changed": false,
+  "cloud": "NOT_RUN",
+  "onboarding_module": "NOT_ACCEPTED_FULL_COMMERCIAL",
+  "release": "NOT_ACCEPTED",
+  "claim": 6310227226,
+  "controls": {
+    "lint_exit": 0,
+    "typecheck_exit": 0,
+    "default_build_exit": 0,
+    "static_routes": 44
+  },
+  "tested_application_files": {
+    "src/app/onboarding/page.tsx": "812b21b282e61da1cb1dba4f5523dad3e01d2baf863889cf1af3ad28f48bd51e"
+  }
+}
