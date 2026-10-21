@@ -1768,5 +1768,47 @@
     "status": "CAUSAL_TESTS_IN_PROGRESS",
     "scope": "onboarding verification UI only; no provisioning/AuthDB/cloud",
     "branch": "codex/oier-onboarding-verification36-20261021"
+  },
+  "own36": {
+    "PR": 181,
+    "head": "48eee7e58eaee2e64019571bd1ad0c78620e8014",
+    "fix": "ad54ad38ce45c01de41cae7635452b1cf4e6210c",
+    "before_fail": 4,
+    "controlled_browser_pass": 26,
+    "static_pass": 3,
+    "lint_exit": 0,
+    "types_exit": 0,
+    "build_exit": 0,
+    "routes": 44,
+    "visual_images": 6,
+    "integration": "PENDING_ASIER"
+  },
+  "next37": {
+    "unit": "OIER_ONBOARDING_RECEIPT37",
+    "status": "CLAIMED_CAUSAL_TESTS_NEXT",
+    "authority": "008ace2a-84f5-4c2e-b534-713025f9714a",
+    "base": "48eee7e58eaee2e64019571bd1ad0c78620e8014",
+    "integrator": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+    "branch": "codex/oier-onboarding-receipt37-20261021",
+    "checkout": "work/crm-oier-invoice-series30-20261020",
+    "claim": 6310506835,
+    "closed36": {
+      "PR": 181,
+      "head": "48eee7e58eaee2e64019571bd1ad0c78620e8014",
+      "fix": "ad54ad38ce45c01de41cae7635452b1cf4e6210c",
+      "before_fail": 4,
+      "controlled_browser_pass": 26,
+      "static_pass": 3,
+      "lint_exit": 0,
+      "types_exit": 0,
+      "build_exit": 0,
+      "routes": 44,
+      "visual_images": 6,
+      "integration": "PENDING_ASIER"
+    },
+    "next": "Prove malformed onboarding receipt/lost-reply behavior in controlled loopback; do not modify181 while checks active, no API/SQL/real provisioning",
+    "process": null,
+    "release": "NOT_ACCEPTED",
+    "budget_eur": 0
   }
 }
