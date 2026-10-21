@@ -1810,5 +1810,67 @@
     "process": null,
     "release": "NOT_ACCEPTED",
     "budget_eur": 0
+  },
+  "own37": {
+    "head": "ffd6a20a13562b441b608b5ef5bc643d38f70318",
+    "fix": "b2287daa",
+    "controlled_browser": 52,
+    "new": 26,
+    "regression": 26,
+    "before_fail": 4,
+    "lint_changed_files_exit": 0,
+    "types_exit": 0,
+    "build_exit": 0,
+    "routes": 44,
+    "visual_images": 3,
+    "integration": "PENDING_ASIER"
+  },
+  "QA38": {
+    "head": "a1b07625a2db8bb355e106be4fb6142b2cbe2125",
+    "proof": "6PASS_3FAIL_CONTROLLED_REAL_HANDLER_NO_AUTHDB",
+    "api_blob": "fb24f52eb4d5ad51720c0a5c561f0f67aac05338",
+    "backend_changed": false,
+    "status": "OWNER_CONTRACT_REVIEW_REQUIRED_NOT_ADOPTED_GREEN"
+  },
+  "next39": {
+    "unit": "OIER_ONBOARDING_LATE_RECEIPT39",
+    "status": "CLAIMED_CAUSAL_TESTS_NEXT",
+    "authority": "008ace2a-84f5-4c2e-b534-713025f9714a",
+    "base": "ffd6a20a13562b441b608b5ef5bc643d38f70318",
+    "branch": "codex/oier-onboarding-late-receipt39-20261021",
+    "checkout": "work/crm-oier-invoice-series30-20261020",
+    "claim": 6310739513,
+    "closed37": {
+      "head": "ffd6a20a13562b441b608b5ef5bc643d38f70318",
+      "fix": "b2287daa",
+      "controlled_browser": 52,
+      "new": 26,
+      "regression": 26,
+      "before_fail": 4,
+      "lint_changed_files_exit": 0,
+      "types_exit": 0,
+      "build_exit": 0,
+      "routes": 44,
+      "visual_images": 3,
+      "integration": "PENDING_ASIER"
+    },
+    "handoff38": {
+      "head": "a1b07625a2db8bb355e106be4fb6142b2cbe2125",
+      "proof": "6PASS_3FAIL_CONTROLLED_REAL_HANDLER_NO_AUTHDB",
+      "api_blob": "fb24f52eb4d5ad51720c0a5c561f0f67aac05338",
+      "backend_changed": false,
+      "status": "OWNER_CONTRACT_REVIEW_REQUIRED_NOT_ADOPTED_GREEN"
+    },
+    "PR181": {
+      "head": "48eee7e58eaee2e64019571bd1ad0c78620e8014",
+      "CI": 39561830975,
+      "status": "IN_PROGRESS_LAST_OBSERVATION_NO_PUSH_ABOVE",
+      "W4allref": 39561831102,
+      "W4status": "FAIL"
+    },
+    "next": "Reproduce late successful onboarding response after leaving page; preserve failures, minimum mounted guard, full related controlled bank; no backend or cloud",
+    "process": null,
+    "release": "NOT_ACCEPTED",
+    "budget_eur": 0
   }
 }
