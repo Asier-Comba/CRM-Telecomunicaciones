@@ -1875,7 +1875,7 @@
   },
   "current_priority_override": {
     "unit": "OIER_ONBOARDING39_PUBLISHED",
-    "status": "LOCAL_QUALIFIED_NEW_REMOTE_CONTROLS_PENDING",
+    "status": "LOCAL_QUALIFIED_CI_PENDING_W4_BLOCKED_30",
     "authority": "C:/Users/oier.dunabeitia/.codex/attachments/008ace2a-84f5-4c2e-b534-713025f9714a/Texto pegado.txt",
     "Asier175": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
     "PR181": {
@@ -1885,7 +1885,8 @@
       "CI": 39575766086,
       "W4allref": 39575766079,
       "status": "PENDING_OWN_CURRENT_HEAD_NO_INHERITED_PASS",
-      "reviewer": "Asier-Comba"
+      "reviewer": "Asier-Comba",
+      "W4status": "FAIL_BLOCKED_FINDINGS_30"
     },
     "code_workspace": "work/crm-oier-invoice-series30-20261020",
     "code_branch": "codex/oier-onboarding-late-receipt39-20261021",
@@ -1941,9 +1942,44 @@
     "next_unit": {
       "unit": "OIER40_SOURCE_CONTROLS_AND_TELECOM_REVIEW",
       "status": "QUEUED_NOT_STARTED_NO_NEW_CLAIM",
-      "first": "Refresh issue67/175/181 and exact current run statuses; consume terminal39575766086/39575766079 originals once, no duplicate or push above active checks. Review new selection by blob/tests if any.",
+      "first": "Refresh issue67/175/181; consume terminal39575766086 originals once when ready, no duplicates or push above active checks. W4 current39575766079 already consumed:30 aggregate findings, independent owner disposition pending, no raw/waiver/re-download. Review exact new selection by blobs/tests if any.",
       "independent": "Review existing catalog→contract→service→line consumers and banks against sold conditions/current source; claim only a new reproduced gap, do not repeat unchanged greens or rewrite consumers.",
       "owner_dependencies": "Asier selection/shared receipt durable recovery; W5 own legitimate exact-source hosted window, no bypass or resource duplication."
+    },
+    "status_checkpoint": "b2e4db9f62d93e00a6c4dbcf1d2f6c98b16064de",
+    "status_document": "docs/commercial-cloud/DEMO_READINESS.md",
+    "current_W4": {
+      "run": 39575766079,
+      "artifact": 12333907161,
+      "actual_checkout": "fe17692e52a2d10e41c82d4a1266dc4aa7f246ae",
+      "tree": "ded545b079282e88331fe1813104c34df540d8d2",
+      "head_tree_equal": true,
+      "parents": [
+        "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+        "e9b5d5adb4ac49dcaba39eba72cafe27cfc8ccb0"
+      ],
+      "safe": {
+        "version": 1,
+        "status": "BLOCKED_FINDINGS",
+        "scanner": "gitleaks-8.24.3",
+        "head": "fe17692e52a2d10e41c82d4a1266dc4aa7f246ae",
+        "scope": "ALL_LOCAL_HEADS_REMOTE_TRACKING_TAGS_AND_HEAD_FULL_ANCESTRY",
+        "snapshot_sha256": "e6b5e1e3dea791ef58d1e2319e5780d49f1756eb40d4295709337cf07e18c8f9",
+        "ref_count": 433,
+        "commit_count": 1583,
+        "finding_count": 30,
+        "exceptions_applied": 0,
+        "raw_output_published": false,
+        "production_ready": false,
+        "limitations": [
+          "Remote refs must be refreshed before invoking this command.",
+          "Deleted unreachable refs, forks, Git LFS objects and hosted artifacts are outside this scan.",
+          "Pattern scan is not proof of no PII or no undiscovered credential."
+        ]
+      },
+      "original_sha256": "a46183b0d208b31f495959a41fd405907831e0277767ab3513d73594dce7e772",
+      "disposition": "INDEPENDENT_W4_REVIEW_REQUIRED_NO_CAUSAL_ATTRIBUTION_FROM_COUNTS",
+      "request": 6312476842
     }
   },
   "resume_authority": "current_priority_override; preserve prior evidence per SHA, never resume historical queues"
