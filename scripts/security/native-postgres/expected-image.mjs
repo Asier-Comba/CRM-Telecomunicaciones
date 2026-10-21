@@ -15,6 +15,17 @@ export function isExpectedNativeImage(image) {
   return image === 'postgres:16' || NATIVE_POSTGRES_OFFICIAL_SOURCES.includes(image)
 }
 
+/** A created resource is pinned only when its configured reference is one of the
+ * two official sources AND the local image records that exact index digest for
+ * that publisher. The classic Docker store reports Docker Hub library images in
+ * short form (`postgres@sha256:...`), the containerd store in full form; only
+ * those two spellings of the same publisher are admitted. */
+export function isPinnedNativeImageV1(reference, repoDigests) {
+  if (!NATIVE_POSTGRES_OFFICIAL_SOURCES.includes(reference) || !Array.isArray(repoDigests)) return false
+  const expected = reference === NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE ? [reference, 'postgres@' + NATIVE_POSTGRES_INDEX_DIGEST] : [reference]
+  return repoDigests.some(digest => expected.includes(digest))
+}
+
 /** Pulls the pinned index from the first publisher that does not rate-limit.
  * Only NATIVE_RESOURCE_IMAGE_PULL_RATE_LIMITED moves to the next source; any other
  * failure (TLS, auth, missing reference, network, timeout) stops immediately. */
