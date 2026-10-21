@@ -215,7 +215,9 @@ export async function acceptance({ url, anon, service, db, command, report, appU
     check(b.status >= 400 || (b.status === 200 && b.json?.length === 0), 'storage_bucket_listing_empty')
   }
   const ownerList = await http('/storage/v1/object/list/telecom-documents', users.ownerA.token, 'POST', { prefix: `${wa}/documents/${doc}`, limit: 100, offset: 0 })
-  check(ownerList.status === 200 && ownerList.json?.length === 1, 'storage_linked_owner_listing')
+  // Storage 88: listing is the same user-JWT SELECT on storage.objects, so it is
+  // closed too; the app lists documents through RPC metadata, never Storage.
+  check(ownerList.status >= 400 || (ownerList.status === 200 && ownerList.json?.length === 0), 'storage_linked_owner_direct_listing_closed')
   for (const token of [anon, users.ownerA.token, users.memberA.token, users.ownerB.token]) {
     const list = await http('/storage/v1/object/list/telecom-import-quarantine', token, 'POST', { prefix: wa, limit: 100, offset: 0 })
     check(list.status >= 400 || (list.status === 200 && list.json?.length === 0), 'quarantine_list_closed')
