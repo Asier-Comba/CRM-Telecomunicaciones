@@ -17,6 +17,8 @@ import { BRAND } from '@/lib/brand'
 export default function OnboardingPage() {
   const router = useRouter()
   const [checking, setChecking] = useState(true)
+  const [checkError, setCheckError] = useState(false)
+  const [checkAttempt, setCheckAttempt] = useState(0)
   const [name, setName] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
@@ -25,27 +27,35 @@ export default function OnboardingPage() {
   useEffect(() => {
     let mounted = true
     const check = async () => {
-      const supabase = getSupabaseBrowserClient()
-      if (!supabase) { router.replace('/login'); return }
-      const { data } = await supabase.auth.getSession()
-      if (!mounted) return
-      if (!data.session) { router.replace('/login'); return }
+      try {
+        const supabase = getSupabaseBrowserClient()
+        if (!supabase) { router.replace('/login'); return }
+        const { data, error: sessionError } = await supabase.auth.getSession()
+        if (!mounted) return
+        if (sessionError) throw sessionError
+        if (!data.session) { router.replace('/login'); return }
 
-      const { data: memberships } = await supabase
-        .from('workspace_members')
-        .select('id, workspace:workspaces!inner(status)')
-        .eq('user_id', data.session.user.id)
-        .eq('status', 'active')
-        .eq('workspace.status', 'active')
-        .limit(1)
-      if (!mounted) return
-      if (memberships?.length) { router.replace('/dashboard'); return }
+        const { data: memberships, error: membershipError } = await supabase
+          .from('workspace_members')
+          .select('id, workspace:workspaces!inner(status)')
+          .eq('user_id', data.session.user.id)
+          .eq('status', 'active')
+          .eq('workspace.status', 'active')
+          .limit(1)
+        if (!mounted) return
+        if (membershipError) throw membershipError
+        if (memberships?.length) { router.replace('/dashboard'); return }
 
-      setChecking(false)
+        setChecking(false)
+      } catch {
+        if (!mounted) return
+        setCheckError(true)
+        setChecking(false)
+      }
     }
     void check()
     return () => { mounted = false }
-  }, [router])
+  }, [router, checkAttempt])
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -86,6 +96,28 @@ export default function OnboardingPage() {
           Preparando tu espacio…
         </div>
       </div>
+    )
+  }
+
+  if (checkError) {
+    return (
+      <main className="flex min-h-dvh items-center justify-center bg-[#f7f7f5] px-6 py-12 text-gray-900">
+        <div className="w-full max-w-[440px] rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+          <div role="alert">
+            <h1 className="text-xl font-semibold tracking-tight">No hemos podido comprobar tu acceso</h1>
+            <p className="mt-2 text-sm leading-6 text-gray-600">
+              Necesitamos comprobar tu sesión y tu empresa antes de continuar. Reintenta la comprobación.
+            </p>
+          </div>
+          <Button className="mt-5 min-h-11 w-full" onClick={() => {
+            setChecking(true)
+            setCheckError(false)
+            setCheckAttempt(attempt => attempt + 1)
+          }}>
+            Reintentar comprobación
+          </Button>
+        </div>
+      </main>
     )
   }
 
