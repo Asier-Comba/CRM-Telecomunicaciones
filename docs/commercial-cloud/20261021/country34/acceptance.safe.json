@@ -1,0 +1,326 @@
+{
+  "unit": "OIER_FISCAL_COUNTRY34",
+  "claim": 6309723790,
+  "base": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+  "tests_sha": "8b293fbda99fd24a652b3974beacc3ad035a437e",
+  "runtime_code_sha": "11d5db028ada4e8cec2ab96e0adb4221da4ab2d5",
+  "runs": [
+    {
+      "attempt": "before",
+      "sha256": "e0e8c3d5b95e9b3662fce66c53d5dee08bec51b4597acae1f970d5e2df45df32",
+      "stats": {
+        "startTime": "2026-10-21T06:37:16.778Z",
+        "duration": 154199.218,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 6,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "fiscal issuer country normalizes ASCII and blocks incomplete or non-ASCII input at 390",
+          "status": "failed",
+          "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 1\nReceived: 0\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate"
+        },
+        {
+          "title": "fiscal customer country normalizes ASCII and blocks incomplete or non-ASCII input at 390",
+          "status": "failed",
+          "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 1\nReceived: 0\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate"
+        },
+        {
+          "title": "fiscal issuer country normalizes ASCII and blocks incomplete or non-ASCII input at 768",
+          "status": "failed",
+          "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 1\nReceived: 0\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate"
+        },
+        {
+          "title": "fiscal customer country normalizes ASCII and blocks incomplete or non-ASCII input at 768",
+          "status": "failed",
+          "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 1\nReceived: 0\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate"
+        },
+        {
+          "title": "fiscal issuer country normalizes ASCII and blocks incomplete or non-ASCII input at 1440",
+          "status": "failed",
+          "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 1\nReceived: 0\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate"
+        },
+        {
+          "title": "fiscal customer country normalizes ASCII and blocks incomplete or non-ASCII input at 1440",
+          "status": "failed",
+          "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 1\nReceived: 0\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate"
+        }
+      ]
+    },
+    {
+      "attempt": "after",
+      "sha256": "28974e399a7865c74e49fd215eaeda603c503520d33d12507740dbd3a965b8cf",
+      "stats": {
+        "startTime": "2026-10-21T06:40:23.082Z",
+        "duration": 91561.588,
+        "expected": 37,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "native financial observer matches the actual period and filter scope at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "native financial observer matches the actual period and filter scope at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "native financial observer matches the actual period and filter scope at 1440",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "financial totals from the previous refresh disappear until the current response arrives",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "fiscal issuer country normalizes ASCII and blocks incomplete or non-ASCII input at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "fiscal customer country normalizes ASCII and blocks incomplete or non-ASCII input at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing explicit list refresh recovers after refused read at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "fiscal issuer country normalizes ASCII and blocks incomplete or non-ASCII input at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "fiscal customer country normalizes ASCII and blocks incomplete or non-ASCII input at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing explicit list refresh recovers after refused read at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "fiscal issuer country normalizes ASCII and blocks incomplete or non-ASCII input at 1440",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "fiscal customer country normalizes ASCII and blocks incomplete or non-ASCII input at 1440",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing explicit list refresh recovers after refused read at 1440",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 1440",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 1440",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing issuer.set invalid receipt recovery at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing customer_fiscal.set invalid receipt recovery at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing issuer.set invalid receipt recovery at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing customer_fiscal.set invalid receipt recovery at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing issuer.set invalid receipt recovery at 1440",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing customer_fiscal.set invalid receipt recovery at 1440",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing issuer.set denied receipt recovery at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing customer_fiscal.set denied receipt recovery at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing issuer.set denied receipt recovery at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing customer_fiscal.set denied receipt recovery at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing issuer.set denied receipt recovery at 1440",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing customer_fiscal.set denied receipt recovery at 1440",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing issuer.set retains uncertain intent at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing customer_fiscal.set retains uncertain intent at 390",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing issuer.set retains uncertain intent at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing customer_fiscal.set retains uncertain intent at 768",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing issuer.set retains uncertain intent at 1440",
+          "status": "passed",
+          "error": ""
+        },
+        {
+          "title": "billing customer_fiscal.set retains uncertain intent at 1440",
+          "status": "passed",
+          "error": ""
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "file": "fiscal-country-customer-768.png",
+      "sha256": "2906ee2ab55ad51cc5cbae1538e6f255967e7f131873867848f8edc5b40b6bc4"
+    },
+    {
+      "file": "fiscal-country-issuer-390.png",
+      "sha256": "39aea103c5041a47994151effa041d525b5abe7b609c1d71754031eff9c85a93"
+    },
+    {
+      "file": "fiscal-country-issuer-768.png",
+      "sha256": "e39c6c116c2419b18eb7006aff460eef4d17475b1e6dde09a86c914888cc7e15"
+    },
+    {
+      "file": "fiscal-country-customer-1440.png",
+      "sha256": "6d2acfad06e8e97281829847c36bd3fe5d1c26f323ca2a06362c3c50ca04cd4f"
+    },
+    {
+      "file": "fiscal-country-customer-390.png",
+      "sha256": "a426e084bcae1842f428b179ce310483836428d3984a134e3bd41eeb2e1dcb8d"
+    },
+    {
+      "file": "fiscal-country-issuer-1440.png",
+      "sha256": "a1b03c48e5117e5e7adb8485320e9dc5fa0a5c174c8395db9abc042696505dbd"
+    }
+  ],
+  "before_classification": "6 causal failures: country es remained lowercase; actual client parser rejected with validation alert before POST. All other synthetic profile fields populated.",
+  "controls": {
+    "workers": 1,
+    "retries": 0,
+    "timeout_ms": 180000,
+    "assertion_timeout_ms": 5000,
+    "skips": 0,
+    "flaky": 0
+  },
+  "selection": "Financial browser bank + issuer.set/customer_fiscal.set uncertain, invalid and denied receipt regressions. Unchanged invoice.* actions excluded explicitly by grep-invert billing invoice[.].",
+  "new_case_assertions": "Exactly one synthetic denied POST per new case with canonical profile country ES; E and non-ASCII ß fail native validity without extra POST; fr -> FR valid. No live DB or provider.",
+  "scope": "Real FiscalEditor/IntegratedBilling/repository/parser/Tailwind with controlled HTTP; not persisted fiscal profile, Auth/DB, real permission, hosted PDF or cloud acceptance.",
+  "normalization": "ASCII lower letters only; no Unicode alias conversion or country list invented. Existing closed server profile validation unchanged.",
+  "AI_business_writes": "OFF",
+  "budget_eur": 0,
+  "release": "NOT_ACCEPTED",
+  "static_checks": {
+    "lint": 0,
+    "typecheck": 0,
+    "sha": "11d5db028ada4e8cec2ab96e0adb4221da4ab2d5"
+  },
+  "build": {
+    "build": 0,
+    "sha": "11d5db028ada4e8cec2ab96e0adb4221da4ab2d5",
+    "static_pages": 44
+  },
+  "logs": [
+    {
+      "file": "fiscal-country34-before.log",
+      "sha256": "2834c63b3cbda7ae70c8ecd4f1d709af32ddc10732423f782392182f01a2d8ef"
+    },
+    {
+      "file": "fiscal-country34-after.log",
+      "sha256": "96ecee3e0d4f59486ddd4f962ccc813fb9748c92559284909dff690681f16707"
+    },
+    {
+      "file": "fiscal-country34-lint.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "file": "fiscal-country34-types.log",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "file": "fiscal-country34-build.log",
+      "sha256": "c7dbb165d4a322a7fedfffc6fa45a07aa95aa887e3de423a21cefd3b0abaf693"
+    }
+  ]
+}
