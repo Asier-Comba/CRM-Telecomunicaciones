@@ -1,5 +1,5 @@
 // Only the SDK/navigation boundary is controlled. The page and its UI are real.
-export const fixture = { redirects: [] as string[], queries: [] as unknown[], unmount: () => {} }
+export const fixture = { redirects: [] as string[], queries: [] as unknown[], unmount: () => {}, leave: () => {} }
 Object.assign(window, { onboardingFixture: fixture })
 const router = { replace: (path: string) => { fixture.redirects.push(path) }, refresh: () => {} }
 export function useRouter() { return router }
