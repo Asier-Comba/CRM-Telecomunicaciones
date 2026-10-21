@@ -1,0 +1,328 @@
+{
+  "unit": "OIER_BILLING_FILTERS33",
+  "claim": 6309553530,
+  "base": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+  "tests_sha": "a4607e8c5960c1522647e34d538ecbc3879768a9",
+  "runtime_code_sha": "242458be83049ed1f0185d764ad737c65796ddc6",
+  "runs": [
+    {
+      "attempt": "before",
+      "results_sha256": "976bd389b03839822f9388c9dd2b5691b32234d66f48dc18d735d714da79d175",
+      "stats": {
+        "startTime": "2026-10-21T06:24:58.632Z",
+        "duration": 218160.405,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 9,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "billing status filter recovers a refused read without hiding a new refusal at 390",
+          "status": "failed"
+        },
+        {
+          "title": "billing customer filter recovers a refused read without hiding a new refusal at 390",
+          "status": "failed"
+        },
+        {
+          "title": "billing period filter recovers a refused read without hiding a new refusal at 390",
+          "status": "failed"
+        },
+        {
+          "title": "billing status filter recovers a refused read without hiding a new refusal at 768",
+          "status": "failed"
+        },
+        {
+          "title": "billing customer filter recovers a refused read without hiding a new refusal at 768",
+          "status": "failed"
+        },
+        {
+          "title": "billing period filter recovers a refused read without hiding a new refusal at 768",
+          "status": "failed"
+        },
+        {
+          "title": "billing status filter recovers a refused read without hiding a new refusal at 1440",
+          "status": "failed"
+        },
+        {
+          "title": "billing customer filter recovers a refused read without hiding a new refusal at 1440",
+          "status": "failed"
+        },
+        {
+          "title": "billing period filter recovers a refused read without hiding a new refusal at 1440",
+          "status": "failed"
+        }
+      ]
+    },
+    {
+      "attempt": "after",
+      "results_sha256": "864a565b4321fed5fca4ce8437ba233b936b5473f76da6017610124e16db8cb8",
+      "stats": {
+        "startTime": "2026-10-21T06:29:02.106Z",
+        "duration": 88455.822,
+        "expected": 43,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "billing current selection late_success at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing current selection late_refusal at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing current selection initial_success at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing current selection current_refusal at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing current selection late_success at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing current selection late_refusal at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing current selection initial_success at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing current selection current_refusal at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing current selection late_success at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "billing current selection late_refusal at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "billing current selection initial_success at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "billing current selection current_refusal at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "native financial observer matches the actual period and filter scope at 390",
+          "status": "passed"
+        },
+        {
+          "title": "native financial observer matches the actual period and filter scope at 768",
+          "status": "passed"
+        },
+        {
+          "title": "native financial observer matches the actual period and filter scope at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "financial totals from the previous refresh disappear until the current response arrives",
+          "status": "passed"
+        },
+        {
+          "title": "billing status filter recovers a refused read without hiding a new refusal at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing customer filter recovers a refused read without hiding a new refusal at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing period filter recovers a refused read without hiding a new refusal at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing explicit list refresh recovers after refused read at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing status filter recovers a refused read without hiding a new refusal at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing customer filter recovers a refused read without hiding a new refusal at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing period filter recovers a refused read without hiding a new refusal at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing explicit list refresh recovers after refused read at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing status filter recovers a refused read without hiding a new refusal at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "billing customer filter recovers a refused read without hiding a new refusal at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "billing period filter recovers a refused read without hiding a new refusal at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "billing explicit list refresh recovers after refused read at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "billing series selection retains server cursor and ignores old filter response at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "billing series denied query preserves error and recovers without writes at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "billing preparation ready at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing preparation denied at 390",
+          "status": "passed"
+        },
+        {
+          "title": "billing preparation ready at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing preparation denied at 768",
+          "status": "passed"
+        },
+        {
+          "title": "billing preparation ready at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "billing preparation denied at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 1440",
+          "status": "passed"
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 768",
+          "status": "passed"
+        },
+        {
+          "title": "current invoice stays visible when a delayed 50-row billing list arrives at 390",
+          "status": "passed"
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "file": "billing-filter-status-390.png",
+      "sha256": "c2a1a602fae73944184316c23a3cb8c4c17dff97df34ea9762deddfe99b3f680"
+    },
+    {
+      "file": "billing-filter-period-768.png",
+      "sha256": "81ee672a7a7666757a484c534c4153afb595dee3096272fc8be5806ddf1a84fe"
+    },
+    {
+      "file": "billing-filter-customer-390.png",
+      "sha256": "f039816a64d0408a81c78745d5e9ce507bd4717b9a5c754fc527a3909dc73d48"
+    },
+    {
+      "file": "billing-filter-status-768.png",
+      "sha256": "37b8a502b0f5a39bde023fefc933a7353cab368b526961bfe479afc7220cd0d4"
+    },
+    {
+      "file": "billing-filter-period-1440.png",
+      "sha256": "d35bbd487cc8209e70f378e2623e4d45c661d82b26ff610d43f594d5366f797b"
+    },
+    {
+      "file": "billing-filter-customer-768.png",
+      "sha256": "532fe62f5d7ca8a43b437711140a9f2c5b3d0293def4811db0fccfb4630c93ce"
+    },
+    {
+      "file": "billing-filter-period-390.png",
+      "sha256": "d158ee4c4809bbaf328990a5de3b19865342f93505d9e1725a6603a76a8bb03a"
+    },
+    {
+      "file": "billing-filter-status-1440.png",
+      "sha256": "097370fce87d6460010f34597223ce7fbc278bb37f449de4595d661905a7bdf5"
+    },
+    {
+      "file": "billing-filter-customer-1440.png",
+      "sha256": "3532a18a232c9d9a589af7ffeaf3792976e64110a55be04a883b2b5e26d40307"
+    }
+  ],
+  "assertions": "Each new case: negative read, recovered rows with stale alert retired, exact filter inputs/global financial period, fresh refusal retained, second recovery; exactly5list reads/zero commands/zero pageerrors.",
+  "controls": {
+    "workers": 1,
+    "retries": 0,
+    "timeout_ms": 180000,
+    "assertion_timeout_ms": 5000,
+    "skips": 0,
+    "flaky": 0
+  },
+  "scope": "Controlled local HTTP with real component/repository/DTO/Tailwind. Not Auth/DB/cloud/RLS permission restoration/real voice.",
+  "budget_eur": 0,
+  "AI_business_writes": "OFF",
+  "release": "NOT_ACCEPTED",
+  "static_checks": {
+    "lint": 0,
+    "typecheck": 0,
+    "sha": "242458be83049ed1f0185d764ad737c65796ddc6"
+  },
+  "build": {
+    "build": 0,
+    "sha": "242458be83049ed1f0185d764ad737c65796ddc6",
+    "static_pages": 44
+  },
+  "logs": [
+    {
+      "file": "billing-filters33-before.log",
+      "sha256": "69306e7ed6a916432902e806780214d534b4bec62445c79381641b21057e3d14"
+    },
+    {
+      "file": "billing-filters33-after.log",
+      "sha256": "d9e9c1ca307b14d4926a2405b26db2318d15c7f6181c860f669a0cfda331c18e"
+    },
+    {
+      "file": "billing-filters33-lint.log",
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98"
+    },
+    {
+      "file": "billing-filters33-types.log",
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759"
+    },
+    {
+      "file": "billing-filters33-build.log",
+      "sha256": "3bb1ae74b4082a19df5984c22c3a52defa2f5d29e2d3f6246820470f48781046"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+# Facturación: recuperar la lectura al cambiar filtros
+
+Claim [6309553530](https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6309553530). Base PR175 **48e4c64e157e1a66e1fd2d8b6694247c870f2a15**; rama exclusiva `codex/oier-billing-filters33-20261021`. No reintroduce series30/refresco31 ya integrados.
+
+Después de una lectura rechazada, cambiar estado, cliente o periodo recuperaba las facturas y conservaba el error anterior. El usuario veía datos recuperados junto a «No tienes permiso para esta acción». Se retira ese error únicamente en los tres cambios explícitos de filtro, conservando la retirada de lecturas antiguas y las guardas de operaciones pendientes. Un nuevo rechazo sigue mostrándose. No se limpian errores desde respuestas de fondo.
+
+Tests **a4607e8c5960c1522647e34d538ecbc3879768a9**: nueve FAIL causales, tres filtros por tres anchuras, todos en alerta esperada0/observada1 después de recuperar la fila. Sin fallos de fixture. Fix **242458be83049ed1f0185d764ad737c65796ddc6**: **43/43 PASS**, nueve nuevos y34 relacionados de preparación, finanzas, selección, foco, series y recuperación. Sin retries/skips/flaky ni cambios de timeouts. Cada caso nuevo observa cinco lecturas, cero comandos/errores de página, inputs exactos, error nuevo visible y recuperación posterior. El fixture de trimestre respeta el DTO y conserva el fixture mensual anterior.
+
+[Resultados originales, hashes y controles globales](filters33/acceptance.safe.json). Nueve capturas revisadas directamente; en móvil encuadran los filtros y el estado recuperado parcial, no constituyen revisión visual completa. Lint/TypeScript/build se vinculan al mismo código en el manifest. El commit de evidencia posterior no cambia la aplicación.
+
+Componente, repository, parsers y estilos reales; **HTTP local controlado**, sin Auth/DB real, restauración real de permisos, hosting o micrófono. No contratos/SQL/precios/escrituras comerciales ni rama del integrador modificados. Selección y controles propios de la sucesora corresponden a Asier; no aceptar por silencio. Presupuesto0EUR, NetlifyFree intacto, IA writesOFF/StorageOFF, cincoHIGH/historial/vendor/W4/backup pendientes; issue10OPEN, **RELEASE_NOT_ACCEPTED**.
