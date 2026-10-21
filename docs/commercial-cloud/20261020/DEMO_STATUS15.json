@@ -1547,31 +1547,34 @@
       "scope": "SYNTHETIC_PREVIEW_ONLY_NOT_AUTH_STAGING_OR_RELEASE"
     }
   },
-  "current_Asier_source": "285348a66f4cacdbcfb6d018caaa2effbb2df54e",
+  "current_Asier_source": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
   "next_unit": {
-    "unit": "EXACT_SOURCE_TERMINAL_CONTROLS_AND_CONSUMER_HANDOFF",
-    "status": "WAIT_EXISTING_REMOTE_RUNS_DO_NOT_DUPLICATE",
-    "own_pr178": "11769380081d7248dc913efc636c5a3ee97b8a5e",
-    "own_runs": [
-      39507982016,
-      39507981959,
-      39507981816
-    ],
-    "own_terminal_known": {
-      "39507981816": "FAIL"
+    "unit": "EXACT_SOURCE_CONTROLS_AND_CONSUMER_INTEGRATION",
+    "status": "WAIT_EXISTING_REMOTE_RUNS_NO_LOCAL_PROCESS",
+    "own_pr180": {
+      "source": "85cbc707674eba06591aa48a914f73264ed29371",
+      "runs": [
+        39556406510,
+        39556406527,
+        39556406506
+      ],
+      "known_terminal": {
+        "39556406506": "FAIL"
+      },
+      "active_at_last_query": [
+        39556406510,
+        39556406527
+      ]
     },
-    "Asier175": "285348a66f4cacdbcfb6d018caaa2effbb2df54e",
-    "Asier_claims": {
-      "35": 6303021307,
-      "36": 6303189755
+    "integrator175": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+    "proposals": {
+      "33": "85cbc707674eba06591aa48a914f73264ed29371",
+      "34": "65d43b6bdbe762ce1150c3e31562e63b2c3ba186"
     },
-    "next": "Refresh these exact runs/issue67 once at resume. Inspect original terminal artifact source/tree and any new failure; do not rerun or inherit80d3. Oier31 ready for selective Asier integration after30 and their frozen-source controls. Choose another concrete unclaimed commercial defect if newly reproduced. CORE162 only after legitimate own window and exact deploy package.",
-    "frozen_sources": [
-      "11769380081d7248dc913efc636c5a3ee97b8a5e",
-      "285348a66f4cacdbcfb6d018caaa2effbb2df54e"
-    ],
-    "code_workspace_branch": "codex/oier-billing-refresh31-20261020",
-    "code_workspace_head": "189afe216599feeef863b82e05955c394c44b71b",
+    "next": "Refresh issue67/175/180 at resume. Consume exact terminal180 artifacts and original failures; no duplicate run/cancel/rerun/push above active checks. Asier selects33/34 semantically, preserves both test blocks and runs own composition controls. Then choose a newly reproduced unclaimed commercial defect. CORE162/telecom hosted only after exact authorized source/config/window/context; physical voice unverified.",
+    "code_workspace": "work/crm-oier-invoice-series30-20261020",
+    "code_branch": "codex/oier-fiscal-country34-20261021",
+    "code_head": "65d43b6bdbe762ce1150c3e31562e63b2c3ba186",
     "budget_eur": 0,
     "release": "NOT_ACCEPTED"
   },
@@ -1655,6 +1658,43 @@
     },
     "no_rerun": true,
     "no_hosted_inheritance": true,
+    "release": "NOT_ACCEPTED"
+  },
+  "billing_filters33": {
+    "unit": "OIER_BILLING_FILTERS33",
+    "status": "PUBLISHED_DRAFT_PR180",
+    "head": "85cbc707674eba06591aa48a914f73264ed29371",
+    "runtime_code_sha": "242458be83049ed1f0185d764ad737c65796ddc6",
+    "browser_pass": 43,
+    "new_cases": 9,
+    "regressions": 34,
+    "lint": 0,
+    "types": 0,
+    "build": 0,
+    "handoff": 6309723790,
+    "release": "NOT_ACCEPTED"
+  },
+  "fiscal_country34": {
+    "unit": "OIER_FISCAL_COUNTRY34",
+    "status": "PUBLISHED_TESTED_HANDOFF",
+    "source": "65d43b6bdbe762ce1150c3e31562e63b2c3ba186",
+    "runtime_code_sha": "11d5db028ada4e8cec2ab96e0adb4221da4ab2d5",
+    "tests_sha": "8b293fbda99fd24a652b3974beacc3ad035a437e",
+    "branch": "codex/oier-fiscal-country34-20261021",
+    "workspace": "work/crm-oier-invoice-series30-20261020",
+    "claim": 6309723790,
+    "handoff": 6309891286,
+    "browser_pass": 37,
+    "new_cases": 6,
+    "regressions": 31,
+    "lint": 0,
+    "types": 0,
+    "build": 0,
+    "static_pages": 44,
+    "integration": "PROPOSAL_PENDING_ASIER_REVIEW",
+    "acceptance": "LOCAL_TESTED_PRESENTATION_AND_SYNTHETIC_TRANSPORT_ONLY",
+    "Auth_DB": "NOT_RUN",
+    "cloud": "NOT_RUN",
     "release": "NOT_ACCEPTED"
   }
 }
