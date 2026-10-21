@@ -1696,5 +1696,77 @@
     "Auth_DB": "NOT_RUN",
     "cloud": "NOT_RUN",
     "release": "NOT_ACCEPTED"
+  },
+  "own180_closure35": {
+    "unit": "OIER_OWN180_CLOSURE35",
+    "head": "85cbc707674eba06591aa48a914f73264ed29371",
+    "head_tree": "0bf19ea812aec811c00bc72e1fcfc9d463671494",
+    "actual_checkout": "dc48ec6135f9e98818b6857517e0ff208b263d2d",
+    "checkout_tree": "0bf19ea812aec811c00bc72e1fcfc9d463671494",
+    "trees_equal": true,
+    "parents": [
+      "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+      "85cbc707674eba06591aa48a914f73264ed29371"
+    ],
+    "result": "PASS",
+    "migrations": 87,
+    "backend_checks": 4042,
+    "UI_unique": 116,
+    "server": {
+      "code": 0,
+      "signal": null
+    },
+    "teardown": "PASS",
+    "preview": {
+      "version": 1,
+      "source_sha": "dc48ec6135f9e98818b6857517e0ff208b263d2d",
+      "run_id": "39556406527",
+      "run_attempt": "1",
+      "status": "PASS",
+      "projects": [
+        "desktop",
+        "mobile"
+      ],
+      "inventory_sha256": "c01e1185897c206b50c08246c4f73ff08ec5b3283b9daa3f58ba42c5b97718fd",
+      "case_count": 812,
+      "project_counts": {
+        "desktop": 406,
+        "mobile": 406
+      },
+      "policy": {
+        "workers": 1,
+        "retries": 0,
+        "test_timeout_ms": 180000
+      },
+      "scope": "SYNTHETIC_PREVIEW_ONLY_NOT_AUTH_STAGING_OR_RELEASE"
+    },
+    "history": {
+      "version": 1,
+      "status": "BLOCKED_FINDINGS",
+      "scanner": "gitleaks-8.24.3",
+      "head": "dc48ec6135f9e98818b6857517e0ff208b263d2d",
+      "scope": "ALL_LOCAL_HEADS_REMOTE_TRACKING_TAGS_AND_HEAD_FULL_ANCESTRY",
+      "snapshot_sha256": "36cf53d757aae77e95b9371b077d6b83e0e0241064bd540faa6faa976204734e",
+      "ref_count": 428,
+      "commit_count": 1557,
+      "finding_count": 23,
+      "exceptions_applied": 0,
+      "raw_output_published": false,
+      "production_ready": false,
+      "limitations": [
+        "Remote refs must be refreshed before invoking this command.",
+        "Deleted unreachable refs, forks, Git LFS objects and hosted artifacts are outside this scan.",
+        "Pattern scan is not proof of no PII or no undiscovered credential."
+      ]
+    },
+    "scope": "Original CI evidence independently inspected; disposable Auth/DB, not hosted/current175/fiscal34 acceptance",
+    "release": "NOT_ACCEPTED"
+  },
+  "next_unit36": {
+    "claim": 6310227226,
+    "base": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+    "status": "CAUSAL_TESTS_IN_PROGRESS",
+    "scope": "onboarding verification UI only; no provisioning/AuthDB/cloud",
+    "branch": "codex/oier-onboarding-verification36-20261021"
   }
 }
