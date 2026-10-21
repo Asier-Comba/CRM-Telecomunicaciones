@@ -17,14 +17,14 @@ function handler({ configured = true, authenticated = true, result = { data: row
     auth: { async getUser() { calls.push({ operation: 'auth.getUser' }); return { data: { user: authenticated ? { id: 'synthetic-user' } : null }, error: null } } },
     async rpc(name, input) { calls.push({ operation: name, input }); return result },
   }
-  const module = { exports: {} }
+  const compiledModule = { exports: {} }
   const injectedRequire = name => {
     if (name === 'next/server') return require('next/server')
     if (name === '@/lib/server/supabase-user') return { createUserServerClient: async () => configured ? client : null }
     throw Error(`UNEXPECTED_HANDLER_DEPENDENCY:${name}`)
   }
-  new Script(`(function(require,module,exports){${compiled}\n})`, { filename: 'actual-onboarding-route.cjs' }).runInThisContext()(injectedRequire, module, module.exports)
-  return { POST: module.exports.POST, calls }
+  new Script(`(function(require,module,exports){${compiled}\n})`, { filename: 'actual-onboarding-route.cjs' }).runInThisContext()(injectedRequire, compiledModule, compiledModule.exports)
+  return { POST: compiledModule.exports.POST, calls }
 }
 const request = () => new Request('http://127.0.0.1/api/onboarding/workspace', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: '  Empresa sintética  ' }) })
 function evidence(t, response, calls) {
