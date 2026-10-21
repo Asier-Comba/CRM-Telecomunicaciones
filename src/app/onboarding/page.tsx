@@ -14,6 +14,20 @@ import { cn } from '@/lib/utils'
 import { getSupabaseBrowserClient } from '@/lib/supabase'
 import { BRAND } from '@/lib/brand'
 
+type WorkspaceReceipt = { workspace: { id: string; name: string; slug: string; role: string; created: boolean } }
+// Validate the existing provision_workspace response; this does not authorize access.
+function isWorkspaceReceipt(value: unknown, status: number): value is WorkspaceReceipt {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const workspace = (value as { workspace?: unknown }).workspace
+  if (!workspace || typeof workspace !== 'object' || Array.isArray(workspace)) return false
+  const w = workspace as Record<string, unknown>
+  return typeof w.id === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(w.id)
+    && typeof w.name === 'string' && w.name.trim().length > 0 && w.name.length <= 160
+    && typeof w.slug === 'string' && w.slug.length <= 64 && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(w.slug)
+    && typeof w.role === 'string' && w.role.trim().length > 0
+    && typeof w.created === 'boolean' && status === (w.created ? 201 : 200)
+}
+
 export default function OnboardingPage() {
   const router = useRouter()
   const [checking, setChecking] = useState(true)
@@ -21,6 +35,7 @@ export default function OnboardingPage() {
   const [checkAttempt, setCheckAttempt] = useState(0)
   const [name, setName] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [creationUnconfirmed, setCreationUnconfirmed] = useState(false)
 
   // Verificamos la sesión al entrar: sin sesión → login; si ya tiene workspace
   // → dashboard (evita re-onboarding y bucles si navegan aquí a mano).
@@ -59,6 +74,7 @@ export default function OnboardingPage() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (submitting || creationUnconfirmed) return
     const cleanName = name.trim()
     if (!cleanName) {
       toast.error('Pon el nombre de tu empresa', { description: 'Así personalizamos tu espacio de trabajo.' })
@@ -71,18 +87,29 @@ export default function OnboardingPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: cleanName }),
       })
-      const payload = (await res.json().catch(() => ({}))) as { error?: string }
+      const payload: unknown = await res.json().catch(() => null)
+      if (res.status >= 500) {
+        setCreationUnconfirmed(true)
+        return
+      }
       if (!res.ok) {
+        const error = payload && typeof payload === 'object' ? (payload as { error?: unknown }).error : null
         toast.error('No se pudo crear tu espacio', {
-          description: payload.error ?? 'Inténtalo de nuevo o contacta con el responsable.',
+          description: typeof error === 'string' ? error : 'Inténtalo de nuevo o contacta con el responsable.',
         })
         return
       }
-      toast.success('Espacio de trabajo listo', { description: 'Tu CRM está vacío y listo para empezar.' })
+      if (!isWorkspaceReceipt(payload, res.status)) {
+        setCreationUnconfirmed(true)
+        return
+      }
+      toast.success(payload.workspace.created ? 'Espacio de trabajo listo' : 'Acceso a tu espacio confirmado', {
+        description: payload.workspace.created ? 'Tu CRM está vacío y listo para empezar.' : 'Continúa en tu espacio de trabajo existente.',
+      })
       router.replace('/dashboard')
       router.refresh()
     } catch {
-      toast.error('No se pudo conectar', { description: 'Revisa tu conexión e inténtalo de nuevo.' })
+      setCreationUnconfirmed(true)
     } finally {
       setSubmitting(false)
     }
@@ -99,14 +126,16 @@ export default function OnboardingPage() {
     )
   }
 
-  if (checkError) {
+  if (checkError || creationUnconfirmed) {
     return (
       <main className="flex min-h-dvh items-center justify-center bg-[#f7f7f5] px-6 py-12 text-gray-900">
         <div className="w-full max-w-[440px] rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
           <div role="alert">
-            <h1 className="text-xl font-semibold tracking-tight">No hemos podido comprobar tu acceso</h1>
+            <h1 className="text-xl font-semibold tracking-tight">{checkError ? 'No hemos podido comprobar tu acceso' : 'No hemos podido confirmar el alta'}</h1>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              Necesitamos comprobar tu sesión y tu empresa antes de continuar. Reintenta la comprobación.
+              {checkError
+                ? 'Necesitamos comprobar tu sesión y tu empresa antes de continuar. Reintenta la comprobación.'
+                : 'Puede que tu espacio ya esté creado. Comprueba tu acceso sin repetir el alta. Si sigue pendiente, contacta con el responsable.'}
             </p>
           </div>
           <Button className="mt-5 min-h-11 w-full" onClick={() => {
@@ -114,7 +143,7 @@ export default function OnboardingPage() {
             setCheckError(false)
             setCheckAttempt(attempt => attempt + 1)
           }}>
-            Reintentar comprobación
+            {checkError ? 'Reintentar comprobación' : 'Comprobar acceso'}
           </Button>
         </div>
       </main>
