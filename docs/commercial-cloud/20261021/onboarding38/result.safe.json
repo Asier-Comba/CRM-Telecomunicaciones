@@ -1,0 +1,192 @@
+{
+  "unit": "OIER_ONBOARDING_ROUTE_PROOF38",
+  "source": "9cec6aeb43adeb13fba7633136bae74bc78458e0",
+  "base_own37": "ffd6a20a13562b441b608b5ef5bc643d38f70318",
+  "api_blob": "fb24f52eb4d5ad51720c0a5c561f0f67aac05338",
+  "api_blob_equals_integrator48e": true,
+  "scope": "Actual TypeScript handler transpiled with installed TypeScript, actual NextResponse; only Supabase dependency injected. Synthetic Auth/RPC replies, NOT Auth/DB/cloud.",
+  "exit": 1,
+  "pass": 6,
+  "fail": 3,
+  "cases": [
+    {
+      "case": "onboarding route accepts canonical new result",
+      "status": 201,
+      "operations": [
+        "auth.getUser",
+        "provision_workspace"
+      ],
+      "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+    },
+    {
+      "case": "onboarding route accepts canonical existing result",
+      "status": 200,
+      "operations": [
+        "auth.getUser",
+        "provision_workspace"
+      ],
+      "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+    },
+    {
+      "case": "onboarding route unconfigured never invokes provisioning",
+      "status": 503,
+      "operations": [],
+      "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+    },
+    {
+      "case": "onboarding route unauthenticated never invokes provisioning",
+      "status": 401,
+      "operations": [
+        "auth.getUser"
+      ],
+      "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+    },
+    {
+      "case": "onboarding route maps slug_taken without internal detail",
+      "status": 409,
+      "operations": [
+        "auth.getUser",
+        "provision_workspace"
+      ],
+      "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+    },
+    {
+      "case": "onboarding route maps workspace_suspended without internal detail",
+      "status": 403,
+      "operations": [
+        "auth.getUser",
+        "provision_workspace"
+      ],
+      "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+    },
+    {
+      "case": "onboarding route must not acknowledge unconfirmed null RPC result",
+      "status": 200,
+      "operations": [
+        "auth.getUser",
+        "provision_workspace"
+      ],
+      "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+    },
+    {
+      "case": "onboarding route must not acknowledge unconfirmed empty-array RPC result",
+      "status": 200,
+      "operations": [
+        "auth.getUser",
+        "provision_workspace"
+      ],
+      "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+    },
+    {
+      "case": "onboarding route must not acknowledge unconfirmed invalid-id RPC result",
+      "status": 201,
+      "operations": [
+        "auth.getUser",
+        "provision_workspace"
+      ],
+      "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+    }
+  ],
+  "assertion_failures": [
+    "UNCONFIRMED_RPC_RESULT_ACKNOWLEDGED_200(null)",
+    "UNCONFIRMED_RPC_RESULT_ACKNOWLEDGED_200(empty-array)",
+    "UNCONFIRMED_RPC_RESULT_ACKNOWLEDGED_201(invalid-id)"
+  ],
+  "original_log_sha256": "e22f56cfc79e843e8bd3887cc78e71f5e9f3c0a3fc22530406c62176632efc2c",
+  "backend_edited": false,
+  "SQL_edited": false,
+  "suppressions": false,
+  "classification": "CONTRACT_FAULT_INJECTION_NEGATIVES_NOT_OBSERVED_DATABASE_FAULT_OR_EXPLOIT",
+  "owner": "ASIER_SHARED_HANDLER_CONTRACT_REVIEW_REQUIRED",
+  "release": "NOT_ACCEPTED",
+  "claim": 6310661985,
+  "harness_lint_cleanup": "2cf8bcd749835855228d6a7416cabefec590524d",
+  "recheck": {
+    "pass": 6,
+    "fail": 3,
+    "exit": 1,
+    "cases": [
+      {
+        "case": "onboarding route accepts canonical new result",
+        "status": 201,
+        "operations": [
+          "auth.getUser",
+          "provision_workspace"
+        ],
+        "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+      },
+      {
+        "case": "onboarding route accepts canonical existing result",
+        "status": 200,
+        "operations": [
+          "auth.getUser",
+          "provision_workspace"
+        ],
+        "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+      },
+      {
+        "case": "onboarding route unconfigured never invokes provisioning",
+        "status": 503,
+        "operations": [],
+        "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+      },
+      {
+        "case": "onboarding route unauthenticated never invokes provisioning",
+        "status": 401,
+        "operations": [
+          "auth.getUser"
+        ],
+        "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+      },
+      {
+        "case": "onboarding route maps slug_taken without internal detail",
+        "status": 409,
+        "operations": [
+          "auth.getUser",
+          "provision_workspace"
+        ],
+        "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+      },
+      {
+        "case": "onboarding route maps workspace_suspended without internal detail",
+        "status": 403,
+        "operations": [
+          "auth.getUser",
+          "provision_workspace"
+        ],
+        "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+      },
+      {
+        "case": "onboarding route must not acknowledge unconfirmed null RPC result",
+        "status": 200,
+        "operations": [
+          "auth.getUser",
+          "provision_workspace"
+        ],
+        "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+      },
+      {
+        "case": "onboarding route must not acknowledge unconfirmed empty-array RPC result",
+        "status": 200,
+        "operations": [
+          "auth.getUser",
+          "provision_workspace"
+        ],
+        "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+      },
+      {
+        "case": "onboarding route must not acknowledge unconfirmed invalid-id RPC result",
+        "status": 201,
+        "operations": [
+          "auth.getUser",
+          "provision_workspace"
+        ],
+        "scope": "ACTUAL_HANDLER_CONTROLLED_AUTH_RPC_NOT_DB_CLOUD"
+      }
+    ],
+    "log_sha256": "71ccbbd45aafcd326833955b14801370c359fabc7173ebba348aeec388a05dea"
+  },
+  "lint_original_exit": 1,
+  "lint_failure": "no-assign-module-variable in harness; renamed local variable only, no rule changes",
+  "lint_after_exit": 0
+}
