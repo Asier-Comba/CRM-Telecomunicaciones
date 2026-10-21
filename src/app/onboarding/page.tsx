@@ -5,7 +5,7 @@
 // Esta ruta vive fuera de (saas), así que NO pasa por AuthGate (que es justo
 // quien redirige aquí cuando detecta sesión válida sin workspace).
 
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowRight, Building2, CheckCircle2, Loader2, Sparkles } from 'lucide-react'
 import { toast } from 'sonner'
@@ -36,6 +36,12 @@ export default function OnboardingPage() {
   const [name, setName] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [creationUnconfirmed, setCreationUnconfirmed] = useState(false)
+  const isMounted = useRef(false)
+
+  useEffect(() => {
+    isMounted.current = true
+    return () => { isMounted.current = false }
+  }, [])
 
   // Verificamos la sesión al entrar: sin sesión → login; si ya tiene workspace
   // → dashboard (evita re-onboarding y bucles si navegan aquí a mano).
@@ -88,6 +94,7 @@ export default function OnboardingPage() {
         body: JSON.stringify({ name: cleanName }),
       })
       const payload: unknown = await res.json().catch(() => null)
+      if (!isMounted.current) return
       if (res.status >= 500) {
         setCreationUnconfirmed(true)
         return
@@ -109,9 +116,9 @@ export default function OnboardingPage() {
       router.replace('/dashboard')
       router.refresh()
     } catch {
-      setCreationUnconfirmed(true)
+      if (isMounted.current) setCreationUnconfirmed(true)
     } finally {
-      setSubmitting(false)
+      if (isMounted.current) setSubmitting(false)
     }
   }
 
