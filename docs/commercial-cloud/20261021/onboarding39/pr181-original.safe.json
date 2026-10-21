@@ -1,0 +1,71 @@
+{
+  "unit": "OIER36_REMOTE_TERMINAL_ORIGINAL_SOURCE_ONLY",
+  "head": "48eee7e58eaee2e64019571bd1ad0c78620e8014",
+  "actual_checkout": "fe4f01d7310c147d0c47ac7f345749306c1f1282",
+  "tree": "e9bf8dd71828df708eb7359cde326d60b4cd02b5",
+  "head_tree_equal": true,
+  "parents": [
+    "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+    "48eee7e58eaee2e64019571bd1ad0c78620e8014"
+  ],
+  "CI": {
+    "run": 39561830975,
+    "status": "FAIL",
+    "cause": "5_HIGH_AUDIT",
+    "bootstrap": 672,
+    "assistant": 827,
+    "build_routes": 44,
+    "failed_job": 119094675633,
+    "native_pg_job": 119094675792,
+    "native_pg": "SUCCESS_NOT_SUPABASE_FULL_AUTH_ACCEPTANCE"
+  },
+  "preview": {
+    "version": 1,
+    "source_sha": "fe4f01d7310c147d0c47ac7f345749306c1f1282",
+    "run_id": "39561830975",
+    "run_attempt": "1",
+    "status": "PASS",
+    "projects": [
+      "desktop",
+      "mobile"
+    ],
+    "inventory_sha256": "9f7c70cd45d9b5ea88708a551110e9cd217dcde17b811288b3f17fbe3ffabb6f",
+    "case_count": 846,
+    "project_counts": {
+      "desktop": 423,
+      "mobile": 423
+    },
+    "policy": {
+      "workers": 1,
+      "retries": 0,
+      "test_timeout_ms": 180000
+    },
+    "scope": "SYNTHETIC_PREVIEW_ONLY_NOT_AUTH_STAGING_OR_RELEASE"
+  },
+  "preview_artifact": 12329125646,
+  "history": {
+    "version": 1,
+    "status": "BLOCKED_FINDINGS",
+    "scanner": "gitleaks-8.24.3",
+    "head": "fe4f01d7310c147d0c47ac7f345749306c1f1282",
+    "scope": "ALL_LOCAL_HEADS_REMOTE_TRACKING_TAGS_AND_HEAD_FULL_ANCESTRY",
+    "snapshot_sha256": "7cd689dcd8f356e7f79c2abb36abfa4fcc6a6f1f6235519bf8ca49f56ebfc3c7",
+    "ref_count": 430,
+    "commit_count": 1566,
+    "finding_count": 23,
+    "exceptions_applied": 0,
+    "raw_output_published": false,
+    "production_ready": false,
+    "limitations": [
+      "Remote refs must be refreshed before invoking this command.",
+      "Deleted unreachable refs, forks, Git LFS objects and hosted artifacts are outside this scan.",
+      "Pattern scan is not proof of no PII or no undiscovered credential."
+    ]
+  },
+  "history_run": 39561831102,
+  "history_artifact": 12327758220,
+  "Supabase_full": "NOT_RUN_THIS_HEAD",
+  "hosted": "NOT_RUN",
+  "scope": "Original CI only, no inheritance to37/39 or new181 HEAD",
+  "release": "NOT_ACCEPTED"
+}
