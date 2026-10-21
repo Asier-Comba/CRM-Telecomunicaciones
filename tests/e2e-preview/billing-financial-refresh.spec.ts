@@ -60,7 +60,7 @@ test('financial totals from the previous refresh disappear until the current res
 
 
 async function seriesFixture(page:Page){
- const fixture=await startBillingFocusFixture(),queries:Record<string,unknown>[]=[],financial:Record<string,unknown>[]=[],commands:string[]=[],errors:string[]=[]
+ const fixture=await startBillingFocusFixture(),queries:Record<string,unknown>[]=[],financial:Record<string,unknown>[]=[],commands:string[]=[],commandInputs:Record<string,unknown>[]=[],errors:string[]=[]
  const id=(n:number)=>`10000000-0000-4000-8000-${String(n).padStart(12,'0')}`
  let holdA=false,waiting=false,failList=false,release!:()=>void,settled!:()=>void
  const held=new Promise<void>(resolve=>release=resolve),done=new Promise<void>(resolve=>settled=resolve)
@@ -72,7 +72,7 @@ async function seriesFixture(page:Page){
  })
  await page.route('**/api/billing/v1**',async route=>{
   const {operation,input}=route.request().postDataJSON()
-  if(route.request().url().includes('/commands')){commands.push(operation);return route.fulfill({status:403,json:{ok:false,error:'access_denied'}})}
+  if(route.request().url().includes('/commands')){commands.push(operation);commandInputs.push(route.request().postDataJSON());return route.fulfill({status:403,json:{ok:false,error:'access_denied'}})}
   if(operation==='invoice.private_pdf_reference')return route.fulfill({status:404,json:{ok:false,error:'not_found'}})
   if(operation==='invoice.financial_summary'){financial.push(input);return route.continue()}
   if(operation!=='invoice.list')return route.continue()
@@ -86,9 +86,38 @@ async function seriesFixture(page:Page){
   await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation,items,next_id:paged?id(60):null}}})
   if(delayed)settled()
  })
- return {fixture,queries,financial,commands,errors,id,holdA(){holdA=true},failNextList(){failList=true},waiting:()=>waiting,release,done,async close(){release();fixture.releaseList();fixture.releasePdf();await page.unrouteAll({behavior:'wait'});await fixture.close()}}
+ return {fixture,queries,financial,commands,commandInputs,errors,id,holdA(){holdA=true},failNextList(){failList=true},waiting:()=>waiting,release,done,async close(){release();fixture.releaseList();fixture.releasePdf();await page.unrouteAll({behavior:'wait'});await fixture.close()}}
 }
 for(const width of [390,768,1440]){
+ for(const kind of ['issuer','customer'] as const)test(`fiscal ${kind} country normalizes ASCII and blocks incomplete or non-ASCII input at ${width}`,async({page},info)=>{
+  const r=await seriesFixture(page)
+  try{
+   await page.setViewportSize({width,height:960});await page.goto(r.fixture.url)
+   await expect(page.locator(`tr[data-invoice-id="${r.id(31)}"]`)).toBeVisible()
+   if(kind==='customer'){
+    await page.getByRole('textbox',{name:'Buscar cliente de factura',exact:true}).fill('Synthetic')
+    await page.getByRole('button',{name:'Buscar cliente',exact:true}).click()
+    await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(r.id(1))
+   }
+   await page.getByRole('button',{name:kind==='issuer'?'Configurar emisor':'Datos fiscales del cliente',exact:true}).click()
+   const drawer=page.getByRole('dialog',{name:kind==='issuer'?'Datos fiscales del emisor':'Datos fiscales del cliente',exact:true})
+   const profile=r.fixture.invoice.customer_fiscal!
+   for(const [key,value] of Object.entries(profile))await drawer.locator(`input[name="${key}"]`).fill(String(value))
+   const country=drawer.getByRole('textbox',{name:'País (ISO)',exact:true}),save=drawer.getByRole('button',{name:'Guardar datos fiscales',exact:true})
+   await country.fill('es');await save.click();await expect.poll(()=>r.commands.length).toBe(1)
+   expect(r.commandInputs[0]).toMatchObject({operation:kind==='issuer'?'issuer.set':'customer_fiscal.set',input:{profile:{...profile,country:'ES'}}})
+   await expect(country).toHaveValue('ES');await expect(drawer.getByRole('alert')).toHaveText('No tienes permiso para esta acción.')
+   for(const invalid of ['E','ß']){
+    await country.fill(invalid);await save.click()
+    expect(await country.evaluate(node=>(node as HTMLInputElement).checkValidity())).toBe(false)
+    expect(r.commands).toHaveLength(1)
+   }
+   await country.fill('fr');await expect(country).toHaveValue('FR')
+   expect(await country.evaluate(node=>(node as HTMLInputElement).checkValidity())).toBe(true)
+   await country.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`fiscal-country-${kind}-${width}.png`)})
+   expect(r.errors).toEqual([])
+  }finally{await r.close()}
+ })
  test(`billing explicit list refresh recovers after refused read at ${width}`,async({page},info)=>{
   const r=await seriesFixture(page)
   try{
