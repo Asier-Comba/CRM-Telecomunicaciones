@@ -1597,5 +1597,64 @@
     "cloud": "NOT_RUN",
     "release": "NOT_ACCEPTED",
     "Asier_reserved_claim": 6303189755
+  },
+  "reconcile32": {
+    "unit": "OIER_RECONCILE32",
+    "source": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+    "tree": "07097adbc0c0df912a3e69fda4e0ccf1d071794b",
+    "claim": 6309553530,
+    "blobs": [
+      {
+        "path": "src/features/billing/parse.ts",
+        "old": "649d9f49ee4c43f1d43e4c7b7af72cb6b1990474",
+        "current": "649d9f49ee4c43f1d43e4c7b7af72cb6b1990474",
+        "identical": true
+      },
+      {
+        "path": "tools/oier_billing_qa/prompt-interaction.spec.ts",
+        "old": "4b01920872329c2e88034b5df3684f6ae18fec56",
+        "current": "3b5e05eb3c5261bb545cccc1aa0eb5184bd167b3",
+        "identical": false
+      },
+      {
+        "path": "tools/oier_billing_qa/concept-acceptance.mjs",
+        "old": "97bb9be12d6fe2e8653ee7de0c663d64f8ccebac",
+        "current": "97bb9be12d6fe2e8653ee7de0c663d64f8ccebac",
+        "identical": true
+      },
+      {
+        "path": "src/features/customers/CustomerDomainPages.tsx",
+        "old": "c74443ba1f810a99f7535576ad2c3c74f76638da",
+        "current": "c74443ba1f810a99f7535576ad2c3c74f76638da",
+        "identical": true
+      },
+      {
+        "path": "tests/e2e-preview/customer-domain-scope.spec.ts",
+        "old": "7aefc6e5f6fe100cab9e8a791cf50447c6eca1fa",
+        "current": "7aefc6e5f6fe100cab9e8a791cf50447c6eca1fa",
+        "identical": true
+      }
+    ],
+    "decisions": {
+      "speech25": "INTEGRATED_LOCAL_TESTED; Asier34/35 semantic extension reviewed",
+      "series30_refresh31": "INTEGRATED_LOCAL_TESTED; exact IntegratedBilling blob ac2c399ba6a0e014c531a51d89975cd17852eb12",
+      "concept21_customer22": "INTEGRATED_LOCAL_TESTED; product blobs identical",
+      "catalog": "INTEGRATED_LOCAL_TESTED; observer38/39 corrected in current source",
+      "W5_11d44_delta": "NOT_ADOPTED_ASIER40_NEGATIVES_PENDING_W5",
+      "Storage179": "NOT_APPLIED_CONTENT_OFF"
+    },
+    "ci_summary": {
+      "success": 6,
+      "failure": 3,
+      "active": 0,
+      "failure_scope": [
+        "5HIGH dependency audit",
+        "vendor image scan",
+        "W4 historical findings"
+      ]
+    },
+    "no_rerun": true,
+    "no_hosted_inheritance": true,
+    "release": "NOT_ACCEPTED"
   }
 }
