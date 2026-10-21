@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test'
+import { expect, test, type Page, type Route } from '@playwright/test'
 import { startOnboardingVerificationFixture } from './fixtures/onboarding-verification-server.cjs'
 const session = { data: { session: { user: { id: 'synthetic-user' } } }, error: null }
 const workspace = { id: '50000000-0000-4000-8000-000000000001', name: 'Empresa sintética', slug: 'empresa-sintetica', role: 'owner', created: true }
@@ -77,3 +77,24 @@ for (const width of [390, 768, 1440]) {
     } finally { await page.unrouteAll({ behavior: 'wait' }); await fixture.close() }
   })
 }
+for (const width of [390, 768, 1440]) for (const created of [true, false]) test(`onboarding late ${created ? 'new' : 'existing'} receipt does not redirect after leaving at ${width}`, async ({ page }, info) => {
+  const fixture = await startOnboardingVerificationFixture(), held: Route[] = [], posts: unknown[] = [], errors: string[] = []
+  page.on('pageerror', error => errors.push(error.message)); await page.setViewportSize({ width, height: 960 })
+  await page.route('**/fixture/**', route => route.fulfill({ json: route.request().url().endsWith('session') ? session : { data: [], error: null } }))
+  await page.route('**/api/onboarding/workspace', async route => { posts.push(route.request().postDataJSON()); held.push(route) })
+  try {
+    await page.goto(fixture.url); await page.getByRole('textbox', { name: 'Nombre de tu empresa' }).fill('Empresa sintética')
+    await page.getByRole('button', { name: 'Crear y empezar', exact: true }).click(); await expect.poll(() => held.length).toBe(1)
+    await page.evaluate(() => (window as unknown as { onboardingFixture: { leave: () => void } }).onboardingFixture.leave())
+    await expect(page.getByRole('status').filter({ hasText: 'Otra pantalla sintética' })).toBeVisible()
+    const route = held.pop()!, response = page.waitForResponse(r => r.request() === route.request())
+    await route.fulfill({ status: created ? 201 : 200, json: { workspace: { ...workspace, created } } })
+    await (await response).finished()
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
+    const state = { width, created, redirects: await redirects(page), posts: posts.length, readyToast: await page.getByText('Espacio de trabajo listo', { exact: true }).count(), existingToast: await page.getByText('Acceso a tu espacio confirmado', { exact: true }).count() }
+    await info.attach(`late-receipt-state-${created ? 'new' : 'existing'}-${width}`, { body: Buffer.from(JSON.stringify(state)), contentType: 'application/json' })
+    expect(state.redirects).toEqual([]); expect(state.readyToast).toBe(0); expect(state.existingToast).toBe(0)
+    expect(posts).toEqual([{ name: 'Empresa sintética' }]); expect(errors).toEqual([])
+    await expect(page.getByRole('status').filter({ hasText: 'Otra pantalla sintética' })).toBeVisible()
+  } finally { for (const route of held) await route.abort().catch(() => {}); await page.unrouteAll({ behavior: 'wait' }); await fixture.close() }
+})
