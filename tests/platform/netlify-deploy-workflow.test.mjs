@@ -11,7 +11,7 @@ const text=value=>JSON.stringify(value)
 
 test('manual only, serialized, read-only token',()=>{
  assert.deepEqual(Object.keys(wf.on),['workflow_dispatch'])
- assert.deepEqual(wf.permissions,{contents:'read'})
+ assert.deepEqual(wf.permissions,{contents:'read',actions:'read'})
  assert.equal(wf.concurrency['cancel-in-progress'],false)
 })
 
@@ -51,4 +51,14 @@ test('every third-party action is pinned to a full commit SHA',()=>{
  const uses=[...source.matchAll(/uses:\s*(\S+)/g)].map(m=>m[1])
  assert.ok(uses.length>0)
  for(const ref of uses)assert.match(ref,/^[\w.-]+\/[\w.-]+@[0-9a-f]{40}$/,ref)
+})
+
+test('eligibility runs from the trusted workflow ref before the candidate is checked out',()=>{
+ const list=steps('verify-source'),names=list.map(s=>s.name??'')
+ const trusted=names.indexOf('Trusted eligibility policy (workflow ref)'),gate=list.findIndex(s=>(s.run??'').includes('deploy-eligibility.mjs')),candidate=names.indexOf('Exact reviewed source')
+ assert.ok(trusted>=0&&gate>trusted&&candidate>gate)
+ assert.equal(list[trusted].with.path,'trusted');assert.equal(list[trusted].with.ref,undefined)
+ assert.ok(list[gate].run.includes('policy=trusted/infra/platform/staging-deploy-policy.json')&&list[gate].run.includes('node trusted/scripts/platform/deploy-eligibility.mjs evaluate'))
+ assert.ok(!text(list[gate]).includes('secrets.'))
+ assert.equal(list[candidate].with.ref,'${{ inputs.sha }}')
 })

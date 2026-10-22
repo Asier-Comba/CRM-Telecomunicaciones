@@ -28,6 +28,8 @@ on:
         type: string
 permissions:
   contents: read
+  # Read-only: the eligibility gate reads the candidate's workflow results.
+  actions: read
 concurrency:
   group: w5-netlify-staging-deploy
   cancel-in-progress: false
@@ -54,6 +56,30 @@ jobs:
         run: |
           [[ "$SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::sha must be 40 lowercase hex"; exit 1; }
           [[ "$TREE" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::tree must be 40 lowercase hex"; exit 1; }
+      # The policy and its evaluator come from this workflow's own trusted ref,
+      # never from the candidate, so a candidate cannot relax its own gate.
+      - name: Trusted eligibility policy (workflow ref)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          path: trusted
+      - name: Trusted Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: trusted/.nvmrc
+      - name: Candidate is eligible (required workflows on this exact SHA; only approved exceptions)
+        env:
+          SHA: ${{ inputs.sha }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          policy=trusted/infra/platform/staging-deploy-policy.json
+          evidence="$RUNNER_TEMP/eligibility" && mkdir -p "$evidence"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs?head_sha=$SHA&per_page=100" > "$evidence/runs.json"
+          for id in $(node trusted/scripts/platform/deploy-eligibility.mjs inspect "$policy" "$SHA" "$evidence/runs.json"); do
+            gh api "repos/$GITHUB_REPOSITORY/actions/runs/$id/jobs?per_page=100" > "$evidence/jobs-$id.json"
+          done
+          node trusted/scripts/platform/deploy-eligibility.mjs evaluate "$policy" "$SHA" "$evidence/runs.json" "$evidence"
       - name: Exact reviewed source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:

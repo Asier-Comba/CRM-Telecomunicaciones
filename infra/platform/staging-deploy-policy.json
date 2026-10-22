@@ -1,0 +1,44 @@
+{
+  "contract": "w5.staging-deploy-eligibility.v1",
+  "description": "A source may be deployed to the private staging preview only when every required workflow completed on that exact commit and every failed job is covered by an approved, unexpired exception. W5 never approves exceptions; approved_by must name the owner or the independent security reviewer.",
+  "required_workflows": [
+    "CI",
+    "Supabase local acceptance",
+    "W5 native profile87 compatibility",
+    "W5 native resource",
+    "W2 delivered grants86 native compatibility",
+    "W2 owned resource business consumer",
+    "W5 reviewed PDF runtime",
+    "W5 enterprise platform acceptance",
+    "W4 all-ref secret audit"
+  ],
+  "exceptions": [
+    {
+      "workflow": "CI",
+      "job": "Lint, types, tests, build",
+      "finding": "npm audit HIGH: GHSA-vfj7-8cjw-p6xm braces <=3.0.3, only via eslint-config-next -> @next/eslint-plugin-next -> fast-glob@3.3.1 -> micromatch@4.0.8 (dev-only lint); no patched release upstream on 2026-10-22",
+      "caveat": "Job-level exception would also cover lint/type/test/build failures in the same job; it must not be approved until the audit runs in its own job or step evidence is checked.",
+      "approved_by": null,
+      "approved_on": null,
+      "expires_on": null
+    },
+    {
+      "workflow": "W5 enterprise platform acceptance",
+      "job": "n8n-disposable",
+      "finding": "Vendor image gates: n8n 2.42.7 (not deployed) and postgres alpine gosu Go stdlib (latest tag)",
+      "caveat": "Covers only the vendor-image job; n8n stays undeployed.",
+      "approved_by": null,
+      "approved_on": null,
+      "expires_on": null
+    },
+    {
+      "workflow": "W4 all-ref secret audit",
+      "job": "reachable-history",
+      "finding": "gitleaks over all refs: 28 findings on 2026-10-22 classified by W5 as 0 real credentials (env references, prose, status enums, redaction fixtures, Git object hashes)",
+      "caveat": "Classification by the author is not independent review.",
+      "approved_by": null,
+      "approved_on": null,
+      "expires_on": null
+    }
+  ]
+}
