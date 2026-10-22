@@ -1,0 +1,203 @@
+name: W5 Netlify private staging deploy
+# Deploys exactly one reviewed source to the private staging preview, or
+# re-publishes a previously recorded deploy (rollback to the same bytes).
+# Manual only. Every gate runs before any secret is read; any failed gate stops.
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'deploy (build reviewed SHA) or rollback (republish a recorded deploy ID)'
+        required: true
+        type: choice
+        options: [deploy, rollback]
+      sha:
+        description: 'deploy: reviewed 40-hex commit SHA'
+        required: false
+        type: string
+      tree:
+        description: 'deploy: reviewed 40-hex tree SHA of that commit'
+        required: false
+        type: string
+      rollback_deploy_id:
+        description: 'rollback: 24-hex Netlify deploy ID previously recorded by this workflow'
+        required: false
+        type: string
+      reason:
+        description: 'PR / review / approval reference'
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: w5-netlify-staging-deploy
+  cancel-in-progress: false
+env:
+  STAGING_URL: https://crm-telecom-staging-preview.netlify.app
+  # Exact versions and npm integrity (sha512) verified on 2026-10-20; changing them needs review.
+  NETLIFY_CLI_VERSION: 27.11.2
+  NETLIFY_CLI_INTEGRITY: sha512-CsBWfbsyVI2TBaq5Yfaeg/zuID+44f8YUZZCaGUg1yK8vHAE5kPzT29DqN/JUX2e2SRK7/Zyvi8G18If/lVn6g==
+  NEXT_ADAPTER_VERSION: 5.16.2
+  NEXT_ADAPTER_INTEGRITY: sha512-bjB7UsijeAbWFceYeDOHG9vnRQ+AQGCn3198OB0ctXI43W4VXm7rG155dBaX9kpJyRf5zrcf321I1ZpWwi/neg==
+jobs:
+  verify-source:
+    name: Reviewed source and mandatory gates (no secrets)
+    if: inputs.mode == 'deploy'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      record: ${{ steps.record.outputs.record }}
+    steps:
+      - name: Reject anything but a full reviewed SHA and tree
+        env:
+          SHA: ${{ inputs.sha }}
+          TREE: ${{ inputs.tree }}
+        run: |
+          [[ "$SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::sha must be 40 lowercase hex"; exit 1; }
+          [[ "$TREE" =~ ^[0-9a-f]{40}$ ]] || { echo "::error::tree must be 40 lowercase hex"; exit 1; }
+      - name: Exact reviewed source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.sha }}
+      - name: Checked-out commit and tree are the reviewed ones
+        env:
+          SHA: ${{ inputs.sha }}
+          TREE: ${{ inputs.tree }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$SHA"
+          test "$(git rev-parse HEAD^{tree})" = "$TREE"
+          test -z "$(git status --porcelain)"
+      - name: Existing Node runtime
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Existing application dependencies
+        run: npm ci
+      - name: Mandatory gates (exact migration profile, environment contract, types)
+        run: |
+          test -f tests/bootstrap/owned-consumer-migration-profile87.test.mjs || { echo "::error::source lacks the profile87 closure test"; exit 1; }
+          node --test tests/bootstrap/owned-consumer-migration-profile87.test.mjs
+          node scripts/platform/inventory.mjs --check
+          node scripts/platform/platform.mjs verify
+          npm run typecheck
+      - name: Pinned Next.js adapter with verified integrity
+        run: |
+          npm install --no-save --ignore-scripts "@netlify/plugin-nextjs@$NEXT_ADAPTER_VERSION"
+          node -e "const p=require('./node_modules/@netlify/plugin-nextjs/package.json');if(p.version!==process.env.NEXT_ADAPTER_VERSION)process.exit(1)"
+          test "$(npm view "@netlify/plugin-nextjs@$NEXT_ADAPTER_VERSION" dist.integrity)" = "$NEXT_ADAPTER_INTEGRITY"
+          test "$(npm view "netlify-cli@$NETLIFY_CLI_VERSION" dist.integrity)" = "$NETLIFY_CLI_INTEGRITY"
+      - name: Source record (no values)
+        id: record
+        env:
+          SHA: ${{ inputs.sha }}
+          TREE: ${{ inputs.tree }}
+        run: |
+          record=$(node -e "
+            const c=require('node:crypto'),fs=require('node:fs');const h=f=>c.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
+            const lock=require('./package-lock.json');
+            console.log(JSON.stringify({source_sha:process.env.SHA,tree_sha:process.env.TREE,netlify_toml_sha256:h('netlify.toml'),
+              package_lock_sha256:h('package-lock.json'),environment_manifest_sha256:h('infra/platform/environment-manifest.json'),
+              next_version:lock.packages['node_modules/next'].version,node_version:process.version,
+              next_adapter:process.env.NEXT_ADAPTER_VERSION,netlify_cli:process.env.NETLIFY_CLI_VERSION,
+              migrations:fs.readdirSync('supabase/migrations').filter(n=>n.endsWith('.sql')).length}))")
+          echo "record=$record" >> "$GITHUB_OUTPUT"
+          echo "$record" > source-record.json
+      - name: Keep the source record
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: w5-staging-source-record-${{ inputs.sha }}
+          path: source-record.json
+          retention-days: 90
+
+  deploy:
+    name: Build and deploy reviewed source to private staging
+    needs: verify-source
+    if: inputs.mode == 'deploy'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Protected environment: owner approval, NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID live here.
+    environment: staging
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.sha }}
+      - name: Same reviewed tree as the verified job
+        env:
+          TREE: ${{ inputs.tree }}
+        run: test "$(git rev-parse HEAD^{tree})" = "$TREE"
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Dependencies and pinned adapter
+        run: |
+          npm ci
+          npm install --no-save --ignore-scripts "@netlify/plugin-nextjs@$NEXT_ADAPTER_VERSION"
+          node -e "if(require('./node_modules/@netlify/plugin-nextjs/package.json').version!==process.env.NEXT_ADAPTER_VERSION)process.exit(1)"
+      - name: Build with the site environment and deploy
+        id: deploy
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          SHA: ${{ inputs.sha }}
+        run: |
+          test -n "$NETLIFY_AUTH_TOKEN" && test -n "$NETLIFY_SITE_ID" || { echo "::error::staging environment secrets missing"; exit 1; }
+          npx --yes "netlify-cli@$NETLIFY_CLI_VERSION" deploy --build --prod --site "$NETLIFY_SITE_ID" --message "w5 staging $SHA" --json > deploy.json 2> build.log || { tail -40 build.log; exit 1; }
+          grep -q "plugin-nextjs" build.log || { echo "::error::Next.js adapter did not run"; exit 1; }
+          node -e "
+            const d=require('./deploy.json');const site=process.env.NETLIFY_SITE_ID;
+            if(d.site_id!==site||!/^[0-9a-f]{24}$/.test(d.deploy_id??'')||!(d.url||'').startsWith(process.env.STAGING_URL))process.exit(1);
+            console.log('deploy_id='+d.deploy_id);console.log('deploy_url='+d.deploy_url)" >> "$GITHUB_OUTPUT"
+      - name: Deploy is ready and private (site URL and its own permalink)
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          DEPLOY_ID: ${{ steps.deploy.outputs.deploy_id }}
+          DEPLOY_URL: ${{ steps.deploy.outputs.deploy_url }}
+        run: |
+          state=$(npx --yes "netlify-cli@$NETLIFY_CLI_VERSION" api getDeploy --data "{\"deploy_id\":\"$DEPLOY_ID\"}" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>console.log(JSON.parse(s).state))")
+          test "$state" = "ready" || { echo "::error::deploy state $state"; exit 1; }
+          for base in "$STAGING_URL" "$DEPLOY_URL"; do
+            for path in / /login /dashboard /clients /api/health/live; do
+              code=$(curl -s -o /dev/null -w '%{http_code}' "$base$path")
+              echo "$base$path -> $code"
+              [ "$code" = "401" ] || { echo "::error::anonymous visitor got $code"; exit 1; }
+            done
+          done
+      - name: Deployment record (no values)
+        env:
+          RECORD: ${{ needs.verify-source.outputs.record }}
+          DEPLOY_ID: ${{ steps.deploy.outputs.deploy_id }}
+          REASON: ${{ inputs.reason }}
+        run: |
+          node -e "const r={...JSON.parse(process.env.RECORD),deploy_id:process.env.DEPLOY_ID,reason:process.env.REASON,anonymous:'401 on 10 checks',authenticated_qa:'NOT_RUN by this workflow'};require('fs').writeFileSync('deploy-record.json',JSON.stringify(r,null,1));console.log(JSON.stringify(r))" | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: w5-staging-deploy-record-${{ steps.deploy.outputs.deploy_id }}
+          path: deploy-record.json
+          retention-days: 90
+
+  rollback:
+    name: Republish a recorded deploy (same bytes, no rebuild)
+    if: inputs.mode == 'rollback'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: staging
+    steps:
+      - name: Reject anything but a recorded deploy ID
+        env:
+          DEPLOY_ID: ${{ inputs.rollback_deploy_id }}
+        run: '[[ "$DEPLOY_ID" =~ ^[0-9a-f]{24}$ ]] || { echo "::error::rollback_deploy_id must be 24 lowercase hex"; exit 1; }'
+      - name: Republish and verify privacy
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          DEPLOY_ID: ${{ inputs.rollback_deploy_id }}
+          REASON: ${{ inputs.reason }}
+        run: |
+          npx --yes "netlify-cli@$NETLIFY_CLI_VERSION" api restoreSiteDeploy --data "{\"site_id\":\"$NETLIFY_SITE_ID\",\"deploy_id\":\"$DEPLOY_ID\"}" > restored.json
+          node -e "const d=require('./restored.json');if(d.id!==process.env.DEPLOY_ID||d.site_id!==process.env.NETLIFY_SITE_ID)process.exit(1)"
+          for path in / /login /dashboard /api/health/live; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$STAGING_URL$path"); echo "$path -> $code"
+            [ "$code" = "401" ] || { echo "::error::anonymous visitor got $code"; exit 1; }
+          done
+          echo "{\"rollback_deploy_id\":\"$DEPLOY_ID\",\"reason\":\"$REASON\",\"anonymous\":\"401 on 4 checks\"}" >> "$GITHUB_STEP_SUMMARY"

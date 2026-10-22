@@ -71,7 +71,10 @@ try {
   const appUrl='http://127.0.0.1:3108'
   const verifyId=randomUUID(),verifyKey=randomBytes(32).toString('hex')
   command('docker',['exec','-i',db,'psql','-X','-qAt','-v','ON_ERROR_STOP=1','-U','postgres','-d','postgres'],{input:`insert into public.document_integrity_verifiers(key_id,key_bytes,expires_at)values('${verifyId}',decode('${verifyKey}','hex'),statement_timestamp()+interval '1 hour');`})
-  appServer=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3108'],{stdio:'ignore',env:{...process.env,NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,PRODUCT_V1_ENABLED:'true',PRODUCT_DOCUMENT_CONTENT_ENABLED:'true',PRODUCT_DOCUMENT_MAINTENANCE_ENABLED:'true',PRODUCT_DOCUMENT_VERIFY_KEY_ID:verifyId,PRODUCT_DOCUMENT_VERIFY_KEY_HEX:verifyKey,PRODUCT_DOCUMENT_SCAN_REQUIRED:'false',PRODUCT_V1_ORIGIN:appUrl}})
+  // Storage 88 (owner decision on #179): document bytes are fetched server-side
+  // after the manifest RPC, so only the app server process receives the local
+  // service key; browser-secret-check keeps proving it never reaches the bundle.
+  appServer=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3108'],{stdio:'ignore',env:{...process.env,NEXT_PUBLIC_SUPABASE_URL:url,NEXT_PUBLIC_SUPABASE_ANON_KEY:anon,PRODUCT_V1_ENABLED:'true',PRODUCT_DOCUMENT_CONTENT_ENABLED:'true',PRODUCT_DOCUMENT_MAINTENANCE_ENABLED:'true',PRODUCT_DOCUMENT_VERIFY_KEY_ID:verifyId,PRODUCT_DOCUMENT_VERIFY_KEY_HEX:verifyKey,PRODUCT_DOCUMENT_SCAN_REQUIRED:'false',PRODUCT_V1_ORIGIN:appUrl,SUPABASE_SERVICE_ROLE_KEY:service}})
   let appReady=false
   for(let attempt=0;attempt<40;attempt++){try{const response=await fetch(appUrl+'/api/product/v1/commands',{method:'POST',signal:AbortSignal.timeout(1000)});if(response.status===403){appReady=true;break}}catch{}await new Promise(resolve=>setTimeout(resolve,250))}
   if(!appReady)throw new Error('APP_TRANSPORT_NOT_READY')
@@ -110,7 +113,7 @@ try {
       const { productBrowserAcceptance } = await import('./product-browser-acceptance.mjs')
       stage = 'w2_product_browser'
       console.log('{"kind":"local_acceptance_progress","phase":"w2_product_browser_start"}')
-      const result = await productBrowserAcceptance({ ...context, url, anon, report: evidence, maintenanceCredentials: {id:verifyId,key:verifyKey} })
+      const result = await productBrowserAcceptance({ ...context, url, anon, report: evidence, maintenanceCredentials: {id:verifyId,key:verifyKey}, serverOnlyServiceKey: service })
       console.log('{"kind":"local_acceptance_progress","phase":"w2_product_browser_complete"}')
       return result
     } : undefined
