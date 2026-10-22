@@ -93,7 +93,6 @@ async function seriesFixture(page:Page){
  return {fixture,queries,financial,commands,commandInputs,errors,id,holdA(){holdA=true},failNextList(){failList=true},waiting:()=>waiting,release,done,async close(){release();fixture.releaseList();fixture.releasePdf();await page.unrouteAll({behavior:'wait'});await fixture.close()}}
 }
 for(const width of [390,768,1440]){
-<<<<<<< HEAD
  for(const kind of ['status','customer','period'] as const)test(`billing ${kind} filter recovers a refused read without hiding a new refusal at ${width}`,async({page},info)=>{
   const r=await seriesFixture(page)
   try{
@@ -117,7 +116,8 @@ for(const width of [390,768,1440]){
    await filter.selectOption(next);await expect(row).toBeVisible();await expect(page.getByRole('alert')).toHaveCount(0)
    await filter.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath(`billing-filter-${kind}-${width}.png`)})
    expect(r.queries).toHaveLength(5);expect(r.commands).toEqual([]);expect(r.errors).toEqual([])
-=======
+  }finally{await r.close()}
+ })
  for(const kind of ['issuer','customer'] as const)test(`fiscal ${kind} country normalizes ASCII and blocks incomplete or non-ASCII input at ${width}`,async({page},info)=>{
   const r=await seriesFixture(page)
   try{
