@@ -37,6 +37,7 @@ jobs:
         run: |
           bash -n scripts/ci/*.sh
           bash scripts/ci/test-guardrails.sh
+          bash scripts/ci/test-node-gate-separation.sh
           bash scripts/ci/test-supabase-security.sh
           node scripts/ci/test-sensitive-routes.mjs
           node scripts/ci/check-sensitive-routes.mjs
@@ -121,6 +122,27 @@ jobs:
       - name: Install, lint, typecheck, test and build
         if: steps.detect.outputs.node_project == 'true'
         run: bash scripts/ci/node-quality-gate.sh
+
+  dependency-audit:
+    name: Dependency audit (HIGH and CRITICAL)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Detect project contract
+        id: detect
+        run: bash scripts/ci/detect-project.sh
+      - name: Set up Node
+        if: steps.detect.outputs.node_project == 'true'
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+      - name: Install and audit all dependency scopes
+        if: steps.detect.outputs.node_project == 'true'
+        run: bash scripts/ci/node-dependency-audit.sh
 
   embedded-db:
     name: Embedded PGlite schema and scope fixtures

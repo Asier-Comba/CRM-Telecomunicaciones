@@ -16,17 +16,14 @@ if [[ -f package-lock.json ]]; then
   npm run typecheck
   npm run test
   npm run build
-  npm audit --audit-level=high
 elif [[ -f pnpm-lock.yaml ]]; then
   pnpm run lint
   pnpm run typecheck
   pnpm run test
   pnpm run build
-  pnpm audit --audit-level high
 else
   yarn lint
   yarn typecheck
   yarn test
   yarn build
-  yarn npm audit --severity high
 fi

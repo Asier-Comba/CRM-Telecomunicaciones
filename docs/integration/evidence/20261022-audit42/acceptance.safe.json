@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-22",
+  "unit": 42,
+  "scope": "ISOLATED_CI_PROPOSAL_NOT_ADOPTED_IN_COMMERCIAL_CANDIDATE",
+  "base_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+  "tested_code_sha": "cc1d240f2c8cad30cfe5f60ba72fb567871a7ba1",
+  "tested_tree": "650d1fcba4454fb91f497a864f5a09e6097d1786",
+  "before": {"functional_commands_succeeded": true, "audit_injected_exit": 9, "quality_exit": 9},
+  "after": {"package_managers": ["npm", "pnpm", "yarn"], "command_assertions_pass": 36, "fail": 0, "skip": 0, "timeout": 0, "real_dependency_installation": false, "live_audit": false},
+  "mutants_rejected": ["continue-on-error", "conditional-audit", "quality-dependent-audit", "missing-audit-job", "weakened-high-threshold"],
+  "syntax": "PASS_ALL_CI_SHELL_SCRIPTS",
+  "guardrails": {"exit": 0, "preexisting_multiline_checkout_count_diagnostic_preserved": true, "comparison_correctness_claimed": false},
+  "initial_mutation_wrapper_inherited_negative_child_exit": 1,
+  "final_mutation_wrapper_exit": 0,
+  "independent_review": "PENDING_W4_W5",
+  "hosted": "NOT_RUN",
+  "production_changes": false,
+  "exceptions_approved": 0,
+  "additional_budget_eur": 0,
+  "release": "RELEASE_NOT_ACCEPTED"
+}
