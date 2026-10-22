@@ -2,7 +2,7 @@
 import {productDate} from '@/features/product/presentation'
 import {TelecomReports} from './TelecomReports'
 import {BillingAnalytics} from '@/features/billing/BillingAnalytics'
-import {useEffect,useState} from 'react'
+import {useEffect,useRef,useState} from 'react'
 import Link from 'next/link'
 import {Download,RefreshCw} from 'lucide-react'
 import {PageHeader} from '@/components/PageHeader'
@@ -20,20 +20,25 @@ const money=(n:number,c:string)=>new Intl.NumberFormat('es-ES',{style:'currency'
 export function IntegratedReports(){
  const {repository,role}=useProduct(),[audience,setAudience]=useState<'my'|'workspace'>('my'),[period,setPeriod]=useState<Period>('month'),[revision,setRevision]=useState(0),[state,setState]=useState<{key:string;data?:DashboardV2;error?:string;readAt?:string}|null>(null),[exporting,setExporting]=useState(false),[exportError,setExportError]=useState('')
  const key=JSON.stringify([audience,period,revision]),current=state?.key===key?state:null,data=current?.data,scope=audience==='my'?'Tu ámbito':'Todo el espacio'
+ const exportEpoch=useRef(0)
+ useEffect(()=>()=>{exportEpoch.current++},[repository])
  useEffect(()=>{const p=new URLSearchParams(window.location.search).get('period');if(periods.some(v=>v.value===p))queueMicrotask(()=>setPeriod(p as Period))},[])
  useEffect(()=>{let active=true;void repository.dashboard({audience,period}).then(data=>{if(active)setState({key,data,readAt:new Date().toISOString()})}).catch(e=>{if(active)setState({key,error:safeMessage(e)})});return()=>{active=false}},[repository,audience,period,key])
- async function exportCsv(){if(exporting||!data)return;setExporting(true);setExportError('');try{
+ async function exportCsv(){if(exporting||!data)return;const epoch=exportEpoch.current;setExporting(true);setExportError('');try{
   // A fresh authorized reader is required even when the visible snapshot is already loaded.
-  const fresh=await repository.dashboard({audience,period}),readAt=new Date().toISOString(),rows:unknown[][]=[['Sección','Medida','Valor','Moneda','Unidad','Ámbito','Periodo','Inicio','Fin exclusivo','Consultado en']]
+  const fresh=await repository.dashboard({audience,period})
+  // A response from a retired product scope must not initiate a download.
+  if(epoch!==exportEpoch.current)return
+  const readAt=new Date().toISOString(),rows:unknown[][]=[['Sección','Medida','Valor','Moneda','Unidad','Ámbito','Periodo','Inicio','Fin exclusivo','Consultado en']]
   const add=(section:string,label:string,value:number,currency='',unit='recuento')=>rows.push([section,label,value,currency,unit,fresh.audience==='my'?'Personal':'Espacio',fresh.period.kind,fresh.period.start??'',fresh.period.end_exclusive??'',readAt])
   Object.entries(snapshotLabels).forEach(([k,label])=>add('Instantánea',label,fresh.snapshot_counts[k as keyof typeof snapshotLabels]))
   Object.entries(periodLabels).forEach(([k,label])=>add('Periodo',label,fresh.period_counts[k as keyof typeof periodLabels]))
   fresh.financial?.currencies.forEach(c=>moneyKeys.forEach(k=>add('Facturación',moneyLabels[k],c[k],c.currency,'unidad menor')))
   const csv='\uFEFF'+rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(';')).join('\r\n'),url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'})),anchor=document.createElement('a');anchor.href=url;anchor.download='informe-telecom-'+fresh.audience+'-'+fresh.period.kind+'.csv';anchor.click();setTimeout(()=>URL.revokeObjectURL(url),1000)
   setState({key,data:fresh,readAt})
- }catch(e){setExportError(safeMessage(e))}finally{setExporting(false)}}
+ }catch(e){if(epoch===exportEpoch.current)setExportError(safeMessage(e))}finally{if(epoch===exportEpoch.current)setExporting(false)}}
  return <div className="space-y-4"><PageHeader title="Informes" description="Instantánea autorizada y actividad del periodo, sin extrapolar listas parciales." action={<button className={primary} disabled={!data||exporting} onClick={()=>void exportCsv()}><Download size={16}/>{exporting?'Comprobando permisos…':'Exportar resumen CSV'}</button>}/><PreviewNotice/>
- <div className="flex flex-wrap items-center gap-3"><select aria-label="Ámbito del informe" className={control} value={audience} disabled={exporting} onChange={e=>{setAudience(e.target.value as typeof audience);setExportError('')}}><option value="my">Tu ámbito</option>{(role==='owner'||role==='admin')&&<option value="workspace">Todo el espacio</option>}</select><PeriodSelect value={period} onChange={p=>{setPeriod(p);setExportError('');const url=new URL(location.href);url.searchParams.set('period',p);history.replaceState(null,'',url)}}/><button className={control} disabled={exporting} onClick={()=>setRevision(v=>v+1)}><RefreshCw size={14}/>Actualizar informe</button></div>
+ <div className="flex flex-wrap items-center gap-3"><select aria-label="Ámbito del informe" className={control} value={audience} disabled={exporting} onChange={e=>{setAudience(e.target.value as typeof audience);setExportError('')}}><option value="my">Tu ámbito</option>{(role==='owner'||role==='admin')&&<option value="workspace">Todo el espacio</option>}</select><fieldset disabled={exporting} className="min-w-0"><PeriodSelect value={period} onChange={p=>{setPeriod(p);setExportError('');const url=new URL(location.href);url.searchParams.set('period',p);history.replaceState(null,'',url)}}/></fieldset><button className={control} disabled={exporting} onClick={()=>setRevision(v=>v+1)}><RefreshCw size={14}/>Actualizar informe</button></div>
  {exportError&&<p role="alert" aria-label="Error al exportar el informe" className="text-sm text-red-700">{exportError}</p>}{current?.error?<div className="rounded-xl border border-red-100 bg-red-50 p-4"><p role="alert" aria-label="Error al consultar el informe" className="text-sm text-red-700">{current.error}</p><button className={`${control} mt-3`} onClick={()=>setRevision(v=>v+1)}>Reintentar informe</button></div>:!data?<p role="status" className="text-sm text-slate-500">Consultando informe autorizado…</p>:<>
  <p className="text-xs text-slate-500">{scope} · {data.period.start?productDate(data.period.start):'Desde el inicio'} — {data.period.end_exclusive?productDate(data.period.end_exclusive):'Sin límite'} (fin exclusivo). Consultado {new Intl.DateTimeFormat('es-ES',{dateStyle:'short',timeStyle:'short',timeZone:'Europe/Madrid'}).format(new Date(current!.readAt!))}.</p>
  <div className="grid gap-4 xl:grid-cols-2"><SectionCard title="Cartera y trabajo actual" description="Instantánea del ámbito seleccionado; no es una serie histórica."><dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">{Object.entries(snapshotLabels).map(([k,label])=><div key={k} className="rounded-lg border border-slate-100 p-3"><dt className="text-xs text-slate-500">{label}</dt><dd data-report-count={k} className="mt-1 text-xl font-semibold text-slate-800">{data.snapshot_counts[k as keyof typeof snapshotLabels]}</dd></div>)}</dl><div className="mt-4 flex flex-wrap gap-3 text-sm font-semibold text-indigo-700"><Link href="/portfolio">Abrir cartera</Link><Link href="/opportunities">Abrir pipeline</Link><Link href="/calendar">Abrir agenda</Link></div></SectionCard>
