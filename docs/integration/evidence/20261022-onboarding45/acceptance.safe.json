@@ -1,0 +1,1025 @@
+{
+  "schema": "crm.integration.onboarding-browser-interlock.v1",
+  "recorded_at": "2026-10-22T16:56:24.761Z",
+  "base_source": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+  "base_tree": "16d83e73283c66ca4988778a2068ba2d5d2c6b4b",
+  "product_commit": "75d393ed7b37b98ff64660b4d74eb0e1d67ff6cf",
+  "product_tree": "6dc2fe35ffda5d3f6eb76a7689d77002a681a20f",
+  "branch": "codex/onboarding-reload-interlock-20261022",
+  "adopted_by_pr175": false,
+  "claim": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6346135587",
+  "product_files": [
+    {
+      "file": "src/app/onboarding/page.tsx",
+      "sha256_utf8_lf": "8acbf369fd49b6494d07354763a844ea1bfd90c6ae5a8ffa6361239dc53e237c"
+    },
+    {
+      "file": "tests/e2e-preview/onboarding-reload-interlock.spec.ts",
+      "sha256_utf8_lf": "09ba4b8d5f06afe5efe8e42eca97817038ed5862e1f904eb4b8e8f0d4a8d0790"
+    }
+  ],
+  "environment": {
+    "node": "24.20.0",
+    "next": "16.3.8",
+    "playwright": "1.61.1",
+    "chromium": "1248 explicit local executable; expected 1228 unavailable",
+    "sdk_http_navigation": "CONTROLLED",
+    "real_component": true,
+    "real_auth_db": false,
+    "hosted": "NOT_RUN"
+  },
+  "acceptance": {
+    "causal_before": "2 FAIL on base f9aa",
+    "new_cases": "16 PASS (12 + 4 distinct)",
+    "existing_onboarding": "58 PASS",
+    "total_distinct_after": 74,
+    "widths": [
+      390,
+      768,
+      1440
+    ],
+    "retries": 0,
+    "skipped": 0,
+    "focused_lint": "PASS",
+    "typecheck": "PASS",
+    "default_build": "PASS44",
+    "initial_config_attempt": "MODULE_NOT_FOUND for external config import; corrected config before causal collection; not a product test failure"
+  },
+  "semantics": {
+    "stored_data": "only pending marker scoped to session user and origin; no company name, token or response",
+    "written_before_post": true,
+    "membership_confirmation": "existing session + active membership and active workspace read",
+    "clears_on": [
+      "existing authenticated active membership read",
+      "existing explicit no-effect 400/401/403/409 code and status pair"
+    ],
+    "valid_receipt_alone_clears": false,
+    "uncertain_reply_allows_post": false,
+    "storage_unavailable_allows_post": false,
+    "automatic_retry": false
+  },
+  "limits": [
+    "Browser interlock only; localStorage removal, another device/origin and simultaneous tabs are not server idempotency.",
+    "No server receipt/RPC/SQL/AuthGate change. #183 remains a separate W1/W4 decision.",
+    "No remote durable command identity or full authenticated recovery acceptance claimed.",
+    "Controlled SDK tests do not prove real Auth, database persistence or tenant isolation.",
+    "No new source accepted for release or hosted deployment."
+  ],
+  "physical_diagnosis": {
+    "source": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+    "run": 39765853702,
+    "attempt": 1,
+    "job": 119780986564,
+    "conclusion": "CANCELLED",
+    "cause": "CONFIRMED_JOB_TIME_LIMIT",
+    "annotation": "The job has exceeded the maximum execution time of 35m0s",
+    "summary_annotation": "No files found at runner.temp/w4-supabase-safe-evidence.json; no artifact uploaded",
+    "browser_checks_completed": 110,
+    "final_backend_totals": "NOT_VERIFIED",
+    "teardown": "NOT_VERIFIED",
+    "source_url": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/actions/runs/39765853702/job/119780986564",
+    "run_stack_review": "safe summary written only in finally",
+    "second_attempt": {
+      "job": 119955527784,
+      "last_observed_status": "in_progress",
+      "started_at": "2026-10-22T16:43:05Z",
+      "launched_by_this_work": false
+    },
+    "shared_file_changes": false,
+    "w5_ack": "PENDING"
+  },
+  "security": {
+    "cost_eur": 0,
+    "external_model_calls": 0,
+    "ai_business_writes": "OFF",
+    "storage88_staging": "NOT_AUTHORIZED",
+    "issue10": "OPEN",
+    "release": "NOT_ACCEPTED"
+  },
+  "suites": [
+    {
+      "name": "before",
+      "original_report_sha256": "53b128394937559156b6c68da7f04b8801171aaa11fab1344051ad6b17039cf0",
+      "stats": {
+        "startTime": "2026-10-22T16:47:15.625Z",
+        "duration": 35598.693,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "onboarding lost-reply survives reload without a second POST at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "failed",
+              "retry": 0,
+              "duration_ms": 16246
+            }
+          ]
+        },
+        {
+          "title": "onboarding unavailable browser storage prevents POST and recovers explicitly at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "failed",
+              "retry": 0,
+              "duration_ms": 11118
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "after",
+      "original_report_sha256": "88093c9ef50db73c648230d6d44131efbac22f12fa4b5bae706b67b966af46f1",
+      "stats": {
+        "startTime": "2026-10-22T16:48:47.260Z",
+        "duration": 36259.613000000005,
+        "expected": 12,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "onboarding lost-reply survives reload without a second POST at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 9938
+            }
+          ]
+        },
+        {
+          "title": "onboarding interrupted survives reload without a second POST at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 3728
+            }
+          ]
+        },
+        {
+          "title": "onboarding unavailable browser storage prevents POST and recovers explicitly at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1478
+            }
+          ]
+        },
+        {
+          "title": "onboarding explicit refusal releases only its browser interlock at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1560
+            }
+          ]
+        },
+        {
+          "title": "onboarding lost-reply survives reload without a second POST at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 2670
+            }
+          ]
+        },
+        {
+          "title": "onboarding interrupted survives reload without a second POST at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 3223
+            }
+          ]
+        },
+        {
+          "title": "onboarding unavailable browser storage prevents POST and recovers explicitly at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1092
+            }
+          ]
+        },
+        {
+          "title": "onboarding explicit refusal releases only its browser interlock at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1206
+            }
+          ]
+        },
+        {
+          "title": "onboarding lost-reply survives reload without a second POST at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 3307
+            }
+          ]
+        },
+        {
+          "title": "onboarding interrupted survives reload without a second POST at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 2704
+            }
+          ]
+        },
+        {
+          "title": "onboarding unavailable browser storage prevents POST and recovers explicitly at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1269
+            }
+          ]
+        },
+        {
+          "title": "onboarding explicit refusal releases only its browser interlock at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1300
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "additional",
+      "original_report_sha256": "56e47d4125547e690dd0fbc36044fe8bb1cd18d5b893afbfdfd6714d233abd1d",
+      "stats": {
+        "startTime": "2026-10-22T16:50:50.959Z",
+        "duration": 33906.028999999995,
+        "expected": 4,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "onboarding reload interlock handles valid-receipt conservatively",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 15302
+            }
+          ]
+        },
+        {
+          "title": "onboarding reload interlock handles unknown-refusal conservatively",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1429
+            }
+          ]
+        },
+        {
+          "title": "onboarding reload interlock handles storage-read conservatively",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 959
+            }
+          ]
+        },
+        {
+          "title": "onboarding reload interlock handles storage-noop conservatively",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1253
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "regression",
+      "original_report_sha256": "3a793620695376b2bfaede48e53891025202a40340ba6e3293789185b4ccad94",
+      "stats": {
+        "startTime": "2026-10-22T16:50:49.548Z",
+        "duration": 90455.965,
+        "expected": 58,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "onboarding receipt uncertainty malformed never resubmits while checking at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 14173
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty missing never resubmits while checking at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1477
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty invalid-id never resubmits while checking at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 2103
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty lost-reply never resubmits while checking at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1560
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty upstream never resubmits while checking at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1687
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty created-string never resubmits while checking at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1753
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty status-mismatch never resubmits while checking at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1778
+            }
+          ]
+        },
+        {
+          "title": "onboarding valid new receipt routes once at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1030
+            }
+          ]
+        },
+        {
+          "title": "onboarding valid existing receipt routes once at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1091
+            }
+          ]
+        },
+        {
+          "title": "onboarding explicit suspended refusal keeps the name without success at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1389
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty malformed never resubmits while checking at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 2014
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty missing never resubmits while checking at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1520
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty invalid-id never resubmits while checking at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1235
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty lost-reply never resubmits while checking at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1568
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty upstream never resubmits while checking at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1301
+            }
+          ]
+        },
+        {
+          "title": "onboarding valid new receipt routes once at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1349
+            }
+          ]
+        },
+        {
+          "title": "onboarding valid existing receipt routes once at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1034
+            }
+          ]
+        },
+        {
+          "title": "onboarding explicit suspended refusal keeps the name without success at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1087
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty malformed never resubmits while checking at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1332
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty missing never resubmits while checking at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1407
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty invalid-id never resubmits while checking at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1493
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty lost-reply never resubmits while checking at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1857
+            }
+          ]
+        },
+        {
+          "title": "onboarding receipt uncertainty upstream never resubmits while checking at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1868
+            }
+          ]
+        },
+        {
+          "title": "onboarding valid new receipt routes once at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1518
+            }
+          ]
+        },
+        {
+          "title": "onboarding valid existing receipt routes once at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1281
+            }
+          ]
+        },
+        {
+          "title": "onboarding explicit suspended refusal keeps the name without success at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1062
+            }
+          ]
+        },
+        {
+          "title": "onboarding late new receipt does not redirect after leaving at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1067
+            }
+          ]
+        },
+        {
+          "title": "onboarding late existing receipt does not redirect after leaving at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1397
+            }
+          ]
+        },
+        {
+          "title": "onboarding late new receipt does not redirect after leaving at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1278
+            }
+          ]
+        },
+        {
+          "title": "onboarding late existing receipt does not redirect after leaving at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1339
+            }
+          ]
+        },
+        {
+          "title": "onboarding late new receipt does not redirect after leaving at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1129
+            }
+          ]
+        },
+        {
+          "title": "onboarding late existing receipt does not redirect after leaving at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1050
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure session-error recovers explicitly at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1104
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure session-throw recovers explicitly at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1105
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure membership-error recovers explicitly at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1474
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure membership-throw recovers explicitly at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1391
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified unconfigured retains routing at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 991
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified no-session retains routing at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 787
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified active retains routing at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 816
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified empty retains routing at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 885
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure session-error recovers explicitly at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1028
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure session-throw recovers explicitly at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1221
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure membership-error recovers explicitly at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1586
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure membership-throw recovers explicitly at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1052
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified unconfigured retains routing at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 701
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified no-session retains routing at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 897
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified active retains routing at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1016
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified empty retains routing at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1123
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure session-error recovers explicitly at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1366
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure session-throw recovers explicitly at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1226
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure membership-error recovers explicitly at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1309
+            }
+          ]
+        },
+        {
+          "title": "onboarding verification failure membership-throw recovers explicitly at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1011
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified unconfigured retains routing at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 692
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified no-session retains routing at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 785
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified active retains routing at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 793
+            }
+          ]
+        },
+        {
+          "title": "onboarding verified empty retains routing at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 936
+            }
+          ]
+        },
+        {
+          "title": "onboarding ignores session completion after unmount",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 790
+            }
+          ]
+        },
+        {
+          "title": "onboarding ignores memberships completion after unmount",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 848
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "file": "onboarding-reload-interrupted-1440.png",
+      "sha256": "cd6e2620640a4b2c850cf719e1ca8c7b571aa25b0f2f44d6efb2dae5788285ed",
+      "reviewed": false
+    },
+    {
+      "file": "onboarding-reload-interrupted-390.png",
+      "sha256": "4d55fce61cdca686cf53cd9c0e1b3d0ffb3ce2dbe1f8a99996458de3a3bdac04",
+      "reviewed": false
+    },
+    {
+      "file": "onboarding-reload-interrupted-768.png",
+      "sha256": "c81f9d9ac50236d7d7c49043c4cdfb493d29f0ab041b211aa5dacba75fd04333",
+      "reviewed": false
+    },
+    {
+      "file": "onboarding-reload-lost-reply-1440.png",
+      "sha256": "fb34363fc7ab34a640b2d68dc63003b58797ec67e98a298a011f0f08f584e394",
+      "reviewed": true
+    },
+    {
+      "file": "onboarding-reload-lost-reply-390.png",
+      "sha256": "92ce04cabdcc143fef409229508a045e117c608188fa366b2aaff077e4ce74c8",
+      "reviewed": true
+    },
+    {
+      "file": "onboarding-reload-lost-reply-768.png",
+      "sha256": "71ff70160a03239a63332d0a25799f46495d676c7ec22f571350e96758fa15f7",
+      "reviewed": true
+    }
+  ]
+}
