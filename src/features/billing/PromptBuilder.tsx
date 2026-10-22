@@ -71,7 +71,11 @@ export function PromptBuilder({
   }
   function dictate() {
     if (listening) {
-      rec.current?.stop()
+      try {
+        rec.current?.stop()
+      } catch {
+        setMessage('No se pudo detener el dictado. Reintenta «Detener dictado» o escribe para conservar tu corrección.')
+      }
       return
     }
     const Ctor = ctor()
@@ -104,11 +108,18 @@ export function PromptBuilder({
       if (rec.current === speech) {
         rec.current = null
         setListening(false)
+        setMessage('')
       }
     }
     speech.onerror = () => {
-      setListening(false)
-      setMessage('No se pudo completar el dictado.')
+      speech.onresult = null
+      speech.onend = null
+      speech.onerror = null
+      if (rec.current === speech) {
+        rec.current = null
+        setListening(false)
+        setMessage('No se pudo completar el dictado.')
+      }
     }
     rec.current = speech
     try {

@@ -1,7 +1,32 @@
-import {expect,test} from '@playwright/test'
+import {expect,test,type Page} from '@playwright/test'
 import {startBillingFocusFixture} from './fixtures/billing-focus-server.cjs'
+import {readFileSync} from 'node:fs'
+import * as ts from 'typescript'
 
 // Real IntegratedBilling and parsers, inert HTTP data. Not Auth/DB evidence.
+for(const width of [390,768,1440])test(`native financial observer matches the actual period and filter scope at ${width}`,async({page})=>{
+ const fixture=await startBillingFocusFixture()
+ const file=ts.createSourceFile('acceptance.mjs',readFileSync('scripts/security/supabase-local/product-browser-acceptance.mjs','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.JS)
+ const labels:string[]=[]
+ const visit=(node:ts.Node)=>{
+  if(ts.isVariableDeclaration(node)&&node.name.getText(file)==='periodLabel'&&node.initializer&&ts.isVariableDeclarationList(node.parent)){
+   const date=node.parent.declarations.find(value=>value.name.getText(file)==='date')?.initializer
+   if(!date)throw Error('Native period date expression missing')
+   labels.push(`const date=${date.getText(file)};return ${node.initializer.getText(file)}`)
+  }
+  ts.forEachChild(node,visit)
+ }
+ visit(file);expect(labels).toHaveLength(1)
+ try{
+  await page.setViewportSize({width,height:960})
+  const pending=page.waitForResponse(response=>{try{return response.request().postDataJSON().operation==='invoice.financial_summary'}catch{return false}})
+  await page.goto(fixture.url);fixture.releaseList()
+  const body=await(await pending).json()
+  const expected=new Function('body',labels[0])(body) as string
+  await expect(page.getByText(expected,{exact:true})).toBeVisible()
+ }finally{fixture.releaseList();fixture.releasePdf();await fixture.close()}
+})
+
 test('financial totals from the previous refresh disappear until the current response arrives',async({page},info)=>{
  const fixture=await startBillingFocusFixture()
  let release!:()=>void,waiting=false,reads=0
@@ -32,3 +57,104 @@ test('financial totals from the previous refresh disappear until the current res
   await expect(page.getByText('Consultando resumen financiero actualizado…',{exact:true})).toHaveCount(0)
  }finally{release();fixture.releaseList();fixture.releasePdf();await page.unrouteAll({behavior:'wait'});await fixture.close()}
 })
+
+
+async function seriesFixture(page:Page){
+ const fixture=await startBillingFocusFixture(),queries:Record<string,unknown>[]=[],financial:Record<string,unknown>[]=[],commands:string[]=[],errors:string[]=[]
+ const id=(n:number)=>`10000000-0000-4000-8000-${String(n).padStart(12,'0')}`
+ let holdA=false,waiting=false,failList=false,release!:()=>void,settled!:()=>void
+ const held=new Promise<void>(resolve=>release=resolve),done=new Promise<void>(resolve=>settled=resolve)
+ const summary=Object.fromEntries(['currency','customer_id','due_on','id','issue_on','number','overdue','series','status','totals','version'].map(key=>[key,fixture.invoice[key as keyof typeof fixture.invoice]]))
+ page.on('pageerror',error=>errors.push(error.message))
+ await page.route('**/api/product/v1/queries',async route=>{
+  if(route.request().postDataJSON().operation!=='global.search')return route.continue()
+  await route.fulfill({json:{ok:true,data:{contract_version:'product.v1',items:[{kind:'customer',id:id(1),customer_id:id(1),label:'Synthetic Company',status:'active'}]}}})
+ })
+ await page.route('**/api/billing/v1**',async route=>{
+  const {operation,input}=route.request().postDataJSON()
+  if(route.request().url().includes('/commands')){commands.push(operation);return route.fulfill({status:403,json:{ok:false,error:'access_denied'}})}
+  if(operation==='invoice.private_pdf_reference')return route.fulfill({status:404,json:{ok:false,error:'not_found'}})
+  if(operation==='invoice.financial_summary'){financial.push(input);return route.continue()}
+  if(operation!=='invoice.list')return route.continue()
+  queries.push(input)
+  if(failList){failList=false;return route.fulfill({status:403,json:{ok:false,error:'access_denied'}})}
+  if(input.series==='DENY')return route.fulfill({status:403,json:{ok:false,error:'access_denied'}})
+  const delayed=holdA&&input.series==='A';if(delayed){waiting=true;await held}
+  const series=input.series??'ALL',row=series==='B'?21:series==='A'?(input.after_id?61:11):31,paged=series==='A'&&!input.after_id
+  // A non-null cursor is valid only after a full 50-row page in the real reader.
+  const items=Array.from({length:paged?50:1},(_,index)=>({...summary,id:id(row+index),series:series==='ALL'?'A':series,number:{series:series==='ALL'?'A':series,year:2026,sequence:row+index}}))
+  await route.fulfill({json:{ok:true,data:{contract_version:'billing.v1',operation,items,next_id:paged?id(60):null}}})
+  if(delayed)settled()
+ })
+ return {fixture,queries,financial,commands,errors,id,holdA(){holdA=true},failNextList(){failList=true},waiting:()=>waiting,release,done,async close(){release();fixture.releaseList();fixture.releasePdf();await page.unrouteAll({behavior:'wait'});await fixture.close()}}
+}
+for(const width of [390,768,1440]){
+ test(`billing explicit list refresh recovers after refused read at ${width}`,async({page},info)=>{
+  const r=await seriesFixture(page)
+  try{
+   await page.setViewportSize({width,height:960});await page.goto(r.fixture.url)
+   const row=page.locator(`tr[data-invoice-id="${r.id(31)}"]`),refresh=page.getByRole('button',{name:'Actualizar facturas',exact:true})
+   await expect(row).toBeVisible();r.failNextList();await refresh.click()
+   await expect(page.getByRole('alert')).toHaveText('No tienes permiso para esta acción.')
+   await expect(row).toHaveCount(0)
+   await page.screenshot({path:info.outputPath('billing-refresh-refused-'+width+'.png')})
+   await refresh.click();await expect(row).toBeVisible()
+   await expect(page.getByRole('alert')).toHaveCount(0)
+   await expect(page.getByText('Consultando resumen financiero actualizado…',{exact:true})).toHaveCount(0)
+   await refresh.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('billing-refresh-recovered-'+width+'.png')})
+   expect(r.queries).toHaveLength(3);expect(r.commands).toEqual([]);expect(r.errors).toEqual([])
+  }finally{await r.close()}
+ })
+ test(`billing series selection retains server cursor and ignores old filter response at ${width}`,async({page},info)=>{
+  const r=await seriesFixture(page)
+  try{
+   await page.setViewportSize({width,height:960});await page.goto(r.fixture.url)
+   await expect(page.locator(`tr[data-invoice-id="${r.id(31)}"]`)).toBeVisible()
+   const filter=page.getByRole('textbox',{name:'Serie exacta de factura',exact:true}),apply=page.getByRole('button',{name:'Aplicar serie',exact:true})
+   await expect(filter).toBeVisible()
+   await page.getByRole('textbox',{name:'Buscar cliente de factura',exact:true}).fill('Synthetic')
+   await page.getByRole('button',{name:'Buscar cliente',exact:true}).click()
+   await page.getByRole('combobox',{name:'Cliente para facturación',exact:true}).selectOption(r.id(1))
+   await page.getByRole('combobox',{name:'Estado de facturas',exact:true}).selectOption('issued')
+   await filter.fill('a');await filter.press('Enter')
+   await expect(page.locator(`tr[data-invoice-id="${r.id(11)}"]`)).toBeVisible()
+   expect(r.queries.at(-1)).toEqual({limit:50,customer_id:r.id(1),status:'issued',series:'A'})
+   await page.getByRole('button',{name:'Siguiente página de facturas',exact:true}).click()
+   await expect(page.locator(`tr[data-invoice-id="${r.id(61)}"]`)).toBeVisible()
+   expect(r.queries.at(-1)).toMatchObject({series:'A',after_id:r.id(60),customer_id:r.id(1),status:'issued'})
+   r.holdA();await page.getByRole('button',{name:'Actualizar facturas',exact:true}).click();await expect.poll(r.waiting).toBe(true)
+   await filter.fill('B');await apply.click()
+   const row=page.locator(`tr[data-invoice-id="${r.id(21)}"]`)
+   await expect(row).toBeVisible();await expect(row).toContainText('B/2026/000021')
+   expect(r.queries.at(-1)).toEqual({limit:50,customer_id:r.id(1),status:'issued',series:'B'})
+   r.release();await r.done;await expect(row).toBeVisible();await expect(page.locator('tr[data-invoice-id]')).toHaveCount(1)
+   expect(r.financial.length).toBeGreaterThan(0)
+   expect(r.financial.every(input=>JSON.stringify(input)===JSON.stringify({period:'month'}))).toBe(true)
+   await expect(page.getByText('Los filtros de cliente y serie solo limitan la lista de facturas.',{exact:false})).toBeVisible()
+   await filter.scrollIntoViewIfNeeded();await page.screenshot({path:info.outputPath('invoice-series-'+width+'.png'),fullPage:false})
+   await row.scrollIntoViewIfNeeded();await expect(row).toBeInViewport({ratio:1});await page.screenshot({path:info.outputPath('invoice-series-loaded-'+width+'.png'),fullPage:false})
+   await filter.fill('');await apply.click();await expect(page.locator(`tr[data-invoice-id="${r.id(31)}"]`)).toBeVisible()
+   expect(r.queries.at(-1)).toEqual({limit:50,customer_id:r.id(1),status:'issued'})
+   const count=r.queries.length;await filter.fill('BAD?');await apply.click()
+   expect(await filter.evaluate(node=>(node as HTMLInputElement).checkValidity())).toBe(false);expect(r.queries).toHaveLength(count)
+   expect(r.commands).toEqual([]);expect(r.errors).toEqual([])
+   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true)
+  }finally{await r.close()}
+ })
+ test(`billing series denied query preserves error and recovers without writes at ${width}`,async({page})=>{
+  const r=await seriesFixture(page)
+  try{
+   await page.setViewportSize({width,height:960});await page.goto(r.fixture.url)
+   await expect(page.locator(`tr[data-invoice-id="${r.id(31)}"]`)).toBeVisible()
+   const filter=page.getByRole('textbox',{name:'Serie exacta de factura',exact:true}),apply=page.getByRole('button',{name:'Aplicar serie',exact:true})
+   await filter.fill('DENY');await apply.click();await expect(page.getByRole('alert')).toHaveText('No tienes permiso para esta acción.')
+   await expect(page.locator('tr[data-invoice-id]')).toHaveCount(0)
+   await expect(page.getByText('No hay facturas en esta página con los filtros seleccionados.',{exact:true})).toHaveCount(0)
+   const deniedReads=r.queries.length;await apply.click()
+   await expect.poll(()=>r.queries.length).toBe(deniedReads+1)
+   await expect(page.getByRole('alert')).toHaveText('No tienes permiso para esta acción.')
+   await filter.fill('A');await apply.click();await expect(page.locator(`tr[data-invoice-id="${r.id(11)}"]`)).toBeVisible();await expect(page.getByRole('alert')).toHaveCount(0)
+   expect(r.commands).toEqual([]);expect(r.errors).toEqual([])
+  }finally{await r.close()}
+ })
+}

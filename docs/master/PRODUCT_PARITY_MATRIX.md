@@ -1,3 +1,6 @@
+> Current evidence index21/10: [commercial module state](../integration/COMMERCIAL_MODULE_STATE_20261021.md).
+> Historical row statuses below are preserved; aggregate tests do not promote them.
+
 # Product parity matrix — W2 Product Integration 3.0
 
 Date: 2026-10-03. Historical minimum: `main@ad3c06e5e6dca8e9cf0342845f670b1b48478851`. Product base: `w4/preview-hardening-v1@6210a9d` (W3 PR21 plus W4 candidate hardening). New delivery: `w2/product-rebuild-v1`.
