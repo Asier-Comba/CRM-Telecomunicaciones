@@ -39,7 +39,8 @@ tree `ca1e3e0c99781c2908fe7892d6908dc841a99d37`.
 - Composition: **86/86 PASS**, retries0/skips0/timeouts0; financial28 plus
   onboarding58, internally testing390/768/1440.
 - Separate billing recovery: **72/72 PASS**, retries0/skips0/timeouts0; invalid and
-  denied receipts48, uncertain effects21, late list/focus3. Distinct from the86.
+  denied receipts42, uncertain effects21, preparation6, late list/focus3.
+  Distinct from the86.
 - Windows bootstrap: **667PASS/5FAIL of672**, skips0. Failures are unchanged
   encrypted-import/private POSIX permission fixtures, in `import-staging-encryption`
   and `protected-telecom-import`; no permission check was relaxed.
