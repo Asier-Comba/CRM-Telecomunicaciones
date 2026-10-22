@@ -1,5 +1,18 @@
 # CRM Telecom — system state
 
+## Selective commercial composition — 2026-10-22
+
+Unit41 composes the reviewed180/fiscal34/181 product and test deltas, preserving
+attribution and both financial banks. Own158controlledUI PASS; defaultbuild44,
+types and global lint PASS. Windows bootstrap667PASS/5FAIL and assistant826PASS/
+1FAIL remain recorded; isolated assistant diagnostic1PASS does not erase the
+full-suite failure. QA38 remains6PASS/3FAIL outside the composition, pending W1
+receipt/recovery authority. No backend/SQL/platform/AI activation change.
+Final remote SHA/tree and its OWN CI are in issue67; no hosted acceptance.
+[Selection and limits](../integration/UNIT_41_SELECTIVE_COMPOSITION_20261022.md),
+[safe own evidence](../integration/evidence/20261022-composition41/acceptance.safe.json).
+175 remains the single candidate; releaseNOT_ACCEPTED/0EUR/AIwritesOFF/StorageOFF.
+
 ## Nocturnal continuation — 2026-10-21, units32–34
 
 39 aligns the legacy native financial scope observer after Oier's series UI:
