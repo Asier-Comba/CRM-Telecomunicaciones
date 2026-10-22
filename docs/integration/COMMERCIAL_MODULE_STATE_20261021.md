@@ -1,5 +1,12 @@
 # Estado comercial por módulo — 21/10/2026
 
+Actualización22/10: [unidad41](UNIT_41_SELECTIVE_COMPOSITION_20261022.md) selecciona
+180/fiscal34/181 con158UIcontroladas propias, sin promover filas por agregación.
+Facturación mejora recuperación explícita y país; onboarding valida recibo sólo
+en UI y bloquea altas tras comprobación fallida. QA38sigue6PASS/3FAIL pendientes
+del propietario backend; recuperación durable y alojamiento siguen no aceptados.
+La evidencia final/source/tree/CI se publica en issue67, no se hereda de48e.
+
 Índice actual de evidencia, enlazado desde la matriz canónica. No sustituye ni
 promueve sus filas históricas. UI presente significa ruta/componente, no producto
 completo. Todos los módulos están en la candidata propia; ninguno tiene aceptación

@@ -70,11 +70,15 @@ export function FiscalEditor({
                       name={key}
                       className={`${control} mt-1.5 w-full`}
                       required
-                      maxLength={key === 'address' ? 300 : key === 'legal_name' ? 200 : 80}
+                      maxLength={key === 'country' ? 2 : key === 'address' ? 300 : key === 'legal_name' ? 200 : 80}
+                      pattern={key === 'country' ? '[A-Z]{2}' : undefined}
+                      title={key === 'country' ? 'Dos letras del país, por ejemplo ES o FR.' : undefined}
                       autoComplete={autoComplete}
                       value={profile[key]}
                       onChange={event => {
-                        const value = event.target.value
+                        const value = key === 'country'
+                          ? event.target.value.replace(/[a-z]/g, letter => letter.toUpperCase())
+                          : event.target.value
                         setProfile(previous => ({ ...previous, [key]: value }))
                       }}
                     />

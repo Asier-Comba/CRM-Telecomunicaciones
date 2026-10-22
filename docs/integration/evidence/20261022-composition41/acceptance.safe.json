@@ -1,0 +1,1370 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-22",
+  "base_sha": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+  "baseline_sha": "fa84c6bcfbaf6276f71e7659b5b97a6e31a61bb4",
+  "product_sha": "3cf3e113ba5f7337ffdb29519e2b647b2f105557",
+  "product_tree": "0504329d86ed89496408cf9786b31d52317d71e0",
+  "runtime": {
+    "node": "24.20.0",
+    "next": "16.3.8",
+    "playwright": "1.61.1",
+    "chromium_revision": 1248,
+    "expected_chromium_revision": 1228,
+    "lock_sha256": "ada5e9b4ee87407af90d869fff1faf7eced86aa890c1810b8467f699c36314ce"
+  },
+  "reports": {
+    "baseline-causal": {
+      "stats": {
+        "startTime": "2026-10-22T10:32:44.627Z",
+        "duration": 76353.937,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 4,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "name": "billing status filter recovers a refused read without hiding a new refusal at 390",
+          "status": "unexpected",
+          "attempts": [
+            "failed"
+          ]
+        },
+        {
+          "name": "fiscal issuer country normalizes ASCII and blocks incomplete or non-ASCII input at 390",
+          "status": "unexpected",
+          "attempts": [
+            "failed"
+          ]
+        },
+        {
+          "name": "onboarding late new receipt does not redirect after leaving at 390",
+          "status": "unexpected",
+          "attempts": [
+            "failed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure session-error recovers explicitly at 390",
+          "status": "unexpected",
+          "attempts": [
+            "failed"
+          ]
+        }
+      ],
+      "raw_sha256": "6425e99b020256a23addec0acd568cbdaa5b2722765337f5b1945462c46fca39"
+    },
+    "baseline-receipt": {
+      "stats": {
+        "startTime": "2026-10-22T10:34:12.296Z",
+        "duration": 13079.132,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "name": "onboarding receipt uncertainty missing never resubmits while checking at 390",
+          "status": "unexpected",
+          "attempts": [
+            "failed"
+          ]
+        }
+      ],
+      "raw_sha256": "41c44a79cdd6a9a4073b0aeec57e41d634174c51efb00359fc60a96a1d986fa2"
+    },
+    "regression": {
+      "stats": {
+        "startTime": "2026-10-22T10:34:55.781Z",
+        "duration": 153844.73500000002,
+        "expected": 86,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "name": "native financial observer matches the actual period and filter scope at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "native financial observer matches the actual period and filter scope at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "native financial observer matches the actual period and filter scope at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "financial totals from the previous refresh disappear until the current response arrives",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing status filter recovers a refused read without hiding a new refusal at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer filter recovers a refused read without hiding a new refusal at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing period filter recovers a refused read without hiding a new refusal at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "fiscal issuer country normalizes ASCII and blocks incomplete or non-ASCII input at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "fiscal customer country normalizes ASCII and blocks incomplete or non-ASCII input at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing explicit list refresh recovers after refused read at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing series selection retains server cursor and ignores old filter response at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing series denied query preserves error and recovers without writes at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing status filter recovers a refused read without hiding a new refusal at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer filter recovers a refused read without hiding a new refusal at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing period filter recovers a refused read without hiding a new refusal at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "fiscal issuer country normalizes ASCII and blocks incomplete or non-ASCII input at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "fiscal customer country normalizes ASCII and blocks incomplete or non-ASCII input at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing explicit list refresh recovers after refused read at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing series selection retains server cursor and ignores old filter response at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing series denied query preserves error and recovers without writes at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing status filter recovers a refused read without hiding a new refusal at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer filter recovers a refused read without hiding a new refusal at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing period filter recovers a refused read without hiding a new refusal at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "fiscal issuer country normalizes ASCII and blocks incomplete or non-ASCII input at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "fiscal customer country normalizes ASCII and blocks incomplete or non-ASCII input at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing explicit list refresh recovers after refused read at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing series selection retains server cursor and ignores old filter response at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing series denied query preserves error and recovers without writes at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty malformed never resubmits while checking at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty missing never resubmits while checking at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty invalid-id never resubmits while checking at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty lost-reply never resubmits while checking at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty upstream never resubmits while checking at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty created-string never resubmits while checking at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty status-mismatch never resubmits while checking at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding valid new receipt routes once at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding valid existing receipt routes once at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding explicit suspended refusal keeps the name without success at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty malformed never resubmits while checking at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty missing never resubmits while checking at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty invalid-id never resubmits while checking at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty lost-reply never resubmits while checking at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty upstream never resubmits while checking at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding valid new receipt routes once at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding valid existing receipt routes once at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding explicit suspended refusal keeps the name without success at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty malformed never resubmits while checking at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty missing never resubmits while checking at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty invalid-id never resubmits while checking at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty lost-reply never resubmits while checking at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding receipt uncertainty upstream never resubmits while checking at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding valid new receipt routes once at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding valid existing receipt routes once at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding explicit suspended refusal keeps the name without success at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding late new receipt does not redirect after leaving at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding late existing receipt does not redirect after leaving at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding late new receipt does not redirect after leaving at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding late existing receipt does not redirect after leaving at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding late new receipt does not redirect after leaving at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding late existing receipt does not redirect after leaving at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure session-error recovers explicitly at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure session-throw recovers explicitly at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure membership-error recovers explicitly at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure membership-throw recovers explicitly at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified unconfigured retains routing at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified no-session retains routing at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified active retains routing at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified empty retains routing at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure session-error recovers explicitly at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure session-throw recovers explicitly at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure membership-error recovers explicitly at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure membership-throw recovers explicitly at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified unconfigured retains routing at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified no-session retains routing at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified active retains routing at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified empty retains routing at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure session-error recovers explicitly at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure session-throw recovers explicitly at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure membership-error recovers explicitly at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verification failure membership-throw recovers explicitly at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified unconfigured retains routing at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified no-session retains routing at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified active retains routing at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding verified empty retains routing at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding ignores session completion after unmount",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "onboarding ignores memberships completion after unmount",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        }
+      ],
+      "raw_sha256": "a58b4f4b34a8d4aa895f83ea185d4c1606c4a75c04de5420e319b9405c0ac39f"
+    },
+    "billing-recovery": {
+      "stats": {
+        "startTime": "2026-10-22T10:38:17.075Z",
+        "duration": 185753.06399999998,
+        "expected": 72,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "name": "billing invoice.issue invalid receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.mark_paid invalid receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.reverse_payment invalid receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.trash invalid receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.restore invalid receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing issuer.set invalid receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer_fiscal.set invalid receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.issue invalid receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.mark_paid invalid receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.reverse_payment invalid receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.trash invalid receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.restore invalid receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing issuer.set invalid receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer_fiscal.set invalid receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.issue invalid receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.mark_paid invalid receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.reverse_payment invalid receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.trash invalid receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.restore invalid receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing issuer.set invalid receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer_fiscal.set invalid receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.issue denied receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.mark_paid denied receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.reverse_payment denied receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.trash denied receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.restore denied receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing issuer.set denied receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer_fiscal.set denied receipt recovery at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.issue denied receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.mark_paid denied receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.reverse_payment denied receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.trash denied receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.restore denied receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing issuer.set denied receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer_fiscal.set denied receipt recovery at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.issue denied receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.mark_paid denied receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.reverse_payment denied receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.trash denied receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.restore denied receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing issuer.set denied receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer_fiscal.set denied receipt recovery at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing preparation ready at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing preparation denied at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing preparation ready at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing preparation denied at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing preparation ready at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing preparation denied at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "current invoice stays visible when a delayed 50-row billing list arrives at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "current invoice stays visible when a delayed 50-row billing list arrives at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "current invoice stays visible when a delayed 50-row billing list arrives at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.issue retains uncertain intent at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.mark_paid retains uncertain intent at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.reverse_payment retains uncertain intent at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.trash retains uncertain intent at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.restore retains uncertain intent at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing issuer.set retains uncertain intent at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer_fiscal.set retains uncertain intent at 390",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.issue retains uncertain intent at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.mark_paid retains uncertain intent at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.reverse_payment retains uncertain intent at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.trash retains uncertain intent at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.restore retains uncertain intent at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing issuer.set retains uncertain intent at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer_fiscal.set retains uncertain intent at 768",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.issue retains uncertain intent at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.mark_paid retains uncertain intent at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.reverse_payment retains uncertain intent at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.trash retains uncertain intent at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing invoice.restore retains uncertain intent at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing issuer.set retains uncertain intent at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        },
+        {
+          "name": "billing customer_fiscal.set retains uncertain intent at 1440",
+          "status": "expected",
+          "attempts": [
+            "passed"
+          ]
+        }
+      ],
+      "raw_sha256": "a0aff121a0eeec1981a7a2428ba195cecad21690d851318ccde726f7a5c26a0e"
+    }
+  },
+  "other_checks": {
+    "bootstrap": {
+      "pass": 667,
+      "fail": 5,
+      "skip": 0,
+      "total": 672
+    },
+    "assistant": {
+      "pass": 826,
+      "fail": 1,
+      "skip": 0,
+      "total": 827,
+      "isolated_diagnostic_pass": 1,
+      "full_suite_failure_preserved": true
+    },
+    "qa38": {
+      "pass": 6,
+      "fail": 3,
+      "skip": 0,
+      "total": 9,
+      "shared_backend_unchanged": true,
+      "adopted": false
+    },
+    "focused_lint": "PASS",
+    "global_lint": "PASS",
+    "default_build": "PASS_44_ROUTES",
+    "typecheck": "PASS"
+  },
+  "setup": {
+    "initial_collection_syntax_error": true,
+    "browser_launch_failures": 4,
+    "not_run_after_launch_failure": 25,
+    "dependency_junction_build_failures": 2,
+    "initial_lint_interrupted": true
+  },
+  "screenshots": [
+    {
+      "file": "billing390.png",
+      "sha256": "3abd05a45fcf5afbcdcc8c43655ad43d23ab8332ba6ef8b7332a6ef2fcdf1bd6",
+      "reviewed": true,
+      "scope": "CONTROLLED_COMPONENT_SYNTHETIC_HTTP_NOT_AUTH_DB_HOSTED"
+    },
+    {
+      "file": "billing768.png",
+      "sha256": "53b62b0ae033ced1be02f08d921f4bf83106e1b4abbecc24b9b50056cef49488",
+      "reviewed": true,
+      "scope": "CONTROLLED_COMPONENT_SYNTHETIC_HTTP_NOT_AUTH_DB_HOSTED"
+    },
+    {
+      "file": "billing1440.png",
+      "sha256": "cdf90262981187e2f841d0ed703c45bbec96e1ce4a3890e861229af03e53f837",
+      "reviewed": true,
+      "scope": "CONTROLLED_COMPONENT_SYNTHETIC_HTTP_NOT_AUTH_DB_HOSTED"
+    },
+    {
+      "file": "fiscal390.png",
+      "sha256": "e591cba2a14c47fdc30e1952b4cdcca398cfbdbec1da25dc073c000baf3210f8",
+      "reviewed": true,
+      "scope": "CONTROLLED_COMPONENT_SYNTHETIC_HTTP_NOT_AUTH_DB_HOSTED"
+    },
+    {
+      "file": "fiscal768.png",
+      "sha256": "aed921fe891349c47940457b36464f4c94d9cf420ac38f033350bba6820926c2",
+      "reviewed": true,
+      "scope": "CONTROLLED_COMPONENT_SYNTHETIC_HTTP_NOT_AUTH_DB_HOSTED"
+    },
+    {
+      "file": "fiscal1440.png",
+      "sha256": "e3c248a092186c4cb47ff6f8990e82dc471cf8f695be3fa1c57e582a252bfe70",
+      "reviewed": true,
+      "scope": "CONTROLLED_COMPONENT_SYNTHETIC_HTTP_NOT_AUTH_DB_HOSTED"
+    },
+    {
+      "file": "onboarding-error-390.png",
+      "sha256": "db0c6c79e88e594ac86ae23b0f8ba52f59d3cd88ab16e54fa93afc274597346b",
+      "reviewed": true,
+      "scope": "CONTROLLED_SDK_NAVIGATION_NOT_WORKSPACE_CREATION"
+    },
+    {
+      "file": "onboarding-unconfirmed-768.png",
+      "sha256": "4d43df28c1bb76e2ff0c2d0ec4c8aa37a8ee08dee8a3f00e7d991802ee5939a3",
+      "reviewed": true,
+      "scope": "CONTROLLED_SDK_NAVIGATION_NOT_WORKSPACE_CREATION"
+    },
+    {
+      "file": "onboarding-recovered-1440.png",
+      "sha256": "1f377295641d9965e6a25bb51b229dc5fbecff365a7f429893e8f14fd71b7f4b",
+      "reviewed": true,
+      "scope": "CONTROLLED_SDK_NAVIGATION_NOT_WORKSPACE_CREATION"
+    }
+  ],
+  "logs": {
+    "baseline": {
+      "sha256": "a5334b0deb517596eef7bb8db8f7af40685825c44c07d2c4bc6f5e659f0c6de8",
+      "bytes": 10487
+    },
+    "baseline-causal": {
+      "sha256": "73afd6ca9819a8efb50f37ae9a0e09e884636988ea0735cc4331fcd23cc584dc",
+      "bytes": 13707
+    },
+    "baseline-receipt": {
+      "sha256": "34b8d9cc5efeaac04bd78eef7f85628b9d17b7b9ee5ab55635fdf3e0ec426b39",
+      "bytes": 3367
+    },
+    "functional": {
+      "sha256": "969af52fbb8e3b79adca4679cf31b6193ab0e5dfa55434c303863bccae51bdcd",
+      "bytes": 110198
+    },
+    "assistant": {
+      "sha256": "0363d96a075b62e20eae80f95dce76cfa089b23f8ad0af15c2a2eda139aee119",
+      "bytes": 146242
+    },
+    "assistant-isolated": {
+      "sha256": "f393c64a5f8edab3ac8b663eeba067a574684174e50a2507739cdacad7a3fedd",
+      "bytes": 895
+    },
+    "qa38": {
+      "sha256": "f47848a6227fac3824c870f9245d04350b1a7b2385aa5d5864b6d14bb573d54c",
+      "bytes": 4635
+    },
+    "lint": {
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98",
+      "bytes": 51
+    },
+    "lint-focused": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "lint-local": {
+      "sha256": "dda21574b74ba6a9edea377d67b00a3846ea8ae6ee11171eb3102a4a59f30d98",
+      "bytes": 51
+    },
+    "build": {
+      "sha256": "1698fee4487cbd35789cca9c88cb4b48918ce42337fc5e53b051dd3a435d76cb",
+      "bytes": 3070
+    },
+    "build-independent": {
+      "sha256": "0a0bd0542e82b86fb196792143adec3c39b125549ad12ddbf7fdd35303f57143",
+      "bytes": 3070
+    },
+    "build-local": {
+      "sha256": "534321cf26724145fa13648d67d361b1139a593b16f87e9339ad829729c02a38",
+      "bytes": 2985
+    },
+    "typecheck": {
+      "sha256": "09698db0dd661e366e31bb0aa12a64958690641809896ed8445717ab71ea6759",
+      "bytes": 62
+    }
+  },
+  "acceptance": {
+    "real_supabase_local": "NOT_RUN_DOCKER_DAEMON_UNAVAILABLE",
+    "hosted": "NOT_RUN",
+    "live_ai": "NOT_RUN",
+    "live_cost": "NOT_MEASURED",
+    "business_ai_writes": "OFF",
+    "storage": "OFF",
+    "backend_receipt_owner_decision": "PENDING",
+    "release": "RELEASE_NOT_ACCEPTED"
+  }
+}
