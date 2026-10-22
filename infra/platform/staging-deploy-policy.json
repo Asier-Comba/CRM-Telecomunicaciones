@@ -15,9 +15,9 @@
   "exceptions": [
     {
       "workflow": "CI",
-      "job": "Lint, types, tests, build",
+      "job": "Dependency audit (HIGH and CRITICAL)",
       "finding": "npm audit HIGH: GHSA-vfj7-8cjw-p6xm braces <=3.0.3, only via eslint-config-next -> @next/eslint-plugin-next -> fast-glob@3.3.1 -> micromatch@4.0.8 (dev-only lint); no patched release upstream on 2026-10-22",
-      "caveat": "Job-level exception would also cover lint/type/test/build failures in the same job; it must not be approved until the audit runs in its own job or step evidence is checked.",
+      "caveat": "Only for sources that include PR #182 (audit in its own job). Sources where npm audit still runs inside \"Lint, types, tests, build\" cannot be excepted, because that would also cover lint/type/test/build failures.",
       "approved_by": null,
       "approved_on": null,
       "expires_on": null
