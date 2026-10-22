@@ -15,6 +15,13 @@ import { getSupabaseBrowserClient } from '@/lib/supabase'
 import { BRAND } from '@/lib/brand'
 
 type WorkspaceReceipt = { workspace: { id: string; name: string; slug: string; role: string; created: boolean } }
+// A browser interlock, not an idempotency key or proof of a workspace. It stores
+// no form data and is scoped to the user returned by the existing session read.
+const pendingKeyFor = (userId: string) => `crm:onboarding:pending:v1:${userId}`
+const refusalStatus: Record<string, number> = {
+  invalid_json: 400, invalid_workspace: 400, unauthenticated: 401,
+  slug_taken: 409, workspace_suspended: 403,
+}
 // Validate the existing provision_workspace response; this does not authorize access.
 function isWorkspaceReceipt(value: unknown, status: number): value is WorkspaceReceipt {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false
@@ -36,6 +43,9 @@ export default function OnboardingPage() {
   const [name, setName] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [creationUnconfirmed, setCreationUnconfirmed] = useState(false)
+  const [recoveryUnavailable, setRecoveryUnavailable] = useState(false)
+  const pendingKey = useRef<string | null>(null)
+  const submitInFlight = useRef(false)
   const isMounted = useRef(false)
 
   useEffect(() => {
@@ -65,7 +75,22 @@ export default function OnboardingPage() {
           .limit(1)
         if (!mounted) return
         if (membershipError) throw membershipError
-        if (memberships?.length) { router.replace('/dashboard'); return }
+        const key = pendingKeyFor(data.session.user.id)
+        if (memberships?.length) {
+          // Storage never grants access. The authenticated membership read above
+          // confirms access even when browser storage is unavailable.
+          try { localStorage.removeItem(key) } catch { /* Keep a conservative marker. */ }
+          router.replace('/dashboard')
+          return
+        }
+
+        pendingKey.current = key
+        try {
+          setCreationUnconfirmed(localStorage.getItem(key) !== null)
+          setRecoveryUnavailable(false)
+        } catch {
+          setRecoveryUnavailable(true)
+        }
 
         setChecking(false)
       } catch {
@@ -80,12 +105,25 @@ export default function OnboardingPage() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (submitting || creationUnconfirmed) return
+    if (submitInFlight.current || submitting || creationUnconfirmed || recoveryUnavailable) return
     const cleanName = name.trim()
     if (!cleanName) {
       toast.error('Pon el nombre de tu empresa', { description: 'Así personalizamos tu espacio de trabajo.' })
       return
     }
+    const key = pendingKey.current
+    if (!key) { setCheckError(true); return }
+    // Persist before sending: a reload or navigation can happen before a reply.
+    // An unresolved marker can only trigger reads, never another POST here.
+    try {
+      if (localStorage.getItem(key) !== null) { setCreationUnconfirmed(true); return }
+      localStorage.setItem(key, 'pending')
+      if (localStorage.getItem(key) !== 'pending') throw Error('RECOVERY_STORAGE_UNAVAILABLE')
+    } catch {
+      setRecoveryUnavailable(true)
+      return
+    }
+    submitInFlight.current = true
     setSubmitting(true)
     try {
       const res = await fetch('/api/onboarding/workspace', {
@@ -100,6 +138,13 @@ export default function OnboardingPage() {
         return
       }
       if (!res.ok) {
+        const code = payload && typeof payload === 'object' ? (payload as { code?: unknown }).code : null
+        if (typeof code !== 'string' || refusalStatus[code] !== res.status) {
+          setCreationUnconfirmed(true)
+          return
+        }
+        // Only the existing explicit no-effect refusals allow another attempt.
+        localStorage.removeItem(key)
         const error = payload && typeof payload === 'object' ? (payload as { error?: unknown }).error : null
         toast.error('No se pudo crear tu espacio', {
           description: typeof error === 'string' ? error : 'Inténtalo de nuevo o contacta con el responsable.',
@@ -118,6 +163,7 @@ export default function OnboardingPage() {
     } catch {
       if (isMounted.current) setCreationUnconfirmed(true)
     } finally {
+      submitInFlight.current = false
       if (isMounted.current) setSubmitting(false)
     }
   }
@@ -133,16 +179,18 @@ export default function OnboardingPage() {
     )
   }
 
-  if (checkError || creationUnconfirmed) {
+  if (checkError || creationUnconfirmed || recoveryUnavailable) {
     return (
       <main className="flex min-h-dvh items-center justify-center bg-[#f7f7f5] px-6 py-12 text-gray-900">
         <div className="w-full max-w-[440px] rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
           <div role="alert">
-            <h1 className="text-xl font-semibold tracking-tight">{checkError ? 'No hemos podido comprobar tu acceso' : 'No hemos podido confirmar el alta'}</h1>
+            <h1 className="text-xl font-semibold tracking-tight">{checkError ? 'No hemos podido comprobar tu acceso' : recoveryUnavailable ? 'No podemos proteger la recuperación' : 'No hemos podido confirmar el alta'}</h1>
             <p className="mt-2 text-sm leading-6 text-gray-600">
               {checkError
                 ? 'Necesitamos comprobar tu sesión y tu empresa antes de continuar. Reintenta la comprobación.'
-                : 'Puede que tu espacio ya esté creado. Comprueba tu acceso sin repetir el alta. Si sigue pendiente, contacta con el responsable.'}
+                : recoveryUnavailable
+                  ? 'El navegador no permite guardar el estado del alta. Habilita el almacenamiento para este sitio y vuelve a comprobar tu acceso.'
+                  : 'Puede que tu espacio ya esté creado. Comprueba tu acceso sin repetir el alta. Si sigue pendiente, contacta con el responsable.'}
             </p>
           </div>
           <Button className="mt-5 min-h-11 w-full" onClick={() => {
@@ -150,7 +198,7 @@ export default function OnboardingPage() {
             setCheckError(false)
             setCheckAttempt(attempt => attempt + 1)
           }}>
-            {checkError ? 'Reintentar comprobación' : 'Comprobar acceso'}
+            {checkError || recoveryUnavailable ? 'Reintentar comprobación' : 'Comprobar acceso'}
           </Button>
         </div>
       </main>
