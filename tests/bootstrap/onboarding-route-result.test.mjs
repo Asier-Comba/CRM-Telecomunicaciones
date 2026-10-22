@@ -61,3 +61,30 @@ for (const [label, data] of [['null', null], ['empty-array', []], ['invalid-id',
   assert.equal(response.ok, false, `UNCONFIRMED_RPC_RESULT_ACKNOWLEDGED_${response.status}`)
   assert.deepEqual(api.calls.map(c => c.operation), ['auth.getUser', 'provision_workspace'])
 })
+
+for (const [label, data] of [
+  ['multiple-results', [row, row]],
+  ['missing-name', { ...row, name: undefined }],
+  ['empty-name', { ...row, name: '   ' }],
+  ['oversized-name', { ...row, name: 'x'.repeat(161) }],
+  ['invalid-slug', { ...row, slug: 'not canonical' }],
+  ['oversized-slug', { ...row, slug: 'x'.repeat(65) }],
+  ['unknown-role', { ...row, role: 'SYNTHETIC_PRIVATE_DETAIL' }],
+  ['missing-role', { ...row, role: undefined }],
+  ['created-string', { ...row, created: 'true' }],
+]) test(`onboarding proposal returns safe uncertainty for ${label}`, async t => {
+  const api = handler({ result: { data, error: null } }), response = await api.POST(request())
+  evidence(t, response, api.calls)
+  assert.equal(response.status, 502)
+  const body = await response.json()
+  assert.equal(body.code, 'onboarding_unconfirmed')
+  assert.equal(Object.hasOwn(body, 'workspace'), false)
+  assert.ok(!JSON.stringify(body).includes('SYNTHETIC_PRIVATE_DETAIL'))
+  assert.deepEqual(api.calls.map(c => c.operation), ['auth.getUser', 'provision_workspace'])
+})
+for (const role of ['owner', 'admin', 'member', 'viewer']) test(`onboarding proposal preserves a single canonical ${role} object result`, async () => {
+  const expected = { ...row, role, created: false }
+  const api = handler({ result: { data: expected, error: null } }), response = await api.POST(request())
+  assert.equal(response.status, 200)
+  assert.deepEqual(await response.json(), { workspace: expected })
+})
