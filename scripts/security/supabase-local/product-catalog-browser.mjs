@@ -19,6 +19,25 @@ export async function catalogBrowser({page,origin,check,screenshotDir}){
  })
 }
 
+async function selectPublishedOperator(page,id){
+ const filter=page.getByLabel('Operador del catálogo',{exact:true}),seen=new Set()
+ for(let index=0;index<100;index++){
+  await expect(filter).toBeEnabled()
+  const values=await filter.locator('option').evaluateAll(options=>options.map(option=>option.value).filter(Boolean))
+  if(values.includes(id)){
+   await expect(filter.locator('option[value="'+id+'"]')).toHaveCount(1)
+   await filter.selectOption(id);return
+  }
+  const signature=values.join(',')
+  if(seen.has(signature))throw Error('CATALOG_OPERATOR_PAGING_STALLED')
+  seen.add(signature)
+  const more=page.getByRole('button',{name:'Más operadores',exact:true})
+  if(await more.count()!==1||!await more.isEnabled())throw Error('CATALOG_TARGET_OPERATOR_NOT_AVAILABLE')
+  await more.click()
+ }
+ throw Error('CATALOG_OPERATOR_PAGE_BOUND_REACHED')
+}
+
 export async function publishCatalogVersionBrowser({page,origin,createdPlanId,createdOperatorId,screenshotDir}){
   const wait=op=>page.waitForResponse(r=>{try{return r.request().method()==='POST'&&r.request().postDataJSON().operation===op}catch{return false}})
   async function receipt(pending){const r=await pending,b=await r.json();if(r.status()!==200||!b.ok)throw Error('CATALOG_CURRENT_COOKIE_COMMAND_FAILED');return b.data}
@@ -29,9 +48,7 @@ export async function publishCatalogVersionBrowser({page,origin,createdPlanId,cr
   await page.goto(origin+'/catalog')
   await page.getByRole('tab',{name:'Tarifas',exact:true}).click()
   step('created_operator_filter')
-  const filter=page.getByLabel('Operador del catálogo',{exact:true})
-  await expect(filter.locator('option[value="'+createdOperatorId+'"]')).toHaveCount(1)
-  await filter.selectOption(createdOperatorId)
+  await selectPublishedOperator(page,createdOperatorId)
   step('created_plan_publication')
   const card=page.locator('[data-catalog-id="'+createdPlanId+'"]')
   await expect(card).toBeVisible();await card.getByRole('button',{name:'Publicar nueva versión',exact:true}).click()
@@ -54,8 +71,7 @@ export async function publishCatalogVersionBrowser({page,origin,createdPlanId,cr
   await expect(dialog.getByRole('status')).toContainText('Versión publicada y recuperada')
   step('reload_and_recover_same_version')
   await page.reload();await page.getByRole('tab',{name:'Versiones',exact:true}).click()
-  await expect(filter.locator('option[value="'+createdOperatorId+'"]')).toHaveCount(1)
-  await filter.selectOption(createdOperatorId)
+  await selectPublishedOperator(page,createdOperatorId)
   const fresh=page.locator('[data-catalog-id="'+published.id+'"]')
   await expect(fresh).toBeVisible()
   const recovered=wait('plan_version.terms_get')

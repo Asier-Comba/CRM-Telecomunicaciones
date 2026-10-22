@@ -121,8 +121,9 @@ function parseConcept(text: string): string | null {
     const tail = text.slice(prefix.index + prefix[0].length)
     // A monetary clause is not a service description. A later "por" may name it.
     if (/^[+-]?\d+(?:[.\s]\d{3})*(?:[.,]\d+)?\s*(?:€|eur(?:os)?\b|usd\b|d[oó]lares\b|gbp\b|libras\b)/i.test(tail)) continue
+    // Speeds, coverage and product names can contain digits; only a currency amount ends them.
     const m = tail.match(
-      /^([^,.;]+?)(?:[,.;]|\s+(?:(?:con|y)\s+)?(?:iva|irpf|vencimiento|descuento|serie)\b|\s+(?:de|por)\s+\d|\s+(?:\+|\d)|$)/i,
+      /^([^,.;]+?)(?:[,.;]|\s+(?:(?:con|y)\s+)?(?:iva|irpf|vencimiento|descuento|serie)\b|\s+(?:de|por)\s+\d|\s+(?:\+|\d+(?:[.\s]\d{3})*(?:[.,]\d+)?\s*(?:€|eur(?:os)?\b|usd\b|d[oó]lares\b|gbp\b|libras\b))|$)/i,
     )
     if (!m) continue
     const c = m[1].trim().replace(/\s+/g, ' ')

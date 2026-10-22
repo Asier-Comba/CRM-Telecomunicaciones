@@ -6,6 +6,9 @@ import {root, readJson} from './lib.mjs'
 export const sources = {
   platform: '85d3a60a7b34af4aac5465f3b30130f742e49900',
   product: '60acdc5d6a2ae41ff3d751724582ade0c0762788',
+  // Recorded W5 composition commit. The composition proof binds THIS tree; after
+  // it src/ belongs to the integrator and HEAD may only add forward migrations.
+  composed: '32862fafbdf35c1c33b84a88ef1e7710cdac9388',
 }
 const platformPaths = ['src/app/api/health/live/route.ts', 'src/app/api/health/ready/route.ts', 'src/app/fonts.css', 'src/app/layout.tsx']
 function git(args) {
@@ -25,6 +28,18 @@ export function unionMigrations(platform, product) {
   if (new Set(Object.keys(union).map(name => name.split('/').at(-1).slice(0, 14))).size !== Object.keys(union).length) throw new Error('MIGRATION_VERSION_COLLISION')
   return {shared: shared.length, platform_only: Object.keys(platform).filter(name => !(name in product)).sort(), product_only: Object.keys(product).filter(name => !(name in platform)).sort(), union}
 }
+/** Every composed migration keeps its exact blob at HEAD, none is removed,
+ * every addition sorts after the last composed version, and every version is
+ * unique across the whole HEAD set (same rule as unionMigrations). */
+export function checkForwardMigrations(composed, head) {
+  const version = path => path.split('/').at(-1).slice(0, 14)
+  const last = Object.keys(composed).map(version).sort().at(-1)
+  if (Object.entries(composed).some(([path, blob]) => head[path] !== blob)) throw new Error('FORWARD_ONLY_MIGRATION_DRIFT')
+  const added = Object.keys(head).filter(path => !(path in composed)).sort()
+  if (added.some(path => !(version(path) > last))) throw new Error('FORWARD_ONLY_MIGRATION_DRIFT')
+  if (new Set(Object.keys(head).map(version)).size !== Object.keys(head).length) throw new Error('MIGRATION_VERSION_COLLISION')
+  return added.map(path => path.split('/').at(-1))
+}
 export function checkComposition(expected, actual) {
   if (Object.keys(expected).length !== Object.keys(actual).length || Object.entries(expected).some(([path, blob]) => actual[path] !== blob)) throw new Error('COMPOSITION_BLOB_DRIFT')
   return {result: 'PASS', files: Object.keys(expected).length}
@@ -37,23 +52,28 @@ export function composition() {
     if (!platform[path]) throw new Error('PLATFORM_PROVENANCE_MISSING')
     product[path] = platform[path]
   }
-  const index = Object.fromEntries(git(['ls-files', '-s', '-z', '--', 'src', 'supabase/migrations']).split('\0').filter(Boolean).map(row => {
+  if (spawnSync('git', ['merge-base', '--is-ancestor', sources.composed, 'HEAD'], {cwd: root, timeout: 30000}).status !== 0) throw new Error('COMPOSED_NOT_ANCESTOR')
+  checkComposition({...product, ...migrations.union}, {...tree(sources.composed, 'src'), ...tree(sources.composed, 'supabase/migrations')})
+  const names = Object.keys(migrations.union).map(path => path.split('/').at(-1)).sort()
+  const composedListed = JSON.parse(git(['show', sources.composed + ':docs/master/contracts/backend-bootstrap-requirements.json'])).database.migrations
+  if (JSON.stringify(composedListed) !== JSON.stringify(names)) throw new Error('BOOTSTRAP_MIGRATION_DRIFT')
+  const index = Object.fromEntries(git(['ls-files', '-s', '-z', '--', 'supabase/migrations']).split('\0').filter(Boolean).map(row => {
     const [metadata, path] = row.split('\t'), fields = metadata.split(' ')
     if (fields[2] !== '0') throw new Error('UNRESOLVED_COMPOSITION')
     return [path, fields[1]]
   }))
-  checkComposition({...product, ...migrations.union}, index)
+  const forward = checkForwardMigrations(migrations.union, index)
   if (git(['diff', '--name-only', '--', 'src', 'supabase/migrations']).trim()) throw new Error('UNSTAGED_SOURCE_DRIFT')
-  const listed = readJson('docs/master/contracts/backend-bootstrap-requirements.json').database.migrations
-  const names = Object.keys(migrations.union).map(path => path.split('/').at(-1)).sort()
-  if (JSON.stringify(listed) !== JSON.stringify(names)) throw new Error('BOOTSTRAP_MIGRATION_DRIFT')
+  const headNames = Object.keys(index).map(path => path.split('/').at(-1)).sort()
+  if (JSON.stringify(readJson('docs/master/contracts/backend-bootstrap-requirements.json').database.migrations) !== JSON.stringify(headNames)) throw new Error('BOOTSTRAP_MIGRATION_DRIFT')
   const manifest = readJson('scripts/security/native-postgres/function-privileges.json')
   const functions = manifest.functions.filter(f => f.signature.startsWith('public.'))
   if (functions.some(f => f.definer && f.public)) throw new Error('PUBLIC_DEFINER_EXECUTION')
   return {
-    version: 12, sources, merge_base: git(['merge-base', sources.platform, sources.product]).trim(),
+    version: 13, sources, merge_base: git(['merge-base', sources.platform, sources.product]).trim(),
     status: 'STATIC_COMPOSITION_CANDIDATE', composition_accepted: false,
     migrations: {platform: Object.keys(pm).length, product: Object.keys(qm).length, shared: migrations.shared, union: names.length, platform_only: migrations.platform_only, product_only: migrations.product_only, applied_database: 'NOT_PROVEN'},
+    head: {composed_is_ancestor: true, migrations: headNames.length, forward_migrations: forward, product_src: 'INTEGRATOR_OWNED_NOT_COMPOSITION_BOUND'},
     source_blobs: {product_paths_preserved: Object.keys(product).length - platformPaths.length, platform_paths_preserved: platformPaths, migration_blobs_identical: true},
     public_rpc_manifest: {count: functions.length, actual_database_comparison: 'REQUIRES_EXACT_CI'},
     acceptance: {native_db: 'REQUIRES_EXACT_CI', supabase: 'REQUIRES_EXACT_CI', recovery: 'REQUIRES_EXACT_CI', product_browser: 'REQUIRES_EXACT_CI', independent_review: 'PENDING', staging: 'NOT_PROVEN', production: 'NOT_AUTHORIZED'},

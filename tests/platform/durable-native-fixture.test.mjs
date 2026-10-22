@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import childProcess from 'node:child_process'
 import { existsSync } from 'node:fs'
 import { createDurableNativeFixtureV1 } from '../../scripts/platform/durable-native-fixture.mjs'
-import { NATIVE_POSTGRES_OFFICIAL_IMAGE } from '../../scripts/security/native-postgres/expected-image.mjs'
+import { NATIVE_POSTGRES_OFFICIAL_IMAGE, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE, isPinnedNativeImageV1 } from '../../scripts/security/native-postgres/expected-image.mjs'
 import { openPersistentNativeFixtureSessionV1 } from '../../scripts/security/native-postgres/persistent-fixture-session.mjs'
 import { nativeResourceQueryFailureCategory } from '../../scripts/platform/native-resource-query-error.mjs'
 
@@ -34,7 +34,14 @@ function engine(t, options = {}) {
     state.config = args[1]
     const a = args.slice(4); state.calls.push(a)
     if (a[0] === 'info') return 'linux\n'
-    if (a[0] === 'pull') { if (state.pullFailure) throw Object.assign(Error(privateMarker), state.pullError ?? {}); assert.equal(a.at(-1), NATIVE_POSTGRES_OFFICIAL_IMAGE); assert.ok(a.includes('--quiet')); return '' }
+    if (a[0] === 'pull') {
+      const image = a.at(-1); (state.pulls ??= []).push(image)
+      assert.ok([NATIVE_POSTGRES_OFFICIAL_IMAGE, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE].includes(image)); assert.ok(a.includes('--quiet'))
+      const byImage = state.pullErrorByImage?.[image]
+      if (byImage) throw Object.assign(Error(privateMarker), byImage)
+      if (state.pullFailure) throw Object.assign(Error(privateMarker), state.pullError ?? {})
+      return ''
+    }
     if (a[0] === 'volume') {
       if (a[1] === 'create') {
         const labels = Object.fromEntries(a.flatMap((v, i) => v === '--label' ? [a[i + 1].split('=')] : []))
@@ -215,6 +222,55 @@ test('pull diagnostics expose only fixed categories and discard all provider tex
     assert.equal(s.mutations.length, 0); assert.ok(!existsSync(s.config))
   }
 })
+test('a rate-limited first publisher falls back to the same pinned index from the second publisher', async t => {
+  const s = engine(t, { pullErrorByImage: { [NATIVE_POSTGRES_OFFICIAL_IMAGE]: { stderr: 'toomanyrequests: Data limit exceeded ' + privateMarker } } })
+  const f = await createDurableNativeFixtureV1()
+  try {
+    assert.deepEqual(s.pulls, [NATIVE_POSTGRES_OFFICIAL_IMAGE, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE])
+    assert.equal(s.container.Config.Image, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE)
+    assert.equal(NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE.split('@')[1], NATIVE_POSTGRES_OFFICIAL_IMAGE.split('@')[1])
+  } finally { await f.close() }
+  assert.equal(s.container, null); assert.equal(s.volume, null)
+})
+test('only a rate limit moves to the second publisher; other pull failures stop at the first', async t => {
+  for (const [detail, code] of [
+    [{ stderr: Buffer.from('x509: ' + privateMarker) }, 'TLS_FAILED'],
+    [{ stderr: 'unauthorized ' + privateMarker }, 'AUTH_UNAVAILABLE'],
+    [{ stderr: 'manifest unknown ' + privateMarker }, 'REFERENCE_UNAVAILABLE'],
+    [{ stderr: 'connection reset ' + privateMarker }, 'NETWORK_UNAVAILABLE'],
+    [{ code: 'ETIMEDOUT' }, 'TIMEOUT'],
+  ]) {
+    await t.test(code, async t => {
+      const s = engine(t, { pullErrorByImage: { [NATIVE_POSTGRES_OFFICIAL_IMAGE]: detail } })
+      await assert.rejects(createDurableNativeFixtureV1(), closedError('IMAGE_PULL_' + code))
+      assert.deepEqual(s.pulls, [NATIVE_POSTGRES_OFFICIAL_IMAGE]); assert.equal(s.mutations.length, 0); assert.ok(!existsSync(s.config))
+    })
+  }
+})
+test('both publishers rate-limited stays a closed RATE_LIMITED failure with no resource', async t => {
+  const limited = { stderr: 'toomanyrequests: ' + privateMarker }
+  const s = engine(t, { pullErrorByImage: { [NATIVE_POSTGRES_OFFICIAL_IMAGE]: limited, [NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE]: limited } })
+  await assert.rejects(createDurableNativeFixtureV1(), closedError('IMAGE_PULL_RATE_LIMITED'))
+  assert.deepEqual(s.pulls, [NATIVE_POSTGRES_OFFICIAL_IMAGE, NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE]); assert.equal(s.mutations.length, 0)
+})
+test('a resource is pinned only by an official reference whose local image records that exact index digest', () => {
+  const digest = NATIVE_POSTGRES_OFFICIAL_IMAGE.split('@')[1], other = 'sha256:' + '0'.repeat(64)
+  assert.ok(isPinnedNativeImageV1(NATIVE_POSTGRES_OFFICIAL_IMAGE, [NATIVE_POSTGRES_OFFICIAL_IMAGE]))
+  assert.ok(isPinnedNativeImageV1(NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE, ['postgres@' + digest]))
+  assert.ok(isPinnedNativeImageV1(NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE, [NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE]))
+  for (const [reference, digests] of [
+    [NATIVE_POSTGRES_OFFICIAL_IMAGE, ['postgres@' + digest]],
+    [NATIVE_POSTGRES_OFFICIAL_IMAGE, ['public.ecr.aws/docker/library/postgres@' + other]],
+    [NATIVE_POSTGRES_OFFICIAL_IMAGE, []],
+    [NATIVE_POSTGRES_OFFICIAL_IMAGE, undefined],
+    [NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE, [NATIVE_POSTGRES_OFFICIAL_IMAGE]],
+    [NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE, ['postgres@' + other]],
+    [NATIVE_POSTGRES_OFFICIAL_FALLBACK_IMAGE, ['library/postgres@' + digest]],
+    ['postgres:16', ['postgres@' + digest]],
+    ['docker.io/library/postgres@' + other, ['postgres@' + other]],
+    ['mirror.example.invalid/library/postgres@' + digest, ['mirror.example.invalid/library/postgres@' + digest]],
+  ]) assert.equal(isPinnedNativeImageV1(reference, digests), false, reference)
+})
 test('close refuses a shared volume instead of forcing removal and can retry safely', async t => {
   const s = engine(t), f = await createDurableNativeFixtureV1()
   s.refuseVolume = true
@@ -243,7 +299,8 @@ test('native own resource, independent consumer sessions, persisted storage, act
   try {
     const metadata = privateJson(safeDocker(['container', 'inspect', container]))[0]
     volume = metadata.Mounts[0].Name
-    assert.ok(metadata.Id === container && metadata.Config.Image === NATIVE_POSTGRES_OFFICIAL_IMAGE, 'EXACT_PINNED_OWN_RESOURCE')
+    const imageDigests = privateJson(safeDocker(['image', 'inspect', '--format', '{{json .RepoDigests}}', metadata.Image]))
+    assert.ok(metadata.Id === container && isPinnedNativeImageV1(metadata.Config.Image, imageDigests), 'EXACT_PINNED_OWN_RESOURCE')
     assert.ok(metadata.HostConfig.NetworkMode === 'none' && !Object.keys(metadata.HostConfig.PortBindings ?? {}).length, 'NO_PUBLISHED_NETWORK')
     assert.equal(safeDocker(['exec', '-u', 'postgres', container, 'cat', '/proc/1/comm']), 'postgres', 'FINAL_POSTMASTER_IS_PID1_BEFORE_FIRST_QUERY')
     assert.ok(query("select count(*) from pg_class where relnamespace='public'::regnamespace;") === '0', 'EMPTY_TELECOM_DATABASE')

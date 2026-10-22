@@ -7,6 +7,13 @@ export function validValue(type,value,target){
  if(type==='app_environment')return ['local','test','staging','production'].includes(value)
  if(type==='disposable_adapter')return target==='LOCAL'&&value==='disposable-local'
  if(type==='uuid')return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)
+ // Same grammar as parseStagingUserIdsV1 (product admission): 1..64 canonical lowercase
+ // UUIDs, comma separated, no spaces, wildcards or duplicates; staging-only cohort.
+ if(type==='uuid_csv'){
+  if(target!=='STAGING'||value.length>64*37-1)return false
+  const ids=value.split(',')
+  return ids.length<=64&&new Set(ids).size===ids.length&&ids.every(id=>/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(id))
+ }
  if(type==='port')return /^\d+$/.test(value)&&Number(value)>0&&Number(value)<=65535
  if(type==='hostname')return /^[a-zA-Z0-9.-]{1,253}$/.test(value)&&!value.includes('..')
  if(type==='email_address')return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)&&value.length<=320
@@ -48,6 +55,7 @@ export function validateEnvironment(env,target,manifest=readJson('infra/platform
   if(publicKey?.startsWith('sb_secret_'))errors.push('PRIVATE_KEY_IN_PUBLIC_BINDING')
   if(env.PRODUCT_V1_ORIGIN!==env.NEXT_PUBLIC_APP_URL||env.AUTH_SITE_URL!==env.NEXT_PUBLIC_APP_URL)errors.push('APP_AUTH_ORIGIN_MISMATCH')
  }
+ if(target!=='STAGING'&&env.PRODUCT_STAGING_INTEGRATION!==undefined&&env.PRODUCT_STAGING_INTEGRATION!=='false')errors.push('STAGING_ADMISSION_OUTSIDE_STAGING')
  const requirements={AUTH_EMAIL_ENABLED:['SMTP_HOST','SMTP_PORT','SMTP_USER','SMTP_PASSWORD','AUTH_MAIL_FROM'],CRM_EMAIL_ENABLED:['CRM_MAIL_PROVIDER_REF','CRM_MAIL_FROM'],N8N_ENABLED:['N8N_BASE_URL','N8N_API_KEY','N8N_WEBHOOK_SECRET'],AI_ENABLED:['OPENAI_API_KEY']}
  for(const [flag,names]of Object.entries(requirements))if(env[flag]==='true')for(const n of names)if(!env[n])errors.push(`MISSING_${n}`)
  if(target==='STAGING'&&env.CRM_EMAIL_ENABLED==='true'&&!validValue('json_emails',env.CRM_EMAIL_ALLOWLIST,target))errors.push('STAGING_MAIL_ALLOWLIST_REQUIRED')

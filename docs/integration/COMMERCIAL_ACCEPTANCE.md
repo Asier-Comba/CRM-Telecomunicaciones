@@ -1,3 +1,11 @@
+## Current evidence21/10
+
+The [module index](COMMERCIAL_MODULE_STATE_20261021.md) and
+[night handoff32–34](NIGHT_32_34_20261021.md) supersede current-state readings of
+the historical20/10 snapshot below.8ee had116real-localUI including catalog prices,
+threecreates and SQL-observed replay; the new source needs its own CI. No hosted
+successor acceptance. Budget0EUR: Pro rejected, no purchase decision pending.
+
 # Aceptación comercial — 20/10/2026
 
 La demo alojada existe: W5 informa el núcleo en deploy6ad75c93 y W0 corroboró

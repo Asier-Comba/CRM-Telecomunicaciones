@@ -4,7 +4,7 @@ import { mkdtempSync, lstatSync, realpathSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { basename, dirname, join, resolve } from 'node:path'
 import { setTimeout as delay } from 'node:timers/promises'
-import { NATIVE_POSTGRES_OFFICIAL_IMAGE } from '../security/native-postgres/expected-image.mjs'
+import { acquireNativeImageV1 } from '../security/native-postgres/expected-image.mjs'
 import { nativeResourceQueryFailureCategory } from './native-resource-query-error.mjs'
 
 const contract = 'telecom.native-resource.v1'
@@ -54,7 +54,7 @@ export async function createDurableNativeFixtureV1(...argumentsReceived) {
   const token = randomBytes(24).toString('hex')
   const name = 'telecom-native-resource-' + token
   const volume = 'telecom-native-data-' + token
-  let container, containerIdentity, volumeIdentity, initialSnapshot
+  let container, containerIdentity, volumeIdentity, initialSnapshot, image
   let volumeAttempted = false, containerAttempted = false, closed = false
   let queue = Promise.resolve()
 
@@ -84,7 +84,7 @@ export async function createDurableNativeFixtureV1(...argumentsReceived) {
     const records = json(['container', 'inspect', container])
     const c = Array.isArray(records) && records.length === 1 ? records[0] : null
     const mount = c?.Mounts?.length === 1 ? c.Mounts[0] : null
-    if (!c || c.Id !== container || c.Name !== '/' + name || typeof c.Created !== 'string' || !Number.isFinite(Date.parse(c.Created)) || c.Config?.Image !== NATIVE_POSTGRES_OFFICIAL_IMAGE || !imagePattern.test(c.Image ?? '') || c.Config?.Labels?.[label] !== contract || c.Config?.Labels?.[ownerLabel] !== token || c.HostConfig?.NetworkMode !== 'none' || c.HostConfig?.Privileged !== false || c.HostConfig?.PidMode !== '' || Object.keys(c.HostConfig?.PortBindings ?? {}).length || !mount || mount.Type !== 'volume' || mount.Name !== volume || mount.Destination !== '/var/lib/postgresql/data' || mount.RW !== true) throw fail('OWNERSHIP_REJECTED')
+    if (!c || c.Id !== container || c.Name !== '/' + name || typeof c.Created !== 'string' || !Number.isFinite(Date.parse(c.Created)) || c.Config?.Image !== image || !imagePattern.test(c.Image ?? '') || c.Config?.Labels?.[label] !== contract || c.Config?.Labels?.[ownerLabel] !== token || c.HostConfig?.NetworkMode !== 'none' || c.HostConfig?.Privileged !== false || c.HostConfig?.PidMode !== '' || Object.keys(c.HostConfig?.PortBindings ?? {}).length || !mount || mount.Type !== 'volume' || mount.Name !== volume || mount.Destination !== '/var/lib/postgresql/data' || mount.RW !== true) throw fail('OWNERSHIP_REJECTED')
     if (containerIdentity && (c.Created !== containerIdentity.created || c.Image !== containerIdentity.image)) throw fail('IDENTITY_REJECTED')
     containerIdentity ??= { created: c.Created, image: c.Image }
     verifyVolume()
@@ -157,12 +157,12 @@ export async function createDurableNativeFixtureV1(...argumentsReceived) {
 
   try {
     if (docker(['info', '--format', '{{.OSType}}']) !== 'linux') throw fail('LINUX_ENGINE_REQUIRED')
-    docker(['pull', '--quiet', NATIVE_POSTGRES_OFFICIAL_IMAGE], 'IMAGE_PULL_UNAVAILABLE', 120000)
+    image = acquireNativeImageV1(reference => docker(['pull', '--quiet', reference], 'IMAGE_PULL_UNAVAILABLE', 120000))
     volumeAttempted = true
     if (docker(['volume', 'create', '--driver', 'local', '--label', label + '=' + contract, '--label', ownerLabel + '=' + token, volume]) !== volume) throw fail('IDENTITY_REJECTED')
     verifyVolume()
     containerAttempted = true
-    container = docker(['container', 'create', '--name', name, '--label', label + '=' + contract, '--label', ownerLabel + '=' + token, '--network', 'none', '--mount', 'type=volume,source=' + volume + ',target=/var/lib/postgresql/data', '--env', 'POSTGRES_HOST_AUTH_METHOD=trust', '--env', 'POSTGRES_DB=telecom_test', NATIVE_POSTGRES_OFFICIAL_IMAGE])
+    container = docker(['container', 'create', '--name', name, '--label', label + '=' + contract, '--label', ownerLabel + '=' + token, '--network', 'none', '--mount', 'type=volume,source=' + volume + ',target=/var/lib/postgresql/data', '--env', 'POSTGRES_HOST_AUTH_METHOD=trust', '--env', 'POSTGRES_DB=telecom_test', image])
     verifyContainer()
     docker(['container', 'start', container], 'START_UNAVAILABLE')
     initialSnapshot = await ready()

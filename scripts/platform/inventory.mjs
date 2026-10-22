@@ -4,7 +4,7 @@ import {root,files,readJson,migrations,hash} from './lib.mjs'
 export function inventory(){
  const prior=readJson('docs/master/contracts/product-environment.json').entries
  const uses=new Map(prior.map(e=>[e.name,['docs/master/contracts/product-environment.json']]))
- for(const file of [...files(join(root,'src')),...files(join(root,'scripts/platform'))].filter(p=>/\.(?:ts|tsx|mjs)$/.test(p))){
+ for(const file of [...files(join(root,'src')),...files(join(root,'scripts/platform')),...files(join(root,'scripts/assistant'))].filter(p=>/\.(?:ts|tsx|mjs)$/.test(p))){
   const source=readFileSync(file,'utf8')
   for(const m of source.matchAll(/(?:process\.env|\benv)\.([A-Z][A-Z0-9_]+)/g))uses.set(m[1],[...new Set([...(uses.get(m[1])??[]),relative(root,file).replaceAll('\\','/')])])
  }
@@ -25,6 +25,7 @@ export function inventory(){
  for(const entry of entries){
   if(fileSecrets[entry.name])Object.assign(entry,fileSecrets[entry.name],{file_content_secret:true,description:'Reference path only; file contents are private credentials, never included in public configuration/builds/logs. Company runtime remains disabled.'})
   if(entry.name==='IMPORT_STAGING_TEST_KEY'){entry.target=['LOCAL'];entry.destination='Ephemeral disposable local test process only; forbidden in hosted environments'}
+  if(['PRODUCT_STAGING_INTEGRATION','PRODUCT_STAGING_USER_IDS'].includes(entry.name))entry.target=['STAGING']
  }
  return {version:2,values_included:false,environments:['LOCAL','DEV','STAGING','PROD'],entries,public_allowlist:publicNames,alternative_required_groups:[['NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY','NEXT_PUBLIC_SUPABASE_ANON_KEY']],config_artifacts:['supabase/config.toml','infra/platform/company.schema.json','infra/platform/providers.json'],migration_inventory:migrations()}
 }

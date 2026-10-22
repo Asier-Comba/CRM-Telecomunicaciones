@@ -26,6 +26,12 @@ const cases=[
  ['Factura por soporte, vencimiento en 15 días','soporte'],
  ['Factura por mantenimiento y soporte de 300 euros','mantenimiento y soporte'],
  ['Factura por 24 horas de soporte de 300 euros','24 horas de soporte'],
+ ['Factura por conectividad 600 Mbps de 300 euros','conectividad 600 Mbps'],
+ ['Factura por conectividad 1 Gbps de 300 euros','conectividad 1 Gbps'],
+ ['Factura por soporte 24x7 de 300 euros','soporte 24x7'],
+ ['Factura por licencias Microsoft 365 de 300 euros','licencias Microsoft 365'],
+ ['Factura por conectividad 600 Mbps 1.200,50 euros','conectividad 600 Mbps'],
+ ['Factura por soporte 300 euros','soporte'],
 ].map(([text,expected])=>{
  const result=parseInvoiceText(text,[],'2026-10-20'),actual=result.detected.concept,missingConcept=result.missingFields.includes('concepto')
  return{text,expected,actual,missingConcept,pass:actual===expected&&missingConcept===(expected===null)}
