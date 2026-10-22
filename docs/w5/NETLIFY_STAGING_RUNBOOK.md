@@ -80,3 +80,43 @@ reviewed SHA and recorded below.
 Effective build of `6ad75c93` (from its Netlify log): Node 24.22.0, npm
 11.19.1, `@netlify/build` 37.4.3, Next 16.3.8. The adapter version was not
 printed: unpinned at that time (NOT_RECORDED).
+
+## Hosted state (verified 2026-10-22)
+
+| Field | Value |
+|---|---|
+| Current deploy | `6ad78f6c810c781fba4f5880`, state `ready` (Netlify API) |
+| Source / tree | `a9e977adf90b1e83cded23fb54aefc696839d014` / `ac48598bffd8a528919f63f2bcad1d07365c775d` |
+| Build | Node 24.22.0, npm 11.19.1, Next 16.3.8, `@netlify/build` 37.5.0; adapter NOT_RECORDED (manual deploy before pinning) |
+| Access | Team login on all deploys; anonymous 401 on `/`, `/login`, `/api/health/live` and the deploy permalink |
+| Site variables (names) | `APP_ENV`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `PRODUCT_V1_ENABLED`, `PRODUCT_V1_ORIGIN`, `PRODUCT_STAGING_INTEGRATION`, `PRODUCT_STAGING_USER_IDS`. No service-role key, no AI key, no mail credential |
+| Supabase | `crm-telecom-staging`, 87 migrations; Storage 88 not applied |
+| Next candidate | PR #175 `48e4c64e157e1a66e1fd2d8b6694247c870f2a15`: **not hosted** |
+
+Not hosted means not online: features merged after `a9e977ad` are not available at the URL.
+
+## Eligibility gate
+
+`infra/platform/staging-deploy-policy.json` (contract `w5.staging-deploy-eligibility.v1`) is read from the workflow's own ref:
+- Every required workflow must have completed on the exact SHA; the latest run decides.
+- Every failed job needs an exception that names an approver and has an expiry date.
+- W5 never approves exceptions. The current proposals have `approved_by: null`.
+
+Dry run on 2026-10-22 (real API data):
+
+| SHA | Eligible | Blockers |
+|---|---|---|
+| `48e4c64e` (candidate) | NO | CI `Lint, types, tests, build` (`npm audit`: 5 HIGH, `braces`); enterprise `n8n-disposable` (vendor images); W4 `reachable-history` (28 findings, 0 real credentials per W5) |
+| `a9e977ad` (hosted) | NO | It was deployed under explicit owner authorization before this gate existed |
+
+The `braces` advisory (GHSA-vfj7-8cjw-p6xm, `<= 3.0.3`) has no patched release. Every version of `@next/eslint-plugin-next`, including 16.4.2 and the 16.5 canary, still pins `fast-glob@3.3.1`. The CI job bundles the audit with lint, types, tests and build, so a job-level exception would hide other failures. Before any exception can be approved, the audit must run as its own job (integrator/W4).
+
+## OpenAI (no values)
+
+| Check | State |
+|---|---|
+| Where the key exists | GitHub repository Actions secret `OPENAI_API_KEY` (updated 2026-10-13). No environments, Dependabot or Codespaces secrets |
+| Injected into | **Nothing**: no workflow on any branch references it, and it is not a Netlify site or team variable |
+| History exposure | gitleaks 8.24.3 over all refs (1,584 commits, 2026-10-22): 0 `openai-api-key` findings. Extra regex for OpenAI key formats: 2 commits, both the placeholder fixture in `test/schema.test.ts` |
+| Hosted provider status | `provider_available: false` (NOT_CONFIGURED), `budget_authorized: false` (0 EUR policy), AI writes OFF |
+| Risk | The repository is PUBLIC. Actions secrets are not passed to pull requests from forks, but any workflow added by someone with write access could read them. Keep the key unreferenced until a metered, kill-switched path with a durable budget ledger is approved |
