@@ -1,0 +1,821 @@
+{
+  "unit": "OIER_ONBOARDING_LATE_RECEIPT39",
+  "base": "ffd6a20a13562b441b608b5ef5bc643d38f70318",
+  "tests": "5b2a0502",
+  "fix": "b2585a53",
+  "qualified_source": "6b6d385f795069489df16dd33d248e3556b053d8",
+  "fixture_lint_correction": "6b6d385f",
+  "scope": "Actual page/Button/Toaster Chromium, controlled SDK/navigation/loopback POST. No real Auth/DB/provisioning/cloud.",
+  "before": {
+    "stats": {
+      "startTime": "2026-10-21T07:41:54.781Z",
+      "duration": 43945.099,
+      "expected": 0,
+      "skipped": 0,
+      "unexpected": 3,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "case": "onboarding late new receipt does not redirect after leaving at 390",
+        "status": "failed",
+        "retry": 0,
+        "state": {
+          "width": 390,
+          "created": true,
+          "redirects": [
+            "/dashboard"
+          ],
+          "posts": 1,
+          "readyToast": 1,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late new receipt does not redirect after leaving at 768",
+        "status": "failed",
+        "retry": 0,
+        "state": {
+          "width": 768,
+          "created": true,
+          "redirects": [
+            "/dashboard"
+          ],
+          "posts": 1,
+          "readyToast": 1,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late new receipt does not redirect after leaving at 1440",
+        "status": "failed",
+        "retry": 0,
+        "state": {
+          "width": 1440,
+          "created": true,
+          "redirects": [
+            "/dashboard"
+          ],
+          "posts": 1,
+          "readyToast": 1,
+          "existingToast": 0
+        }
+      }
+    ],
+    "errors": [],
+    "sha256": "7a1828d495d3db42c6e60680c01a2fa5afe2f52eb28b265eb9f55120e0b23548"
+  },
+  "first_after": {
+    "stats": {
+      "startTime": "2026-10-21T07:43:38.116Z",
+      "duration": 69993.089,
+      "expected": 58,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "case": "onboarding receipt uncertainty malformed never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty missing never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty invalid-id never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty lost-reply never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty upstream never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty created-string never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty status-mismatch never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid new receipt routes once at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid existing receipt routes once at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding explicit suspended refusal keeps the name without success at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty malformed never resubmits while checking at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty missing never resubmits while checking at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty invalid-id never resubmits while checking at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty lost-reply never resubmits while checking at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty upstream never resubmits while checking at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid new receipt routes once at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid existing receipt routes once at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding explicit suspended refusal keeps the name without success at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty malformed never resubmits while checking at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty missing never resubmits while checking at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty invalid-id never resubmits while checking at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty lost-reply never resubmits while checking at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty upstream never resubmits while checking at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid new receipt routes once at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid existing receipt routes once at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding explicit suspended refusal keeps the name without success at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding late new receipt does not redirect after leaving at 390",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 390,
+          "created": true,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late existing receipt does not redirect after leaving at 390",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 390,
+          "created": false,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late new receipt does not redirect after leaving at 768",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 768,
+          "created": true,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late existing receipt does not redirect after leaving at 768",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 768,
+          "created": false,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late new receipt does not redirect after leaving at 1440",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 1440,
+          "created": true,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late existing receipt does not redirect after leaving at 1440",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 1440,
+          "created": false,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding verification failure session-error recovers explicitly at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure session-throw recovers explicitly at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-error recovers explicitly at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-throw recovers explicitly at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified unconfigured retains routing at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified no-session retains routing at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified active retains routing at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified empty retains routing at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure session-error recovers explicitly at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure session-throw recovers explicitly at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-error recovers explicitly at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-throw recovers explicitly at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified unconfigured retains routing at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified no-session retains routing at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified active retains routing at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified empty retains routing at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure session-error recovers explicitly at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure session-throw recovers explicitly at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-error recovers explicitly at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-throw recovers explicitly at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified unconfigured retains routing at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified no-session retains routing at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified active retains routing at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified empty retains routing at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding ignores session completion after unmount",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding ignores memberships completion after unmount",
+        "status": "passed",
+        "retry": 0
+      }
+    ],
+    "errors": [],
+    "sha256": "6efbe5e53a571bc58f6d9d96c1bc14b14b21f382a0ce26aca76bcb0d82763b65"
+  },
+  "confirmed": {
+    "stats": {
+      "startTime": "2026-10-21T09:12:27.618Z",
+      "duration": 54731.296,
+      "expected": 58,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "cases": [
+      {
+        "case": "onboarding receipt uncertainty malformed never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty missing never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty invalid-id never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty lost-reply never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty upstream never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty created-string never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty status-mismatch never resubmits while checking at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid new receipt routes once at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid existing receipt routes once at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding explicit suspended refusal keeps the name without success at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty malformed never resubmits while checking at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty missing never resubmits while checking at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty invalid-id never resubmits while checking at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty lost-reply never resubmits while checking at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty upstream never resubmits while checking at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid new receipt routes once at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid existing receipt routes once at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding explicit suspended refusal keeps the name without success at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty malformed never resubmits while checking at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty missing never resubmits while checking at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty invalid-id never resubmits while checking at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty lost-reply never resubmits while checking at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding receipt uncertainty upstream never resubmits while checking at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid new receipt routes once at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding valid existing receipt routes once at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding explicit suspended refusal keeps the name without success at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding late new receipt does not redirect after leaving at 390",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 390,
+          "created": true,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late existing receipt does not redirect after leaving at 390",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 390,
+          "created": false,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late new receipt does not redirect after leaving at 768",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 768,
+          "created": true,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late existing receipt does not redirect after leaving at 768",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 768,
+          "created": false,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late new receipt does not redirect after leaving at 1440",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 1440,
+          "created": true,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding late existing receipt does not redirect after leaving at 1440",
+        "status": "passed",
+        "retry": 0,
+        "state": {
+          "width": 1440,
+          "created": false,
+          "redirects": [],
+          "posts": 1,
+          "readyToast": 0,
+          "existingToast": 0
+        }
+      },
+      {
+        "case": "onboarding verification failure session-error recovers explicitly at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure session-throw recovers explicitly at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-error recovers explicitly at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-throw recovers explicitly at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified unconfigured retains routing at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified no-session retains routing at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified active retains routing at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified empty retains routing at 390",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure session-error recovers explicitly at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure session-throw recovers explicitly at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-error recovers explicitly at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-throw recovers explicitly at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified unconfigured retains routing at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified no-session retains routing at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified active retains routing at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified empty retains routing at 768",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure session-error recovers explicitly at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure session-throw recovers explicitly at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-error recovers explicitly at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verification failure membership-throw recovers explicitly at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified unconfigured retains routing at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified no-session retains routing at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified active retains routing at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding verified empty retains routing at 1440",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding ignores session completion after unmount",
+        "status": "passed",
+        "retry": 0
+      },
+      {
+        "case": "onboarding ignores memberships completion after unmount",
+        "status": "passed",
+        "retry": 0
+      }
+    ],
+    "errors": [],
+    "sha256": "14c6bcd84f6b10d84810e0712469e998cc326b5634b1221663bda9e3a169a3ce"
+  },
+  "interrupted": "qa-onboarding39-confirmed incomplete; no final JSON/process handle, cause UNKNOWN, not PASS",
+  "original_lint": "FAIL react-hooks/immutability fixture assignment during render; corrected with effect, no rule relaxation",
+  "recovery_controls": {
+    "lint": {
+      "exit": 0,
+      "control": "LINT39_RECOVERY1",
+      "source": "6b6d385f795069489df16dd33d248e3556b053d8"
+    },
+    "types": {
+      "exit": 0,
+      "source": "6b6d385f795069489df16dd33d248e3556b053d8",
+      "control": "TYPES39_RECOVERY1"
+    }
+  },
+  "browser_exit": {
+    "source": "6b6d385f795069489df16dd33d248e3556b053d8",
+    "exit": 0,
+    "control": "BROWSER39_RECOVERY1"
+  },
+  "build": {
+    "exit": 0,
+    "source": "6b6d385f795069489df16dd33d248e3556b053d8",
+    "control": "BUILD39",
+    "static_routes": 44
+  },
+  "POST": "One synthetic intercepted request per new late-receipt case, no abort/retry/rollback claim",
+  "images": [
+    {
+      "file": "onboarding-unconfirmed-1440.png",
+      "sha256": "6ca5e2f1b9adbdc56b5401d3a6b64998d00ef8fa4f0a66999c12b0d34e2bf070",
+      "review": "VISUALLY_INSPECTED_FINAL58_SOURCE"
+    },
+    {
+      "file": "onboarding-unconfirmed-390.png",
+      "sha256": "1e5dce418c123515c660fbd7f49bbb5bc80284fd3007d7a53ce4c80681f660e6",
+      "review": "VISUALLY_INSPECTED_FINAL58_SOURCE"
+    },
+    {
+      "file": "onboarding-unconfirmed-768.png",
+      "sha256": "987296338af210d1fee5f139e28427aca984ef9db43159354ffc815c118da8c9",
+      "review": "VISUALLY_INSPECTED_FINAL58_SOURCE"
+    }
+  ],
+  "API_SQL_changed": false,
+  "QA38_excluded": true,
+  "release": "NOT_ACCEPTED",
+  "claim": 6310739513,
+  "application_blob": "836bc46adf93aa9c874c00edbe7dbc9320655cd0",
+  "api_blob_unchanged": "fb24f52eb4d5ad51720c0a5c561f0f67aac05338"
+}

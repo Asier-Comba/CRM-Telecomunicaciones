@@ -1,0 +1,340 @@
+{
+  "unit": "OIER_ONBOARDING_RECEIPT37",
+  "base_own36": "48eee7e58eaee2e64019571bd1ad0c78620e8014",
+  "integrator": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+  "tests": "db00414c0ec085328c20cd7904bb0186dc343643",
+  "fix": "b2287daa6f86f8d56d2abb4315f110426247c353",
+  "scope": "Real onboarding page/Button/Toaster in Chromium; controlled SDK/navigation and loopback POST intercepted. NOT real RPC/Auth/DB/workspace creation/cloud.",
+  "before": [
+    {
+      "title": "onboarding receipt uncertainty malformed never resubmits while checking at 390",
+      "status": "failed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty missing never resubmits while checking at 390",
+      "status": "failed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty invalid-id never resubmits while checking at 390",
+      "status": "failed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty lost-reply never resubmits while checking at 390",
+      "status": "failed",
+      "retries": 0
+    }
+  ],
+  "after": [
+    {
+      "title": "onboarding receipt uncertainty malformed never resubmits while checking at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty missing never resubmits while checking at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty invalid-id never resubmits while checking at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty lost-reply never resubmits while checking at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty upstream never resubmits while checking at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty created-string never resubmits while checking at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty status-mismatch never resubmits while checking at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding valid new receipt routes once at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding valid existing receipt routes once at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding explicit suspended refusal keeps the name without success at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty malformed never resubmits while checking at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty missing never resubmits while checking at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty invalid-id never resubmits while checking at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty lost-reply never resubmits while checking at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty upstream never resubmits while checking at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding valid new receipt routes once at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding valid existing receipt routes once at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding explicit suspended refusal keeps the name without success at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty malformed never resubmits while checking at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty missing never resubmits while checking at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty invalid-id never resubmits while checking at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty lost-reply never resubmits while checking at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding receipt uncertainty upstream never resubmits while checking at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding valid new receipt routes once at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding valid existing receipt routes once at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding explicit suspended refusal keeps the name without success at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-error recovers explicitly at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-throw recovers explicitly at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-error recovers explicitly at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-throw recovers explicitly at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified unconfigured retains routing at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified no-session retains routing at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified active retains routing at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified empty retains routing at 390",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-error recovers explicitly at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-throw recovers explicitly at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-error recovers explicitly at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-throw recovers explicitly at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified unconfigured retains routing at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified no-session retains routing at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified active retains routing at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified empty retains routing at 768",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-error recovers explicitly at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure session-throw recovers explicitly at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-error recovers explicitly at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verification failure membership-throw recovers explicitly at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified unconfigured retains routing at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified no-session retains routing at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified active retains routing at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding verified empty retains routing at 1440",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding ignores session completion after unmount",
+      "status": "passed",
+      "retries": 0
+    },
+    {
+      "title": "onboarding ignores memberships completion after unmount",
+      "status": "passed",
+      "retries": 0
+    }
+  ],
+  "after_new": 26,
+  "after_related36": 26,
+  "widths": [
+    390,
+    768,
+    1440
+  ],
+  "POST_policy": "Exactly one synthetic POST per new case. Uncertain cases then only explicit read checks (empty first, active later); zero re-POST. No effect real or persisted.",
+  "positive_receipts": "201 created=true and200 created=false, existing viewer and different workspace name preserved; no permission granted by receipt validation",
+  "API_SQL_contracts_changed": false,
+  "static_atomic_controls": {
+    "pass": 3,
+    "scope": "Existing static assertions only; NOT SQL execution"
+  },
+  "controls": {
+    "eslint_changed_files_exit": 0,
+    "typecheck_exit": 0,
+    "build_exit": 0,
+    "static_routes": 44
+  },
+  "images": [
+    {
+      "file": "onboarding-unconfirmed-1440.png",
+      "sha256": "6ca5e2f1b9adbdc56b5401d3a6b64998d00ef8fa4f0a66999c12b0d34e2bf070",
+      "review": "VISUALLY_INSPECTED"
+    },
+    {
+      "file": "onboarding-unconfirmed-390.png",
+      "sha256": "1e5dce418c123515c660fbd7f49bbb5bc80284fd3007d7a53ce4c80681f660e6",
+      "review": "VISUALLY_INSPECTED"
+    },
+    {
+      "file": "onboarding-unconfirmed-768.png",
+      "sha256": "9179f0a9d69d16b7ea82d19c4f54c93b2b423d7985243fae970638a2a2a1e8c4",
+      "review": "VISUALLY_INSPECTED"
+    }
+  ],
+  "limits": [
+    "Uncertainty state exists only while this page is mounted. Durable recovery across reload requires shared backend contract and independent proof.",
+    "A 403 synthetic suspended response does not prove real suspension or multi-tenant isolation.",
+    "getSession remains navigation-only; server getUser/RPC authorization unchanged."
+  ],
+  "cloud": "NOT_RUN",
+  "module": "ONBOARDING_NOT_ACCEPTED_FULL",
+  "release": "NOT_ACCEPTED",
+  "claim": 6310506835,
+  "application_blob": "13763b06d04d3cc35940dc3bfbfc4056eaccb544",
+  "api_blob_unchanged": "fb24f52eb4d5ad51720c0a5c561f0f67aac05338"
+}
