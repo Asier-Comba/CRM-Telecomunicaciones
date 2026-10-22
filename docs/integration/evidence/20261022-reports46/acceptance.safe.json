@@ -1,0 +1,300 @@
+{
+  "schema": "crm.integration.reports-export-lifecycle.v1",
+  "recorded_at": "2026-10-22T17:06:52.258Z",
+  "base_source": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+  "base_tree": "16d83e73283c66ca4988778a2068ba2d5d2c6b4b",
+  "product_commit": "f45d089327b9bf2feb91eed29d46e0d69b51bfa0",
+  "product_tree": "9d0cd52a8efa4713a8a0634544f2fcdb8dc7cd4f",
+  "branch": "codex/reports-export-lifecycle-20261022",
+  "adopted_by_pr175": false,
+  "claim": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6346426172",
+  "files": [
+    {
+      "file": "src/features/reports/IntegratedReports.tsx",
+      "sha256_utf8_lf": "6ae40594522def4dc97abb310ba9a042ffc8b4f88dfdd8dcbf9a54c6ace49cce"
+    },
+    {
+      "file": "tests/e2e-preview/fixtures/product-scope-entry.tsx",
+      "sha256_utf8_lf": "e196eddae963bd30ccea4b6a2c6340ae1323cc10e18c6b362cb5555c65a40278"
+    },
+    {
+      "file": "tests/e2e-preview/reports-export-lifecycle.spec.ts",
+      "sha256_utf8_lf": "53cdfcc2f78035c7a9789afc625b68d17e4972882274d47e5e5afc1cdc90d253"
+    }
+  ],
+  "causal_before": "2 FAIL on f9aa: period editable during export; old workspace response still clicks download",
+  "after": {
+    "new_cases": 13,
+    "existing_provider_regression": 1,
+    "total": 14,
+    "retries": 0,
+    "skipped": 0,
+    "widths": [
+      390,
+      768,
+      1440
+    ],
+    "focused_lint": "PASS",
+    "types": "PASS",
+    "default_build": "PASS44"
+  },
+  "semantics": {
+    "fresh_authorized_read_preserved": true,
+    "period_disabled_during_export": true,
+    "scope_cleanup_invalidates_old_export": true,
+    "late_response_can_download": false,
+    "explicit_denial_downloads": 0,
+    "explicit_retry_queries_again": true,
+    "csv_values_tested": "fresh counts 99, original personal month scope and bounds, filename and no second download",
+    "server_contract_changed": false
+  },
+  "environment": {
+    "component": "actual IntegratedReports",
+    "provider": "actual keyed ProductProvider",
+    "repository": "actual IntegratedLocalProductRepository",
+    "dto_parser": "actual parseDashboardV2",
+    "http": "CONTROLLED",
+    "auth_db": "NOT_RUN",
+    "hosted": "NOT_RUN",
+    "node": "24.20.0",
+    "next": "16.3.8",
+    "playwright": "1.61.1",
+    "chromium": "1248 explicit local executable"
+  },
+  "limits": [
+    "Controlled scope switches prove consumer lifetime behavior, not physical tenant authorization.",
+    "No new report engine, backend, grants, SQL, shared UI, BillingAnalytics or Oier editor changes.",
+    "This branch does not contain #184 or #182/#183; selective integration requires review and a new tree regression.",
+    "No source promoted to accepted commercial or hosted state."
+  ],
+  "security": {
+    "cost_eur": 0,
+    "ai_business_writes": "OFF",
+    "storage88_staging": "NOT_AUTHORIZED",
+    "issue10": "OPEN",
+    "release": "NOT_ACCEPTED"
+  },
+  "reports": [
+    {
+      "name": "before",
+      "report_sha256": "e4741d69f2bf5c21e927635eed519fc0f90eeff79897676853451ed3d28814cc",
+      "stats": {
+        "startTime": "2026-10-22T17:01:22.866Z",
+        "duration": 33292.557,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "report export keeps its selected period until the fresh CSV completes at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "failed",
+              "retry": 0,
+              "duration_ms": 17455
+            }
+          ]
+        },
+        {
+          "title": "report export ignores the previous empresa response after scope change at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "failed",
+              "retry": 0,
+              "duration_ms": 9109
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "after",
+      "report_sha256": "efc93782b706fa09a2da1e8fb9bf446b3ed8764c4a69ed8c34a4cabd993cb07c",
+      "stats": {
+        "startTime": "2026-10-22T17:02:36.428Z",
+        "duration": 30530.147,
+        "expected": 14,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "title": "product provider discards old identity and child state across scope changes only",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 9629
+            }
+          ]
+        },
+        {
+          "title": "report export keeps its selected period until the fresh CSV completes at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1779
+            }
+          ]
+        },
+        {
+          "title": "report export ignores the previous empresa response after scope change at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1275
+            }
+          ]
+        },
+        {
+          "title": "report export ignores the previous usuario response after scope change at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1474
+            }
+          ]
+        },
+        {
+          "title": "report export ignores the previous rol response after scope change at 390",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1399
+            }
+          ]
+        },
+        {
+          "title": "report export keeps its selected period until the fresh CSV completes at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1703
+            }
+          ]
+        },
+        {
+          "title": "report export ignores the previous empresa response after scope change at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1424
+            }
+          ]
+        },
+        {
+          "title": "report export ignores the previous usuario response after scope change at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1393
+            }
+          ]
+        },
+        {
+          "title": "report export ignores the previous rol response after scope change at 768",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1320
+            }
+          ]
+        },
+        {
+          "title": "report export keeps its selected period until the fresh CSV completes at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1763
+            }
+          ]
+        },
+        {
+          "title": "report export ignores the previous empresa response after scope change at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1208
+            }
+          ]
+        },
+        {
+          "title": "report export ignores the previous usuario response after scope change at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1316
+            }
+          ]
+        },
+        {
+          "title": "report export ignores the previous rol response after scope change at 1440",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1141
+            }
+          ]
+        },
+        {
+          "title": "report export denied read downloads nothing and explicitly retries the same selected report",
+          "project": "desktop",
+          "attempts": [
+            {
+              "status": "passed",
+              "retry": 0,
+              "duration_ms": 1199
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    {
+      "file": "report-export-period-1440.png",
+      "sha256": "bcfb87bc26198470fc76939d5271fd09c247bf3a350c9b53523845cd9de68432",
+      "reviewed": true
+    },
+    {
+      "file": "report-export-period-390.png",
+      "sha256": "41efbcde7fcb0c4182dc8774f0d8d36ae8833aae3e96daaf2557cf351aa759f4",
+      "reviewed": true
+    },
+    {
+      "file": "report-export-period-768.png",
+      "sha256": "c8d81650bca2a96b191d9db87687de195946401cd6b16bb0ea4749e9f9fdc991",
+      "reviewed": true
+    }
+  ]
+}
