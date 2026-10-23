@@ -1,10 +1,10 @@
 import {spawn} from 'node:child_process'
-import {validateEnvironment} from './config.mjs'
-const result=validateEnvironment(process.env,process.env.PLATFORM_TARGET)
-if(result.status!=='VALID'){console.error(JSON.stringify(result));process.exit(1)}
-// Remove only when W2 publishes an accepted hosted product runtime and W4
-// verifies it. Presence of keys alone must not activate a demo/legacy product.
-if(['STAGING','PROD'].includes(process.env.PLATFORM_TARGET)){console.error('HOSTED_PRODUCT_RUNTIME_NOT_ACCEPTED');process.exit(1)}
+import {readJson} from './lib.mjs'
+import {evaluateRuntime} from './runtime-admission.mjs'
+// Only the image's versioned policy is read. No env path or approval flag.
+// This proposal ships PROPOSED/PENDING and therefore still blocks STAGING.
+const result=evaluateRuntime(process.env,process.env.PLATFORM_TARGET,readJson('infra/platform/product-staging-runtime-policy.json'))
+if(!result.accepted){console.error(result.configuration.status!=='VALID'?JSON.stringify(result.configuration):result.code);process.exit(1)}
 const child=spawn(process.execPath,['server.js'],{stdio:'inherit'})
 for(const signal of ['SIGTERM','SIGINT'])process.on(signal,()=>child.kill(signal))
 child.on('exit',(code)=>process.exit(code??1))
