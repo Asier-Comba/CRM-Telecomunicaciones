@@ -102,3 +102,35 @@ W5 prepara y revoca las identidades sintéticas por canal privado y verifica en 
 **Estado de cumplimiento:**
 - §1, §3 y §5: verificados.
 - §4 Site URL / Redirects y §7: **NOT_RUN** hasta que exista el origen exacto y se apruebe el cambio de Auth.
+
+## 8. Clasificación de hallazgos (23/10)
+
+| Hallazgo | Clase | Evidencia y decisión |
+|---|---|---|
+| Lectura directa de bytes de Storage por JWT y caché de CDN tras revocar | **CONFIRMED_VULNERABILITY** (P0, conocida) | Sonda alojada 19/10. Mitigado: contenido OFF. Corrección: #179/88, ensayo desechable PASS; pendiente W4 + ACK + autorización + ensayo alojado |
+| Sin backups ni PITR (plan Free) | **CONFIGURATION_RISK** | `SUPABASE_RECOVERY_PLAN.md`; backup alojado BLOCKED hasta decisión |
+| Registro público abierto | **CONFIGURATION_RISK: CERRADO 23/10** | `disable_signup=true` verificado |
+| 1 cuenta no sintética con sesiones en staging | **CONFIGURATION_RISK** | Fuera de la cohorte; decisión del propietario |
+| Protección de contraseñas filtradas | **CONFIGURATION_RISK** (depende del plan) | Solo en Pro; sin gasto no se activa |
+| 161 `SECURITY DEFINER` ejecutables por `authenticated` (advisor) | **EXPECTED_DENY / REQUIRES_REVIEW** | Diseño RPC-only: 161/161 alcanzan una guarda; `search_path` fijado en las 266. W4 debe revisar la lógica |
+| 61 tablas con RLS y sin política (advisor) | **EXPECTED_DENY** | 0 grants a `anon`/`authenticated`: acceso solo por RPC |
+| `set_updated_at()` ejecutable por `anon` | **EXPECTED_DENY** | Función trigger, no invocable directamente |
+| `workspaces`/`profiles`/`workspace_members` sin FORCE RLS | **REQUIRES_REVIEW** (bajo) | FORCE solo afecta al propietario de la tabla; las rutas `anon`/`authenticated` están bajo RLS |
+| FK simple `installation_contact_id → contacts` | **REQUIRES_REVIEW** (bajo) | Protegida por trigger; propuesta de FK compuesta en `SCHEMA_INTEGRITY_AUDIT.md` |
+| 28 `auth_rls_initplan`, 1 índice duplicado, 196 FK sin índice, 73 índices sin uso | **PERFORMANCE** | Propuestas forward-only no aplicadas |
+
+## 9. Estado de capacidades
+
+| Capacidad | IMPLEMENTED | TESTED_LOCAL (desechable) | TESTED_HOSTED | ACCEPTED | BLOCKED por |
+|---|---|---|---|---|---|
+| Auth email + confirmación, registro cerrado | Sí | Sí | **Sí** (ajustes y negativo 422, 23/10) | No | Revisión W4 |
+| Admisión de staging y cohorte | Sí | Sí | Sí, en Netlify (`6ad78f6c`, 20/10) | No | Nuevo origen EasyPanel |
+| Aislamiento A/B (RLS + RPC) | Sí | Sí (4042 backend + 116 UI, f9aa) | Parcial (API A/B en Netlify `a9e977ad`, 20/10) | No | W4; repetir en EasyPanel |
+| Revocación con JWT vigente | Sí | Sí | Parcial (suspendido 403, 20/10) | No | W4 |
+| Idempotencia de comandos y CAS | Sí | Sí | No | No | — |
+| Numeración fiscal atómica | Sí | Sí | No | No | — |
+| Onboarding idempotente (`provision_workspace`) | Sí | Parcial | No | No | Decisión W1 (#183/#184) y W4 |
+| Documentos privados (Storage) | Propuesta 88 | Sí (#179) | No | No | P0: W4 + ACK + autorización + ensayo alojado |
+| Backups y restore | Piezas | Reconstrucción en CI | No | No | Decisión de destino y RPO/RTO |
+| Asistente IA live | Adaptadores | Evaluación | No | No | Presupuesto 0, issue #10, W3/W4 |
+| Redirect URLs del subdominio EasyPanel | — | — | — | — | Origen HTTPS exacto de Work y aprobación |
