@@ -13,6 +13,9 @@ export function authorityAllowed(input,approved){
  const match=/^([a-z0-9](?:[a-z0-9.-]*[a-z0-9])?):([1-9][0-9]{0,4})$/.exec(input)
  return Boolean(match&&!isIP(match[1])&&!match[1].includes('..')&&Number(match[2])<=65535)
 }
-export function ownedResource(resource,id,nonce){
- return /^[a-f0-9]{64}$/.test(id)&&resource.Id===id&&resource.Labels?.['crm.telecom.networklab']===nonce
+export function labResourceId(id,kind){
+ return typeof id==='string'&&(kind==='network'?/^(?:[a-f0-9]{64}|[a-z0-9]{25})$/.test(id):kind==='container'&&/^[a-f0-9]{64}$/.test(id))
+}
+export function ownedResource(resource,id,nonce,kind='container'){
+ return labResourceId(id,kind)&&resource.Id===id&&resource.Labels?.['crm.telecom.networklab']===nonce
 }

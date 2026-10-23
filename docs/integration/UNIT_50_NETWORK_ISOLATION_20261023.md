@@ -55,6 +55,8 @@ El ensayo **no demuestra prevención de exfiltración DNS**, ausencia de rebindi
 
 Local:4tests PASS, positivos/negativos con transporte CONNECT real y ausencia de dial al denegar; sintaxis PASS. La invocación del lab en Windows se rechaza antes de Docker (GITHUB_HOSTED_LINUX_LAB_ONLY), teardownPASS/0recursos. Resultado de Swarm real **pendiente de CI** al publicar. No se afirma aislamiento alojado.
 
+PrimerCI39994220299/job120553432102 se detuvo en LAB_ID_INVALID antes de crear contenedores: el arnés esperaba IDhex64 para una red Swarm, cuyo IDreal esbase36/25. Se conserva el fallo. Regresión local4PASS/1FAIL reproduce la diferencia; corregido el formato por tipo sin quitar comparación de ID+label ni aceptar nombres,5PASS. Una creación con IDdesconocido ya impide afirmar teardownPASS. Requiere nueva ejecución real; el primer intento no acredita aislamiento.
+
 REQUEST W4/W5: revisar topología, riesgo de relays/DNS y mecanismo per-service con réplicas0; decidir implementación y autorización de control plane antes de arrancar el CRM. Mientras tanto el bloqueo STAGING/SMTP se trabaja en otra propuesta cerrada por defecto.
 
 Rollback actual: solo código de propuesta. No redes/servicios del VPS creados, desconectados o modificados. App vacía conservada;0EUR/IAOFF/Storage88NO/RELEASE_NOT_ACCEPTED.

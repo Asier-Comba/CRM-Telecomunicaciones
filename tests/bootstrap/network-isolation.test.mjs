@@ -26,6 +26,13 @@ test('cleanup requires both the captured full resource ID and this run label',()
  assert.equal(ownedResource(r,id,'other'),false)
  assert.equal(ownedResource({...r,Labels:{}},id,'owned'),false)
 })
+test('Swarm network IDs are base36 IDs, while container IDs remain full hex',()=>{
+ const id='xz6wiqq9vcjtzl3ml66hw4gma',resource={Id:id,Labels:{'crm.telecom.networklab':'owned'}}
+ assert.equal(ownedResource(resource,id,'owned','network'),true)
+ assert.equal(ownedResource(resource,id,'owned','container'),false)
+ assert.equal(ownedResource(resource,id,'other','network'),false)
+ assert.equal(ownedResource({...resource,Id:'easypanel'},'easypanel','owned','network'),false)
+})
 test('real CONNECT denial performs no dial; admitted tunnel carries only the fixed target bytes',async()=>{
  const echo=net.createServer(socket=>socket.on('data',b=>socket.write(b)))
  await new Promise(r=>echo.listen(0,'127.0.0.1',r))

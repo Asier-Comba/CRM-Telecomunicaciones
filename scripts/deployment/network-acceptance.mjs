@@ -3,11 +3,11 @@ import {randomBytes} from 'node:crypto'
 import {mkdtempSync,writeFileSync,realpathSync,lstatSync,rmSync} from 'node:fs'
 import {join,dirname,resolve} from 'node:path'
 import {networkInterfaces} from 'node:os'
-import {runnerAllowed,assertEmptyDaemon,labImage,ownedResource} from './network-policy.mjs'
+import {runnerAllowed,assertEmptyDaemon,labImage,labResourceId,ownedResource} from './network-policy.mjs'
 
 const checks=[],resources=[],nonce=randomBytes(8).toString('hex'),prefix='crm-net50-'+nonce
 const label='crm.telecom.networklab='+nonce
-let swarmCreated=false,scratch,tempRoot,failed=false
+let swarmCreated=false,scratch,tempRoot,failed=false,untrackedCreation=false
 const prove=(value,name)=>{if(!value)throw new Error(name);checks.push({name,status:'PASS'})}
 function run(bin,args,timeout=120000){
  const r=spawnSync(bin,args,{encoding:'utf8',timeout,maxBuffer:4*1024*1024})
@@ -17,7 +17,7 @@ function run(bin,args,timeout=120000){
 const docker=(...args)=>run('docker',args)
 const inspect=(kind,id)=>JSON.parse(docker(kind==='network'?'network':'container','inspect',id))[0]
 const probe=(role,...args)=>JSON.parse(docker('exec',prefix+'-'+role,'node','/lab/network-fixture.mjs',...args))
-function own(kind,name,id){if(!/^[a-f0-9]{64}$/.test(id))throw new Error('LAB_ID_INVALID');resources.push({kind,name,id});return name}
+function own(kind,name,id){if(!labResourceId(id,kind)){untrackedCreation=true;throw new Error('LAB_ID_INVALID')}resources.push({kind,name,id});return name}
 function network(role){const name=prefix+'-'+role;return own('network',name,docker('network','create','--driver','overlay','--attachable','--internal','--opt','encrypted','--label',label,name))}
 function container(role,networkName,alias=role){
  const name=prefix+'-'+role
@@ -87,11 +87,11 @@ try{
  result={status:'PASS',scope:'DISPOSABLE_SWARM_NETWORK_TOPOLOGY_ONLY',source_sha,checks,image:labImage,hosted_isolation:'NOT_PROVEN',actual_supabase:'NOT_CONTACTED',actual_traefik:'NOT_TESTED',dns_exfiltration:'NOT_PROVEN',production:'NOT_AUTHORIZED'}
 }catch(e){failed=true;result={status:'FAIL',scope:'DISPOSABLE_SWARM_NETWORK_TOPOLOGY_ONLY',source_sha,phase,checks,error:/^[A-Z0-9_]+$/.test(e.message)?e.message:'NETWORK_LAB_FAILURE'}}
 finally{
- let clean=true
+ let clean=!untrackedCreation
  for(const item of resources.reverse()){
   try{
    const object=inspect(item.kind,item.id),normalized=item.kind==='container'?{Id:object.Id,Labels:object.Config.Labels}:object
-   if(!ownedResource(normalized,item.id,nonce))throw new Error('OWNERSHIP_MISMATCH')
+   if(!ownedResource(normalized,item.id,nonce,item.kind))throw new Error('OWNERSHIP_MISMATCH')
    if(item.kind==='container')docker('rm','--force',item.id)
    else{let removed=false;for(let i=0;i<20;i++){try{docker('network','rm',item.id);removed=true;break}catch{await new Promise(r=>setTimeout(r,250))}}if(!removed)throw new Error('NETWORK_TEARDOWN_FAILED')}
   }catch{clean=false}
