@@ -499,6 +499,7 @@
       "owner": "W5",
       "consumer": [
         "scripts/platform/config.mjs",
+        "scripts/platform/product-staging-profile.mjs",
         "scripts/platform"
       ],
       "validation_rule": "boolean",
@@ -1934,7 +1935,8 @@
         "src/lib/agents/local-answers.ts",
         "src/lib/config-status.ts",
         "scripts/platform/company-state.mjs",
-        "scripts/platform/config.mjs"
+        "scripts/platform/config.mjs",
+        "scripts/platform/product-staging-profile.mjs"
       ],
       "validation_rule": "origin_url",
       "description": "Existing public application origin; not callback/provider verification",
@@ -2380,7 +2382,8 @@
         "src/lib/supabase.ts",
         "src/proxy.ts",
         "scripts/platform/build-public.mjs",
-        "scripts/platform/config.mjs"
+        "scripts/platform/config.mjs",
+        "scripts/platform/product-staging-profile.mjs"
       ],
       "validation_rule": "public_api_key",
       "description": "Legacy alternative public API key; never a service-role key",
@@ -2416,7 +2419,8 @@
         "src/lib/supabase.ts",
         "src/proxy.ts",
         "scripts/platform/build-public.mjs",
-        "scripts/platform/config.mjs"
+        "scripts/platform/config.mjs",
+        "scripts/platform/product-staging-profile.mjs"
       ],
       "validation_rule": "public_api_key",
       "description": "Preferred public API key; user JWT supplies identity",
@@ -3150,7 +3154,8 @@
         "docs/master/contracts/product-environment.json",
         "src/lib/server/product-environment-v1.ts",
         "src/lib/server/product-staging-admission-v1.ts",
-        "scripts/platform/config.mjs"
+        "scripts/platform/config.mjs",
+        "scripts/platform/product-staging-profile.mjs"
       ],
       "validation_rule": "boolean",
       "description": "Explicit inactive-by-default staging application admission; requires independent security review before enabling",
@@ -3318,7 +3323,9 @@
         "src/lib/server/product-http-v1.ts",
         "src/lib/server/product-staging-admission-v1.ts",
         "scripts/platform/company-state.mjs",
-        "scripts/platform/config.mjs"
+        "scripts/platform/config.mjs",
+        "scripts/platform/product-staging-profile.mjs",
+        "scripts/platform/runtime-admission.mjs"
       ],
       "validation_rule": "origin_url",
       "description": "Canonical Origin/Host validation on normal product mutations",
