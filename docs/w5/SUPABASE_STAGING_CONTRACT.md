@@ -56,7 +56,7 @@ La identidad nunca sale de datos editables por el usuario ni del frontend. `prof
 |---|---|
 | Proveedores | Solo email/contraseña. Sin OAuth, sin SAML, sin anónimos |
 | Confirmación de email | Obligatoria (`mailer_autoconfirm=false`) |
-| Registro público | **Abierto** (`disable_signup=false`). Ver riesgo R1 |
+| Registro público | **Cerrado** (`disable_signup=true`, 23/10, autorizado por el propietario). Altas solo por invitación o administración |
 | Site URL y Redirect URLs | **NOT_VERIFIED**: no se exponen en endpoints públicos y W5 no tiene acceso de gestión a la configuración Auth |
 
 **Callbacks que usa la app** (fuente `f9aa469b`):
@@ -82,7 +82,7 @@ La identidad nunca sale de datos editables por el usuario ni del frontend. `prof
 
 ## 6. Riesgos y decisiones pendientes
 
-- **R1 (MEDIO, staging):** registro abierto con la clave publicable pública. Requiere confirmar un email real; el aislamiento multiempresa contiene al usuario. Aun así, cualquiera podría crear cuentas y workspaces en staging. **Propuesta:** `disable_signup=true` en staging (altas por invitación o administración). Necesita aprobación (configuración Auth compartida).
+- **R1 CERRADO (23/10):** registro público desactivado en el panel con autorización del propietario. Verificado: el endpoint público devuelve `disable_signup=true` y el resto de ajustes no cambia; un alta sintética responde 422 sin crear usuario (11 usuarios antes y después); un usuario sintético existente sigue iniciando sesión (200) y su sesión se cerró (logout global 204). **Rollback:** reactivar "Allow new users to sign up".
 - **R2 (P0, conocido):** Storage 88 sin aplicar: contenido OFF hasta que se acepte (W4 + ACK + autorización + ensayo alojado).
 - **R3:** sin backups en el plan Free; restauración solo probada en CI desechable.
 - **R4:** la cuenta no sintética.
