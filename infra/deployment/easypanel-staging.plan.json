@@ -1,6 +1,6 @@
 {
   "version": "crm.easypanel-staging.preparation.v1",
-  "status": "PREPARATION_ONLY_BLOCKED",
+  "status": "EMPTY_SERVICE_CREATED_DEPLOY_BLOCKED",
   "observed_date": "2026-10-23",
   "applies_configuration": false,
   "release_accepted": false,
@@ -8,7 +8,10 @@
     "existing_project": "crm-inmobiliario",
     "new_service": "crm-telecom-staging",
     "type": "app",
-    "service_created": false,
+    "service_created": true,
+    "source_configured": false,
+    "active_containers": 0,
+    "panel_wizard": "INIT_SOURCE_REQUIRED_BEFORE_RESOURCES",
     "create_project": false
   },
   "preserve": [
@@ -86,8 +89,25 @@
     "disk_total_gb": 95.8,
     "application_container_count": 12,
     "panel_proxy_container_count": 2,
-    "swap": "NOT_VERIFIED",
-    "docker_network_isolation": "NOT_VERIFIED",
+    "swap": "VERIFIED_ZERO_BYTES_NO_ACTIVE_SWAP",
+    "docker_network_isolation": "SHARED_GLOBAL_OVERLAY_OBSERVED_NOT_ACCEPTED_FOR_NEW_RUNTIME",
+    "authorized_readonly_diagnostic": {
+      "memory_total_mib": 7940,
+      "memory_used_mib": 1601,
+      "memory_available_mib": 6338,
+      "disk_total_gib_rounded": 96,
+      "disk_used_gib_rounded": 13,
+      "disk_available_gib_rounded": 84,
+      "disk_used_percent": 13,
+      "load_average": [0.02, 0.11, 0.15],
+      "existing_app_published_service_ports": null,
+      "existing_app_networks": ["easypanel", "easypanel-crm-inmobiliario"],
+      "global_overlay_has_other_projects": true,
+      "container_identifiers_preserved_after_empty_service_creation": true,
+      "new_active_containers": 0,
+      "secret_values_read_by_commands": false,
+      "root_mutations": false
+    },
     "sustained_load": "24H_PROVIDER_PLOT_INSPECTED_LOW_LOAD_NOT_RAW_SERIES",
     "existing_app_mounts": "NONE_LISTED_IN_UI",
     "existing_app_cpu_memory_limits": "UNLIMITED_IN_UI_PRESERVED"
@@ -140,7 +160,8 @@
     "contract": "docs/w5/SUPABASE_STAGING_CONTRACT.md",
     "contract_ref": "e1a2405c",
     "contract_issue_comment": 6368456922,
-    "public_url": "https://zgwotxnyqzfuzcnmgvtn.supabase.co",
+    "public_url": null,
+    "public_url_binding_source": "W5_CONTRACT_SECTION_1_SECURE_ENVIRONMENT_BINDING_ONLY",
     "hosted_migrations": 87,
     "storage_88_applied": false,
     "connection_bound": false,
@@ -184,14 +205,14 @@
     ],
     "platform_manifest_contract_conflict": "UNRESOLVED_SMTP_AUTH_HOSTED_GATE"
   },
-  "blockers_before_create": [
-    "SWAP_NOT_VERIFIED",
-    "DOCKER_NETWORK_ISOLATION_NOT_VERIFIED"
-  ],
+  "blockers_before_create": [],
   "blockers_before_secrets": [
     "HTTPS_ADMIN_LOGIN_REQUIRED"
   ],
   "blockers_before_deploy": [
+    "NETWORK_ISOLATION_REVIEW_REQUIRED",
+    "SOURCE_REQUIRED_BY_PANEL_BEFORE_RESOURCE_CONFIGURATION",
+    "CURRENT_IMAGE_SCAN_CRITICAL_HIGH",
     "DOMAIN_OWNERSHIP",
     "EXACT_ORIGIN_W5_W4_REVIEW",
     "HOSTED_PRODUCT_RUNTIME_NOT_ACCEPTED",
@@ -204,7 +225,7 @@
     "RELEASE_W4_HISTORY"
   ],
   "rollback": {
-    "current": "NO_REMOTE_MUTATIONS_NOTHING_TO_REVERT",
+    "current": "ONLY_NEW_EMPTY_SERVICE_EXISTS_NO_RUNTIME_OR_DATA",
     "future_scope": "ONLY_NEW_SERVICE_AND_EXACT_NEW_DNS_RECORD",
     "supabase_restore": false,
     "other_service_changes": false
