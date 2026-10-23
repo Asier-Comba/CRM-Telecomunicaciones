@@ -4,6 +4,7 @@ import {spawnSync} from 'node:child_process'
 import {validateEnvironment} from '../../scripts/platform/config.mjs'
 import {root} from '../../scripts/platform/lib.mjs'
 import {evaluateRuntime,reviewedStagingPolicy} from '../../scripts/platform/runtime-admission.mjs'
+import {createPublicBuildBinding} from '../../scripts/platform/build-binding.mjs'
 import {stagingAppOriginV1,stagingSupabaseUrlV1} from '../../src/lib/server/product-staging-admission-v1.ts'
 
 const managed=()=>({PLATFORM_TARGET:'STAGING',NODE_ENV:'production',APP_ENV:'staging',PRODUCT_V1_ENABLED:'true',PRODUCT_V1_ORIGIN:stagingAppOriginV1,NEXT_PUBLIC_APP_URL:stagingAppOriginV1,NEXT_PUBLIC_SUPABASE_URL:stagingSupabaseUrlV1,NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:'sb_publishable_synthetic_test_only',PRODUCT_STAGING_INTEGRATION:'true',PRODUCT_STAGING_USER_IDS:'10000000-0000-4000-8000-000000000001',BACKUP_RETENTION_DAYS:'7'})
@@ -16,7 +17,7 @@ test('explicit product staging uses managed Supabase Auth without application SM
 })
 
 test('complete managed profile can pass only an exact reviewed policy fixture',()=>{
- assert.equal(evaluateRuntime(managed(),'STAGING',reviewed()).accepted,true)
+ assert.equal(evaluateRuntime(managed(),'STAGING',reviewed(),createPublicBuildBinding(managed())).accepted,true)
  for(const mutate of [p=>p.status='PROPOSED',p=>p.origin='https://other.invalid',p=>p.production_accepted=true,p=>p.auth='smtp',p=>p.extra=true,
   ...['w2','w5','w4'].map(k=>p=>p.reviews[k]='PENDING'),
   ...['ai','crm_mail','n8n','document_content','document_maintenance'].map(k=>p=>p.capabilities[k]=true),
