@@ -1,0 +1,233 @@
+{
+  "version": "crm.easypanel-staging.preparation.v1",
+  "status": "EMPTY_SERVICE_CREATED_DEPLOY_BLOCKED",
+  "observed_date": "2026-10-23",
+  "applies_configuration": false,
+  "release_accepted": false,
+  "destination": {
+    "existing_project": "crm-inmobiliario",
+    "new_service": "crm-telecom-staging",
+    "type": "app",
+    "service_created": true,
+    "source_configured": false,
+    "active_containers": 0,
+    "panel_wizard": "INIT_SOURCE_REQUIRED_BEFORE_RESOURCES",
+    "create_project": false
+  },
+  "preserve": [
+    {
+      "project": "crm-inmobiliario",
+      "service": "crm-staging"
+    },
+    {
+      "project": "primer_proyecto_prueba",
+      "all_services": true
+    },
+    {
+      "project": "quemando-tokens",
+      "all_services": true
+    }
+  ],
+  "source": {
+    "repository": "Asier-Comba/CRM-Telecomunicaciones",
+    "candidate_pr": 175,
+    "source_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+    "tree_sha": "16d83e73283c66ca4988778a2068ba2d5d2c6b4b",
+    "deployment_sha": null,
+    "auto_deploy": false,
+    "branch_is_not_release_authority": true
+  },
+  "package": {
+    "dockerfile": "infra/deployment/Dockerfile",
+    "context": ".",
+    "platform": "linux/amd64",
+    "strategy": "PREBUILT_CI_IMAGE_PREFERRED",
+    "registry": null,
+    "image_reference": null,
+    "registry_manifest_digest": null,
+    "build_on_shared_vps": false,
+    "user": "65532:65532",
+    "hostname": "0.0.0.0",
+    "port": 3000,
+    "lockfile": "package-lock.json",
+    "output": "standalone",
+    "entrypoint_unchanged": true,
+    "hosted_startup": "HOSTED_PRODUCT_RUNTIME_NOT_ACCEPTED",
+    "startup_migrations": false
+  },
+  "domain": {
+    "origin": null,
+    "ownership": "NOT_VERIFIED",
+    "authoritative_dns": null,
+    "record": null,
+    "dns_changed": false,
+    "https_configured": false,
+    "private_staging_protection": "REQUIRED_NOT_CONFIGURED",
+    "proxy_internal_protocol": "http",
+    "proxy_internal_port": 3000,
+    "host_published_ports": [],
+    "wildcard": false
+  },
+  "administrative_access": {
+    "tls_endpoint_verified": true,
+    "https_session_authenticated": false,
+    "secret_binding": "BLOCKED_UNTIL_AUTHENTICATED_HTTPS",
+    "http_secret_entry": false,
+    "global_changes": false
+  },
+  "observation": {
+    "cpu_cores": 2,
+    "cpu_percent": 2,
+    "load_average": [
+      0.53,
+      0.34,
+      0.2
+    ],
+    "memory_used_gb": 1.6,
+    "memory_total_gb": 7.8,
+    "disk_used_gb": 12.2,
+    "disk_total_gb": 95.8,
+    "application_container_count": 12,
+    "panel_proxy_container_count": 2,
+    "swap": "VERIFIED_ZERO_BYTES_NO_ACTIVE_SWAP",
+    "docker_network_isolation": "SHARED_GLOBAL_OVERLAY_OBSERVED_NOT_ACCEPTED_FOR_NEW_RUNTIME",
+    "authorized_readonly_diagnostic": {
+      "memory_total_mib": 7940,
+      "memory_used_mib": 1601,
+      "memory_available_mib": 6338,
+      "disk_total_gib_rounded": 96,
+      "disk_used_gib_rounded": 13,
+      "disk_available_gib_rounded": 84,
+      "disk_used_percent": 13,
+      "load_average": [0.02, 0.11, 0.15],
+      "existing_app_published_service_ports": null,
+      "existing_app_networks": ["easypanel", "easypanel-crm-inmobiliario"],
+      "global_overlay_has_other_projects": true,
+      "container_identifiers_preserved_after_empty_service_creation": true,
+      "new_active_containers": 0,
+      "secret_values_read_by_commands": false,
+      "root_mutations": false
+    },
+    "sustained_load": "24H_PROVIDER_PLOT_INSPECTED_LOW_LOAD_NOT_RAW_SERIES",
+    "existing_app_mounts": "NONE_LISTED_IN_UI",
+    "existing_app_cpu_memory_limits": "UNLIMITED_IN_UI_PRESERVED"
+  },
+  "proposed_runtime": {
+    "applied": false,
+    "replicas": 1,
+    "memory_reservation_mb": 256,
+    "memory_limit_mb": 768,
+    "cpu_reservation_cores": 0.1,
+    "cpu_limit_cores": 0.75,
+    "capacity_acceptance": "NOT_RUN",
+    "read_only_rootfs": true,
+    "tmpfs": [
+      "/tmp"
+    ],
+    "cache_writability": "VERIFY_NEXT_RUNTIME_BEFORE_HOSTED_ACCEPTANCE",
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "privileged": false,
+    "host_mounts": [],
+    "old_volumes": [],
+    "docker_socket": false,
+    "local_database": false,
+    "health": {
+      "method": "GET",
+      "path": "/api/health/live",
+      "port": 3000,
+      "interval_seconds": 30,
+      "timeout_seconds": 5,
+      "start_period_seconds": 30
+    },
+    "restart": {
+      "condition": "on-failure",
+      "delay_seconds": 10,
+      "max_attempts": 3,
+      "window_seconds": 120
+    },
+    "logs": {
+      "driver": "json-file",
+      "max_size": "10m",
+      "max_files": 3
+    },
+    "panel_support_for_all_controls": "NOT_VERIFIED_DO_NOT_EMULATE_BY_GLOBAL_CHANGES"
+  },
+  "supabase": {
+    "owner": "W5/Cowork",
+    "contract": "docs/w5/SUPABASE_STAGING_CONTRACT.md",
+    "contract_ref": "e1a2405c",
+    "contract_issue_comment": 6368456922,
+    "public_url": null,
+    "public_url_binding_source": "W5_CONTRACT_SECTION_1_SECURE_ENVIRONMENT_BINDING_ONLY",
+    "hosted_migrations": 87,
+    "storage_88_applied": false,
+    "connection_bound": false,
+    "cohort_received": false,
+    "redirects": "NOT_CONFIGURED_OWNER_APPROVAL_REQUIRED",
+    "site_url_change": false,
+    "sql_changes": false,
+    "service_role": false,
+    "shared_old_credentials": false
+  },
+  "bindings": {
+    "public_build_names": [
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      "NEXT_PUBLIC_APP_URL"
+    ],
+    "runtime_names": [
+      "PLATFORM_TARGET",
+      "NODE_ENV",
+      "APP_ENV",
+      "PRODUCT_V1_ENABLED",
+      "PRODUCT_V1_ORIGIN",
+      "PRODUCT_STAGING_INTEGRATION",
+      "PRODUCT_STAGING_USER_IDS"
+    ],
+    "values_included": false,
+    "bindings_applied": false,
+    "live_ai": false,
+    "ai_business_writes": false,
+    "document_content": false,
+    "document_maintenance": false,
+    "forbidden_names": [
+      "OPENAI_API_KEY",
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "AGENT_TOOL_SECRET"
+    ],
+    "forbidden_prefixes": [
+      "N8N_",
+      "SMTP_",
+      "META_"
+    ],
+    "platform_manifest_contract_conflict": "UNRESOLVED_SMTP_AUTH_HOSTED_GATE"
+  },
+  "blockers_before_create": [],
+  "blockers_before_secrets": [
+    "HTTPS_ADMIN_LOGIN_REQUIRED"
+  ],
+  "blockers_before_deploy": [
+    "NETWORK_ISOLATION_REVIEW_REQUIRED",
+    "SOURCE_REQUIRED_BY_PANEL_BEFORE_RESOURCE_CONFIGURATION",
+    "CURRENT_IMAGE_SCAN_CRITICAL_HIGH",
+    "DOMAIN_OWNERSHIP",
+    "EXACT_ORIGIN_W5_W4_REVIEW",
+    "HOSTED_PRODUCT_RUNTIME_NOT_ACCEPTED",
+    "PLATFORM_PRODUCT_ENVIRONMENT_CONTRACT_CONFLICT",
+    "IMMUTABLE_REGISTRY_IMAGE_NOT_PUBLISHED",
+    "PRIVATE_STAGING_PROTECTION_NOT_CONFIGURED",
+    "RESOURCE_AND_SECURITY_CONTROLS_NOT_VERIFIED",
+    "RELEASE_HIGH",
+    "RELEASE_VENDOR",
+    "RELEASE_W4_HISTORY"
+  ],
+  "rollback": {
+    "current": "ONLY_NEW_EMPTY_SERVICE_EXISTS_NO_RUNTIME_OR_DATA",
+    "future_scope": "ONLY_NEW_SERVICE_AND_EXACT_NEW_DNS_RECORD",
+    "supabase_restore": false,
+    "other_service_changes": false
+  }
+}
