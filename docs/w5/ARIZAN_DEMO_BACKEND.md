@@ -46,7 +46,7 @@ Fuente de backend: Supabase alojado (87 migraciones). Fuente de frontend alojado
 | Empresa B contra A (vía su workspace) | — | Sin datos (`null` o vacío), mismo resultado que un id inexistente; la actualización se rechaza (`P0002`); A sin cambios | TESTED_HOSTED |
 | Viewer | Lectura de listados | Listado 200; editor 403 (por diseño); escrituras 403 | TESTED_HOSTED |
 | Miembro suspendido con JWT válido | — | Lectura y escritura 403 | TESTED_HOSTED |
-| Oportunidades | owner/admin/member | **No hay etapas de embudo en staging** (0 en todas las empresas) y ningún comando de negocio las crea | **BLOCKED**: ver §5 |
+| Oportunidades | owner/admin/member | Etapas estándar del seed (3: abierta, ganada, perdida) insertadas **solo en la empresa A** con autorización del propietario (25/10); oportunidad "Ampliación a 10 líneas móviles" (1.200 €) creada con el comando de negocio y enlazada al cliente y a la etapa abierta | TESTED_HOSTED (backend) |
 | Asistente IA (v2) | — | Requiere `AI_PRODUCT_V2_ENABLED`, modo integrado y proveedor OpenAI `ready`; nada configurado → 503 | **NOT_CONFIGURED** |
 | Asistente `read-preview` | — | Solo fuera de producción con datos demo | **BLOCKED** en alojado |
 | Documentos privados (PDF) | — | Storage 88 sin aplicar; contenido OFF | **BLOCKED** (P0) |
@@ -60,20 +60,20 @@ Fuente de backend: Supabase alojado (87 migraciones). Fuente de frontend alojado
 4. Permanencia y renovación próxima (ventana nov–dic).
 5. Tareas e incidencia abiertas.
 6. Facturación: borrador 300 € + IVA 21 % = 363 €. Abrir, recargar: persiste.
-7. Opcional, demostrar seguridad: explicar que otra empresa no ve nada (prueba documentada arriba). No hace falta una segunda cuenta en vivo.
+7. Oportunidad "Ampliación a 10 líneas móviles" en la etapa abierta.
+8. Opcional, demostrar seguridad: explicar que otra empresa no ve nada (prueba documentada arriba). No hace falta una segunda cuenta en vivo.
 
 **No mostrar como funcional:**
 - el asistente IA ("no configurado": decir la verdad);
 - PDF o descargas de documentos;
 - emitir facturas;
-- oportunidades.
 
 Las preguntas de ejemplo («Resume este cliente», «Cuántas líneas tiene», «Qué contratos tiene», «Qué renovaciones se acercan», «Qué facturas tiene pendientes») se responden hoy desde las **pantallas** de Customer360, cartera y facturación, no desde el asistente.
 
 ## 5. Decisiones humanas antes de la presentación
 
-1. **Etapas de embudo (oportunidades):** solo existen en el seed SQL de tests (`supabase/seeds/synthetic_product.sql`). Opciones:
+1. ~~Etapas de embudo~~ **RESUELTO 25/10**: 3 etapas del seed en la empresa A y 1 oportunidad. Para producción sigue faltando un comando o migración de etapas por defecto (W1). Detalle original: solo existen en el seed SQL de tests (`supabase/seeds/synthetic_product.sql`). Opciones:
    - (a) autorizar insertar las etapas estándar en la empresa A con ese seed (escritura SQL alojada directa; requiere tu autorización explícita);
    - (b) no mostrar oportunidades. El producto necesita un comando o migración de etapas por defecto (W1).
-2. **Ruido sintético de pruebas en la empresa A:** 11 clientes "W5 PROBE…" y "W5 P0 synthetic…" de las pruebas de seguridad. Opción: **archivarlos** con el comando de negocio (reversible, no borra). Requiere tu visto bueno.
+2. ~~Ruido sintético~~ **RESUELTO 25/10**: los 11 clientes de pruebas están archivados con el comando de negocio (reversible; las filas siguen existiendo). Clientes activos: "Bilbao Telecom Demo SL" y "Empresa Ejemplo Norte SL". Detalle original: 11 clientes "W5 PROBE…" y "W5 P0 synthetic…" de las pruebas de seguridad. Opción: **archivarlos** con el comando de negocio (reversible, no borra). Requiere tu visto bueno.
 3. **Frontend:** confirmar con Work si se presenta en Netlify (`a9e977ad`) o en EasyPanel. W5 no ha verificado la interfaz alojada con estos datos.
