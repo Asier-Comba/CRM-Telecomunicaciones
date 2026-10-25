@@ -51,3 +51,42 @@ Por tanto, los matices 1 y 2 **no son decisiones abiertas**: son el contrato vig
 - **Colisión de slug** con otro usuario (`23505`, sin filas parciales).
 
 Son la siguiente unidad W5 (recurso desechable, no alojado).
+
+## Evidencia física 25/10: concurrencia y colisión de slug (recurso desechable)
+
+- **Fuente:** rama `w5/onboarding-provision-races`, commit `54feb851ab2f9e8f08a80395d0b7ba5269bb31cb`, árbol `b1a773ddc5835a2fe409bc78f4203624b517fd50` = base `f9aa469b` + 1 test (no cambia producto ni SQL).
+- **Entorno:** CI `workflow_dispatch` run `40240003086`, job `121309573236` (Native PostgreSQL zero-to-head). Contenedor `postgres@sha256:ca0bd484…` fijado; BD temporal `telecom_onboarding_race_test` con las 87 migraciones; procesos `psql` independientes con `role authenticated` y `request.jwt.claim.sub`. **Nada contra Supabase alojado.**
+- **Resultado:** `ONBOARDING NATIVE PROCESS RACES PASS` y `TEARDOWN PASS` (`dropdb --force`).
+
+| Escenario | Invariante comprobada |
+|---|---|
+| A1: 12 procesos, mismo usuario y mismo input, 3 rondas | Exactamente 1 `created=true`; las 12 respuestas con el mismo `id` y `role=owner`; 1 workspace; 1 membresía owner activa; perfil apuntando a él |
+| A2: 12 procesos, mismo usuario, **inputs distintos**, 3 rondas | 1 creador; los perdedores reciben **la empresa ganadora** (nombre y slug del ganador, no los suyos); 0 workspaces huérfanos de sus inputs |
+| A3: orden controlado reteniendo el advisory lock del usuario, 2 órdenes | Las llamadas en cola convergen en 1 workspace, 1 creador |
+| A4: replay tras la carrera | `created=false`, mismo workspace |
+| B1: colisión secuencial entre usuarios | **SQLSTATE 23505**; el perdedor queda con 0 membresías, sin workspace en el perfil, sin adopción, `is_workspace_member=false` y 0 `current_workspace_ids` |
+| B2: recuperación | El perdedor crea su empresa con otro slug (`created=true`, id distinto) |
+| B3: 5 colisiones concurrentes entre usuarios | Exactamente 1 ganador y 1 `23505` por ronda; el perdedor sin filas; 1 workspace por slug |
+| Global | 0 workspaces sin miembros |
+
+## Propuesta de decisión para W1 (y revisión W4)
+
+**Garantías de backend (autoridad transaccional, probadas):**
+- idempotencia por usuario bajo concurrencia real;
+- atomicidad;
+- sin adopción entre empresas;
+- `23505` sin efectos parciales.
+
+**Garantías del frontend:** solo de experiencia de usuario. La barrera tras recarga de #184 evita reenvíos innecesarios, pero **no** es necesaria para la integridad, que la da el backend.
+
+**Contrato propuesto (aceptar):**
+1. `provision_workspace` como "leer o crear" por usuario: los reintentos devuelven la empresa existente (`created=false`) aunque cambien nombre o slug, tal como ya fija `ephemeral-postgres/onboarding.mjs`.
+2. Handler: `23505` → **409 `slug_taken`** con mensaje genérico, sin pasar el `DETAIL` de PostgreSQL. Así está hoy en `f9aa` y #183 no lo cambia.
+3. Resultado que no sea exactamente una fila canónica → **502 `onboarding_unconfirmed`** (#183): no afirma éxito ni rollback y no reintenta. Recuperar releyendo la membresía o repitiendo la llamada, ambas seguras por (1).
+4. El acceso nunca sale del recibo: lo deciden las guardas en cada petición (verificado en alojado el 25/10).
+
+**Decisiones abiertas reales para W1:**
+- (i) El slug es **único global**, así que un `409` revela que otro usuario usa ese slug (enumeración menor, inherente). ¿Se acepta, o se pasa a slug por empresa o generado?
+- (ii) ¿Debe el handler indicar al cliente que un reintento con otro nombre devolvió la empresa existente? (Hoy lo hace implícitamente con `200` y los datos reales.)
+
+**Adopción:** cherry-pick de `54feb851` (2 archivos: el test nuevo y una línea en `test-zero-to-head.sh`). No toca producto.
