@@ -1,0 +1,108 @@
+{
+  "source_sha": "c9c5ecd22ee80e1461bf29f3b560bbb97e386953",
+  "tree_sha": "41723a533577cbd87e80daf31f80a03f46eb68b6",
+  "executed_merge": "3a23ba75ce748f7100bf3f95b652c314b7103208",
+  "merge_tree_matches_source": true,
+  "local_url": "http://127.0.0.1:3109/login",
+  "scope": "SYNTHETIC_LOCAL_PREVIEW_NOT_AUTHENTICATED",
+  "ci_run": 40219195247,
+  "ci_global": "FAILURE",
+  "quality_job": 121246855397,
+  "bootstrap": {
+    "pass": 672,
+    "fail": 0,
+    "skip": 0
+  },
+  "assistant": {
+    "pass": 827,
+    "fail": 0,
+    "skip": 0
+  },
+  "quality": {
+    "lint": "PASS",
+    "types": "PASS",
+    "build_routes": 44,
+    "audit_vulnerabilities": 0
+  },
+  "preview": {
+    "status": "PASS",
+    "count": 940,
+    "desktop": 470,
+    "mobile": 470,
+    "workers": 1,
+    "retries": 0,
+    "artifact": 12608582077,
+    "zip_sha256": "b1f1250e3b8ab5702009b8c929cd8ac47e22c43d473331f4032aec18b01bde5a",
+    "downloaded_and_inspected": true,
+    "scope": "SYNTHETIC_PREVIEW_ONLY_NOT_AUTH_STAGING_OR_RELEASE"
+  },
+  "container": {
+    "job": 121246849725,
+    "status": "PASS",
+    "node": "24.21.0",
+    "nonroot": true,
+    "readonly": true,
+    "liveness": "PASS",
+    "healthcheck": "PASS",
+    "high_critical": 0,
+    "secret_findings": 0,
+    "config_id": "sha256:75bf466f14726e9e26009239d3acd263edfe5cc020af0503723589af74c19803",
+    "published_manifest_digest": null
+  },
+  "native_postgres": {
+    "job": 121246855391,
+    "status": "FAILURE",
+    "phase": "Initialize containers before checkout",
+    "cause": "ECR toomanyrequests: Data limit exceeded",
+    "backend_acceptance": "NOT_RUN"
+  },
+  "vendor": "FAILURE",
+  "w4_all_ref": "FAILURE",
+  "release": "NOT_ACCEPTED",
+  "hosted_login": "BLOCKED",
+  "hosted_persistence": "NOT_RUN",
+  "real_local_auth": "BLOCKED_DOCKER_DAEMON_UNAVAILABLE",
+  "previous_authenticated_evidence": {
+    "source_sha": "68a08a692950a12ab18b3abf8d331cbc8f94fc64",
+    "run": 39989915620,
+    "attempt": 2,
+    "migrations": 87,
+    "backend_checks": 4042,
+    "ui_pass": 116,
+    "server_exit": 0,
+    "teardown": "PASS",
+    "inherited": false
+  },
+  "backup_video": {
+    "type": "SCREENSHOT_MONTAGE_NOT_CONTINUOUS_RECORDING",
+    "seconds": 72,
+    "decoded_frames": 144,
+    "browser_ready_state": 4,
+    "browser_error": null,
+    "browser_playback_observed": true,
+    "width": 1440,
+    "height": 976
+  },
+  "live_ai": false,
+  "external_writes": false,
+  "storage_88_applied": false,
+  "credentials_included": false,
+  "w5_reported_hosted_backend": {
+    "document_commit": "8a620584857167de6aa527e5add1eff5b995d9de",
+    "document": "docs/w5/ARIZAN_PRESENTATION_READY.md",
+    "reported_frontend_sha": "a9e977adf90b1e83cded23fb54aefc696839d014",
+    "reported_deploy": "6ad78f6c810c781fba4f5880",
+    "backend_preflight": {
+      "pass": 16,
+      "total": 16,
+      "time": "2026-10-25T17:37:00Z"
+    },
+    "permissions_reported": {
+      "pass": 22,
+      "total": 22
+    },
+    "verified_by_work_browser": false,
+    "netlify_account_login": "PENDING_OWNER",
+    "hosted_ui": "NOT_RUN"
+  }
+}
