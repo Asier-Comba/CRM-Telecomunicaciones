@@ -16,6 +16,8 @@ Todo es **sintético**. No es una release.
 | **Local `127.0.0.1:3107`** (`68a08a69`, Work) | **NO** | `readStagingAdmissionV1` exige `PRODUCT_V1_ORIGIN === https://crm-telecom-staging-preview.netlify.app`. El modo local solo acepta un Supabase **local**. Es una barrera de seguridad deliberada: no se debilita para la demo. Lo que muestra el local son datos de preview/fixtures, **no** esta base |
 | EasyPanel | NO (app vacía) | — |
 
+**Decisión del propietario (25/10):** se presenta con el deploy actual de Netlify `6ad78f6c` = `a9e977ad`; **no se despliega `68a08a69`**.
+
 **Conclusión:** para enseñar datos reales y persistentes, el frontend es **Netlify** (owner del equipo Netlify + owner sintético A). Desplegar `68a08a69` en Netlify requiere autorización expresa del propietario: el gate de elegibilidad la bloquea por los 3 hallazgos conocidos. W5 no lo hace por iniciativa propia.
 
 ## 2. Datos y lectores exactos de la UI (`a9e977ad`)
