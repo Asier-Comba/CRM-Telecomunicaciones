@@ -24,6 +24,6 @@ Lectura sobre `crm-telecom-staging` (87 migraciones, PG 17.11). **Sin escrituras
 
 ## Siguientes comprobaciones dinámicas (recurso desechable)
 
-- Concurrencia de emisión: N emisiones simultáneas en la misma serie → números consecutivos y únicos, sin huecos.
+- ~~Concurrencia de emisión~~: **ya cubierta** por `scripts/security/native-postgres/product-command-races.mjs` (20 emisiones concurrentes → secuencias 1..20 exactas, contador en 21; 20 reintentos simultáneos de la misma emisión → recibo idéntico).
 - Las 6 pruebas de onboarding de `ONBOARDING_BACKEND_REVIEW.md`.
 - Instalación con un contacto de otra empresa o de otro cliente → `23514`.

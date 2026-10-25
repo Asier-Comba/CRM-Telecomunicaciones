@@ -36,3 +36,18 @@
 4. Miembro suspendido o eliminado → comportamiento según la decisión 2.
 5. Slug ocupado por otro usuario → `23505`/409; ninguna fila parcial.
 6. Sin sesión → `42501`; `anon` no puede ejecutarla (verificado: `anon_exec=false`).
+
+## Corrección 25/10: cobertura existente
+
+`scripts/security/ephemeral-postgres/onboarding.mjs` ya fija como comportamiento **intencionado y probado**:
+- **Matiz 1:** un reintento con otro nombre o slug devuelve la empresa existente con `created=false`, sin crear otra (líneas 82–89).
+- **Matiz 2:** un miembro eliminado puede crear una empresa propia nueva, y la anterior sigue inaccesible (líneas 108–116).
+- Workspace suspendido → `42501` sin bypass; rollback atómico sin filas parciales; varias empresas por usuario con su rol correcto.
+
+Por tanto, los matices 1 y 2 **no son decisiones abiertas**: son el contrato vigente de W1, y lo que W1 tenga que hacer es solo confirmarlos.
+
+**Lagunas reales de prueba:**
+- **Concurrencia** de dos llamadas simultáneas del mismo usuario. El mecanismo existe (advisory lock), pero no hay prueba con conexiones paralelas.
+- **Colisión de slug** con otro usuario (`23505`, sin filas parciales).
+
+Son la siguiente unidad W5 (recurso desechable, no alojado).
