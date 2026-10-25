@@ -291,6 +291,7 @@ migration_head="$(basename "${migration}")"
 } | docker exec -i -u postgres "$container" psql -X -v ON_ERROR_STOP=1 -U postgres -d "$restore_db" > /dev/null
 
 node scripts/security/native-postgres/product-command-races.mjs
+node scripts/security/native-postgres/onboarding-provision-races.mjs
 node scripts/security/native-postgres/service-commercial-races.mjs
 node --experimental-transform-types scripts/security/native-postgres/assistant-reservation-races.mjs
 node --experimental-transform-types scripts/security/native-postgres/assistant-audit-delivery-races.mjs
