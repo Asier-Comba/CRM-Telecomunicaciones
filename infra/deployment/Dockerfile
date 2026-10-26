@@ -23,6 +23,8 @@ COPY --from=build --chown=65532:65532 /app/.next/static ./.next/static
 COPY --from=build --chown=65532:65532 /app/public ./public
 COPY --from=build --chown=65532:65532 /app/scripts/platform ./scripts/platform
 COPY --from=build --chown=65532:65532 /app/infra/platform ./infra/platform
+# Reuse the real product admission parser in the Node24 startup validator.
+COPY --from=build --chown=65532:65532 /app/src/lib/server/product-staging-admission-v1.ts ./src/lib/server/product-staging-admission-v1.ts
 USER 65532:65532
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s CMD ["/nodejs/bin/node", "-e", "fetch('http://127.0.0.1:3000/api/health/live').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
