@@ -9,10 +9,11 @@ import {
 import { Billing } from '@/features/billing/Billing'
 import { integratedProductAllowed } from '@/features/product/integration/mode'
 import { IntegratedBilling } from '@/features/billing/IntegratedBilling'
-export default async function InvoicingPage({searchParams}:{searchParams:Promise<{invoice?:string;customer?:string;create?:string}>}) {
+export default async function InvoicingPage({searchParams}:{searchParams:Promise<{invoice?:string;customer?:string;create?:string;opportunity?:string}>}) {
   if(integratedProductAllowed()){
-    const {invoice,customer,create}=await searchParams
-    return <IntegratedBilling key={create==='1'?'create':'list'} initialCreate={create==='1'} contentEnabled={process.env.PRODUCT_DOCUMENT_CONTENT_ENABLED==='true'} initialCustomerId={typeof customer==='string'&&/^[0-9a-f-]{36}$/i.test(customer)?customer:undefined} initialInvoiceId={typeof invoice==='string'&&/^[0-9a-f-]{36}$/i.test(invoice)?invoice:undefined}/>
+    const {invoice,customer,create,opportunity}=await searchParams
+    const opportunityId=typeof opportunity==='string'&&/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(opportunity)?opportunity:undefined
+    return <IntegratedBilling key={create==='1'?'create':'list'} initialCreate={create==='1'&&!opportunityId} initialOpportunityId={!invoice?opportunityId:undefined} contentEnabled={process.env.PRODUCT_DOCUMENT_CONTENT_ENABLED==='true'} initialCustomerId={!opportunityId&&typeof customer==='string'&&/^[0-9a-f-]{36}$/i.test(customer)?customer:undefined} initialInvoiceId={typeof invoice==='string'&&/^[0-9a-f-]{36}$/i.test(invoice)?invoice:undefined}/>
   }
   if (!syntheticPreviewAllowed())
     return (
