@@ -59,13 +59,13 @@ export async function prepareDocuments(c, customer) {
 }
 
 export async function documentProbe(c,d,profile) {
-  const {check,http,post,users,wa}=c,closed=profile==='88'
+  const {check,http,post,users,wa,sql}=c,closed=profile==='88'
   const ticket=await d.call('request_download',{command_id:randomUUID(),id:d.active.id,expected_version:d.version})
   check(ticket.status===200&&!!ticket.json.ticket_id,profile+'_document_ticket_still_authorized')
   const input={id:d.active.id,ticket_id:ticket.json.ticket_id}
   check((await d.call('manifest',input)).status===200,profile+'_document_manifest_still_authorized')
   const direct=await http('/storage/v1/object/authenticated/telecom-documents/'+d.active.path,users.ownerA.token)
-  check(closed?direct.status>=400:direct.status===200&&direct.bytes.equals(d.bytes),profile+'_direct_read_'+(closed?'denied':'allowed'))
+  check(closed?direct.status===400&&sql(`select count(*) from storage.objects where bucket_id='telecom-documents' and name='${d.active.path}'`)==='1':direct.status===200&&direct.bytes.equals(d.bytes),profile+'_direct_read_'+(closed?'denied':'allowed'))
   const proxied=await post('/api/document/v1/content/download','document.download',input)
   check(closed?proxied.status===403&&proxied.json.error==='access_denied':proxied.status===200&&proxied.bytes.equals(d.bytes),profile+'_current_proxy_'+(closed?'blocked':'works'))
   const duplicate=await post('/api/document/v1/content/upload?id='+d.pendingRetry.id,null,d.bytes,'application/pdf')

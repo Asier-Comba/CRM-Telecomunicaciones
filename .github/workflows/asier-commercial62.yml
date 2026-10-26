@@ -21,6 +21,8 @@ jobs:
         with:
           node-version-file: .nvmrc
       - run: npm ci
+      - name: Denial oracle regression (500 or absent fixture must fail)
+        run: node --test tests/unit62/*.test.mjs
       - name: Restore existing Chromium dependency cache
         uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
         with:

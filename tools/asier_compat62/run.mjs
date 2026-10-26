@@ -2,6 +2,7 @@ import {spawn,spawnSync} from 'node:child_process'
 import {existsSync,readFileSync,readdirSync,writeFileSync} from 'node:fs'
 import {resolve} from 'node:path'
 import {createHash,randomBytes,randomUUID} from 'node:crypto'
+import {isDeepStrictEqual} from 'node:util'
 import {createServerClient} from '@supabase/ssr'
 import {commercialChain,prepareDocuments,documentProbe,after88Boundaries} from './compatibility.mjs'
 import {commercialBrowser} from './commercial-browser.mjs'
@@ -28,6 +29,7 @@ try{
   command('supabase',['start','--help'])
   command('supabase',['stop','--help'])
   report.source=command('git',['rev-parse','HEAD']);report.tree=command('git',['rev-parse','HEAD^{tree}'])
+  const contract=JSON.parse(readFileSync(new URL('./contract.json',import.meta.url),'utf8'))
   const migrations=readdirSync('supabase/migrations').filter(n=>n.endsWith('.sql')).sort()
   check(migrations.length===87&&migrations.at(-1)==='20261020100000_business_conflict_non_retryable.sql','canonical_profile_87_unchanged')
   const fixture=readFileSync(new URL('./schema88.sql',import.meta.url))
@@ -85,11 +87,13 @@ try{
   phase='profile87'
   const before=await commercialChain(c,'87'),documents=await prepareDocuments(c,before.customer)
   report.before=await documentProbe(c,documents,'87')
+  check(isDeepStrictEqual(report.before,contract.expected_transport['87']),'87_consumable_contract_matches_observation')
   phase='overlay88';sql(fixture.toString('utf8'))
   check(sql("select count(*) from pg_policies where schemaname='storage' and tablename='objects' and policyname in ('telecom_v1_document_object_read','document_content_v1_pending_read')")==='0','88_two_read_policies_removed')
   phase='profile88'
   const after=await commercialChain(c,'88')
   report.after=await documentProbe(c,documents,'88')
+  check(isDeepStrictEqual(report.after,contract.expected_transport['88']),'88_consumable_contract_matches_observation')
   await after88Boundaries(c,documents,after.customer)
   // The commercial path is exercised with the actual intended documents-OFF
   // flags, after closing the separate diagnostic process used above.
