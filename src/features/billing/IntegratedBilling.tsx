@@ -75,6 +75,7 @@ function ScopedIntegratedBilling({initialInvoiceId,initialCustomerId,initialOppo
   },[guided,authorized,readOpportunity,opportunityRevision])
   async function prepareOpportunityDraft(){
     if(!opportunity||!fiscallyConfirmed||busy||preparingSave.current||recorded.current||pending.current)return
+    retireInvoiceRead()
     const epoch=opportunityEpoch.current;preparingSave.current=true;setPreparing(true);setError(null)
     try{const fresh=await readOpportunity();if(epoch!==opportunityEpoch.current)return;if(fresh.signature!==opportunity.signature||fiscalStamp(fresh.configuration)!==fiscalStamp(configuration)){setOpportunity(null);setConfiguration(null);setOpportunityError('La oportunidad o sus datos fiscales han cambiado. Vuelve a consultarlos y confirma la revisión.');setConfirmedFiscal(null);throw new ProductUiError('conflict')}setInvoice(null);setEdit({...blankForm(),clientId:fresh.customer.id,contractId:fresh.contractId,serviceId:fresh.serviceId,opportunityId:fresh.record.id,issueDate:calendarDate(new Date().toISOString()),series:fresh.configuration.issuer!.default_series,currency:fresh.configuration.issuer!.currency})}
     catch(e){if(epoch===opportunityEpoch.current)setError(e)}finally{preparingSave.current=false;if(epoch===opportunityEpoch.current)setPreparing(false)}

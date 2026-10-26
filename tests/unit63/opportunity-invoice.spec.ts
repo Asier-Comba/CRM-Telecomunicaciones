@@ -95,3 +95,11 @@ for(const scope of ['actor','workspace','viewer'])test(`late registered invoice 
   await expect(page).toHaveURL(s.url);await expect(page.locator(`[data-invoice-detail-id="${ids.invoice}"]`)).toHaveCount(0);expect(s.commands).toHaveLength(1)
  }finally{await s.finish()}
 })
+for(const width of [390,768,1440])test(`preparation retires a previous invoice read and creates instead of updating at ${width}`,async({page})=>{
+ const s=await opportunitySession(page,width,'late_previous')
+ try{
+  await s.ready();await page.locator(`tr[data-invoice-id="${ids.previous}"]`).getByRole('button',{name:'Abrir factura',exact:true}).click();await expect.poll(()=>s.heldPrevious.length).toBe(1);await s.prepare()
+  const response=page.waitForResponse(r=>{try{const q=r.request().postDataJSON();return q.operation==='invoice.get'&&q.input.id===ids.previous}catch{return false}});await s.releasePrevious();await (await response).finished();await page.evaluate(()=>new Promise<void>(accept=>requestAnimationFrame(()=>requestAnimationFrame(()=>accept()))))
+  await s.fill();await s.save();await expect.poll(()=>s.commands.length).toBe(1);expect(s.commands[0].operation).toBe('invoice.create_draft');await expect(page.locator(`[data-invoice-detail-id="${ids.invoice}"]`)).toContainText('363,00');await expect(page.locator(`[data-invoice-detail-id="${ids.previous}"]`)).toHaveCount(0)
+ }finally{await s.finish()}
+})

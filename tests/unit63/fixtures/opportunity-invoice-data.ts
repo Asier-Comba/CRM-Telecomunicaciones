@@ -1,11 +1,11 @@
 import {expect,type Page,type Route} from '@playwright/test'
 import {startOpportunityInvoiceFixture} from './opportunity-invoice-server.cjs'
 
-export const ids={customer:'10000000-0000-4000-8000-000000000001',stage:'20000000-0000-4000-8000-000000000001',opportunity:'30000000-0000-4000-8000-000000000001',contract:'60000000-0000-4000-8000-000000000001',service:'70000000-0000-4000-8000-000000000001',invoice:'80000000-0000-4000-8000-000000000001',foreign:'90000000-0000-4000-8000-000000000001'}
+export const ids={customer:'10000000-0000-4000-8000-000000000001',stage:'20000000-0000-4000-8000-000000000001',opportunity:'30000000-0000-4000-8000-000000000001',contract:'60000000-0000-4000-8000-000000000001',service:'70000000-0000-4000-8000-000000000001',invoice:'80000000-0000-4000-8000-000000000001',previous:'80000000-0000-4000-8000-000000000002',foreign:'90000000-0000-4000-8000-000000000001'}
 const profile={legal_name:'Synthetic63 Fiscal Company',tax_id:'SYNTHETIC63',address:'Synthetic Street 63',postal_code:'48001',city:'Bilbao',region:'Bizkaia',country:'ES'}
 type Input=Record<string,unknown>
 export async function opportunitySession(page:Page,width:number,mode='normal',role='owner'){
- const fixture=await startOpportunityInvoiceFixture(),commands:{operation:string;input:Input}[]=[],reads:{operation:string;input:Input}[]=[],held:Route[]=[],heldInvoices:Route[]=[]
+ const fixture=await startOpportunityInvoiceFixture(),commands:{operation:string;input:Input}[]=[],reads:{operation:string;input:Input}[]=[],held:Route[]=[],heldInvoices:Route[]=[],heldPrevious:Route[]=[]
  let version=1,fiscalVersion=1,customerFiscal=mode!=='missing_fiscal',denied=mode==='denied',invoiceCustomer=ids.customer,invoiceOpportunity=ids.opportunity,invoiceCreated=false,firstCreate=true,failReadback=mode==='readback',hold=mode==='late',badService=mode==='bad_service'
  const opportunity=()=>({id:ids.opportunity,version,title:'Synthetic63 opportunity',status:'open',customer_id:ids.customer,stage_id:ids.stage,owner_user_id:null,amount_minor:120000,currency:'EUR',next_follow_up_at:null,expected_close_date:null,next_action:null,source:'manual',links:[{kind:'contract',id:ids.contract},{kind:'service',id:ids.service}],history:[],history_partial:false})
  const contract=()=>({id:ids.contract,version:1,status:'active',source:'manual',customer_id:ids.customer,operator_id:ids.stage,plan_version_id:null,start_date:'2026-10-26',signed_date:'2026-10-26',end_date:null,assigned_user_id:null})
@@ -34,9 +34,10 @@ export async function opportunitySession(page:Page,width:number,mode='normal',ro
   if(operation==='portfolio.get'){if(denied){await deny(route);return}await fulfill(route,{contract_version:'portfolio.v1',kind:input.kind,record:input.kind==='service'?service():contract()});return}
   if(operation==='customer.editor'){await fulfill(route,customer());return}
   if(operation==='configuration.get'){await fulfill(route,configuration(input.customer_id));return}
-  if(operation==='invoice.list'){await fulfill(route,{contract_version:'billing.v1',operation,items:[],next_id:null});return}
+  if(operation==='invoice.list'){const r=invoice(),summary=Object.fromEntries(['id','version','status','customer_id','issue_on','due_on','series','currency','number','totals','overdue'].map(k=>[k,r[k as keyof typeof r]]));await fulfill(route,{contract_version:'billing.v1',operation,items:mode==='late_previous'?[{...summary,id:ids.previous}]:[],next_id:null});return}
   if(operation==='invoice.financial_summary'){await fulfill(route,{contract_version:'billing.v1',operation,period:'month',from:'2026-10-01',to:'2026-11-01',as_of:'2026-10-26',currencies:[]});return}
   if(operation==='invoice.get'){
+   if(mode==='late_previous'&&input.id===ids.previous){heldPrevious.push(route);return}
    if(mode==='late_readback'&&invoiceCreated){heldInvoices.push(route);return}
    if(denied){await deny(route);return}
    if(invoiceCreated&&failReadback){failReadback=false;await route.fulfill({status:503,json:{ok:false,error:'unavailable'}});return}
@@ -61,9 +62,10 @@ export async function opportunitySession(page:Page,width:number,mode='normal',ro
  const prepare=async()=>{await ready();await page.getByLabel('Confirmo los datos fiscales de esta operación',{exact:true}).check();await page.getByRole('button',{name:'Preparar borrador de esta oportunidad',exact:true}).click();await expect(page.getByRole('dialog',{name:'Revisar borrador',exact:true})).toBeVisible()}
  const fill=async()=>{await page.getByLabel('Concepto 1',{exact:true}).fill('Synthetic63 connectivity');await page.getByLabel('Precio 1',{exact:true}).fill('300');await page.getByLabel('IVA % 1',{exact:true}).fill('21');await page.getByLabel('Fecha de emisión',{exact:true}).fill('2026-10-26');for(const kind of ['contractId','serviceId','opportunityId'])await expect(page.locator(`[data-invoice-relation-current="${kind}"]`)).toBeVisible();await page.getByRole('dialog',{name:'Revisar borrador',exact:true}).getByRole('checkbox').check()}
  const save=()=>page.getByRole('button',{name:'Guardar borrador',exact:true}).click()
- return{commands,reads,held,heldInvoices,panel,url,ready,prepare,fill,save,invoice,
+ return{commands,reads,held,heldInvoices,heldPrevious,panel,url,ready,prepare,fill,save,invoice,
   change(){version++},changeFiscal(){fiscalVersion++},deny(){denied=true},badService(){badService=true},mismatch(kind:string){if(kind==='customer')invoiceCustomer=ids.foreign;else invoiceOpportunity=ids.foreign},
   async release(){hold=false;for(const route of held)await fulfill(route,{contract_version:'product.v1',kind:'opportunity',record:opportunity()})},
   async releaseInvoices(){for(const route of heldInvoices)await fulfill(route,{contract_version:'billing.v1',operation:'invoice.get',invoice:invoice()})},
+  async releasePrevious(){for(const route of heldPrevious)await fulfill(route,{contract_version:'billing.v1',operation:'invoice.get',invoice:{...invoice(),id:ids.previous,opportunity_id:null}})},
   async finish(){await page.close();await fixture.close()}}
 }
