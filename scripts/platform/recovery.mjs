@@ -8,7 +8,7 @@ import {disposableGuard,root,migrations,hash} from './lib.mjs'
 import {checkRpcManifest} from './rpc-manifest.mjs'
 import {storageReady} from './storage-ready.mjs'
 import {recoveryManifest,verifyRecoveryManifest} from './recovery-manifest.mjs'
-import {verifyRestoredPrivateResponses,verifyRestoredRpcDenial} from './restored-authorization.mjs'
+import {verifyRestoredPrivateResponses,verifyRestoredRpcDenial,restoredStorageContract} from './restored-authorization.mjs'
 const clientOptions={auth:{persistSession:false,autoRefreshToken:false},global:{fetch:(input,options={})=>fetch(input,{...options,redirect:'error',signal:options.signal?AbortSignal.any([options.signal,AbortSignal.timeout(15000)]):AbortSignal.timeout(15000)})}}
 // Called only inside run-stack after real Auth/Storage acceptance. It never takes
 // a caller-selected database, Docker container, URL or key from CLI arguments.
@@ -110,6 +110,20 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   const denied_rpc_checks=[]
   const ticket=JSON.parse(sql(`select coalesce((select jsonb_build_object('id',t.id,'document_id',t.document_id) from public.document_download_tickets t join public.documents d on d.id=t.document_id and d.workspace_id=t.workspace_id where t.workspace_id='${wa}' and t.actor_id='${users.ownerA.id}' and t.expires_at<statement_timestamp() and d.status='active' order by t.id limit 1),'null'::jsonb);`))
   if(!ticket||!['id','document_id'].every(k=>/^[0-9a-f-]{36}$/.test(ticket[k])))throw new Error('RESTORED_EXPIRED_TICKET_FIXTURE_MISSING')
+  const storageContract=restoredStorageContract(migrations())
+  // Storage 88: the owner's legitimate post-restore access is the authorized path, not a direct read:
+  // fresh ticket and manifest under the user JWT, then a server-side fetch whose bytes must match
+  // the restored integrity record. Only the outcome is kept; bytes and paths never enter the report.
+  const serverRead=async token=>{
+   const version=Number(sql(`select version from public.documents where workspace_id='${wa}' and id='${ticket.document_id}';`).toString().trim())
+   const requested=await api('/rest/v1/rpc/document_content_v1_request_download',token,{p_workspace_id:wa,p_input:{command_id:randomUUID(),id:ticket.document_id,expected_version:version}})
+   const manifest=requested.status===200&&typeof requested.json?.ticket_id==='string'?await api('/rest/v1/rpc/document_content_v1_manifest',token,{p_workspace_id:wa,p_input:{id:ticket.document_id,ticket_id:requested.json.ticket_id}}):null
+   const m=manifest?.status===200?manifest.json:null
+   if(!m||m.id!==ticket.document_id||!/^[0-9a-f-]{36}$/.test(m.object_ref??'')||!/^[0-9a-f]{64}$/.test(m.sha256??''))return {manifest:'DENIED',bytes:'NOT_READ'}
+   const {data,error}=await storage.from('telecom-documents').download(`${wa}/documents/${ticket.document_id}/${m.object_ref}`)
+   const bytes=!error&&data?Buffer.from(await data.arrayBuffer()):null
+   return {manifest:'PASS',bytes:bytes&&bytes.length===m.size_bytes&&hash(bytes)===m.sha256?'MATCH':'MISMATCH'}
+  }
   const deny=async(name,r)=>{const proof=verifyRestoredRpcDenial(r);denied_rpc_checks.push({name,...proof})}
   for(const name of ['ownerA','ownerB','removedA','suspendedA','viewerA','adminA','memberA','memberB']){
    const user=users[name]
@@ -133,7 +147,8 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
    const download=await fetch(url+'/storage/v1/object/authenticated/telecom-documents/'+object,{headers:{apikey:anon,authorization:`Bearer ${token}`},signal:AbortSignal.timeout(15000)})
    const storage_response={status:download.status,json:download.status===200?null:await download.json()}
    const raw=await api('/rest/v1/assistant_operations?select=operation_ref',token)
-   const proof=verifyRestoredPrivateResponses({owner:name==='ownerA',storage:storage_response,assistant:raw})
+   const owner=name==='ownerA'
+   const proof=verifyRestoredPrivateResponses({owner,storage:storage_response,assistant:raw,contract:storageContract,serverRead:storageContract==='88'&&owner?await serverRead(token):undefined})
    authorization_checks.push({actor:name,session,status:'PASS',...proof})
    const rpc=(operation,input,workspace=wa)=>api('/rest/v1/rpc/'+operation,token,{p_workspace_id:workspace,p_input:input})
    if(['viewerA','adminA','removedA','suspendedA','ownerB'].includes(name)){
