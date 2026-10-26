@@ -1,12 +1,13 @@
 // READ-ONLY preflight of the Arizan demo data through the exact readers the hosted UI
 // (a9e977ad) uses: telecom_collection_v1_query / case_v1_query / billing_v1_* /
 // product_v1_* with owner A's JWT. No writes. Prints check names and PASS/FAIL only.
-const U = 'https://zgwotxnyqzfuzcnmgvtn.supabase.co', K = 'sb_publishable_y__5IRosciu0KwhE4lOcQA_9JBikLGP', WA = '63532577-7a61-4349-b88d-d3c9299895d3'
+const U = 'https://zgwotxnyqzfuzcnmgvtn.supabase.co', K = process.env.ARIZAN_PREFLIGHT_PUBLISHABLE_KEY, WA = '63532577-7a61-4349-b88d-d3c9299895d3'
 const NAME = 'Empresa Ejemplo Norte SL'
 // Credentials of the synthetic owner A come only from the environment (private
 // channel); they are never stored in Git or printed.
 const email = process.env.ARIZAN_PREFLIGHT_EMAIL, password = process.env.ARIZAN_PREFLIGHT_PASSWORD
-if (!/@example\.invalid$/.test(email ?? '') || !password) { console.error('ARIZAN_PREFLIGHT_EMAIL (synthetic @example.invalid) and ARIZAN_PREFLIGHT_PASSWORD are required'); process.exit(2) }
+// The publishable key is not service_role, but project policy keeps key values out of Git and evidence.
+if (!/@example\.invalid$/.test(email ?? '') || !password || !/^sb_publishable_[A-Za-z0-9_-]{8,}$/.test(K ?? '')) { console.error('ARIZAN_PREFLIGHT_EMAIL (synthetic @example.invalid), ARIZAN_PREFLIGHT_PASSWORD and ARIZAN_PREFLIGHT_PUBLISHABLE_KEY are required'); process.exit(2) }
 const t = await (await fetch(U + '/auth/v1/token?grant_type=password', { method: 'POST', headers: { apikey: K, 'content-type': 'application/json' }, body: JSON.stringify({ email, password }) })).json()
 const rpc = async (fn, args) => { const r = await fetch(U + '/rest/v1/rpc/' + fn, { method: 'POST', headers: { apikey: K, authorization: 'Bearer ' + t.access_token, 'content-type': 'application/json' }, body: JSON.stringify(args) }); const x = await r.text(); let j = null; try { j = JSON.parse(x) } catch {}; return { status: r.status, code: j?.code, msg: (j?.message || '').slice(0, 80), j, x } }
 const items = j => j?.items ?? j?.data?.items ?? j?.rows ?? j?.records ?? (Array.isArray(j) ? j : [])
