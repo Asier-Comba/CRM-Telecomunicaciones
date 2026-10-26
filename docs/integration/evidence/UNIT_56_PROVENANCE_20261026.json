@@ -1,0 +1,969 @@
+{
+  "unit": 56,
+  "observed_date": "2026-10-26",
+  "repository": "Asier-Comba/CRM-Telecomunicaciones",
+  "visibility": "public",
+  "default_branch": "w4/security-baseline",
+  "rows": [
+    {
+      "pr": 175,
+      "title": "CRM comercial: integración selectiva de facturación y onboarding",
+      "head_ref": "codex/demo-cloud-composition-20261020",
+      "source_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "pr_reported_base_sha": "a9e977adf90b1e83cded23fb54aefc696839d014",
+      "base_ref": "codex/product-integration-20261019",
+      "owner": "Work/Asier; contracts W1/W2/W3/W5",
+      "decision": "PRODUCT_BASE",
+      "base_ref_current_sha": "a9e977adf90b1e83cded23fb54aefc696839d014",
+      "merge_base": "a9e977adf90b1e83cded23fb54aefc696839d014",
+      "behind_base_ref": 0,
+      "ahead_of_base_ref": 57,
+      "changed_paths": [
+        ".github/workflows/w2-owned-resource-consumer.yml",
+        ".github/workflows/w2-owned-resource-grants86.yml",
+        "docs/integration/COMMERCIAL_ACCEPTANCE.md",
+        "docs/integration/COMMERCIAL_MODULE_STATE_20261021.md",
+        "docs/integration/NIGHT_32_34_20261021.md",
+        "docs/integration/UNIT_27_BILLING_PREPARATION_20261020.md",
+        "docs/integration/UNIT_28_DEMO_COMPOSITION_20261020.md",
+        "docs/integration/UNIT_29_OIER_SELECTION_20261020.md",
+        "docs/integration/UNIT_30_TELECOM_THREE_CREATES_20261020.md",
+        "docs/integration/UNIT_31_ISSUE_OBSERVATION_20261020.md",
+        "docs/integration/UNIT_35_SPEECH_STOP_RECOVERY_20261021.md",
+        "docs/integration/UNIT_36_INVOICE_SERIES_20261021.md",
+        "docs/integration/UNIT_37_BILLING_REFRESH_20261021.md",
+        "docs/integration/UNIT_38_CATALOG_OBSERVER_20261021.md",
+        "docs/integration/UNIT_39_FINANCIAL_SCOPE_OBSERVER_20261021.md",
+        "docs/integration/UNIT_41_SELECTIVE_COMPOSITION_20261022.md",
+        "docs/integration/evidence/20261022-composition41/acceptance.safe.json",
+        "docs/integration/evidence/20261022-composition41/billing1440.png",
+        "docs/integration/evidence/20261022-composition41/billing390.png",
+        "docs/integration/evidence/20261022-composition41/billing768.png",
+        "docs/integration/evidence/20261022-composition41/fiscal1440.png",
+        "docs/integration/evidence/20261022-composition41/fiscal390.png",
+        "docs/integration/evidence/20261022-composition41/fiscal768.png",
+        "docs/integration/evidence/20261022-composition41/onboarding-error-390.png",
+        "docs/integration/evidence/20261022-composition41/onboarding-recovered-1440.png",
+        "docs/integration/evidence/20261022-composition41/onboarding-unconfirmed-768.png",
+        "docs/master/PRODUCT_PARITY_MATRIX.md",
+        "docs/master/SYSTEM_STATE.md",
+        "docs/master/platform/ENTERPRISE_4_COMPATIBILITY.json",
+        "infra/platform/environment-manifest.json",
+        "scripts/platform/composition.mjs",
+        "scripts/platform/config.mjs",
+        "scripts/platform/durable-native-fixture.mjs",
+        "scripts/platform/inventory.mjs",
+        "scripts/security/native-postgres/consume-owned-resource-committed-restart-v1.mjs",
+        "scripts/security/native-postgres/expected-image.mjs",
+        "scripts/security/native-postgres/owned-consumer-migrations-87-v1.mjs",
+        "scripts/security/supabase-local/billing-issue-observation.mjs",
+        "scripts/security/supabase-local/product-billing-exact-browser.mjs",
+        "scripts/security/supabase-local/product-billing-uncertain-browser.mjs",
+        "scripts/security/supabase-local/product-browser-acceptance.mjs",
+        "scripts/security/supabase-local/product-catalog-browser.mjs",
+        "scripts/security/supabase-local/product-contracts-consumer-browser.mjs",
+        "src/app/onboarding/page.tsx",
+        "src/features/billing/FiscalEditor.tsx",
+        "src/features/billing/IntegratedBilling.tsx",
+        "src/features/billing/PromptBuilder.tsx",
+        "src/features/billing/parse.ts",
+        "src/features/customers/CustomerDomainPages.tsx",
+        "src/features/portfolio/IntegratedPortfolio.tsx",
+        "src/features/portfolio/PortfolioCreate.tsx",
+        "src/features/portfolio/ServiceSoldVersion.tsx",
+        "tests/bootstrap/billing-issue-observation.test.mjs",
+        "tests/bootstrap/native-postgres-image-boundary.test.mjs",
+        "tests/bootstrap/owned-consumer-migration-profile87.test.mjs",
+        "tests/e2e-preview/billing-financial-refresh.spec.ts",
+        "tests/e2e-preview/billing-preparation-context.spec.ts",
+        "tests/e2e-preview/catalog-publication-entry.spec.ts",
+        "tests/e2e-preview/customer-domain-scope.spec.ts",
+        "tests/e2e-preview/fixtures/billing-focus-entry.tsx",
+        "tests/e2e-preview/fixtures/commercial-resource-entry.tsx",
+        "tests/e2e-preview/fixtures/onboarding-verification-adapter.ts",
+        "tests/e2e-preview/fixtures/onboarding-verification-entry.tsx",
+        "tests/e2e-preview/fixtures/onboarding-verification-server.cjs",
+        "tests/e2e-preview/onboarding-receipt.spec.ts",
+        "tests/e2e-preview/onboarding-verification.spec.ts",
+        "tests/e2e-preview/service-sold-version.spec.ts",
+        "tests/platform/composition.test.mjs",
+        "tests/platform/durable-native-fixture.test.mjs",
+        "tests/platform/recovery-manifest.test.mjs",
+        "tests/platform/staging-admission-environment.test.mjs",
+        "tools/integration_qa/billing-preparation.config.ts",
+        "tools/integration_qa/billing-series.config.ts",
+        "tools/integration_qa/demo-composition.config.ts",
+        "tools/integration_qa/oier-selection.config.ts",
+        "tools/integration_qa/service-version.config.ts",
+        "tools/oier_billing_qa/concept-acceptance.mjs",
+        "tools/oier_billing_qa/prompt-interaction.spec.ts",
+        "tools/oier_commercial_qa/portfolio-feedback-regression.config.ts",
+        "tools/oier_commercial_qa/portfolio-feedback.config.ts",
+        "tools/oier_commercial_qa/portfolio-feedback.spec.ts"
+      ],
+      "contract_paths": [],
+      "semantic_contract_impact": "Base de producto integrada; consumidores W1/W2/W3 ya seleccionados. Aceptación funcional acotada, sin release global.",
+      "migration_paths": [],
+      "dependency_paths": [],
+      "ci_observed_for_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "observed_ci_runs": [
+        {
+          "id": 39765853341,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39765853837,
+          "name": "W5 native resource",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 39765853682,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39765853785,
+          "name": "W2 owned resource business consumer",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 39765853836,
+          "name": "W5 reviewed PDF runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 39765854248,
+          "name": "W5 native profile87 compatibility",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 39765853808,
+          "name": "W2 delivered grants86 native compatibility",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 39765853387,
+          "name": "W5 enterprise platform acceptance",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39765853702,
+          "name": "Supabase local acceptance",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        }
+      ],
+      "ci_current_source_verified": true,
+      "w4_accepted": false,
+      "base_snapshot_differs_from_current_ref": false
+    },
+    {
+      "pr": 187,
+      "title": "Actualizar Next.js a 16.4.3 y corregir Zod de herramientas para staging",
+      "head_ref": "codex/next-security-update-20261023",
+      "source_sha": "c9c5ecd22ee80e1461bf29f3b560bbb97e386953",
+      "pr_reported_base_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "base_ref": "codex/demo-cloud-composition-20261020",
+      "owner": "Work/Asier; security review W4",
+      "decision": "DEPENDENCY_CORRECTIONS_COMPOSED_PENDING_W4",
+      "base_ref_current_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "merge_base": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "behind_base_ref": 0,
+      "ahead_of_base_ref": 2,
+      "changed_paths": [
+        "docs/integration/UNIT_49_NEXT_SECURITY_20261023.md",
+        "docs/integration/UNIT_54_ZOD_SECURITY_20261025.md",
+        "infra/deployment/sbom.cyclonedx.json",
+        "package-lock.json",
+        "package.json"
+      ],
+      "contract_paths": [],
+      "semantic_contract_impact": "Dependencias y SBOM. Sin cambios de DTO, Auth, src, SQL o migraciones; revisión independiente W4 pendiente.",
+      "migration_paths": [],
+      "dependency_paths": [
+        "infra/deployment/sbom.cyclonedx.json",
+        "package-lock.json",
+        "package.json"
+      ],
+      "ci_observed_for_sha": "c9c5ecd22ee80e1461bf29f3b560bbb97e386953",
+      "observed_ci_runs": [
+        {
+          "id": 40219195247,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 40219193174,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 40219193185,
+          "name": "W5 enterprise platform acceptance",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        }
+      ],
+      "ci_current_source_verified": true,
+      "w4_accepted": false,
+      "base_snapshot_differs_from_current_ref": false
+    },
+    {
+      "pr": 171,
+      "title": "W5: inventory uuid_csv, native image fallback and gated Netlify deploy (supersedes #165)",
+      "head_ref": "w5/platform-gates-v1",
+      "source_sha": "8b64f56e5c331c8efb505347d1581d826dc556e2",
+      "pr_reported_base_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "base_ref": "codex/demo-cloud-composition-20261020",
+      "owner": "W5",
+      "decision": "ONLY_240400CA_SELECTED_OWNER_RECOMMENDATION",
+      "base_ref_current_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "merge_base": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "behind_base_ref": 0,
+      "ahead_of_base_ref": 18,
+      "changed_paths": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/supabase-local.yml",
+        ".github/workflows/w5-netlify-staging-deploy.yml",
+        "docs/w5/NETLIFY_STAGING_RUNBOOK.md",
+        "docs/w5/OPENAI_SERVER_CONTRACT.md",
+        "infra/platform/staging-deploy-policy.json",
+        "scripts/platform/deploy-eligibility.mjs",
+        "scripts/platform/durable-native-fixture.mjs",
+        "scripts/security/native-postgres/ci-service-container.mjs",
+        "tests/platform/ci-native-service.test.mjs",
+        "tests/platform/deploy-eligibility.test.mjs",
+        "tests/platform/netlify-deploy-workflow.test.mjs",
+        "tests/platform/supabase-local-workflow.test.mjs"
+      ],
+      "contract_paths": [
+        "docs/w5/OPENAI_SERVER_CONTRACT.md"
+      ],
+      "semantic_contract_impact": "Plataforma/entorno y propuestas de despliegue/OpenAI. Solo se consume la preparación de CI de 240400ca; no el resto de contratos o excepciones.",
+      "migration_paths": [],
+      "dependency_paths": [],
+      "ci_observed_for_sha": "8b64f56e5c331c8efb505347d1581d826dc556e2",
+      "observed_ci_runs": [
+        {
+          "id": 39819817571,
+          "name": "W5 native resource",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 39819817583,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39819817589,
+          "name": "W2 delivered grants86 native compatibility",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 39819817590,
+          "name": "W5 native profile87 compatibility",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 39819817573,
+          "name": "W2 owned resource business consumer",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 39819817606,
+          "name": "W5 enterprise platform acceptance",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39819817631,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39819817566,
+          "name": "Supabase local acceptance",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        }
+      ],
+      "ci_current_source_verified": true,
+      "w4_accepted": false,
+      "base_snapshot_differs_from_current_ref": false
+    },
+    {
+      "pr": 182,
+      "title": "CI: auditoría de dependencias obligatoria separada de calidad funcional",
+      "head_ref": "codex/ci-independent-dependency-audit-20261022",
+      "source_sha": "4e937ddb5425986e1a48e3ec1715a2ed95c6f0f9",
+      "pr_reported_base_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "base_ref": "codex/demo-cloud-composition-20261020",
+      "owner": "Work/Asier; review W4",
+      "decision": "EXCLUDED_PENDING_ACK_OR_EXPLICITLY_NOT_ADOPTED",
+      "base_ref_current_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "merge_base": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "behind_base_ref": 0,
+      "ahead_of_base_ref": 2,
+      "changed_paths": [
+        ".github/workflows/ci.yml",
+        "docs/integration/UNIT_42_INDEPENDENT_DEPENDENCY_AUDIT_20261022.md",
+        "docs/integration/evidence/20261022-audit42/acceptance.safe.json",
+        "scripts/ci/node-dependency-audit.sh",
+        "scripts/ci/node-quality-gate.sh",
+        "scripts/ci/test-node-gate-separation.sh"
+      ],
+      "contract_paths": [],
+      "semantic_contract_impact": "Separación de la auditoría de dependencias en un job obligatorio. No consumida en este primer subconjunto; sin excepciones aprobadas.",
+      "migration_paths": [],
+      "dependency_paths": [],
+      "ci_observed_for_sha": "4e937ddb5425986e1a48e3ec1715a2ed95c6f0f9",
+      "observed_ci_runs": [
+        {
+          "id": 39769208657,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39769208598,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        }
+      ],
+      "ci_current_source_verified": true,
+      "w4_accepted": false,
+      "base_snapshot_differs_from_current_ref": false
+    },
+    {
+      "pr": 183,
+      "title": "Onboarding: propuesta de recibo canónico y respuesta incierta para revisión W1",
+      "head_ref": "codex/onboarding-receipt-contract-proposal-20261022",
+      "source_sha": "533dd255f1d2e3c4f7614b7fbfd2c128eb2f9cd5",
+      "pr_reported_base_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "base_ref": "codex/demo-cloud-composition-20261020",
+      "owner": "Work/Asier; contract owner W1",
+      "decision": "EXCLUDED_PENDING_ACK_OR_EXPLICITLY_NOT_ADOPTED",
+      "base_ref_current_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "merge_base": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "behind_base_ref": 0,
+      "ahead_of_base_ref": 5,
+      "changed_paths": [
+        "docs/integration/UNIT_43_ONBOARDING_RECEIPT_PROPOSAL_20261022.md",
+        "docs/integration/evidence/20261022-onboarding43/acceptance.safe.json",
+        "src/app/api/onboarding/workspace/route.ts",
+        "tests/bootstrap/onboarding-route-result.test.mjs",
+        "tests/e2e-preview/onboarding-route-bridge.spec.ts"
+      ],
+      "contract_paths": [],
+      "semantic_contract_impact": "Propuesta de recibo canónico de onboarding y error 502/onboarding_unconfirmed: requiere decisión W1 y revisión W4.",
+      "migration_paths": [],
+      "dependency_paths": [],
+      "ci_observed_for_sha": "533dd255f1d2e3c4f7614b7fbfd2c128eb2f9cd5",
+      "observed_ci_runs": [
+        {
+          "id": 39769267938,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39769267814,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        }
+      ],
+      "ci_current_source_verified": true,
+      "w4_accepted": false,
+      "base_snapshot_differs_from_current_ref": false
+    },
+    {
+      "pr": 184,
+      "title": "Onboarding: conservar el bloqueo de alta incierta tras recargar",
+      "head_ref": "codex/onboarding-reload-interlock-20261022",
+      "source_sha": "1e5ac168cdbddbf20db3efe26bbab2c6e1c3bb35",
+      "pr_reported_base_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "base_ref": "codex/demo-cloud-composition-20261020",
+      "owner": "Work/Asier; frontend owner W2",
+      "decision": "EXCLUDED_PENDING_ACK_OR_EXPLICITLY_NOT_ADOPTED",
+      "base_ref_current_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "merge_base": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "behind_base_ref": 0,
+      "ahead_of_base_ref": 2,
+      "changed_paths": [
+        "docs/integration/UNIT_45_ONBOARDING_BROWSER_RELOAD_20261022.md",
+        "docs/integration/evidence/20261022-onboarding45/acceptance.safe.json",
+        "src/app/onboarding/page.tsx",
+        "tests/e2e-preview/onboarding-reload-interlock.spec.ts"
+      ],
+      "contract_paths": [],
+      "semantic_contract_impact": "Recuperación de alta incierta tras recargar en frontend. Sin nuevo DTO, pero requiere coordinación W2 y revisión del contrato W1.",
+      "migration_paths": [],
+      "dependency_paths": [],
+      "ci_observed_for_sha": "1e5ac168cdbddbf20db3efe26bbab2c6e1c3bb35",
+      "observed_ci_runs": [
+        {
+          "id": 39818396988,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39818396992,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        }
+      ],
+      "ci_current_source_verified": true,
+      "w4_accepted": false,
+      "base_snapshot_differs_from_current_ref": false
+    },
+    {
+      "pr": 185,
+      "title": "Informes: conservar periodo y descartar exportaciones de contextos anteriores",
+      "head_ref": "codex/reports-export-lifecycle-20261022",
+      "source_sha": "9a4503b047d2b02ca7bba6054b419cdce5ea87ca",
+      "pr_reported_base_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "base_ref": "codex/demo-cloud-composition-20261020",
+      "owner": "Work/Asier; frontend owner W2",
+      "decision": "EXCLUDED_PENDING_ACK_OR_EXPLICITLY_NOT_ADOPTED",
+      "base_ref_current_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "merge_base": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "behind_base_ref": 0,
+      "ahead_of_base_ref": 2,
+      "changed_paths": [
+        "docs/integration/UNIT_46_REPORT_EXPORT_LIFECYCLE_20261022.md",
+        "docs/integration/evidence/20261022-reports46/acceptance.safe.json",
+        "src/features/reports/IntegratedReports.tsx",
+        "tests/e2e-preview/fixtures/product-scope-entry.tsx",
+        "tests/e2e-preview/reports-export-lifecycle.spec.ts"
+      ],
+      "contract_paths": [],
+      "semantic_contract_impact": "Coherencia de filtros y vida de exportaciones de informes en frontend; requiere adopción confirmada por W2.",
+      "migration_paths": [],
+      "dependency_paths": [],
+      "ci_observed_for_sha": "9a4503b047d2b02ca7bba6054b419cdce5ea87ca",
+      "observed_ci_runs": [
+        {
+          "id": 39819946278,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39819946267,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39819946279,
+          "name": "Supabase local acceptance",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        }
+      ],
+      "ci_current_source_verified": true,
+      "w4_accepted": false,
+      "base_snapshot_differs_from_current_ref": false
+    },
+    {
+      "pr": 188,
+      "title": "Probar aislamiento Swarm y salida TLS en runner desechable",
+      "head_ref": "codex/network-isolation-lab-20261023",
+      "source_sha": "398591f1dbe5c6d81cd2d46342144d654975eb81",
+      "pr_reported_base_sha": "68a08a692950a12ab18b3abf8d331cbc8f94fc64",
+      "base_ref": "codex/next-security-update-20261023",
+      "owner": "Work/Asier; platform/security W5/W4",
+      "decision": "EXCLUDED_PENDING_ACK_OR_EXPLICITLY_NOT_ADOPTED",
+      "base_ref_current_sha": "c9c5ecd22ee80e1461bf29f3b560bbb97e386953",
+      "merge_base": "68a08a692950a12ab18b3abf8d331cbc8f94fc64",
+      "behind_base_ref": 1,
+      "ahead_of_base_ref": 2,
+      "changed_paths": [
+        ".github/workflows/crm-network-isolation.yml",
+        "docs/integration/UNIT_50_NETWORK_ISOLATION_20261023.md",
+        "scripts/deployment/network-acceptance.mjs",
+        "scripts/deployment/network-fixture.mjs",
+        "scripts/deployment/network-policy.mjs",
+        "tests/bootstrap/network-isolation.test.mjs"
+      ],
+      "contract_paths": [],
+      "semantic_contract_impact": "Contrato y pruebas de aislamiento de red en laboratorio desechable. No acredita el VPS ni habilita despliegue.",
+      "migration_paths": [],
+      "dependency_paths": [],
+      "ci_observed_for_sha": "398591f1dbe5c6d81cd2d46342144d654975eb81",
+      "observed_ci_runs": [
+        {
+          "id": 39995353877,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39995353848,
+          "name": "CRM disposable network isolation",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 39995353872,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "cancelled",
+          "run_attempt": null
+        }
+      ],
+      "ci_current_source_verified": true,
+      "w4_accepted": false,
+      "base_snapshot_differs_from_current_ref": true
+    },
+    {
+      "pr": 189,
+      "title": "Proponer arranque STAGING con Auth gestionado y aceptación versionada",
+      "head_ref": "codex/product-staging-runtime-contract-20261023",
+      "source_sha": "ae10544da76da1a77fcc13c7bd5f3c23cd22deeb",
+      "pr_reported_base_sha": "68a08a692950a12ab18b3abf8d331cbc8f94fc64",
+      "base_ref": "codex/next-security-update-20261023",
+      "owner": "Work/Asier; platform/security W5/W4",
+      "decision": "EXCLUDED_PENDING_ACK_OR_EXPLICITLY_NOT_ADOPTED",
+      "base_ref_current_sha": "c9c5ecd22ee80e1461bf29f3b560bbb97e386953",
+      "merge_base": "68a08a692950a12ab18b3abf8d331cbc8f94fc64",
+      "behind_base_ref": 1,
+      "ahead_of_base_ref": 1,
+      "changed_paths": [
+        "docs/integration/UNIT_51_PRODUCT_STAGING_RUNTIME_20261023.md",
+        "infra/deployment/Dockerfile",
+        "infra/platform/environment-manifest.json",
+        "infra/platform/product-staging-runtime-policy.json",
+        "scripts/platform/config.mjs",
+        "scripts/platform/entrypoint.mjs",
+        "scripts/platform/product-staging-profile.mjs",
+        "scripts/platform/runtime-admission.mjs",
+        "tests/platform/product-staging-runtime.test.mjs"
+      ],
+      "contract_paths": [],
+      "semantic_contract_impact": "Propuesta de contrato de arranque STAGING y entorno: aceptación W5/W4 pendiente.",
+      "migration_paths": [],
+      "dependency_paths": [],
+      "ci_observed_for_sha": "ae10544da76da1a77fcc13c7bd5f3c23cd22deeb",
+      "observed_ci_runs": [
+        {
+          "id": 39997318412,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39997318349,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39997318392,
+          "name": "W5 enterprise platform acceptance",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39997318398,
+          "name": "Supabase local acceptance",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        }
+      ],
+      "ci_current_source_verified": true,
+      "w4_accepted": false,
+      "base_snapshot_differs_from_current_ref": true
+    },
+    {
+      "pr": 190,
+      "title": "Bloquear STAGING si el build público difiere del runtime",
+      "head_ref": "codex/public-build-binding-20261023",
+      "source_sha": "b1334a5e5ed06659b319986ffa6ea443e29d9957",
+      "pr_reported_base_sha": "ae10544da76da1a77fcc13c7bd5f3c23cd22deeb",
+      "base_ref": "codex/product-staging-runtime-contract-20261023",
+      "owner": "Work/Asier; platform/security W5/W4",
+      "decision": "EXCLUDED_PENDING_ACK_OR_EXPLICITLY_NOT_ADOPTED",
+      "base_ref_current_sha": "ae10544da76da1a77fcc13c7bd5f3c23cd22deeb",
+      "merge_base": "ae10544da76da1a77fcc13c7bd5f3c23cd22deeb",
+      "behind_base_ref": 0,
+      "ahead_of_base_ref": 1,
+      "changed_paths": [
+        "docs/integration/UNIT_52_PUBLIC_BUILD_BINDING_20261023.md",
+        "infra/deployment/Dockerfile",
+        "infra/platform/environment-manifest.json",
+        "scripts/platform/build-binding.mjs",
+        "scripts/platform/entrypoint.mjs",
+        "scripts/platform/runtime-admission.mjs",
+        "tests/platform/product-staging-runtime.test.mjs",
+        "tests/platform/public-build-binding.test.mjs"
+      ],
+      "contract_paths": [],
+      "semantic_contract_impact": "Propuesta de igualdad entre configuración pública compilada y runtime: requiere composición con #189 y revisión W5/W4.",
+      "migration_paths": [],
+      "dependency_paths": [],
+      "ci_observed_for_sha": "b1334a5e5ed06659b319986ffa6ea443e29d9957",
+      "observed_ci_runs": [
+        {
+          "id": 39998300302,
+          "name": "W5 enterprise platform acceptance",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39998300357,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39998300351,
+          "name": "CI",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 39998300388,
+          "name": "Supabase local acceptance",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        }
+      ],
+      "ci_current_source_verified": true,
+      "w4_accepted": false,
+      "base_snapshot_differs_from_current_ref": false
+    },
+    {
+      "pr": 179,
+      "title": "PROPOSAL (do not merge): Storage P0 server-only document bytes v3 on candidate 8ee",
+      "head_ref": "w5/storage-server-fetch-v3",
+      "source_sha": "d4d94990e32e38ca92fa766e03a4d6455bee5029",
+      "pr_reported_base_sha": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+      "base_ref": "codex/demo-cloud-composition-20261020",
+      "owner": "W5; Storage approval required",
+      "decision": "EXCLUDED_PENDING_ACK_OR_EXPLICITLY_NOT_ADOPTED",
+      "previous_source_observation": "d3724f09bf522bd247eeb1323e5f80598ff7bea9",
+      "base_ref_current_sha": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+      "merge_base": "48e4c64e157e1a66e1fd2d8b6694247c870f2a15",
+      "behind_base_ref": 14,
+      "ahead_of_base_ref": 20,
+      "changed_paths": [
+        ".github/workflows/ci.yml",
+        ".github/workflows/w5-native-profile-87.yml",
+        ".github/workflows/w5-native-profile-88.yml",
+        ".github/workflows/w5-netlify-staging-deploy.yml",
+        "docs/master/contracts/backend-bootstrap-requirements.json",
+        "docs/master/platform/ENTERPRISE_4_COMPATIBILITY.json",
+        "docs/w5/NETLIFY_STAGING_RUNBOOK.md",
+        "infra/platform/environment-manifest.json",
+        "scripts/platform/durable-native-fixture.mjs",
+        "scripts/security/native-postgres/ci-service-container.mjs",
+        "scripts/security/native-postgres/consume-owned-resource-committed-restart-v1.mjs",
+        "scripts/security/native-postgres/owned-consumer-migrations-88-v1.json",
+        "scripts/security/native-postgres/owned-consumer-migrations-88-v1.mjs",
+        "scripts/security/supabase-local/acceptance.mjs",
+        "scripts/security/supabase-local/billing-artifact-acceptance.mjs",
+        "scripts/security/supabase-local/document-acceptance.mjs",
+        "scripts/security/supabase-local/product-browser-acceptance.mjs",
+        "scripts/security/supabase-local/run-stack.mjs",
+        "src/lib/server/document-content-user-factory-v1.ts",
+        "src/lib/server/document-maintenance-user-factory-v1.ts",
+        "src/lib/server/document-object-fetch-v1.ts",
+        "src/lib/server/document-object-read-v1.ts",
+        "supabase/migrations/20261021090000_document_object_read_server_fetch.sql",
+        "supabase/tests/telecom-server-read-rpc.sql",
+        "tests/bootstrap/document-object-read.test.mjs",
+        "tests/bootstrap/owned-consumer-migration-profile87.test.mjs",
+        "tests/bootstrap/owned-consumer-migration-profile88.test.mjs",
+        "tests/platform/ci-native-service.test.mjs",
+        "tests/platform/netlify-deploy-workflow.test.mjs",
+        "tests/platform/recovery-manifest.test.mjs"
+      ],
+      "contract_paths": [],
+      "semantic_contract_impact": "Propuesta Storage P0 server-only: cambia el camino de bytes privados y añade migración 88. Adopción expresamente prohibida en esta unidad.",
+      "migration_paths": [
+        "supabase/migrations/20261021090000_document_object_read_server_fetch.sql"
+      ],
+      "dependency_paths": [],
+      "ci_observed_for_sha": "d4d94990e32e38ca92fa766e03a4d6455bee5029",
+      "observed_ci_runs": [
+        {
+          "id": 40301210685,
+          "name": "Supabase local acceptance",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_attempt": null
+        },
+        {
+          "id": 40301210740,
+          "name": "CI",
+          "status": "in_progress",
+          "conclusion": null,
+          "run_attempt": null
+        },
+        {
+          "id": 40301210587,
+          "name": "W5 reviewed PDF runtime",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 40301210552,
+          "name": "W5 native resource",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 40301210627,
+          "name": "W4 all-ref secret audit",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        },
+        {
+          "id": 40301210739,
+          "name": "W5 native profile88 compatibility (Storage proposal)",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 40301210658,
+          "name": "W2 delivered grants86 native compatibility",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 40301210584,
+          "name": "W5 native profile87 compatibility",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 40301210528,
+          "name": "W2 owned resource business consumer",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": null
+        },
+        {
+          "id": 40301210630,
+          "name": "W5 enterprise platform acceptance",
+          "status": "completed",
+          "conclusion": "failure",
+          "run_attempt": null
+        }
+      ],
+      "ci_current_source_verified": true,
+      "w4_accepted": false,
+      "base_snapshot_differs_from_current_ref": true
+    }
+  ],
+  "composition": {
+    "product_base": "f9aa469bec768ad73572a2f462f1f1505e6791a5",
+    "dependency_source": "c9c5ecd22ee80e1461bf29f3b560bbb97e386953",
+    "code_checkpoint_before_documentation": "ef0851f176f00acfc6b0d4864262cd936fee105c",
+    "code_tree_before_documentation": "9b45c151305a5a0c94eeddcf961c9ae606649417",
+    "final_published_source": "Recorded after documentation commit in PR and issue 67; no inferred SHA",
+    "selected_deltas": [
+      {
+        "source": "240400ca20fc9960490ec686855698263eb60f6c",
+        "applied": "b04663a446d1f35f50415025ed92cfd3dd3b2df8",
+        "owner": "W5",
+        "ack": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/pull/171#issuecomment-6346583342",
+        "scope": "CI preparation only",
+        "paths": [
+          {
+            "path": ".github/workflows/supabase-local.yml",
+            "source_blob": "615a435d61c7e3772e0b5c56f98f39de46e83975",
+            "composed_blob": "615a435d61c7e3772e0b5c56f98f39de46e83975"
+          },
+          {
+            "path": "tests/platform/supabase-local-workflow.test.mjs",
+            "source_blob": "4a757a4b479f963c928ee2085b62aeb535ad3711",
+            "composed_blob": "4a757a4b479f963c928ee2085b62aeb535ad3711"
+          }
+        ]
+      },
+      {
+        "source": "54feb851ab2f9e8f08a80395d0b7ba5269bb31cb",
+        "applied": "ef0851f176f00acfc6b0d4864262cd936fee105c",
+        "owner": "W5",
+        "ack": "https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6404302286",
+        "scope": "Native disposable test only",
+        "paths": [
+          {
+            "path": "scripts/security/native-postgres/onboarding-provision-races.mjs",
+            "source_blob": "5472cb577a49bb50dc43a07f8023989594568d2c",
+            "composed_blob": "5472cb577a49bb50dc43a07f8023989594568d2c"
+          },
+          {
+            "path": "scripts/security/native-postgres/test-zero-to-head.sh",
+            "source_blob": "3df634f9b1c18711be94d243f440c21e9a1ed7dc",
+            "composed_blob": "3df634f9b1c18711be94d243f440c21e9a1ed7dc"
+          }
+        ]
+      }
+    ],
+    "changed_paths_before_documentation": [
+      ".github/workflows/supabase-local.yml",
+      "docs/integration/UNIT_49_NEXT_SECURITY_20261023.md",
+      "docs/integration/UNIT_54_ZOD_SECURITY_20261025.md",
+      "infra/deployment/sbom.cyclonedx.json",
+      "package-lock.json",
+      "package.json",
+      "scripts/security/native-postgres/onboarding-provision-races.mjs",
+      "scripts/security/native-postgres/test-zero-to-head.sh",
+      "tests/platform/supabase-local-workflow.test.mjs"
+    ],
+    "src_and_supabase_byte_identical_to_product_base": true,
+    "migrations": 87,
+    "native_w5_source": {
+      "sha": "54feb851ab2f9e8f08a80395d0b7ba5269bb31cb",
+      "run": 40240003086,
+      "event": "workflow_dispatch",
+      "global": "failure",
+      "native_job": 121309573236,
+      "native": "success",
+      "teardown": "PASS",
+      "inherited_by_composition": false
+    },
+    "local_checks": {
+      "install": "PASS",
+      "audit_before": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 1,
+        "critical": 1,
+        "total": 2
+      },
+      "audit_after": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      },
+      "platform": {
+        "pass": 109,
+        "fail": 0,
+        "skip": 1,
+        "skip_reason": "Local Docker daemon unavailable; own native resource test not run"
+      },
+      "cache_before": {
+        "source": "c9c5ecd22ee80e1461bf29f3b560bbb97e386953",
+        "pass": 2,
+        "fail": 1,
+        "cause": "Cache steps absent; restore step undefined"
+      },
+      "cache_after": {
+        "pass": 3,
+        "fail": 0
+      },
+      "lint": "PASS",
+      "build_routes": 44,
+      "native_local": "BLOCKED_DOCKER_DAEMON_UNAVAILABLE",
+      "hosted": "NOT_RUN",
+      "w4_accepted": false
+    },
+    "contract_changes": [],
+    "migration_changes": [],
+    "protected_presentation": {
+      "hosted_unchanged": true,
+      "local_demo_unchanged": true,
+      "backup_package_unchanged": true,
+      "hosted_data_unchanged": true
+    }
+  },
+  "logical_documents": {
+    "master": [
+      "docs/master/01_PRODUCT.md",
+      "docs/master/SYSTEM_STATE.md"
+    ],
+    "status": [
+      "docs/integration/INTEGRATION_CURRENT.md",
+      "docs/master/agents/W1_PRODUCT_BACKEND_STATUS.md",
+      "docs/master/W2_PRODUCT_INTEGRATION_STATUS.md",
+      "docs/master/agents/W3_STATUS.md",
+      "docs/master/agents/W4_STATUS.md",
+      "docs/master/platform/W5_HANDOFF.md"
+    ],
+    "decisions": [
+      "docs/integration/COORDINATION.md",
+      "docs/integration/NEXT_WORK.md",
+      "GitHub issue 67 live owner checkpoints"
+    ],
+    "handoffs": [
+      "docs/master/11_HANDOFFS.md",
+      "docs/integration/CLOUD_CANDIDATE_HANDOFF.md",
+      "docs/master/RELEASE_STAGING.md"
+    ],
+    "note": "No literal MASTER/STATUS/DECISIONS file set was found. Dated snapshots remain history; live owner checkpoints supersede stale counts and source heads."
+  }
+}
