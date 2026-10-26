@@ -23,17 +23,15 @@ jobs:
       - run: npm ci
       - name: Denial oracle regression (500 or absent fixture must fail)
         run: node --test tests/unit62/*.test.mjs
-      - name: Restore existing Chromium dependency cache
-        uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
-        with:
-          path: ~/apt-archives
-          key: os-debs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-poppler-v1
-      - name: Install real browser
+      - name: Install pinned browser and verify actual launch
         timeout-minutes: 6
         run: |
-          mkdir -p "$HOME/apt-archives/partial"
-          printf 'Dir::Cache::Archives "%s/apt-archives";\nAPT::Keep-Downloaded-Packages "true";\nAcquire::Retries "3";\nAcquire::http::Timeout "20";\n' "$HOME" | sudo tee /etc/apt/apt.conf.d/99ci-os-debs >/dev/null
-          npx playwright install --with-deps chromium
+          npx playwright install chromium
+          # Run40389119138 exhausted preparation downloading an unused full font
+          # set from Ubuntu at low throughput. Use this runner's existing system
+          # libraries only if the exact Playwright browser can really launch.
+          # Missing libraries fail this gate; no test/assertion/timeout is relaxed.
+          node --input-type=module -e 'import {chromium} from "@playwright/test"; const browser=await chromium.launch(); try { const page=await browser.newPage(); await page.setContent("<p>CRM Español €</p>"); if(await page.locator("p").textContent()!=="CRM Español €") throw Error("BROWSER_PREREQUISITE_FAILED"); } finally { await browser.close(); }'
       - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359
         with:
           version: 2.119.0

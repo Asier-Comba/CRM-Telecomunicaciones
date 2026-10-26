@@ -23,6 +23,11 @@ Its cleanup fixture expired only1second ago; the actual contract requires24h.
 7775869 adds the early-expiry403 negative and a25h-expired fixture. Its own
 run40388209216/job121801986222 passed124checks, browser and teardown. Later
 source changes require their own exact results; consult PR193 and the report.
+eb77d77/run40389119138 failed preparation at its unchanged6min bound: Ubuntu
+font downloads were still in progress. No Supabase/browser scenario ran. The
+successor installs the exact Playwright browser and requires a real launch on
+the runner's existing libraries; missing libraries fail before acceptance.
+It does not repeatedly install an unused full OS font set or increase a timeout.
 
 ### Observed product87 against effective Storage88
 
