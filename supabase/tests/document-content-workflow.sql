@@ -27,10 +27,15 @@ set local role authenticated;select set_config('request.jwt.claim.sub','a8100000
 do $$declare s record;m jsonb;path text;begin
  select *into s from dc_saved;m:=public.document_content_v1_manifest('b8100000-0000-4000-8000-000000000001',jsonb_build_object('id',s.id));path:='b8100000-0000-4000-8000-000000000001/documents/'||s.id::text||'/'||(m->>'object_ref');
  insert into storage.objects(id,bucket_id,name,metadata)values(gen_random_uuid(),'telecom-documents',path,'{"mimetype":"application/pdf"}');
- perform pg_temp.dc_assert((select count(*)from storage.objects where name=path)=1);
+ -- Storage 88: the uploader cannot read its own pending object back with the user JWT.
+ perform pg_temp.dc_assert((select count(*)from storage.objects where name=path)=0);
  perform pg_temp.dc_deny(format('insert into storage.objects(id,bucket_id,name)values(gen_random_uuid(),''telecom-documents'',%L)',path||'/forged'),'42501');
  perform pg_temp.dc_deny(format('select public.document_content_v1_finalize_upload(%L,%L)','b8100000-0000-4000-8000-000000000001',s.finalize::text),'22023');
 end$$;
+-- The authorized insert landed at exactly the manifest path (checked outside RLS).
+reset role;
+select pg_temp.dc_assert((select count(*)from storage.objects o join public.documents d on d.storage_path=o.name join dc_saved s on s.id=d.id where o.bucket_id='telecom-documents')=1);
+set local role authenticated;
 select set_config('request.jwt.claim.sub','a8100000-0000-4000-8000-000000000002',true);
 select pg_temp.dc_assert((select count(*)from storage.objects where bucket_id='telecom-documents')=0);
 select pg_temp.dc_deny(format('select public.document_content_v1_manifest(%L,%L)','b8100000-0000-4000-8000-000000000001',(select jsonb_build_object('id',id)::text from dc_saved)),'42501');

@@ -23,7 +23,9 @@ jobs:
     env:
       CI: 'true'
       TELECOM_NATIVE_RESOURCE_DISPOSABLE: 'true'
-      TELECOM_NATIVE_CONSUMER_MIGRATION_CLOSURE: require_profile_87
+      # Historical scope: on a profile88 checkout apply only the 87 pinned blobs
+      # (whole 88 directory validated first); otherwise exact profile87.
+      TELECOM_NATIVE_CONSUMER_MIGRATION_CLOSURE: historical_profile_87
       DOCKER_HOST: unix:///var/run/docker.sock
       DOCKER_CONTEXT: ''
       NODE_ENV: test
@@ -43,6 +45,6 @@ jobs:
         run: npm ci
       - name: Exact 85/86 closures still strict and profile87 exact
         run: |
-          node --test tests/bootstrap/owned-consumer-migration-closure.test.mjs tests/bootstrap/owned-consumer-migration-profile87.test.mjs
+          node --test tests/bootstrap/owned-consumer-migration-closure.test.mjs tests/bootstrap/owned-consumer-migration-profile87.test.mjs tests/bootstrap/owned-consumer-migration-profile88.test.mjs
       - name: Physical profile87 migration, committed restart and teardown
         run: node --experimental-transform-types scripts/security/native-postgres/consume-owned-resource-committed-restart-v1.mjs

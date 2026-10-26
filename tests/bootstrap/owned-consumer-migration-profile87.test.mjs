@@ -23,7 +23,11 @@ function files(t,{extension=true,forwardFile=true}={}){
   return {root:pathToFileURL(dir+'/'),migrationDir}
 }
 
-test('actual checkout is exactly profile87 while the strict 85/86 closures keep rejecting it',()=>{
+// The checkout itself carries the proposed migration 88 on this branch, so the
+// exact-87 assertions run on an exact 87 fixture built from the same pinned files;
+// the actual-checkout assertion lives in the profile88 test.
+test('an exact profile87 directory is admitted while the strict 85/86 closures keep rejecting it',t=>{
+  const root=files(t).root
   const p=loadOwnedConsumerProfile87V1(root)
   assert.equal(p.count,87);assert.equal(p.closure,'profile_87')
   assert.deepEqual(p.migrations.map(m=>m.name),[...p.migrations.map(m=>m.name)].sort())
@@ -85,8 +89,8 @@ test('profile87 rejects non-file roots',()=>{
   assert.throws(()=>loadOwnedConsumerProfile87V1(new URL('https://example.invalid/')),rejected)
 })
 
-test('historical 86 scope on the actual 87 checkout applies exactly the owner-directory86 SQL and never the forward migration',t=>{
-  const h=loadOwnedConsumerHistorical86V1(root,loadOwnedConsumerGrants86V1)
+test('historical 86 scope on an exact 87 directory applies exactly the owner-directory86 SQL and never the forward migration',t=>{
+  const h=loadOwnedConsumerHistorical86V1(files(t).root,loadOwnedConsumerGrants86V1)
   assert.equal(h.count,86);assert.equal(h.closure,'historical_86_from_profile_87')
   assert.ok(!h.migrations.some(m=>m.name===forward.name));assert.deepEqual(h.excludedForward,[forward.name])
   assert.ok(Object.isFrozen(h)&&Object.isFrozen(h.migrations))

@@ -5,6 +5,7 @@ import {readFileSync} from 'node:fs'
 import {fileURLToPath} from 'node:url'
 import {loadOwnedConsumerMigrationsV1,loadOwnedConsumerGrants86V1} from './owned-consumer-migrations-v1.mjs'
 import {loadOwnedConsumerProfile87V1,loadOwnedConsumerHistorical86V1} from './owned-consumer-migrations-87-v1.mjs'
+import {loadOwnedConsumerProfile88V1,historicalScopeFromProfile88V1} from './owned-consumer-migrations-88-v1.mjs'
 import {collectOwnedConsumerChildOutputV1} from './owned-consumer-child-output-v1.mjs'
 const fail=()=>Error('OWNED_RESOURCE_BUSINESS_CONSUMER_UNAVAILABLE')
 const diagnostic={stage:'RESOURCE_CREATE',lastObservedPhase:null,migration:null,teardown:'NOT_RUN'}
@@ -28,8 +29,9 @@ async function main(){
   sql(readFileSync(new URL('scripts/security/native-postgres/bootstrap.sql',root),'utf8'))
   sql(readFileSync(new URL('scripts/security/ephemeral-postgres/storage-stub.sql',root),'utf8'))
   diagnostic.stage='MIGRATIONS'
-  if(mode!==undefined&&mode!==''&&mode!=='delivered_grants_86'&&mode!=='require_grants_86'&&mode!=='require_profile_87'&&mode!=='historical_grants_86')throw fail()
-  const closure=mode==='require_profile_87'?loadOwnedConsumerProfile87V1(root):mode==='historical_grants_86'?loadOwnedConsumerHistorical86V1(root,loadOwnedConsumerGrants86V1):mode==='require_grants_86'?loadOwnedConsumerGrants86V1(root):loadOwnedConsumerMigrationsV1(root,mode==='delivered_grants_86'?mode:'directory')
+  if(mode!==undefined&&mode!==''&&mode!=='delivered_grants_86'&&mode!=='require_grants_86'&&mode!=='require_profile_87'&&mode!=='historical_grants_86'&&mode!=='historical_profile_87'&&mode!=='require_profile_88')throw fail()
+  // Historical scopes on a profile88 checkout apply only their own pinned blobs; otherwise each keeps its strict loader.
+  const closure=mode==='require_profile_88'?loadOwnedConsumerProfile88V1(root):mode==='historical_profile_87'?(historicalScopeFromProfile88V1(root,87)??loadOwnedConsumerProfile87V1(root)):mode==='require_profile_87'?loadOwnedConsumerProfile87V1(root):mode==='historical_grants_86'?(historicalScopeFromProfile88V1(root,86)??loadOwnedConsumerHistorical86V1(root,loadOwnedConsumerGrants86V1)):mode==='require_grants_86'?loadOwnedConsumerGrants86V1(root):loadOwnedConsumerMigrationsV1(root,mode==='delivered_grants_86'?mode:'directory')
   for(const migration of closure.migrations){diagnostic.migration=migration.name;sql(migration.sql)}
   diagnostic.migration=null;diagnostic.stage='SYNTHETIC_BASE_SEED'
   sql("set app.environment='test';\n"+readFileSync(new URL('supabase/seeds/synthetic_portfolio.sql',root),'utf8'))

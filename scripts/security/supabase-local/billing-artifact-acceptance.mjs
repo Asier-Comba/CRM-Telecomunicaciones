@@ -15,7 +15,10 @@ export async function billingArtifactAcceptance({rpc,sql,check,http,users,wa,wb,
  const download=await request('invoice.private_pdf',{id}),bytes=Buffer.from(await download.arrayBuffer())
  check(download.status===200&&download.headers.get('cache-control')==='no-store'&&download.headers.get('content-type')==='application/pdf'&&bytes.subarray(0,5).toString()==='%PDF-','artifact_actual_stored_download')
  const path=sql(`select storage_path from public.documents where id='${ref.data.document_id}'`).trim()
- const stored=await fetch(url+'/storage/v1/object/authenticated/telecom-documents/'+path,{headers:{apikey:anon,authorization:'Bearer '+users.ownerA.token},signal:AbortSignal.timeout(15000)})
+ const direct=await fetch(url+'/storage/v1/object/authenticated/telecom-documents/'+path,{headers:{apikey:anon,authorization:'Bearer '+users.ownerA.token},signal:AbortSignal.timeout(15000)})
+ check(direct.status>=400,'artifact_direct_user_storage_read_closed')
+ // Privileged inspection only: the stored object is the exact authoritative PDF.
+ const stored=await fetch(url+'/storage/v1/object/authenticated/telecom-documents/'+path,{headers:{apikey:service,authorization:'Bearer '+service},signal:AbortSignal.timeout(15000)})
  check(stored.status===200&&Buffer.from(await stored.arrayBuffer()).equals(bytes),'artifact_real_storage_bytes')
  const paid=await request('invoice.mark_paid',{command_id:randomUUID(),id,expected_version:2},ownerCookie,'commands');check(paid.status===200,'artifact_paid')
  const afterPaid=await request('invoice.private_pdf',{id});check(afterPaid.status===200&&Buffer.from(await afterPaid.arrayBuffer()).equals(bytes),'artifact_bytes_frozen_after_paid')

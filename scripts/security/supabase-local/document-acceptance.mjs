@@ -10,7 +10,7 @@ export async function documentAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,
  const list=await invoke('list',{target_kind:'customer',target_id:ca,limit:100});check(list.status===200&&list.json.items.some(d=>d.id===id),'document_actual_scoped_list')
  for(const u of [users.memberA,users.viewerA,users.ownerB])check((await invoke('get_metadata',{id},u)).status===403,'document_actual_protected_metadata_denied')
  check((await invoke('get_metadata',{id},users.ownerB,wb)).json===null,'document_actual_foreign_id_hidden')
- check((await http('/storage/v1/object/authenticated/telecom-documents/'+path,users.ownerA.token)).status===200,'document_actual_pre_archive_bytes_allowed')
+ check((await http('/storage/v1/object/authenticated/telecom-documents/'+path,users.ownerA.token)).status>=400,'document_actual_pre_archive_direct_bytes_closed')
  const edits=await Promise.all(Array.from({length:20},()=>invoke('archive',{command_id:randomUUID(),id,expected_version:1})))
  check(edits.filter(r=>r.status===200).length===1&&edits.filter(r=>r.status===409&&r.json.code==='PT409').length===19,'document_actual20_CAS_archive')
  check(Number(sql(`select count(*)from public.product_audit_events where entity_id='${id}'`))===1,'document_actual_one_archive_audit')
@@ -18,7 +18,7 @@ export async function documentAcceptance({rpc,sql,check,http,users,wa,wb,ca,url,
  const restore={command_id:randomUUID(),id,expected_version:2},replays=await Promise.all(Array.from({length:20},()=>invoke('restore',restore)))
  check(replays.every(r=>r.status===200&&JSON.stringify(r.json)===JSON.stringify(replays[0].json)),'document_actual20_restore_replays')
  check(Number(sql(`select count(*)from public.product_audit_events where entity_id='${id}'`))===2,'document_actual_two_lifecycle_audits')
- check((await http('/storage/v1/object/authenticated/telecom-documents/'+path,users.ownerA.token)).status===200,'document_actual_restore_reauthorizes_bytes')
+ check((await http('/storage/v1/object/authenticated/telecom-documents/'+path,users.ownerA.token)).status>=400,'document_actual_restore_direct_bytes_still_closed')
  const changed=await invoke('restore',{...restore,expected_version:3});check(changed.status===409&&changed.json.code==='PT409','document_actual_changed_replay_conflict')
  const input={command_id:randomUUID(),id,expected_version:3}
  check((await invoke('archive',{...input,storage_path:'arbitrary'})).status===400,'document_actual_arbitrary_path_denied')

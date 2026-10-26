@@ -15,6 +15,7 @@ const imagePattern = /^sha256:[0-9a-f]{64}$/
 const fail = code => new Error('NATIVE_RESOURCE_' + code)
 const localEndpoint = value => value === 'unix:///var/run/docker.sock' || /^npipe:\/\/\/\/\.\/pipe\/(docker_engine|dockerDesktopLinuxEngine)$/.test(value)
 const snapshotSql = "select json_build_object('system',system_identifier::text,'started',floor(extract(epoch from pg_postmaster_start_time())*1000)::bigint,'database',current_database(),'publicRelations',(select count(*) from pg_class where relnamespace='public'::regnamespace)) from pg_control_system();"
+export { pullFailure as nativeImagePullFailureV1 }
 function pullFailure(error) {
   try {
     if (error?.code === 'ENOBUFS') return fail('IMAGE_PULL_OUTPUT_LIMIT')

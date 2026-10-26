@@ -486,11 +486,17 @@ end;
 $$;
 
 reset role;
-set local role authenticated;
-select set_config('request.jwt.claim.sub','10000000-0000-0000-0000-000000000001',true);
+-- The linked object exists, so the zero counts below are not vacuous.
 select pg_temp.assert_true(
   (select count(*)=1 from storage.objects where bucket_id='telecom-documents'),
-  'active member cannot see linked private object');
+  'linked private object fixture missing');
+set local role authenticated;
+-- Since 20261021090000 no user JWT reads document objects directly, not even an
+-- active administrator: bytes go through the manifest RPC and the server-only fetch.
+select set_config('request.jwt.claim.sub','10000000-0000-0000-0000-000000000001',true);
+select pg_temp.assert_true(
+  (select count(*)=0 from storage.objects where bucket_id='telecom-documents'),
+  'active administrator can still read private object directly');
 select set_config('request.jwt.claim.sub','10000000-0000-0000-0000-000000000002',true);
 select pg_temp.assert_true(
   (select count(*)=0 from storage.objects where bucket_id='telecom-documents'),

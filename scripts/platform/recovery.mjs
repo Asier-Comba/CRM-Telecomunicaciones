@@ -8,7 +8,7 @@ import {disposableGuard,root,migrations,hash} from './lib.mjs'
 import {checkRpcManifest} from './rpc-manifest.mjs'
 import {storageReady} from './storage-ready.mjs'
 import {recoveryManifest,verifyRecoveryManifest} from './recovery-manifest.mjs'
-import {verifyRestoredPrivateResponses,verifyRestoredRpcDenial} from './restored-authorization.mjs'
+import {verifyRestoredPrivateResponses,verifyRestoredRpcDenial,restoredStorageContract} from './restored-authorization.mjs'
 const clientOptions={auth:{persistSession:false,autoRefreshToken:false},global:{fetch:(input,options={})=>fetch(input,{...options,redirect:'error',signal:options.signal?AbortSignal.any([options.signal,AbortSignal.timeout(15000)]):AbortSignal.timeout(15000)})}}
 // Called only inside run-stack after real Auth/Storage acceptance. It never takes
 // a caller-selected database, Docker container, URL or key from CLI arguments.
@@ -110,6 +110,28 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   const denied_rpc_checks=[]
   const ticket=JSON.parse(sql(`select coalesce((select jsonb_build_object('id',t.id,'document_id',t.document_id) from public.document_download_tickets t join public.documents d on d.id=t.document_id and d.workspace_id=t.workspace_id where t.workspace_id='${wa}' and t.actor_id='${users.ownerA.id}' and t.expires_at<statement_timestamp() and d.status='active' order by t.id limit 1),'null'::jsonb);`))
   if(!ticket||!['id','document_id'].every(k=>/^[0-9a-f-]{36}$/.test(ticket[k])))throw new Error('RESTORED_EXPIRED_TICKET_FIXTURE_MISSING')
+  const storageContract=restoredStorageContract(migrations())
+  // Storage 88: the owner's legitimate post-restore access is the authorized path, not a direct read:
+  // fresh ticket and manifest under the user JWT, then a server-side fetch whose bytes must match
+  // the bytes captured from source A before the backup (and the integrity record when one exists).
+  // Only a stage code is kept; bytes and paths never enter the report.
+  const serverRead=async token=>{
+   const version=Number(sql(`select version from public.documents where workspace_id='${wa}' and id='${ticket.document_id}';`).toString().trim())
+   const requested=await api('/rest/v1/rpc/document_content_v1_request_download',token,{p_workspace_id:wa,p_input:{command_id:randomUUID(),id:ticket.document_id,expected_version:version}})
+   if(requested.status!==200||typeof requested.json?.ticket_id!=='string')return {manifest:'DENIED',bytes:'NOT_READ',stage:'TICKET_'+requested.status+'_'+String(requested.json?.code??'').slice(0,8)}
+   const manifest=requested.status===200&&typeof requested.json?.ticket_id==='string'?await api('/rest/v1/rpc/document_content_v1_manifest',token,{p_workspace_id:wa,p_input:{id:ticket.document_id,ticket_id:requested.json.ticket_id}}):null
+   const m=manifest?.status===200?manifest.json:null
+   if(!m)return {manifest:'DENIED',bytes:'NOT_READ',stage:'MANIFEST_'+manifest?.status+'_'+String(manifest?.json?.code??'').slice(0,8)}
+   if(m.id!==ticket.document_id||!/^[0-9a-f-]{36}$/.test(m.object_ref??''))return {manifest:'DENIED',bytes:'NOT_READ',stage:'MANIFEST_SHAPE'}
+   const path=`${wa}/documents/${ticket.document_id}/${m.object_ref}`
+   const source=recovered.objects.filter(o=>o.bucket==='telecom-documents'&&o.name===path)
+   if(source.length!==1)return {manifest:'PASS',bytes:'NOT_READ',stage:'SOURCE_OBJECT_MISSING'}
+   if(m.sha256!=null&&m.sha256!==source[0].sha256)return {manifest:'PASS',bytes:'NOT_READ',stage:'INTEGRITY_SOURCE_MISMATCH'}
+   const {data,error}=await storage.from('telecom-documents').download(path)
+   const bytes=!error&&data?Buffer.from(await data.arrayBuffer()):null
+   const stage=!bytes?'FETCH_FAILED':bytes.length!==Number(m.size_bytes)||bytes.length!==source[0].size?'SIZE_MISMATCH':hash(bytes)!==source[0].sha256?'SHA_MISMATCH':'MATCH'
+   return {manifest:'PASS',bytes:stage==='MATCH'?'MATCH':'MISMATCH',stage}
+  }
   const deny=async(name,r)=>{const proof=verifyRestoredRpcDenial(r);denied_rpc_checks.push({name,...proof})}
   for(const name of ['ownerA','ownerB','removedA','suspendedA','viewerA','adminA','memberA','memberB']){
    const user=users[name]
@@ -133,7 +155,10 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
    const download=await fetch(url+'/storage/v1/object/authenticated/telecom-documents/'+object,{headers:{apikey:anon,authorization:`Bearer ${token}`},signal:AbortSignal.timeout(15000)})
    const storage_response={status:download.status,json:download.status===200?null:await download.json()}
    const raw=await api('/rest/v1/assistant_operations?select=operation_ref',token)
-   const proof=verifyRestoredPrivateResponses({owner:name==='ownerA',storage:storage_response,assistant:raw})
+   const owner=name==='ownerA'
+   const read=storageContract==='88'&&owner?await serverRead(token):undefined
+   if(read)(report.storage_server_read_stages??=[]).push(session+':'+read.stage)
+   const proof=verifyRestoredPrivateResponses({owner,storage:storage_response,assistant:raw,contract:storageContract,serverRead:read})
    authorization_checks.push({actor:name,session,status:'PASS',...proof})
    const rpc=(operation,input,workspace=wa)=>api('/rest/v1/rpc/'+operation,token,{p_workspace_id:workspace,p_input:input})
    if(['viewerA','adminA','removedA','suspendedA','ownerB'].includes(name)){

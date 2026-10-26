@@ -193,9 +193,12 @@ export async function acceptance({ url, anon, service, db, command, report, appU
     ('${doc}','${wa}','${ca}','general','synthetic.txt','application/pdf',${bytes.length},'${object}'),
     ('${foreignDoc}','${wb}','${cb}','general','synthetic.txt','application/pdf',${bytes.length},'${foreignObject}');`)
   const download = (path, token, bucket = 'telecom-documents') => http(`/storage/v1/object/authenticated/${bucket}/${path}`, token)
+  // Storage 88: no user JWT reads document bytes directly, not even an authorized
+  // owner/admin; authorized reads go through the app after the manifest RPC
+  // (document-content and billing-artifact acceptance prove that path).
   for (const name of ['ownerA', 'adminA', 'removedA', 'suspendedA']) {
     const r = await download(object, users[name].token)
-    check(r.status === 200 && r.text === bytes.toString(), `storage_allowed_${name}`)
+    check(r.status >= 400 && r.text !== bytes.toString(), `storage_direct_user_read_closed_${name}`)
   }
   for (const [label, token] of [['anon', anon], ['member', users.memberA.token], ['viewer', users.viewerA.token], ['B', users.ownerB.token]]) {
     const r = await download(object, token); statuses[`storage.download.${label}`] = r.status
@@ -212,7 +215,9 @@ export async function acceptance({ url, anon, service, db, command, report, appU
     check(b.status >= 400 || (b.status === 200 && b.json?.length === 0), 'storage_bucket_listing_empty')
   }
   const ownerList = await http('/storage/v1/object/list/telecom-documents', users.ownerA.token, 'POST', { prefix: `${wa}/documents/${doc}`, limit: 100, offset: 0 })
-  check(ownerList.status === 200 && ownerList.json?.length === 1, 'storage_linked_owner_listing')
+  // Storage 88: listing is the same user-JWT SELECT on storage.objects, so it is
+  // closed too; the app lists documents through RPC metadata, never Storage.
+  check(ownerList.status >= 400 || (ownerList.status === 200 && ownerList.json?.length === 0), 'storage_linked_owner_direct_listing_closed')
   for (const token of [anon, users.ownerA.token, users.memberA.token, users.ownerB.token]) {
     const list = await http('/storage/v1/object/list/telecom-import-quarantine', token, 'POST', { prefix: wa, limit: 100, offset: 0 })
     check(list.status >= 400 || (list.status === 200 && list.json?.length === 0), 'quarantine_list_closed')
