@@ -46,14 +46,28 @@ export async function commercialBrowser(c,report){
     step('opportunity');await page.goto(origin+'/opportunities?create=1');await field('Buscar empresa para agenda').fill('Unit62 Browser Coherent');await expect(field('Cliente vinculado').locator(`option[value="${customer.id}"]`)).toHaveCount(1);await field('Cliente vinculado').selectOption(customer.id);await field('Título comercial').fill('Unit62 Browser Connectivity Sale');await field('Importe').fill('1200');await field('Etapa comercial').selectOption(stage)
     await field('Buscar productos de esta empresa').fill('Unit62 Browser Service');await button('Consultar productos autorizados').click();await page.locator(`button[data-link-target="${service.id}"]`).click()
     const opportunity=await commit('opportunity.create',()=>button('Guardar oportunidad').click());await closed();await page.goto(origin+'/opportunities?open='+opportunity.id);await expect(page.getByRole('link',{name:'Consultar servicio vinculado',exact:true})).toBeVisible();await shot('04-opportunity-linked')
-    step('invoice');await page.goto(origin+'/facturacion?customer='+customer.id);await expect(button('Nuevo borrador')).toBeEnabled();await button('Nuevo borrador').click();await field('Concepto 1').fill('Unit62 Browser Connectivity');await field('Precio 1').fill('300');await field('Fecha de emisión').fill('2026-10-26')
+    step('guided_invoice');await page.getByRole('link',{name:'Preparar factura desde esta oportunidad',exact:true}).click();await page.waitForURL('**/facturacion?opportunity='+opportunity.id)
+    const preparation=page.getByRole('region',{name:'Preparación desde oportunidad',exact:true})
+    await expect(preparation.getByText('Unit62 Browser Coherent Sale',{exact:true})).toBeVisible()
+    await expect(button('Preparar borrador de esta oportunidad')).toBeDisabled()
+    check(sql(`select count(*) from public.billing_invoices where customer_id='${customer.id}'`)==='0','browser_guided_navigation_creates_no_invoice')
+    for(const [kind,label,name]of [['issuer','Revisar emisor','Unit63 Synthetic Issuer'],['customer','Revisar datos fiscales del cliente','Unit62 Browser Coherent Sale']]){
+      await button(label).click();const dialog=page.getByRole('dialog',{name:kind==='issuer'?'Datos fiscales del emisor':'Datos fiscales del cliente',exact:true})
+      for(const [label,value]of [['Razón social fiscal',name],['Identificación fiscal','SYNTHETIC63'],['Dirección fiscal','Synthetic Street 63'],['Código postal','48001'],['Ciudad','Bilbao'],['Provincia','Bizkaia'],['País (ISO)','ES']])await dialog.getByLabel(label,{exact:true}).fill(value)
+      await commit(kind==='issuer'?'issuer.set':'customer_fiscal.set',()=>dialog.getByRole('button',{name:'Guardar datos fiscales',exact:true}).click());await closed()
+      await expect(field('Confirmo los datos fiscales de esta operación')).not.toBeChecked()
+    }
+    await field('Confirmo los datos fiscales de esta operación').check();await button('Preparar borrador de esta oportunidad').click();await expect(page.getByRole('dialog',{name:'Revisar borrador',exact:true})).toBeVisible()
+    await expect(field('Cliente de factura')).toHaveValue(customer.id);await expect(field('Concepto 1')).toHaveValue('');await expect(field('Precio 1')).toHaveValue('0')
+    check(sql(`select count(*) from public.billing_invoices where customer_id='${customer.id}'`)==='0','browser_guided_preparation_creates_no_invoice_or_copied_amount')
+    await field('Concepto 1').fill('Unit62 Browser Connectivity');await field('Precio 1').fill('300');await field('IVA % 1').fill('21');await field('Fecha de emisión').fill('2026-10-26')
     for(const [label,id]of [['Contrato',contract.id],['Servicio',service.id],['Oportunidad',opportunity.id]]){
-      const picker=field(label+' de factura');await expect(picker).toBeEnabled();await expect(picker.locator(`option[value="${id}"]`)).toHaveCount(1);await picker.selectOption(id)
+      const picker=field(label+' de factura');await expect(picker).toBeEnabled();await expect(picker).toHaveValue(id);await expect(picker.locator(`option[value="${id}"]`)).toHaveCount(1)
       const key={Contrato:'contractId',Servicio:'serviceId',Oportunidad:'opportunityId'}[label];await expect(page.locator(`[data-invoice-relation-current="${key}"]`)).toBeVisible()
     }
-    await page.getByRole('checkbox').check();const invoice=await commit('invoice.create_draft',()=>button('Guardar borrador').click());await closed();await expect(page.locator(`section[data-invoice-detail-id="${invoice.id}"]`)).toBeVisible()
+    await page.getByRole('dialog',{name:'Revisar borrador',exact:true}).getByRole('checkbox').check();const invoice=await commit('invoice.create_draft',()=>button('Guardar borrador').click());await closed();await expect(page.locator(`section[data-invoice-detail-id="${invoice.id}"]`)).toBeVisible();await page.waitForURL('**/facturacion?invoice='+invoice.id)
     check(sql(`select count(*) from public.billing_invoices i join public.telecom_services s on s.id=i.service_id and s.contract_id=i.contract_id and s.customer_id=i.customer_id and s.workspace_id=i.workspace_id join public.telecom_contracts c on c.id=s.contract_id and c.workspace_id=s.workspace_id and c.customer_id=s.customer_id join public.telecom_lines l on l.service_id=s.id and l.workspace_id=s.workspace_id join public.product_opportunity_links p on p.opportunity_id=i.opportunity_id and p.kind='service' and p.target_id=s.id where i.workspace_id='${wa}' and i.id='${invoice.id}' and i.customer_id='${customer.id}' and i.contract_id='${contract.id}' and i.service_id='${service.id}' and i.opportunity_id='${opportunity.id}' and l.id='${line.id}' and c.status='active' and s.status='active' and l.status='active' and i.total_minor=36300 and i.status='draft'`)==='1','browser_same_commercial_operation_persisted')
-    step('invoice_full_reload');await page.reload();await page.locator(`tr[data-invoice-id="${invoice.id}"]`).getByRole('button',{name:'Abrir factura',exact:true}).click();await expect(page.locator(`section[data-invoice-detail-id="${invoice.id}"]`)).toContainText('363,00');await button('Editar borrador').click()
+    step('invoice_full_reload');await page.reload();await expect(page.locator(`section[data-invoice-detail-id="${invoice.id}"]`)).toContainText('363,00');await button('Editar borrador').click()
     for(const [label,id]of [['Cliente',customer.id],['Contrato',contract.id],['Servicio',service.id],['Oportunidad',opportunity.id]]){
       const picker=field(label+' de factura');await expect(picker).toHaveValue(id)
       if(label!=='Cliente'){
@@ -65,13 +79,17 @@ export async function commercialBrowser(c,report){
     }
     check(true,'browser_reload_readback_preserves_all_links')
     for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});const relations=page.locator('[data-invoice-relations="authorized"]');await relations.scrollIntoViewIfNeeded();await expect(relations).toBeVisible();check(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),'browser_linked_invoice_width_'+width);await shot('05-invoice-readback-'+width)}
-    await button('Cerrar panel').click();await page.setViewportSize({width:1440,height:960})
+    await button('Cerrar panel').click();await page.setViewportSize({width:1440,height:960});await page.getByRole('link',{name:'Volver a la oportunidad',exact:true}).click();await expect(page.getByRole('link',{name:'Consultar factura relacionada',exact:true})).toHaveAttribute('href','/facturacion?invoice='+invoice.id);await shot('06-opportunity-related-invoice');check(true,'browser_return_opportunity_verifies_related_invoice')
     for(const actor of [users.memberA,users.viewerA,users.ownerB]){
       step('role_'+actor.role+'_'+(actor.workspace===wa?'A':'B'));await login(actor)
       if(actor.workspace!==wa){const r=await responseForAction(()=>wait('invoice.get'),()=>page.goto(origin+'/facturacion?invoice='+invoice.id));check([403,404].includes(r.status()),'browser_foreign_invoice_request_denied')}
       else {await page.goto(origin+'/facturacion?invoice='+invoice.id);await expect(page.getByText('Facturación disponible para administradores del espacio.',{exact:true})).toBeVisible();await expect(button('Nuevo borrador')).toHaveCount(0)}
       await expect(page.locator(`section[data-invoice-detail-id="${invoice.id}"]`)).toHaveCount(0);await expect(page.getByText('Unit62 Browser Connectivity',{exact:true})).toHaveCount(0)
       check(true,'browser_foreign_or_commercial_role_invoice_hidden_'+actor.role+'_'+(actor.workspace===wa?'A':'B'))
+      await page.goto(origin+'/facturacion?opportunity='+opportunity.id)
+      if(actor.workspace!==wa)await expect(page.getByRole('region',{name:'Preparación desde oportunidad',exact:true}).getByRole('alert')).toBeVisible()
+      else await expect(page.getByText('Facturación disponible para administradores del espacio.',{exact:true})).toBeVisible()
+      await expect(button('Preparar borrador de esta oportunidad')).toHaveCount(0);check(true,'browser_guided_foreign_or_role_denied_'+actor.role+'_'+(actor.workspace===wa?'A':'B'))
     }
     step('viewer_line');await login(users.viewerA);await page.goto(origin+'/portfolio?kind=line&id='+line.id);await expect(page.getByText('Consulta de solo lectura para tu rol.',{exact:true})).toBeVisible();await expect(button('Guardar cambio')).toHaveCount(0);await shot('06-viewer-line')
     check(true,'browser_viewer_same_line_read_only');report.browser='PASS'
