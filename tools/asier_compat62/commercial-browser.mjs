@@ -27,6 +27,10 @@ export async function commercialBrowser(c,report){
     await button(kind==='contract'?'Activar contrato':'Guardar cambio').click()
     await commit(kind==='contract'?'contract.activate':kind+'.transition',()=>page.getByRole('dialog',{name:'Confirmar cambio de cartera',exact:true}).getByRole('button',{name:'Confirmar',exact:true}).click());await closed()
     check(sql(`select status from public.telecom_${kind==='contract'?'contracts':kind==='service'?'services':'lines'} where id='${id}' and workspace_id='${wa}'`)==='active','browser_'+kind+'_active_readback')
+    if(kind==='contract'){
+      await expect(page.locator(`[data-domain-id="${id}"]:visible`)).toContainText('Activo')
+      check(true,'browser_contract_inventory_matches_confirmed_card')
+    }
   }
   try{
     step('owner_login');await login(users.ownerA);check(true,'browser_authentic_owner_login')
