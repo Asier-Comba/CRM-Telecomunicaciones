@@ -103,3 +103,7 @@ for(const width of [390,768,1440])test(`preparation retires a previous invoice r
   await s.fill();await s.save();await expect.poll(()=>s.commands.length).toBe(1);expect(s.commands[0].operation).toBe('invoice.create_draft');await expect(page.locator(`[data-invoice-detail-id="${ids.invoice}"]`)).toContainText('363,00');await expect(page.locator(`[data-invoice-detail-id="${ids.previous}"]`)).toHaveCount(0)
  }finally{await s.finish()}
 })
+for(const [instant,expected]of [['2026-10-09T22:30:00Z','2026-10-10'],['2026-06-30T22:30:00Z','2026-07-01'],['2026-12-31T23:30:00Z','2027-01-01'],['2028-02-28T23:30:00Z','2028-02-29'],['2026-10-10T12:30:00Z','2026-10-10']])test(`guided draft uses the shared Madrid day at ${instant}`,async({page})=>{
+ await page.clock.setFixedTime(new Date(instant));const s=await opportunitySession(page,1440)
+ try{await s.prepare();await expect(page.getByLabel('Fecha de emisión',{exact:true})).toHaveValue(expected);expect(s.commands).toEqual([])}finally{await s.finish()}
+})
