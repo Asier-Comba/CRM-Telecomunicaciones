@@ -1,0 +1,135 @@
+{
+  "kind": "EXISTING_PREFLIGHT_SYNTHETIC_INPUTS_NOT_HOSTED_EVIDENCE",
+  "results": [
+    {
+      "name": "missing_artifact",
+      "status": "BLOCKED",
+      "configuration_status": "BLOCKED",
+      "checks": {
+        "product_hosted": "NOT_ACCEPTED",
+        "provider_connections": "NOT_PROVEN",
+        "backup_freshness": "NOT_PROVEN",
+        "restore": "NOT_PROVEN",
+        "w4": "REQUIRED",
+        "artifact": "MISSING"
+      },
+      "errors": [
+        "MISSING_AUTH_REDIRECT_URLS",
+        "MISSING_AUTH_SITE_URL",
+        "MISSING_BACKUP_RETENTION_DAYS",
+        "MISSING_NEXT_PUBLIC_APP_URL",
+        "MISSING_NEXT_PUBLIC_SUPABASE_URL",
+        "MISSING_PRODUCT_V1_ORIGIN",
+        "AUTH_EMAIL_REQUIRED",
+        "PUBLIC_PLATFORM_KEY_REQUIRED",
+        "HOSTED_PRODUCT_RUNTIME_NOT_ACCEPTED",
+        "LIVE_ACCEPTANCE_REQUIRED"
+      ],
+      "mutation_performed": false
+    },
+    {
+      "name": "synthetic_digest_is_not_approval",
+      "status": "BLOCKED",
+      "configuration_status": "BLOCKED",
+      "checks": {
+        "product_hosted": "NOT_ACCEPTED",
+        "provider_connections": "NOT_PROVEN",
+        "backup_freshness": "NOT_PROVEN",
+        "restore": "NOT_PROVEN",
+        "w4": "REQUIRED",
+        "artifact": "PRESENT"
+      },
+      "errors": [
+        "MISSING_AUTH_REDIRECT_URLS",
+        "MISSING_AUTH_SITE_URL",
+        "MISSING_BACKUP_RETENTION_DAYS",
+        "MISSING_NEXT_PUBLIC_APP_URL",
+        "MISSING_NEXT_PUBLIC_SUPABASE_URL",
+        "MISSING_PRODUCT_V1_ORIGIN",
+        "AUTH_EMAIL_REQUIRED",
+        "PUBLIC_PLATFORM_KEY_REQUIRED",
+        "HOSTED_PRODUCT_RUNTIME_NOT_ACCEPTED",
+        "LIVE_ACCEPTANCE_REQUIRED"
+      ],
+      "mutation_performed": false
+    },
+    {
+      "name": "wildcard_cohort",
+      "status": "BLOCKED",
+      "configuration_status": "BLOCKED",
+      "checks": {
+        "product_hosted": "NOT_ACCEPTED",
+        "provider_connections": "NOT_PROVEN",
+        "backup_freshness": "NOT_PROVEN",
+        "restore": "NOT_PROVEN",
+        "w4": "REQUIRED",
+        "artifact": "MISSING"
+      },
+      "errors": [
+        "MISSING_AUTH_REDIRECT_URLS",
+        "MISSING_AUTH_SITE_URL",
+        "MISSING_BACKUP_RETENTION_DAYS",
+        "MISSING_NEXT_PUBLIC_APP_URL",
+        "MISSING_NEXT_PUBLIC_SUPABASE_URL",
+        "INVALID_PRODUCT_STAGING_USER_IDS",
+        "MISSING_PRODUCT_V1_ORIGIN",
+        "AUTH_EMAIL_REQUIRED",
+        "PUBLIC_PLATFORM_KEY_REQUIRED",
+        "HOSTED_PRODUCT_RUNTIME_NOT_ACCEPTED",
+        "LIVE_ACCEPTANCE_REQUIRED"
+      ],
+      "mutation_performed": false
+    },
+    {
+      "name": "production_target",
+      "status": "BLOCKED",
+      "configuration_status": "BLOCKED",
+      "checks": {
+        "product_hosted": "NOT_ACCEPTED",
+        "provider_connections": "NOT_PROVEN",
+        "backup_freshness": "NOT_PROVEN",
+        "restore": "NOT_PROVEN",
+        "w4": "REQUIRED",
+        "artifact": "MISSING"
+      },
+      "errors": [
+        "MISSING_AUTH_REDIRECT_URLS",
+        "MISSING_AUTH_SITE_URL",
+        "MISSING_BACKUP_RETENTION_DAYS",
+        "MISSING_NEXT_PUBLIC_APP_URL",
+        "MISSING_NEXT_PUBLIC_SUPABASE_URL",
+        "INVALID_PRODUCT_STAGING_USER_IDS",
+        "MISSING_PRODUCT_V1_ORIGIN",
+        "AUTH_EMAIL_REQUIRED",
+        "PUBLIC_PLATFORM_KEY_REQUIRED",
+        "STAGING_ADMISSION_OUTSIDE_STAGING",
+        "HOSTED_PRODUCT_RUNTIME_NOT_ACCEPTED",
+        "LIVE_ACCEPTANCE_REQUIRED"
+      ],
+      "mutation_performed": false
+    }
+  ],
+  "public_supabase_names": [
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "secret": false
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      "secret": false
+    },
+    {
+      "name": "NEXT_PUBLIC_SUPABASE_URL",
+      "secret": false
+    }
+  ],
+  "remote_values_observed": false,
+  "build_digest": null,
+  "published_image_manifest": null,
+  "hosted_health_observed": false,
+  "browser": "DENIED_ORIGIN_PRESERVED_OWNER_MUST_ALLOW_EXACT_SITE",
+  "team_protection": "UNCHANGED",
+  "release": "BLOCKED",
+  "w4": "PENDING",
+  "w5_191": "PENDING"
+}

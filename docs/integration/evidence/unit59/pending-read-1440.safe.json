@@ -1,0 +1,60 @@
+{
+  "scope": "PASSIVE_CONTROLLED_REPORT_INITIAL_READ_NOT_AUTH_OR_CAUSE_PROOF",
+  "truncated": false,
+  "reads": [
+    {
+      "sequence": 1,
+      "period": "month",
+      "audience": "my",
+      "status": 200,
+      "dto": "valid"
+    }
+  ],
+  "events": [
+    {
+      "kind": "original_phase",
+      "ms": 28,
+      "phase": "reports:initial_read"
+    },
+    {
+      "kind": "script_request",
+      "ms": 68
+    },
+    {
+      "kind": "script_response",
+      "ms": 137,
+      "status": 200
+    },
+    {
+      "kind": "dashboard_request",
+      "ms": 384,
+      "sequence": 1,
+      "period": "month",
+      "audience": "my",
+      "status": "pending",
+      "dto": "not_observed"
+    },
+    {
+      "kind": "original_assertion_failed_with_read_pending",
+      "ms": 5467
+    },
+    {
+      "kind": "dashboard_headers",
+      "ms": 5772,
+      "sequence": 1,
+      "status": 200
+    },
+    {
+      "kind": "dashboard_body",
+      "ms": 5826,
+      "sequence": 1,
+      "dto": "valid"
+    },
+    {
+      "kind": "button_enabled_after_original_failure",
+      "ms": 5955
+    }
+  ],
+  "business_commands": 0,
+  "downloads": 0
+}
