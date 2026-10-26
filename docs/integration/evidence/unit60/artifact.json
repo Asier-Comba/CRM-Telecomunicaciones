@@ -1,0 +1,46 @@
+{
+  "status": "VERIFIED_LOCAL_ARTIFACT",
+  "source_sha": "e1fba41349c67516479687d6e7aafe91ede5bc9e",
+  "archive_sha256": "3a262cbf77f8a1130ccab6550f04de6f842b98d17463d268b0fc3c5020f675da",
+  "runtime_files": 2509,
+  "scope": "LOCAL_UNCONFIGURED_STANDALONE_NOT_NETLIFY_OR_RELEASE",
+  "deterministic_same_build_archive": true,
+  "build_reexecution_byte_identity": "NOT_CLAIMED",
+  "before_assembly": {
+    "status": "FAIL",
+    "scope": "RELOCATED_LOCAL_UNCONFIGURED_BYTES_NOT_AUTH_OR_HOSTED_ACCEPTANCE",
+    "checks": {
+      "liveness": true,
+      "security_headers": true,
+      "missing_backend_closed": true,
+      "product_disabled": true,
+      "static_bytes": false,
+      "public_bytes": false,
+      "runtime_logs_private_values_absent": true
+    },
+    "provider_credentials_inherited": false,
+    "external_provider_configured": false,
+    "business_commands": 0
+  },
+  "restored_smoke": {
+    "status": "PASS",
+    "scope": "RELOCATED_LOCAL_UNCONFIGURED_BYTES_NOT_AUTH_OR_HOSTED_ACCEPTANCE",
+    "checks": {
+      "liveness": true,
+      "security_headers": true,
+      "missing_backend_closed": true,
+      "product_disabled": true,
+      "static_bytes": true,
+      "public_bytes": true,
+      "runtime_logs_private_values_absent": true
+    },
+    "provider_credentials_inherited": false,
+    "external_provider_configured": false,
+    "business_commands": 0
+  },
+  "staging": "NOT_PROVEN",
+  "netlify_artifact": false,
+  "registry_manifest_digest": null,
+  "w4_accepted": false,
+  "release_accepted": false
+}
