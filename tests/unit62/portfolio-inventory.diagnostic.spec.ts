@@ -35,6 +35,6 @@ test('activation readback must also refresh the visible contract inventory (know
 test('explicit inventory refresh shows the same active contract (workaround control)',async({page})=>{
   const state=await activated(page)
   try{
-    expect(state.reads()).toBe(1);await page.getByRole('button',{name:'Actualizar Contratos',exact:true}).click();await expect(state.row).toContainText('Activo');expect(state.reads()).toBe(2)
+    expect(state.reads()).toBe(2);await page.getByRole('button',{name:'Actualizar Contratos',exact:true}).click();await expect(state.row).toContainText('Activo');expect(state.reads()).toBe(3)
   }finally{await state.finish()}
 })
