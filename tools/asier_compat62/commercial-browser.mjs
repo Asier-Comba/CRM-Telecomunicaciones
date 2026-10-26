@@ -1,6 +1,7 @@
 import {chromium,expect} from '@playwright/test'
 import {mkdirSync} from 'node:fs'
 import {resolve} from 'node:path'
+import {responseForAction} from './response-action.mjs'
 
 /** One new sale, from an empty customer to the same invoice after a full reload.
  * All business writes come from visible controls. No route mocks, SQL business
@@ -13,7 +14,7 @@ export async function commercialBrowser(c,report){
   const button=name=>page.getByRole('button',{name,exact:true}),field=name=>page.getByLabel(name,{exact:true})
   const step=name=>{report.browser_step=name},closed=()=>expect(page.getByRole('dialog')).toHaveCount(0)
   const wait=operation=>page.waitForResponse(r=>{try{return r.request().method()==='POST'&&r.request().postDataJSON().operation===operation}catch{return false}})
-  async function commit(operation,action){const pending=wait(operation);await action();const r=await pending,b=await r.json(),receipt=b.receipt??b.data;check(r.status()===200&&b.ok&&/^[0-9a-f-]{36}$/.test(receipt?.id??''),'browser_'+operation.replaceAll('.','_'));return receipt}
+  async function commit(operation,action){const r=await responseForAction(()=>wait(operation),action),b=await r.json(),receipt=b.receipt??b.data;check(r.status()===200&&b.ok&&/^[0-9a-f-]{36}$/.test(receipt?.id??''),'browser_'+operation.replaceAll('.','_'));return receipt}
   async function shot(name){await page.screenshot({path:resolve(dir,name+'.png'),fullPage:false})}
   async function login(actor){
     await context.clearCookies();await page.goto(origin+'/login');await page.locator('input[type="email"]').fill(actor.email);await page.locator('input[type="password"]').fill(actor.password);await button('Iniciar sesión').click();await page.waitForURL('**/dashboard')
@@ -49,16 +50,22 @@ export async function commercialBrowser(c,report){
     await page.getByRole('checkbox').check();const invoice=await commit('invoice.create_draft',()=>button('Guardar borrador').click());await closed();await expect(page.locator(`section[data-invoice-detail-id="${invoice.id}"]`)).toBeVisible()
     check(sql(`select count(*) from public.billing_invoices i join public.telecom_services s on s.id=i.service_id and s.contract_id=i.contract_id and s.customer_id=i.customer_id and s.workspace_id=i.workspace_id join public.telecom_contracts c on c.id=s.contract_id and c.workspace_id=s.workspace_id and c.customer_id=s.customer_id join public.telecom_lines l on l.service_id=s.id and l.workspace_id=s.workspace_id join public.product_opportunity_links p on p.opportunity_id=i.opportunity_id and p.kind='service' and p.target_id=s.id where i.workspace_id='${wa}' and i.id='${invoice.id}' and i.customer_id='${customer.id}' and i.contract_id='${contract.id}' and i.service_id='${service.id}' and i.opportunity_id='${opportunity.id}' and l.id='${line.id}' and c.status='active' and s.status='active' and l.status='active' and i.total_minor=36300 and i.status='draft'`)==='1','browser_same_commercial_operation_persisted')
     step('invoice_full_reload');await page.reload();await page.locator(`tr[data-invoice-id="${invoice.id}"]`).getByRole('button',{name:'Abrir factura',exact:true}).click();await expect(page.locator(`section[data-invoice-detail-id="${invoice.id}"]`)).toContainText('363,00');await button('Editar borrador').click()
-    for(const [label,id]of [['Cliente',customer.id],['Contrato',contract.id],['Servicio',service.id],['Oportunidad',opportunity.id]])await expect(field(label+' de factura')).toHaveValue(id)
+    for(const [label,id]of [['Cliente',customer.id],['Contrato',contract.id],['Servicio',service.id],['Oportunidad',opportunity.id]]){
+      const picker=field(label+' de factura');await expect(picker).toHaveValue(id)
+      if(label!=='Cliente'){
+        await expect(picker).toBeEnabled()
+        await expect(picker.locator(`option[value="${id}"]`)).not.toHaveText('Relación no disponible')
+        const key={Contrato:'contractId',Servicio:'serviceId',Oportunidad:'opportunityId'}[label]
+        await expect(page.locator(`[data-invoice-relation-current="${key}"]`)).toBeVisible()
+      }
+    }
     check(true,'browser_reload_readback_preserves_all_links')
     for(const width of [1440,768,390]){await page.setViewportSize({width,height:960});const relations=page.locator('[data-invoice-relations="authorized"]');await relations.scrollIntoViewIfNeeded();await expect(relations).toBeVisible();check(!await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),'browser_linked_invoice_width_'+width);await shot('05-invoice-readback-'+width)}
     await button('Cerrar panel').click();await page.setViewportSize({width:1440,height:960})
     for(const actor of [users.memberA,users.viewerA,users.ownerB]){
       step('role_'+actor.role+'_'+(actor.workspace===wa?'A':'B'));await login(actor)
-      const foreignRead=actor.workspace!==wa?wait('invoice.get'):null
-      await page.goto(origin+'/facturacion?invoice='+invoice.id)
-      if(foreignRead){const r=await foreignRead;check([403,404].includes(r.status()),'browser_foreign_invoice_request_denied')}
-      else {await expect(page.getByText('Facturación disponible para administradores del espacio.',{exact:true})).toBeVisible();await expect(button('Nuevo borrador')).toHaveCount(0)}
+      if(actor.workspace!==wa){const r=await responseForAction(()=>wait('invoice.get'),()=>page.goto(origin+'/facturacion?invoice='+invoice.id));check([403,404].includes(r.status()),'browser_foreign_invoice_request_denied')}
+      else {await page.goto(origin+'/facturacion?invoice='+invoice.id);await expect(page.getByText('Facturación disponible para administradores del espacio.',{exact:true})).toBeVisible();await expect(button('Nuevo borrador')).toHaveCount(0)}
       await expect(page.locator(`section[data-invoice-detail-id="${invoice.id}"]`)).toHaveCount(0);await expect(page.getByText('Unit62 Browser Connectivity',{exact:true})).toHaveCount(0)
       check(true,'browser_foreign_or_commercial_role_invoice_hidden_'+actor.role+'_'+(actor.workspace===wa?'A':'B'))
     }
