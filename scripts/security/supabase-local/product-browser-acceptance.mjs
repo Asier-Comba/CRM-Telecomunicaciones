@@ -32,6 +32,7 @@ import {billingExactBrowser} from './product-billing-exact-browser.mjs'
 import {billingFiscalConflictBrowser} from './product-billing-fiscal-conflict-browser.mjs'
 import {opportunityLinksBrowser} from './product-opportunity-links-browser.mjs'
 import {reportsBrowser} from './product-reports-browser.mjs'
+import {observeReports59} from '../../../tools/asier_reports59/observe-initial-read.mjs'
 import {teamOriginBrowser} from './product-team-origin-browser.mjs'
 import {settingsSensitiveBrowser} from './product-settings-sensitive-browser.mjs'
 import assert from 'node:assert/strict'
@@ -341,7 +342,22 @@ export async function productBrowserAcceptance({ users, wa, ca, sql, url, anon, 
     await check('billing_fiscal_commit_survives_storage_failure_and_private_retry',async()=>{report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:1';await page.getByRole('button',{name:'Nuevo borrador',exact:true}).click();report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:2';await page.getByLabel('Concepto 1',{exact:true}).fill('W2 Private PDF Pending Control');report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:3';await page.getByLabel('Precio 1',{exact:true}).fill('40');report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:4';await page.getByRole('checkbox').check();report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:5';await page.getByRole('button',{name:'Guardar borrador',exact:true}).click();report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:6';await expect(page.getByRole('heading',{name:'Borrador guardado',exact:true})).toBeVisible();const previousMime=JSON.parse(sql("select coalesce(array_to_json(allowed_mime_types)::text,'null') from storage.buckets where id='telecom-documents'"));if(previousMime!==null&&(!Array.isArray(previousMime)||previousMime.some(v=>typeof v!=='string'||!/^[-a-z0-9.+]+\/[-a-z0-9.+]+$/.test(v))))throw Error('STORAGE_FIXTURE_CONFIG_UNEXPECTED');sql("update storage.buckets set allowed_mime_types=ARRAY['image/png'] where id='telecom-documents'");try{report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:7';await page.getByRole('button',{name:'Emitir factura',exact:true}).click();report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:8';await page.getByRole('button',{name:'Confirmar',exact:true}).click();report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:9';await expect(page.getByRole('button',{name:'Marcar como cobrada',exact:true})).toBeVisible();report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:10';await expect(page.getByRole('button',{name:'Conservar PDF fiscal privado',exact:true})).toBeVisible();report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:11';await page.screenshot({path:resolve(screenshotDir,'invoice-private-pending.png'),fullPage:true})}finally{sql("update storage.buckets set allowed_mime_types="+(previousMime===null?'NULL':"ARRAY["+previousMime.map(v=>"'"+v+"'").join(',')+"]")+" where id='telecom-documents'")}const issuedBefore=Number(sql(`select count(*) from public.billing_invoices where customer_id='${id}' and status in ('issued','paid')`));report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:12';await page.getByRole('button',{name:'Conservar PDF fiscal privado',exact:true}).click();report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:13';await expect(page.getByRole('button',{name:'Descargar PDF fiscal privado',exact:true})).toBeVisible();const download=page.waitForEvent('download');report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:14';await page.getByRole('button',{name:'Descargar PDF fiscal privado',exact:true}).click();const result=await download,path=await result.path();if(!path||readFileSync(path).subarray(0,5).toString()!=='%PDF-')throw Error('PRIVATE_RETRY_DOWNLOAD_INVALID');if(Number(sql(`select count(*) from public.billing_invoices where customer_id='${id}' and status in ('issued','paid')`))!==issuedBefore)throw Error('PDF_RETRY_REISSUED_INVOICE');report.w2_ui_action_step='billing_fiscal_commit_survives_storage_failure_and_private_retry:15';await page.screenshot({path:resolve(screenshotDir,'invoice-private-recovered.png'),fullPage:true})})
     await page.goto(origin+'/settings')
     await billingExactBrowser({page,origin,check,sql,wa,actorId:users.ownerA.id,customerId:id,day,screenshotDir,report})
-    await reportsBrowser({page,origin,check,screenshotDir,customerId:id,report})
+    const reportsObservation=observeReports59({page,origin,report})
+    let reportsObservationFinished=false
+    const finishReportsObservation=async()=>{
+      if(reportsObservationFinished)return
+      reportsObservationFinished=true
+      try{await reportsObservation.detachUi()}catch{/* Observation cannot replace the scenario result. */}
+      const summary=reportsObservation.stop()
+      if(report)report.w2_reports_initial_observation=summary
+      try{writeFileSync(resolve(screenshotDir,'reports-initial-read.safe.json'),JSON.stringify(summary,null,2)+'\n')}catch{/* Keep the original check/error. */}
+    }
+    try{
+      await reportsBrowser({page,origin,check:async(name,action)=>{
+        if(name!=='reports_exact_scope_period_export_and_error_mobile')return check(name,action)
+        try{try{await reportsObservation.attachUi()}catch{/* Passive setup failure must not omit the original check. */}await check(name,action)}finally{await finishReportsObservation()}
+      },screenshotDir,customerId:id,report:reportsObservation.report})
+    }finally{await finishReportsObservation()}
     await notificationsAutomationsBrowser({page,origin,check,sql,wa,users,day,screenshotDir})
     await settingsSensitiveBrowser({page,origin,check,sql,wa,users,day,customerId:id,screenshotDir,report})
     await page.goto(origin+'/settings')

@@ -1,0 +1,53 @@
+name: Commercial schema88 focused compatibility
+on:
+  pull_request:
+    paths:
+      - 'tools/asier_compat62/**'
+      - 'tests/unit62/**'
+      - '.github/workflows/asier-commercial62.yml'
+permissions:
+  contents: read
+env:
+  CI: 'true'
+jobs:
+  commercial88:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - name: Denial oracle regression (500 or absent fixture must fail)
+        run: node --test tests/unit62/*.test.mjs
+      - name: Install pinned browser and verify actual launch
+        timeout-minutes: 6
+        run: |
+          npx playwright install chromium
+          # Run40389119138 exhausted preparation downloading an unused full font
+          # set from Ubuntu at low throughput. Use this runner's existing system
+          # libraries only if the exact Playwright browser can really launch.
+          # Missing libraries fail this gate; no test/assertion/timeout is relaxed.
+          node --input-type=module -e 'import {chromium} from "@playwright/test"; const browser=await chromium.launch(); try { const page=await browser.newPage(); await page.setContent("<p>CRM Español €</p>"); if(await page.locator("p").textContent()!=="CRM Español €") throw Error("BROWSER_PREREQUISITE_FAILED"); } finally { await browser.close(); }'
+      - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359
+        with:
+          version: 2.119.0
+      - name: Real disposable 87 to 88 compatibility, no hosted configuration
+        run: node --experimental-transform-types tools/asier_compat62/run.mjs
+      - name: Preserve safe results, including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: commercial62-safe-evidence
+          path: ${{ runner.temp }}/unit62.safe.json
+          retention-days: 7
+      - name: Preserve synthetic commercial screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: commercial62-ui-synthetic
+          path: ${{ runner.temp }}/commercial62-ui
+          retention-days: 7

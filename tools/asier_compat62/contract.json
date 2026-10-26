@@ -1,0 +1,48 @@
+{
+  "contract": "commercial.schema88.compatibility.v1",
+  "candidate_product": "4cebe53d442b418436a485e72c47973555b3afab",
+  "canonical_migration_count": 87,
+  "test_overlay": {
+    "owner": "W5",
+    "source": "d9799f6610c9841528040c6437f3a51cea4ee386",
+    "version": "20261021090000",
+    "git_blob": "381cfb530a98676806eda2bb89504475b8acbd00",
+    "sha256": "64bc484e1e80db1766e5265e1f96e4040d995086c3067682791146cbe5ab6fcc",
+    "canonical_adoption": false,
+    "migration_history_row_inserted": false
+  },
+  "expected_transport": {
+    "87": {"direct": 200, "proxy": 200, "same_byte_retry": 200, "integrity": 200, "ticket": 200, "manifest": 200},
+    "88": {"direct": 400, "proxy": 403, "same_byte_retry": 409, "integrity": 403, "ticket": 200, "manifest": 200}
+  },
+  "commercial_journey": {
+    "new_customer": true,
+    "contract_service_line": "ACTIVE_SAME_ANCESTRY",
+    "opportunity_minor_eur": 120000,
+    "invoice_minor_eur": 36300,
+    "invoice_state": "draft",
+    "reload": "ALL_FOUR_RELATION_IDS_MUST_MATCH",
+    "writes": "VISIBLE_CONTROLS_ONLY",
+    "fixture_business_rows": false,
+    "roles": ["owner_positive", "member_billing_denied", "viewer_billing_denied_and_line_read_only", "other_tenant_owner_invoice_hidden"]
+  },
+  "configuration_for_commercial_acceptance": {
+    "PRODUCT_DOCUMENT_CONTENT_ENABLED": false,
+    "PRODUCT_DOCUMENT_MAINTENANCE_ENABLED": false,
+    "ai_live": false,
+    "provider_actions": false
+  },
+  "server_adaptations_owned_by_W5": [
+    "Replace user-JWT byte reader for download, duplicate-upload comparison, integrity verifier and dependent private invoice artifact paths.",
+    "Authorize current actor/workspace/target/ticket with manifest before and after byte reads; bound exact object path, size, MIME and digest.",
+    "Keep privileged credentials server-only; owner/W4 must authorize hosted secret/config contract before any deployment.",
+    "Preserve insert, finalize and narrowly scoped cleanup contracts; independently review document_cleanup_exact_select."
+  ],
+  "not_proven_by_disposable_stack": [
+    "Hosted CDN revocation of warmed URLs or browser-cache expiry",
+    "Hosted server reader, adapter, login or persistence",
+    "W4 security acceptance or deployment approval",
+    "Free capacity of the owner's Netlify account"
+  ],
+  "release": "NOT_ACCEPTED"
+}
