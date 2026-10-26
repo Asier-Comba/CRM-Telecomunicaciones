@@ -34,8 +34,10 @@ const counts = async user => JSON.parse(await sql(`select json_build_object(
   'profile_ws',(select workspace_id from public.profiles where id='${user}'))`))
 let users = 0
 async function newUser() { users += 1; const id = uid(users); await sql(`insert into auth.users(id,aud,role,email,email_confirmed_at,created_at,updated_at) values('${id}','authenticated','authenticated','onboarding-race-${users}@example.invalid',now(),now(),now())`); return id }
+let createdDatabase = false
 try {
   assert.equal((await docker(['createdb', '-U', 'postgres', database])).code, 0)
+  createdDatabase = true
   await sql(readFileSync('scripts/security/native-postgres/bootstrap.sql', 'utf8').replace(/create role (anon|authenticated|service_role)[^;]*;/g, ''))
   await sql(readFileSync('scripts/security/ephemeral-postgres/storage-stub.sql', 'utf8'))
   for (const migration of readdirSync('supabase/migrations').filter(x => x.endsWith('.sql')).sort()) await sql(readFileSync('supabase/migrations/' + migration, 'utf8'))
@@ -108,7 +110,10 @@ try {
   assert.equal(await sql(`select count(*) from public.workspaces w where not exists(select 1 from public.workspace_members m where m.workspace_id=w.id)`), '0', 'no orphan workspace anywhere')
   console.log(`ONBOARDING NATIVE PROCESS RACES PASS: ${users} synthetic users; same-input 3x12, different-input 3x12, lock-queued 2x2, replay; cross-user slug 23505 sequential + 5 concurrent rounds; no duplicates, no orphan, no adoption, loser recovers`)
 } finally {
-  const result = await docker(['dropdb', '--force', '-U', 'postgres', database])
-  assert.equal(result.code, 0, 'disposable onboarding race teardown failed')
-  console.log('ONBOARDING NATIVE RACES TEARDOWN PASS')
+  // A failed create (including an existing database) never grants ownership.
+  if (createdDatabase) {
+    const result = await docker(['dropdb', '--force', '-U', 'postgres', database])
+    assert.equal(result.code, 0, 'disposable onboarding race teardown failed')
+    console.log('ONBOARDING NATIVE RACES TEARDOWN PASS')
+  }
 }
