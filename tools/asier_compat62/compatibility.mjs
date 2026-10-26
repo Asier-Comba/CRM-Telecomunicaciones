@@ -90,6 +90,9 @@ export async function after88Boundaries(c,d,customer) {
   // 88 intentionally leaves W5's cleanup SELECT policy in place. Do not report
   // a stronger no-user-read guarantee than the actual migration provides.
   sql(`update public.document_upload_intents set created_at=statement_timestamp()-interval '20 minutes',expires_at=statement_timestamp()-interval '1 second' where document_id='${d.pendingRetry.id}'`)
+  const early=await rpc('document_cleanup_v1_claim',{p_workspace_id:wa,p_input:{command_id:randomUUID(),id:d.pendingRetry.id,expected_version:1}},users.ownerA.token)
+  check(early.status===403,'88_cleanup_before_24_hours_still_denied')
+  sql(`update public.document_upload_intents set created_at=statement_timestamp()-interval '26 hours',expires_at=statement_timestamp()-interval '25 hours' where document_id='${d.pendingRetry.id}'`)
   const claimed=await rpc('document_cleanup_v1_claim',{p_workspace_id:wa,p_input:{command_id:randomUUID(),id:d.pendingRetry.id,expected_version:1}},users.ownerA.token)
   check(claimed.status===200,'88_cleanup_claim_unchanged')
   const exception=await http('/storage/v1/object/authenticated/telecom-documents/'+d.pendingRetry.path,users.ownerA.token)

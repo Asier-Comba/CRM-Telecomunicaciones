@@ -4,10 +4,15 @@ import {resolve} from 'node:path'
 import {createHash,randomBytes,randomUUID} from 'node:crypto'
 import {createServerClient} from '@supabase/ssr'
 import {commercialChain,prepareDocuments,documentProbe,after88Boundaries} from './compatibility.mjs'
+import {commercialBrowser} from './commercial-browser.mjs'
 
 const project='crm-telecom-local',origin='http://127.0.0.1:3182'
 const report={contract:'commercial.schema88.compatibility.v1',result:'NOT_RUN',checks:[],hosted:'NOT_TESTED',cdn_revocation:'NOT_TESTED',storage179_adopted:false}
 let started=false,server,phase='preflight'
+async function stopApp(){
+  if(!server||server.exitCode!==null)return
+  server.kill('SIGTERM');await new Promise(resolve=>{const t=setTimeout(()=>{server.kill('SIGKILL');resolve()},5000);server.once('exit',()=>{clearTimeout(t);resolve()})})
+}
 const check=(ok,name)=>{report.checks.push({name,result:ok?'PASS':'FAIL'});if(!ok)throw Error('CHECK_'+name.toUpperCase())}
 function command(bin,args,options={}){
   const r=spawnSync(bin,args,{encoding:'utf8',timeout:120000,maxBuffer:20*1024*1024,...options})
@@ -86,13 +91,23 @@ try{
   const after=await commercialChain(c,'88')
   report.after=await documentProbe(c,documents,'88')
   await after88Boundaries(c,documents,after.customer)
+  // The commercial path is exercised with the actual intended documents-OFF
+  // flags, after closing the separate diagnostic process used above.
+  phase='commercial_browser_start';await stopApp()
+  Object.assign(env,{PRODUCT_DOCUMENT_CONTENT_ENABLED:'false',PRODUCT_DOCUMENT_MAINTENANCE_ENABLED:'false'})
+  server=spawn(process.execPath,['node_modules/next/dist/bin/next','dev','--webpack','--hostname','127.0.0.1','--port','3182'],{env,stdio:'ignore'})
+  ready=false
+  for(let n=0;n<90;n++){try{if((await fetch(origin+'/login',{signal:AbortSignal.timeout(1500)})).ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,500))}
+  if(!ready)throw Error('COMMERCIAL_APP_NOT_READY')
+  report.commercial_flags={document_content:false,document_maintenance:false,ai_live:false,providers:false}
+  phase='commercial_browser';await commercialBrowser(c,report)
   report.result='PASS'
 }catch(error){
   report.result='FAIL';report.failed_phase=phase
   report.error=/^[A-Z0-9_]{1,180}$/.test(error?.message??'')?error.message:'SAFE_UNCLASSIFIED_FAILURE'
   process.exitCode=1
 }finally{
-  if(server&&server.exitCode===null){server.kill('SIGTERM');await new Promise(resolve=>{const t=setTimeout(()=>{server.kill('SIGKILL');resolve()},5000);server.once('exit',()=>{clearTimeout(t);resolve()})})}
+  await stopApp()
   if(started){try{command('supabase',['stop','--no-backup','--project-id',project]);report.teardown='PASS'}catch{report.teardown='FAIL';process.exitCode=1}}
   report.passed=report.checks.filter(c=>c.result==='PASS').length
   writeFileSync(resolve(process.env.RUNNER_TEMP??'.','unit62.safe.json'),JSON.stringify(report,null,2)+'\n')
