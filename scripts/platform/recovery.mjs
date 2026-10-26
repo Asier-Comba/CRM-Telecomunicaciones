@@ -113,7 +113,8 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   const storageContract=restoredStorageContract(migrations())
   // Storage 88: the owner's legitimate post-restore access is the authorized path, not a direct read:
   // fresh ticket and manifest under the user JWT, then a server-side fetch whose bytes must match
-  // the restored integrity record. Only the outcome is kept; bytes and paths never enter the report.
+  // the bytes captured from source A before the backup (and the integrity record when one exists).
+  // Only a stage code is kept; bytes and paths never enter the report.
   const serverRead=async token=>{
    const version=Number(sql(`select version from public.documents where workspace_id='${wa}' and id='${ticket.document_id}';`).toString().trim())
    const requested=await api('/rest/v1/rpc/document_content_v1_request_download',token,{p_workspace_id:wa,p_input:{command_id:randomUUID(),id:ticket.document_id,expected_version:version}})
@@ -122,10 +123,13 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
    const m=manifest?.status===200?manifest.json:null
    if(!m)return {manifest:'DENIED',bytes:'NOT_READ',stage:'MANIFEST_'+manifest?.status+'_'+String(manifest?.json?.code??'').slice(0,8)}
    if(m.id!==ticket.document_id||!/^[0-9a-f-]{36}$/.test(m.object_ref??''))return {manifest:'DENIED',bytes:'NOT_READ',stage:'MANIFEST_SHAPE'}
-   if(!/^[0-9a-f]{64}$/.test(m.sha256??''))return {manifest:'DENIED',bytes:'NOT_READ',stage:'MANIFEST_NO_INTEGRITY'}
-   const {data,error}=await storage.from('telecom-documents').download(`${wa}/documents/${ticket.document_id}/${m.object_ref}`)
+   const path=`${wa}/documents/${ticket.document_id}/${m.object_ref}`
+   const source=recovered.objects.filter(o=>o.bucket==='telecom-documents'&&o.name===path)
+   if(source.length!==1)return {manifest:'PASS',bytes:'NOT_READ',stage:'SOURCE_OBJECT_MISSING'}
+   if(m.sha256!=null&&m.sha256!==source[0].sha256)return {manifest:'PASS',bytes:'NOT_READ',stage:'INTEGRITY_SOURCE_MISMATCH'}
+   const {data,error}=await storage.from('telecom-documents').download(path)
    const bytes=!error&&data?Buffer.from(await data.arrayBuffer()):null
-   const stage=!bytes?'FETCH_FAILED':bytes.length!==Number(m.size_bytes)?'SIZE_MISMATCH':hash(bytes)!==m.sha256?'SHA_MISMATCH':'MATCH'
+   const stage=!bytes?'FETCH_FAILED':bytes.length!==Number(m.size_bytes)||bytes.length!==source[0].size?'SIZE_MISMATCH':hash(bytes)!==source[0].sha256?'SHA_MISMATCH':'MATCH'
    return {manifest:'PASS',bytes:stage==='MATCH'?'MATCH':'MISMATCH',stage}
   }
   const deny=async(name,r)=>{const proof=verifyRestoredRpcDenial(r);denied_rpc_checks.push({name,...proof})}
