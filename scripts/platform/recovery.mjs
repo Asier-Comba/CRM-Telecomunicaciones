@@ -117,12 +117,16 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
   const serverRead=async token=>{
    const version=Number(sql(`select version from public.documents where workspace_id='${wa}' and id='${ticket.document_id}';`).toString().trim())
    const requested=await api('/rest/v1/rpc/document_content_v1_request_download',token,{p_workspace_id:wa,p_input:{command_id:randomUUID(),id:ticket.document_id,expected_version:version}})
+   if(requested.status!==200||typeof requested.json?.ticket_id!=='string')return {manifest:'DENIED',bytes:'NOT_READ',stage:'TICKET_'+requested.status+'_'+String(requested.json?.code??'').slice(0,8)}
    const manifest=requested.status===200&&typeof requested.json?.ticket_id==='string'?await api('/rest/v1/rpc/document_content_v1_manifest',token,{p_workspace_id:wa,p_input:{id:ticket.document_id,ticket_id:requested.json.ticket_id}}):null
    const m=manifest?.status===200?manifest.json:null
-   if(!m||m.id!==ticket.document_id||!/^[0-9a-f-]{36}$/.test(m.object_ref??'')||!/^[0-9a-f]{64}$/.test(m.sha256??''))return {manifest:'DENIED',bytes:'NOT_READ'}
+   if(!m)return {manifest:'DENIED',bytes:'NOT_READ',stage:'MANIFEST_'+manifest?.status+'_'+String(manifest?.json?.code??'').slice(0,8)}
+   if(m.id!==ticket.document_id||!/^[0-9a-f-]{36}$/.test(m.object_ref??''))return {manifest:'DENIED',bytes:'NOT_READ',stage:'MANIFEST_SHAPE'}
+   if(!/^[0-9a-f]{64}$/.test(m.sha256??''))return {manifest:'DENIED',bytes:'NOT_READ',stage:'MANIFEST_NO_INTEGRITY'}
    const {data,error}=await storage.from('telecom-documents').download(`${wa}/documents/${ticket.document_id}/${m.object_ref}`)
    const bytes=!error&&data?Buffer.from(await data.arrayBuffer()):null
-   return {manifest:'PASS',bytes:bytes&&bytes.length===m.size_bytes&&hash(bytes)===m.sha256?'MATCH':'MISMATCH'}
+   const stage=!bytes?'FETCH_FAILED':bytes.length!==Number(m.size_bytes)?'SIZE_MISMATCH':hash(bytes)!==m.sha256?'SHA_MISMATCH':'MATCH'
+   return {manifest:'PASS',bytes:stage==='MATCH'?'MATCH':'MISMATCH',stage}
   }
   const deny=async(name,r)=>{const proof=verifyRestoredRpcDenial(r);denied_rpc_checks.push({name,...proof})}
   for(const name of ['ownerA','ownerB','removedA','suspendedA','viewerA','adminA','memberA','memberB']){
@@ -148,7 +152,9 @@ export async function recoveryRehearsal({url,anon,service,db,command,report,user
    const storage_response={status:download.status,json:download.status===200?null:await download.json()}
    const raw=await api('/rest/v1/assistant_operations?select=operation_ref',token)
    const owner=name==='ownerA'
-   const proof=verifyRestoredPrivateResponses({owner,storage:storage_response,assistant:raw,contract:storageContract,serverRead:storageContract==='88'&&owner?await serverRead(token):undefined})
+   const read=storageContract==='88'&&owner?await serverRead(token):undefined
+   if(read)(report.storage_server_read_stages??=[]).push(session+':'+read.stage)
+   const proof=verifyRestoredPrivateResponses({owner,storage:storage_response,assistant:raw,contract:storageContract,serverRead:read})
    authorization_checks.push({actor:name,session,status:'PASS',...proof})
    const rpc=(operation,input,workspace=wa)=>api('/rest/v1/rpc/'+operation,token,{p_workspace_id:workspace,p_input:input})
    if(['viewerA','adminA','removedA','suspendedA','ownerB'].includes(name)){
