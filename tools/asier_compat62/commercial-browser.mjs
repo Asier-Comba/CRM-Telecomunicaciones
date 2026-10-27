@@ -2,6 +2,7 @@ import {chromium,expect} from '@playwright/test'
 import {mkdirSync} from 'node:fs'
 import {resolve} from 'node:path'
 import {responseForAction} from './response-action.mjs'
+import {revokedGuidedSave} from './guided-revocation.mjs'
 
 /** One new sale, from an empty customer to the same invoice after a full reload.
  * All business writes come from visible controls. No route mocks, SQL business
@@ -65,7 +66,14 @@ export async function commercialBrowser(c,report){
       const picker=field(label+' de factura');await expect(picker).toBeEnabled();await expect(picker).toHaveValue(id);await expect(picker.locator(`option[value="${id}"]`)).toHaveCount(1)
       const key={Contrato:'contractId',Servicio:'serviceId',Oportunidad:'opportunityId'}[label];await expect(page.locator(`[data-invoice-relation-current="${key}"]`)).toBeVisible()
     }
-    await page.getByRole('dialog',{name:'Revisar borrador',exact:true}).getByRole('checkbox').check();const invoice=await commit('invoice.create_draft',()=>button('Guardar borrador').click());await closed();await expect(page.locator(`section[data-invoice-detail-id="${invoice.id}"]`)).toBeVisible();await page.waitForURL('**/facturacion?invoice='+invoice.id)
+    await page.getByRole('dialog',{name:'Revisar borrador',exact:true}).getByRole('checkbox').check()
+    step('guided_save_membership_revoked')
+    const denied=await revokedGuidedSave(c,{page,customerId:customer.id,opportunityId:opportunity.id,save:()=>button('Guardar borrador').click(),report})
+    await shot('05-guided-save-revoked');step('guided_invoice')
+    const invoice=await commit('invoice.create_draft',()=>button('Guardar borrador').click());await closed();await expect(page.locator(`section[data-invoice-detail-id="${invoice.id}"]`)).toBeVisible();await page.waitForURL('**/facturacion?invoice='+invoice.id)
+    check(invoice.command_id!==denied.deniedCommandId,'browser_guided_revocation_explicit_new_command_not_deduplication')
+    check(sql(`select (select count(*) from public.billing_invoices)||'|'||(select count(*) from public.billing_invoice_lines)||'|'||(select count(*) from public.billing_invoices where customer_id='${customer.id}')`)===[denied.before.invoices+1,denied.before.lines+1,1].join('|'),'browser_guided_revocation_explicit_recovery_one_invoice_one_line')
+    report.guided_revocation_recovery='EXPLICIT_NEW_COMMAND_ONE_INVOICE_ONE_LINE_NOT_DEDUPLICATION'
     check(sql(`select count(*) from public.billing_invoices i join public.telecom_services s on s.id=i.service_id and s.contract_id=i.contract_id and s.customer_id=i.customer_id and s.workspace_id=i.workspace_id join public.telecom_contracts c on c.id=s.contract_id and c.workspace_id=s.workspace_id and c.customer_id=s.customer_id join public.telecom_lines l on l.service_id=s.id and l.workspace_id=s.workspace_id join public.product_opportunity_links p on p.opportunity_id=i.opportunity_id and p.kind='service' and p.target_id=s.id where i.workspace_id='${wa}' and i.id='${invoice.id}' and i.customer_id='${customer.id}' and i.contract_id='${contract.id}' and i.service_id='${service.id}' and i.opportunity_id='${opportunity.id}' and l.id='${line.id}' and c.status='active' and s.status='active' and l.status='active' and i.total_minor=36300 and i.status='draft'`)==='1','browser_same_commercial_operation_persisted')
     step('invoice_full_reload');await page.reload();await expect(page.locator(`section[data-invoice-detail-id="${invoice.id}"]`)).toContainText('363,00');await button('Editar borrador').click()
     for(const [label,id]of [['Cliente',customer.id],['Contrato',contract.id],['Servicio',service.id],['Oportunidad',opportunity.id]]){
