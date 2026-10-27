@@ -1,0 +1,60 @@
+name: Documents D1 scoped metadata acceptance
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    paths:
+      - 'src/features/documents/**'
+      - 'src/app/(saas)/documents/**'
+      - 'tools/asier_documents_pro/**'
+      - 'tests/documents-pro/**'
+      - '.github/workflows/documents-pro-d1.yml'
+permissions:
+  contents: read
+env:
+  CI: 'true'
+  DOCUMENTS_PRO_D1: 'true'
+jobs:
+  documents-d1:
+    # A separate PR-body edit opts in the exact reviewed head. A later push
+    # does not inherit activation. Publication alone never starts Docker.
+    if: contains(github.event.pull_request.body, format('DOCUMENTS_D1_RUN_SHA={0}', github.event.pull_request.head.sha))
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - name: Own navigation unit checks
+        run: node --experimental-transform-types --test tests/documents-pro/*.test.mjs
+      - name: Pinned Chromium with actual launch prerequisite
+        timeout-minutes: 6
+        run: |
+          npx playwright install chromium
+          node --input-type=module -e 'import {chromium} from "@playwright/test"; const browser=await chromium.launch(); await browser.close();'
+      - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359
+        with:
+          version: 2.119.0
+      - name: Controlled component regressions (not Auth evidence)
+        env:
+          DOCUMENTS_PRO_OUTPUT: ${{ runner.temp }}/documents-pro-d1-controlled
+        run: npx playwright test --config tools/asier_documents_pro/playwright.config.mjs
+      - name: Actual disposable Auth metadata UI and controlled Storage outage
+        run: node --experimental-transform-types tools/asier_documents_pro/run.mjs
+      - name: Safe evidence including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: documents-pro-d1-safe
+          path: ${{ runner.temp }}/documents-pro-d1.safe.json
+          retention-days: 7
+      - name: Synthetic loaded UI captures only
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: documents-pro-d1-ui
+          path: ${{ runner.temp }}/documents-pro-d1-ui
+          retention-days: 7
