@@ -1,0 +1,84 @@
+{
+  "status": "PROPOSAL_W1_AGREEMENT_REQUIRED_NOT_ACTIVE",
+  "base": "b43f459e8ee26e5d684206842e5acb377b364875",
+  "claim": 6441326480,
+  "operation": "document.library_list",
+  "version": "document.library.v2",
+  "authority": {
+    "identity": "Current server-validated USER JWT; selected workspace and active membership resolved on every request",
+    "roles": ["owner", "admin"],
+    "row_scope": "Preserve approved document/target/ancestry access before pagination, search and counts",
+    "forbidden_input": ["workspace_id", "actor_id", "role", "object_ref", "storage_path", "url", "arbitrary_sql"],
+    "revoked_valid_jwt": "access_denied",
+    "member_viewer_service_role": "access_denied"
+  },
+  "input": {
+    "status": "active | archived; default active",
+    "query": "optional bounded document search; only approved searchable fields, never protected raw filename by implication",
+    "customer_id": "optional authorized customer UUID",
+    "target": "optional {kind: customer|contract|service|line|service_case|opportunity, id: UUID}",
+    "document_kind": "optional existing category enum",
+    "format": "optional pdf | image | other_supported",
+    "created_from": "optional ISO instant",
+    "created_before": "optional exclusive ISO instant",
+    "sort": "created_desc | created_asc; name/type/size only after field and ordering policy agreement",
+    "limit": "default20, maximum100",
+    "cursor": "optional bounded opaque server cursor, never a readable filename or personal identifier"
+  },
+  "output": {
+    "contract_version": "document.library.v2",
+    "operation": "document.library_list",
+    "items": "bounded list of closed authorized entries",
+    "entry": {
+      "id": "document UUID",
+      "version": "positive CAS revision",
+      "status": "active | archived",
+      "document_kind": "existing category enum",
+      "display_title": "approved minimized title or null; raw file_name is NOT authorized by the existing metadata policy",
+      "title_state": "available | restricted | not_provided",
+      "media_type": "approved MIME or null",
+      "size_bytes": "authorized integer or null",
+      "created_at": "authorized ISO instant; field policy required",
+      "context": "approved safe target and customer references/labels; no private notes or storage identifiers"
+    },
+    "next_cursor": "opaque token or null",
+    "completeness": "complete | partial; complete means this authorized query was fully evaluated, not that one page contains all records",
+    "total_count": "exact authorized count only if proven; otherwise null",
+    "count_state": "exact | unavailable",
+    "capabilities": "explicit metadata search/sort fields; never an implicit byte/download capability"
+  },
+  "pagination": {
+    "stable_order": "server keyset with deterministic UUID tie-breaker; filter before limit",
+    "binding": "actor, workspace, current authorization revision, all filters, query and sort",
+    "scope_or_filter_change": "reject stale cursor; no reuse across authority contexts",
+    "concurrency": "define snapshot/drift policy; no claim of repeatable snapshot under arbitrary concurrent writes"
+  },
+  "privacy_decisions_pending": [
+    "Existing documents.file_name is explicitly protected. Agree minimized title visibility and search/sort policy before returning or indexing it.",
+    "Do not leak restricted titles through matches, ordering, totals, errors or readable cursor contents.",
+    "Do not put raw document search terms/private titles in request URLs, analytics or logs. Define view-state persistence without treating browser storage as document truth.",
+    "Legacy v1 remains unchanged; unknown or partial results must not be converted to an empty complete inventory."
+  ],
+  "storage": {
+    "metadata_independent_of_bytes": true,
+    "adopt_179": false,
+    "remote_migrations": false,
+    "pdf_preview": "BLOCKED_PENDING_W4_W5",
+    "private_bytes": "NO_NEW_ENABLEMENT; hosted content and maintenance remain OFF"
+  },
+  "acceptance_required_real_disposable": [
+    "A and B positive fixtures, then foreign enumeration/get/search/filter/cursor denied or hidden without counts leakage",
+    "Empty workspace distinct from unavailable/denied/partial",
+    "123 documents across customers/targets and all pages: no omissions or duplicates",
+    "Old document outside first page found by approved search and stable ordering",
+    "Combined filters and cursor round-trip; invalid or changed query/scope cursor rejected",
+    "Revocation with the exact still-valid JWT denies new reads",
+    "Storage unavailable does not break authorized metadata listing",
+    "Member/viewer/anonymous/service_role negative controls",
+    "Raw filenames/object paths/tokens/URLs never enter metadata responses or logs",
+    "390/768/1440 loaded UI, reload/back/forward and pending-response retirement"
+  ],
+  "folders": "D2 separate agreement and forward migration; persistent workspace hierarchy, CAS/audit/cycle/cross-tenant rules; no localStorage substitute",
+  "implementation": "No shared API/DTO/RPC/repository/migration changes before W1 agreement; frontend v1 improvement and testable proposed port may proceed independently",
+  "release": "RELEASE_NOT_ACCEPTED"
+}
