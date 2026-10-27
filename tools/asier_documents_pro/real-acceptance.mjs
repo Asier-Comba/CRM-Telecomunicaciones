@@ -86,7 +86,8 @@ export async function realDocumentsAcceptance({url,anon,service,sql,command,chec
   ;({ctx:context,p:page}=await login(users.ownerA));check(true,'owner_real_login')
   phase('scoped_123_all_pages')
   let queries=0
-  const observe=request=>{if(request.url()===origin+api+'queries'&&request.method()==='POST'){try{if(request.postDataJSON().operation==='document.list')queries++}catch{}}}
+  const queryInputs=[]
+  const observe=request=>{if(request.url()===origin+api+'queries'&&request.method()==='POST'){try{const body=request.postDataJSON();if(body.operation==='document.list'){queries++;queryInputs.push(body.input)}}catch{}}}
   page.on('request',observe)
   await page.goto(origin+'/documents?customer='+ca);await expect(page.locator('[data-document-id]')).toHaveCount(20)
   const seen=[]
@@ -95,6 +96,7 @@ export async function realDocumentsAcceptance({url,anon,service,sql,command,chec
    seen.push(...await page.locator('[data-document-id]').evaluateAll(nodes=>nodes.map(node=>node.getAttribute('data-document-id'))))
    if(n<7){await page.getByRole('button',{name:'Siguiente página de documentos',exact:true}).click();await expect(page.locator('[data-document-id]').first()).toHaveAttribute('data-document-id',docs[n*20])}
   }
+  report.pagination_observation={observed_rows:seen.length,unique_rows:new Set(seen).size,expected_rows:123,ordered_set_exact:JSON.stringify(seen)===JSON.stringify(docs),missing_rows:docs.filter(id=>!seen.includes(id)).length,unexpected_rows:seen.filter(id=>!docs.includes(id)).length,document_list_requests:queries,distinct_targets:new Set(queryInputs.map(input=>input.target_id)).size,all_inputs_expected_target_and_limit:queryInputs.every(input=>input.target_id===ca&&input.target_kind==='customer'&&input.limit===20&&input.status==='active'),cursor_request_counts:[undefined,...docs.filter((_,i)=>(i+1)%20===0)].map(after=>queryInputs.filter(input=>input.after_id===after).length)}
   check(JSON.stringify(seen)===JSON.stringify(docs)&&new Set(seen).size===123&&queries===7,'one_target_123_exactly_seven_pages_no_fanout')
   await expect(page.getByRole('button',{name:'Siguiente página de documentos',exact:true})).toBeDisabled()
   page.off('request',observe)
