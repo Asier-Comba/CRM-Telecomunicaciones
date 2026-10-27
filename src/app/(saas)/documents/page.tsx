@@ -2,6 +2,7 @@ import { PageHeader } from '@/components/PageHeader'
 import { syntheticPreviewAllowed } from '@/lib/telecom-preview/access'
 import { Documents } from '@/features/documents/Documents'
 import { IntegratedDocuments } from '@/features/documents/IntegratedDocuments'
+import { IntegratedDocumentLibrary } from '@/features/documents/IntegratedDocumentLibrary'
 import { integratedProductAllowed } from '@/features/product/integration/mode'
 import { readDocumentView } from '@/features/documents/document-navigation'
 export default async function DocumentsPage({searchParams}:{searchParams:Promise<Record<string,string|string[]|undefined>>}) {
@@ -13,6 +14,7 @@ export default async function DocumentsPage({searchParams}:{searchParams:Promise
       else if(typeof value==='string')params.set(key,value)
     }
     const {view}=readDocumentView(params.toString())
+    if(process.env.PRODUCT_DOCUMENT_LIBRARY_ENABLED==='true')return <IntegratedDocumentLibrary initialTarget={view.target??undefined} initialStatus={view.status}/>
     return <IntegratedDocuments maintenanceEnabled={process.env.PRODUCT_DOCUMENT_MAINTENANCE_ENABLED==='true'} contentEnabled={process.env.PRODUCT_DOCUMENT_CONTENT_ENABLED==='true'} customerId={view.target?.kind==='customer'?view.target.id:undefined} initialView={view} syncUrl/>
   }
   if (!syntheticPreviewAllowed())

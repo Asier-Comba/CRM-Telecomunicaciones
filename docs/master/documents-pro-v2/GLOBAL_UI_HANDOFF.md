@@ -1,0 +1,11 @@
+# Global D1 frontend checkpoint
+
+Stacked on delegated backend #200, not main. `/documents` consumes the actual versioned workspace reader when the explicit library flag is enabled; the default remains OFF. Customer entry filters the full authorized customer ancestry, other entry targets retain their exact relation. No fanout through customer search, first-customer selection or five-result document discovery.
+
+Implemented global table/cards, generated authorized titles/context/date/format/size/status, server search/filter/sort/count, exact cursor navigation, scoped bounded browser-history view state and fresh readback on reload. No rows/labels/raw filenames in history; queries and opaque cursors never enter URLs. Mobile/tablet library and filters collapse. Existing metadata reader and idempotent archive/restore CAS remain separate; no byte/folder capability is enabled.
+
+Local validation:20 actual-component controlled-HTTP browser checks PASS,8 pure navigation checks PASS, lint/types/production build PASS; loaded390/768/1440 and390 details visually inspected. These are NOT Auth/Supabase acceptance. Global-ui-01 (uncommitted development tree) retained3PASS/7FAIL: an actual UI optional-undefined serialization error blocked filters/back/retry, and three test expectations named cases instead of the fixture's service target. The UI now omits removed JSON keys before the unchanged strict validator; the target assertion and final visible-result synchronization are corrected without relaxed budgets or assertions. Global-ui-02 retained10PASS; global-ui-final20PASS.
+
+Late-scope control holds20 actual old fixture rows, changes query and authorized actor/workspace to a different one-row dataset, then delivers the old response: only the new dataset remains; viewer transition withdraws it too. This is presentation evidence, not a replacement for real tenant/JWT negatives.
+
+Backend CI found an independent legacy customer-update permission regression in the new private formatter expression index, plus exact87/bootstrap catalog closure failures. Those failures are retained and are being resolved on backend #200 before composition; controls are not relaxed or inherited from a green Supabase job. Real global Auth/browser/outage acceptance and independent W4 review remain required. No hosted, security, D2 or release acceptance.
