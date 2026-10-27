@@ -3,7 +3,7 @@ import {startDocumentsFixture} from '../../tools/asier_documents_pro/fixture.cjs
 const customer='30000000-0000-4000-8000-000000000001',other='30000000-0000-4000-8000-000000000002'
 const id=(n:number)=>'70000000-0000-4000-8000-'+String(n).padStart(12,'0')
 type RecordV1={id:string;version:number;status:'active'|'archived';document_kind:'contract';media_type:string;size_bytes:number;target:{kind:'customer';id:string}}
-async function fixture(page:Page,preview=false){
+async function fixture(page:Page,preview=false,strict=false){
  const server=await startDocumentsFixture(),reads:Array<Record<string,unknown>>=[],commands:Array<Record<string,unknown>>=[]
  let refuse=false,fail=false,holdSearch:Route|undefined,heldImage:Route|undefined,delayImage=false
  const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==','base64')
@@ -37,7 +37,7 @@ async function fixture(page:Page,preview=false){
   if(route.request().url().endsWith('/commands'))commands.push(body)
   await route.fulfill({status:503,json:{ok:false,error:'unavailable'}})
  })
- return{server,reads,commands,records,setRefuse:(v:boolean)=>{refuse=v},setFail:(v:boolean)=>{fail=v},setDelayImage(){delayImage=true},async releaseImage(){await heldImage!.fulfill({contentType:'image/png',body:png})},get heldImage(){return heldImage},get heldSearch(){return holdSearch},async open(){await page.goto(server.url+'/documents?customer='+customer+(preview?'&content=1':''));await expect(page.locator('[data-document-id]')).toHaveCount(20)},async close(){await page.close();await server.close()}}
+ return{server,reads,commands,records,setRefuse:(v:boolean)=>{refuse=v},setFail:(v:boolean)=>{fail=v},setDelayImage(){delayImage=true},async releaseImage(){await heldImage!.fulfill({contentType:'image/png',body:png})},get heldImage(){return heldImage},get heldSearch(){return holdSearch},async open(){await page.goto(server.url+'/documents?customer='+customer+(preview?'&content=1':'')+(strict?'&strict=1':''));await expect(page.locator('[data-document-id]')).toHaveCount(20)},async close(){await page.close();await server.close()}}
 }
 
 for(const mode of ['loaded','pending'])test(`history target change retires ${mode} image preview and blob lifetime`,async({page})=>{
@@ -90,6 +90,19 @@ test('all 123 documents of one authorized target are reachable without omission 
   }
   expect(seen).toEqual(Array.from({length:123},(_,i)=>id(i+1)));expect(new Set(seen).size).toBe(123);expect(s.reads).toHaveLength(7)
   expect(s.reads.every(r=>r.target_id===customer&&r.limit===20)).toBe(true);await expect(page.getByRole('button',{name:'Siguiente página de documentos',exact:true})).toBeDisabled();expect(s.commands).toEqual([])
+ }finally{await s.close()}
+})
+
+test('React development StrictMode accounts for two initial reads and one per later cursor without changing the dataset',async({page})=>{
+ const s=await fixture(page,false,true)
+ try{
+  await s.open();const seen:string[]=[]
+  for(let n=1;n<=7;n++){
+   await expect(page.getByText('Página '+n+' · Hasta 20 documentos',{exact:true})).toBeVisible();seen.push(...await page.locator('[data-document-id]').evaluateAll(nodes=>nodes.map(node=>node.getAttribute('data-document-id')!)))
+   if(n<7){await page.getByRole('button',{name:'Siguiente página de documentos',exact:true}).click();await expect(page.locator('[data-document-id]').first()).toHaveAttribute('data-document-id',id(n*20+1))}
+  }
+  expect(seen).toEqual(Array.from({length:123},(_,i)=>id(i+1)));expect(new Set(seen).size).toBe(123);expect(s.reads).toHaveLength(8)
+  const cursors=[undefined,...Array.from({length:6},(_,i)=>id((i+1)*20))];expect(cursors.map(after=>s.reads.filter(input=>input.after_id===after).length)).toEqual([2,1,1,1,1,1,1]);expect(s.reads.every(input=>input.target_id===customer&&input.limit===20)).toBe(true)
  }finally{await s.close()}
 })
 for(const width of [390,768,1440])test(`loaded inventory context drawer and keyboard at ${width}`,async({page},info)=>{

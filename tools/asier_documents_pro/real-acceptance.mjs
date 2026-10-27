@@ -97,7 +97,12 @@ export async function realDocumentsAcceptance({url,anon,service,sql,command,chec
    if(n<7){await page.getByRole('button',{name:'Siguiente página de documentos',exact:true}).click();await expect(page.locator('[data-document-id]').first()).toHaveAttribute('data-document-id',docs[n*20])}
   }
   report.pagination_observation={observed_rows:seen.length,unique_rows:new Set(seen).size,expected_rows:123,ordered_set_exact:JSON.stringify(seen)===JSON.stringify(docs),missing_rows:docs.filter(id=>!seen.includes(id)).length,unexpected_rows:seen.filter(id=>!docs.includes(id)).length,document_list_requests:queries,distinct_targets:new Set(queryInputs.map(input=>input.target_id)).size,all_inputs_expected_target_and_limit:queryInputs.every(input=>input.target_id===ca&&input.target_kind==='customer'&&input.limit===20&&input.status==='active'),cursor_request_counts:[undefined,...docs.filter((_,i)=>(i+1)%20===0)].map(after=>queryInputs.filter(input=>input.after_id===after).length)}
-  check(JSON.stringify(seen)===JSON.stringify(docs)&&new Set(seen).size===123&&queries===7,'one_target_123_exactly_seven_pages_no_fanout')
+  check(JSON.stringify(seen)===JSON.stringify(docs)&&new Set(seen).size===123,'one_target_123_exact_rows_no_omission_or_duplicate')
+  // Next App Router dev retains React StrictMode. The independent controlled
+  // StrictMode/non-StrictMode pair reproduces 8/7 requests on this same source.
+  // Account for precisely the initial double effect; reject extra later reads,
+  // another target, a different limit/status or any missing/duplicated row.
+  check(queries===8&&report.pagination_observation.distinct_targets===1&&report.pagination_observation.all_inputs_expected_target_and_limit&&JSON.stringify(report.pagination_observation.cursor_request_counts)==='[2,1,1,1,1,1,1]','next_dev_strict_initial_double_read_seven_cursor_pages_no_fanout')
   await expect(page.getByRole('button',{name:'Siguiente página de documentos',exact:true})).toBeDisabled()
   page.off('request',observe)
   await page.getByRole('button',{name:'Volver al inicio del listado',exact:true}).click();await expect(page.locator('[data-document-id]').first()).toHaveAttribute('data-document-id',docs[0])

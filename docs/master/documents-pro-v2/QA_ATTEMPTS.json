@@ -1,0 +1,22 @@
+{
+  "scope": "SCOPED_TARGET_METADATA_ONLY_NOT_GLOBAL_INVENTORY",
+  "attempts": [
+    {"head":"417c468d2f4add6b12570b9087deaa8f121f4d51","source":"55fb217c4563a5c9c07d21a65b690a828e5807ff","tree":"94ffb7b8044a5166b4a1481e8001763d2976f2d1","run":40513802392,"job":122222311691,"result":"FAIL_SQL_FIXTURES","passed_checks":6,"cleanup":"PASS","teardown":"PASS","artifact":12738268131},
+    {"head":"52ef8e12f842e780a3e07e13f9bb281882a766dd","source":"28d7fe42c025703b192bd2aca7d2bd0bed1c7580","tree":"cbd18e22880ec4419ce24206c20257272b29ef4c","run":40514861042,"job":122226025184,"result":"FAIL_COMBINED_PAGINATION_ORACLE_NOT_YET_ATTRIBUTED","passed_checks":12,"cleanup":"PASS","teardown":"PASS","artifact":12738557633},
+    {"head":"4985413eb46fdefad30a9c9389b0aa05be3ea1ed","source":"22f552809ada5011f3943f4eea74475f7dce95e2","tree":"b568b511959e0dc35968480bbff5199938bd7ccf","run":40516210721,"job":122230680147,"result":"FAIL_SEVEN_NETWORK_REQUEST_ORACLE","passed_checks":12,"rows":123,"unique":123,"ordered_set_exact":true,"missing":0,"unexpected":0,"targets":1,"raw_requests":8,"cursor_request_counts":[2,1,1,1,1,1,1],"cleanup":"PASS","teardown":"PASS","artifact":12738877860}
+  ],
+  "causal_controlled_pair": {
+    "application_changed":false,
+    "same_123_rows_and_seven_pages":true,
+    "without_strictmode_raw_requests":7,
+    "with_strictmode_raw_requests":8,
+    "strictmode_cursor_request_counts":[2,1,1,1,1,1,1],
+    "browser_tests":"11_PASS_CONTROLLED_HTTP_NOT_AUTH",
+    "physical_new_oracle":"NOT_RUN_INDEPENDENT_REVIEW_PENDING"
+  },
+  "global_inventory":"BLOCKED_W1_AGREEMENT",
+  "folders":"BLOCKED_W1_AGREEMENT",
+  "private_bytes":"OFF",
+  "hosted":"NOT_RUN",
+  "release":"NOT_ACCEPTED"
+}
