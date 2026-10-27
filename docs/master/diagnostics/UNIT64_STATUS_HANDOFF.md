@@ -91,3 +91,24 @@ contratos documentales negativos; documentos/IA/proveedores OFF en el recorrido.
 
 NEXT3: ejecutar banco real de64B en su SHA exacto; revisión independiente del
 resultado y diff; handoff al propietario si descubre defecto, sin autoaprobar.
+
+### Corrección causal del arnés64B, antes de su aceptación
+
+W4 detectó un P2 en0ef4077: si la espera de respuesta terminaba durante
+headerValue/getSession, finally podía retirarse con attempted=false. El handler
+podía reanudarse después y suspender tarde la membresía. Dos pruebas ejecutan
+el cuerpo real del helper con barreras deterministas: ambas FAIL antes de la
+corrección (una suspensión tardía) y PASS después. Esto es un defecto propio
+del arnés; no explica el timeout original de Cartera ni un defecto de producto.
+
+Regresión publicada en a6afb8e90219f856adcb4894dbfc7a4d850af335: su helper y
+pruebas exactos, exportados sin modificar a una carpeta nueva, reproducen2FAIL.
+El intento inicial0ef sí terminó banco140PASS/teardownPASS en40490010331/
+122141287727 (merge39579cd58066a37860c674c8f3f241a7ce27167f,árbol264b6364),
+y CI40490010330SUCCESS. Ese éxito normal no ejercitó la retirada concurrente.
+La evidencia inicial se conserva y no acepta el nuevo árbol corregido.
+
+La limpieza ahora marca retired antes del primer await; el handler comprueba
+esa marca tras leer cabeceras y justo antes de cualquier cambio SQL. No hay
+await entre la última guarda y la suspensión síncrona. Los resultados del
+intento0ef se conservan; no se heredan al nuevo SHA ni se cambia su evidencia.

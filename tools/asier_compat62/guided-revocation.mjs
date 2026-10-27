@@ -33,7 +33,7 @@ export async function revokedGuidedSave(c,{page,customerId,opportunityId,save,re
   const customerPresent=sql(`select count(*) from public.customers where id='${customerId}' and workspace_id='${wa}'`)==='1',before=counts()
   check(customerPresent&&member()==='active'&&before.customer===0,'browser_guided_revocation_active_fixture_before_save')
   const endpoint=origin+'/api/billing/v1/commands'
-  let request,commandId,session,client,held,requests=0,attempted=false,handlerError
+  let request,commandId,session,client,held,requests=0,attempted=false,retired=false,handlerError
   const handler=async route=>{
     held=route
     try{
@@ -42,11 +42,13 @@ export async function revokedGuidedSave(c,{page,customerId,opportunityId,save,re
       request=r;commandId=body.input.command_id
       // Read the JWT from THIS held request's cookies, not a different login.
       const cookie=await r.headerValue('cookie')
+      if(retired)throw Error('GUIDED_REVOCATION_BARRIER_RETIRED')
       if(!cookie)throw Error('GUIDED_REVOCATION_COOKIE_REQUIRED')
       const cookies=cookie.split(';').map(value=>{const i=value.indexOf('=');return{name:value.slice(0,i).trim(),value:value.slice(i+1)}})
       client=createServerClient(url,anon,{cookies:{getAll:()=>cookies,setAll:()=>{throw Error('GUIDED_REVOCATION_REFRESH_FORBIDDEN')}}})
       const current=await client.auth.getSession();session=current.data?.session
       if(current.error||!session?.access_token||!Number.isFinite(session.expires_at)||session.expires_at<=Date.now()/1000+60)throw Error('GUIDED_REVOCATION_JWT_NOT_PROVEN')
+      if(retired)throw Error('GUIDED_REVOCATION_BARRIER_RETIRED')
       attempted=true
       if(sql(`update public.workspace_members set status='suspended' where workspace_id='${wa}' and user_id='${actor}' and status='active' returning status`)!=='suspended'||member()!=='suspended')throw Error('GUIDED_REVOCATION_FIXTURE_NOT_PROVEN')
       await route.continue();held=null
@@ -66,6 +68,7 @@ export async function revokedGuidedSave(c,{page,customerId,opportunityId,save,re
     return{deniedCommandId:commandId,before}
   }catch(error){if(handlerError)throw Error(handlerError);throw error}
   finally{
+    retired=true // Retire synchronously before the first cleanup await.
     if(held)await held.abort().catch(()=>{})
     try{await page.unroute(endpoint,handler)}finally{
       if(attempted){
