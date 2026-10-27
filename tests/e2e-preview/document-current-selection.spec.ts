@@ -26,8 +26,9 @@ function assets(){
   return result.outputText
  }
  let component=compile(readFileSync('src/features/documents/IntegratedDocuments.tsx','utf8'))
- component=component.replace(/from (["'])([^"']+)\1/g,(_,quote,name)=>`from ${quote}${name==='react'?'/react.js':name==='react/jsx-runtime'?'/jsx.js':name==='./useDocumentMetadataSelection'?'/selection.js':'/adapter.js'}${quote}`)
+ component=component.replace(/from (["'])([^"']+)\1/g,(_,quote,name)=>`from ${quote}${name==='react'?'/react.js':name==='react/jsx-runtime'?'/jsx.js':name==='./useDocumentMetadataSelection'?'/selection.js':name==='./document-navigation'?'/navigation.js':'/adapter.js'}${quote}`)
  result.set('/documents.js',component)
+ result.set('/navigation.js',compile(readFileSync('src/features/documents/document-navigation.ts','utf8')))
  if(existsSync('src/features/documents/useDocumentMetadataSelection.ts'))result.set('/selection.js',compile(readFileSync('src/features/documents/useDocumentMetadataSelection.ts','utf8')).replace(/from (["'])([^"']+)\1/g,(_,quote,name)=>`from ${quote}${name==='react'?'/react.js':'/adapter.js'}${quote}`))
  const repository=ts.createSourceFile('repository.ts',readFileSync('src/features/product/integration/repository.ts','utf8'),ts.ScriptTarget.Latest,true)
  const errors=repository.statements.filter(node=>ts.isClassDeclaration(node)&&node.name?.text==='ProductUiError'||ts.isFunctionDeclaration(node)&&node.name?.text==='safeMessage'||ts.isVariableStatement(node)&&node.declarationList.declarations.some(d=>d.name.getText(repository)==='errorText')).map(node=>node.getText(repository)).join('\n')

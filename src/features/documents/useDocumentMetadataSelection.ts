@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { DocumentMetadataV1 } from '@/lib/contracts/document-v1'
 import { ProductUiError, safeMessage, type ProductRepository } from '@/features/product/integration/repository'
 
@@ -38,10 +38,10 @@ export function useDocumentMetadataSelection(repository: ProductRepository, scop
     }
   }
 
-  function close() {
+  const close = useCallback(() => {
     generation.current += 1
     setState(null)
-  }
+  }, [])
 
   const current = state?.scope === scope ? state : null
   return { selected: current?.record ?? null, error: current?.error ?? '', open: (id: string) => read(id, false), refresh: (id: string) => read(id, true), close }
