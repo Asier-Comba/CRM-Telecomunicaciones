@@ -55,6 +55,7 @@ export async function realDocumentsAcceptance({url,anon,service,sql,command,chec
    check(!error&&!!data.user?.id,'synthetic_user_created_'+name)
    users[name]={id:data.user.id,email,password,workspace,role}
   }
+  phase('workspace_customer_fixture_setup')
   sql(`begin;insert into public.workspaces(id,name,slug)values('${wa}','Documents D1 Synthetic A','documents-d1-a'),('${wb}','Documents D1 Synthetic B','documents-d1-b');
    insert into public.workspace_members(workspace_id,user_id,role,status)values ${Object.values(users).map(u=>`('${u.workspace}','${u.id}','${u.role}','active')`).join(',')};
    ${Object.values(users).map(u=>`update public.profiles set workspace_id='${u.workspace}'where id='${u.id}';`).join('')}
@@ -63,7 +64,8 @@ export async function realDocumentsAcceptance({url,anon,service,sql,command,chec
   const docs=Array.from({length:123},()=>randomUUID()).sort(),otherDocs=Array.from({length:7},()=>randomUUID()),foreignDocs=Array.from({length:3},()=>randomUUID()),archived=randomUUID()
   const rows=[...docs.map(id=>[id,wa,ca,'active',users.ownerA.id]),...otherDocs.map(id=>[id,wa,otherA,'active',users.ownerA.id]),...foreignDocs.map(id=>[id,wb,cb,'active',users.ownerB.id]),[archived,wa,ca,'archived',users.ownerA.id]]
   // Explicit metadata fixtures, no successful upload or bytes-integrity claim.
-  sql(`insert into public.documents(id,workspace_id,customer_id,document_kind,file_name,media_type,size_bytes,storage_path,status,archived_at,created_by_user_id)values ${rows.map(([id,w,c,status,actor])=>`('${id}','${w}','${c}','contract','PRIVATE_D1_METADATA_FIXTURE.pdf','application/pdf',1024,'${w}/${id}/${randomUUID()}','${status}',${status==='archived'?'now()':'null'},'${actor}')`).join(',')};`)
+  phase('metadata_fixture_setup')
+  sql(`insert into public.documents(id,workspace_id,customer_id,document_kind,file_name,media_type,size_bytes,storage_path,status,archived_at,created_by_user_id)values ${rows.map(([id,w,c,status,actor])=>`('${id}','${w}','${c}','contract','PRIVATE_D1_METADATA_FIXTURE.pdf','application/pdf',1024,'${w}/documents/${id}/${randomUUID()}','${status}',${status==='archived'?'now()':'null'},'${actor}')`).join(',')};`)
   report.fixtures={workspaces:2,actors:4,roles:['owner','member','viewer'],admin:'NOT_RUN',target_active:123,other_target_active:7,foreign_active:3,archived:1,bytes:'NOT_CREATED_METADATA_ONLY'}
   phase('own_next_start')
   const env=Object.fromEntries(['PATH','HOME','TMPDIR','RUNNER_TEMP','CI'].filter(k=>process.env[k]).map(k=>[k,process.env[k]]))

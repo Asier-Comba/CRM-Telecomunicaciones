@@ -8,7 +8,11 @@ const report={contract:'documents.pro.d1.acceptance.v1',result:'NOT_RUN',checks:
 let started=false,phase='preflight'
 function command(bin,args,options={}){
   const r=spawnSync(bin,args,{encoding:'utf8',timeout:120000,maxBuffer:20*1024*1024,...options})
-  if(r.status!==0)throw Error('D1_LOCAL_COMMAND_FAILED')
+  if(r.status!==0){
+    const output=(r.stdout??'')+(r.stderr??'')
+    report.command_failure={exit_code:Number.isInteger(r.status)?r.status:null,timed_out:r.error?.code==='ETIMEDOUT',category:output.includes('document path must use the server-generated workspace/document/object grammar')?'DOCUMENT_PATH_GRAMMAR':/foreign key constraint/i.test(output)?'FOREIGN_KEY_FAILURE':/check constraint/i.test(output)?'CHECK_FAILURE':/toomanyrequests|429 Too Many Requests/i.test(output)?'REGISTRY_RATE_LIMIT':'UNCLASSIFIED'}
+    throw Error('D1_LOCAL_COMMAND_FAILED')
+  }
   return r.stdout.trim() // Never publish CLI output or credentials.
 }
 const check=(ok,name)=>{report.checks.push({name,result:ok?'PASS':'FAIL'});if(!ok)throw Error('D1_CHECK_FAILED')}
