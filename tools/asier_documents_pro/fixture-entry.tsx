@@ -1,4 +1,4 @@
-import {useEffect,useState} from 'react'
+import {StrictMode,useEffect,useState} from 'react'
 import {createRoot} from 'react-dom/client'
 import {ProductProvider} from '@/features/product/integration/Provider'
 import {IntegratedDocuments} from '@/features/documents/IntegratedDocuments'
@@ -12,4 +12,4 @@ function Fixture(){
   useEffect(()=>{window.docsSetScope=(actor,workspace,role)=>setScope({actor,workspace,role})},[])
   return <ProductProvider integrated role={scope.role} actorId={scope.actor} workspaceId={scope.workspace}><IntegratedDocuments customerId={initial.target?.kind==='customer'?initial.target.id:undefined} initialView={initial} syncUrl contentEnabled={contentEnabled}/></ProductProvider>
 }
-createRoot(document.getElementById('app')!).render(<Fixture/>)
+createRoot(document.getElementById('app')!).render(new URLSearchParams(location.search).get('strict')==='1'?<StrictMode><Fixture/></StrictMode>:<Fixture/>)
