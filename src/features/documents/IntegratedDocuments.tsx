@@ -55,6 +55,7 @@ function ScopedIntegratedDocuments({customerId:initialCustomerId,contentEnabled=
   function changeView(next:DocumentView,stack:Array<string|null>=[],label=''){
     if(locked)return
     searchEpoch.current++;setSearching(false);setResults(null);setError('');setMessage('');metadata.close();setPreview(null)
+    setUpload(false);setDownload(null);setConfirm(null);downloadIntent.current=null;ticket.current=null;pending.current=null
     setTargetLabel(label);writeView(next,stack)
   }
   useEffect(()=>{
@@ -72,6 +73,7 @@ function ScopedIntegratedDocuments({customerId:initialCustomerId,contentEnabled=
       }
       const parsed=readDocumentView(window.location.search)
       searchEpoch.current++;setResults(null);setSearching(false);setError(parsed.invalid?'El enlace no contiene una selección válida. Selecciona de nuevo el registro.':'');setMessage('');closeMetadata();setTargetLabel('')
+      setPreview(null);setUpload(false);setDownload(null);setConfirm(null);downloadIntent.current=null;ticket.current=null;pending.current=null
       setNavigation({view:parsed.view,back:readDocumentBackStack(window.history.state?.crmDocumentsV1,scope,parsed.view)})
     }
     window.addEventListener('popstate',pop)

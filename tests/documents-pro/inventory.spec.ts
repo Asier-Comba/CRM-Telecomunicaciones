@@ -3,16 +3,18 @@ import {startDocumentsFixture} from '../../tools/asier_documents_pro/fixture.cjs
 const customer='30000000-0000-4000-8000-000000000001',other='30000000-0000-4000-8000-000000000002'
 const id=(n:number)=>'70000000-0000-4000-8000-'+String(n).padStart(12,'0')
 type RecordV1={id:string;version:number;status:'active'|'archived';document_kind:'contract';media_type:string;size_bytes:number;target:{kind:'customer';id:string}}
-async function fixture(page:Page){
+async function fixture(page:Page,preview=false){
  const server=await startDocumentsFixture(),reads:Array<Record<string,unknown>>=[],commands:Array<Record<string,unknown>>=[]
- let refuse=false,fail=false,holdSearch:Route|undefined
+ let refuse=false,fail=false,holdSearch:Route|undefined,heldImage:Route|undefined,delayImage=false
+ const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==','base64')
  const records:RecordV1[]=Array.from({length:123},(_,i)=>({id:id(i+1),version:1,status:'active',document_kind:'contract',media_type:'application/pdf',size_bytes:1024+i,target:{kind:'customer',id:customer}}))
  const archived:RecordV1={...records[0],id:id(999),status:'archived'};records.push(archived)
+ if(preview)records.push({...records[0],id:id(1000),media_type:'image/png',size_bytes:png.length,target:{kind:'customer',id:other}})
  await page.route('**/api/**',async route=>{
   const body=route.request().postDataJSON(),{operation,input}=body
   if(operation==='document.list'){
    reads.push(input)
-   if(refuse||input.target_id===other){await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
+   if(refuse||input.target_id===other&&!preview){await route.fulfill({status:403,json:{ok:false,error:'access_denied'}});return}
    if(fail){await route.fulfill({status:503,json:{ok:false,error:'unavailable'}});return}
    const items=records.filter(r=>r.target.id===input.target_id&&r.status===input.status&&(!input.after_id||r.id>input.after_id)).sort((a,b)=>a.id.localeCompare(b.id)).slice(0,input.limit)
    await route.fulfill({json:{ok:true,data:{contract_version:'document.v1',operation,items,next_id:items.length===input.limit?items.at(-1)!.id:null}}});return
@@ -25,11 +27,39 @@ async function fixture(page:Page){
    if(input.query==='Old'){holdSearch=route;return}
    await route.fulfill({json:{ok:true,data:{contract_version:'product.v1',items:[{kind:'customer',id:other,customer_id:other,label:'New synthetic company',status:'active'}]}}});return
   }
+  if(preview&&operation==='document.request_download'){
+   await route.fulfill({json:{ok:true,receipt:{contract_version:'document.content.v1',operation,command_id:input.command_id,id:input.id,version:input.expected_version,status:'active',ticket_id:id(2000),expires_at:new Date(Date.now()+30000).toISOString()}}});return
+  }
+  if(preview&&operation==='document.download'){
+   if(delayImage){heldImage=route;return}
+   await route.fulfill({contentType:'image/png',body:png});return
+  }
   if(route.request().url().endsWith('/commands'))commands.push(body)
   await route.fulfill({status:503,json:{ok:false,error:'unavailable'}})
  })
- return{server,reads,commands,records,setRefuse:(v:boolean)=>{refuse=v},setFail:(v:boolean)=>{fail=v},get heldSearch(){return holdSearch},async open(){await page.goto(server.url+'/documents?customer='+customer);await expect(page.locator('[data-document-id]')).toHaveCount(20)},async close(){await page.close();await server.close()}}
+ return{server,reads,commands,records,setRefuse:(v:boolean)=>{refuse=v},setFail:(v:boolean)=>{fail=v},setDelayImage(){delayImage=true},async releaseImage(){await heldImage!.fulfill({contentType:'image/png',body:png})},get heldImage(){return heldImage},get heldSearch(){return holdSearch},async open(){await page.goto(server.url+'/documents?customer='+customer+(preview?'&content=1':''));await expect(page.locator('[data-document-id]')).toHaveCount(20)},async close(){await page.close();await server.close()}}
 }
+
+for(const mode of ['loaded','pending'])test(`history target change retires ${mode} image preview and blob lifetime`,async({page})=>{
+ const s=await fixture(page,true)
+ await page.addInitScript(()=>{
+  const observed={created:0,revoked:0},create=URL.createObjectURL.bind(URL),revoke=URL.revokeObjectURL.bind(URL)
+  Object.assign(window,{documentBlobObserved:observed})
+  URL.createObjectURL=blob=>{observed.created++;return create(blob)};URL.revokeObjectURL=url=>{observed.revoked++;revoke(url)}
+ })
+ try{
+  await s.open();await page.getByLabel('Buscar cliente para documentos',{exact:true}).fill('New');await page.getByRole('button',{name:'Buscar registro',exact:true}).click();await page.getByRole('button',{name:'Empresa · New synthetic company',exact:true}).click();await expect(page.locator('[data-document-id]')).toHaveCount(1)
+  await page.getByRole('button',{name:'Vista previa de imagen',exact:true}).click()
+  if(mode==='pending')s.setDelayImage()
+  await page.getByRole('button',{name:'Mostrar imagen autorizada',exact:true}).click()
+  if(mode==='pending')await expect.poll(()=>!!s.heldImage).toBe(true)
+  else await expect(page.getByRole('img',{name:'Vista previa del documento',exact:true})).toBeVisible()
+  await page.goBack();await expect(page.locator('[data-document-id]')).toHaveCount(20)
+  if(mode==='pending'){const arrived=page.waitForResponse(r=>r.url().endsWith('/content/download'));await s.releaseImage();await arrived;await page.evaluate(()=>new Promise<void>(accept=>requestAnimationFrame(()=>requestAnimationFrame(()=>accept()))))}
+  await expect(page.getByRole('dialog',{name:'Vista previa de imagen',exact:true})).toHaveCount(0);await expect(page.getByRole('img',{name:'Vista previa del documento',exact:true})).toHaveCount(0)
+  expect(await page.evaluate(()=>(window as unknown as {documentBlobObserved:{created:number;revoked:number}}).documentBlobObserved)).toEqual(mode==='loaded'?{created:1,revoked:1}:{created:0,revoked:0})
+ }finally{await s.close()}
+})
 test('context page remains the same after reload and previous-page history survives',async({page})=>{
  const s=await fixture(page)
  try{

@@ -37,3 +37,9 @@ W4 and W5 found no identified active W1 or verified backend delegation. A direct
 W4 has reviewed the proposal only, not accepted this UI or a release. W5 requires the concrete isolated QA helper/workflow before its technical review. Neither substitutes W1. #179 remains unmerged and its hosted Storage/cache security gate is not accepted. Staging migration 88 was reported applied under independent W5 authorization; this branch retains the canonical 87 migrations and does not touch staging.
 
 Repository remains PUBLIC; visibility is an owner decision. No sensitive findings, filenames, credentials or captures of real data are published.
+
+## W4 review correction after 9c41e76
+
+W4 identified two P2 findings on the published source: three additional article-specific identity selectors and a preview left mounted after browser history changes the target. The new controlled tests reproduce both loaded-image and pending-byte variants: `d1-w4-before` 2 FAIL on the uncorrected component, then `d1-w4-after` 10 PASS after retiring contextual panels in both navigation paths. The loaded blob is revoked; late bytes never create a blob. The content flag is stable in the isolated fixture, matching a real fixed server feature flag. No private capability is newly enabled.
+
+Three more mechanical selectors now use identity attributes, retaining document IDs, versions and assertions. CLAIM #67 comment 6442983558. Original source run 40510814220 remains attached to 9c41e76; it is not a retry of the corrected source. The next original suite execution is justified by these explicit findings and must retain its own source/results. Independent W4 review of the correction remains pending.
