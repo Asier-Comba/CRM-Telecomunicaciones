@@ -1,0 +1,54 @@
+name: Staging schema88 disposable compatibility
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+permissions:
+  contents: read
+jobs:
+  projection-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - run: node --experimental-transform-types --test tools/asier_staging_schema88/*.test.mjs tools/asier_staging_network/local-docker.test.mjs tests/unit62/response-action.test.mjs
+  commercial-compatibility:
+    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, format('SCHEMA88_LAB_SHA={0}', github.event.pull_request.head.sha))
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      CI: 'true'
+      P0_SCHEMA88_LAB: BASE87_PLUS_STORAGE88_ALWAYS_OFF
+      NEXT_TELEMETRY_DISABLED: '1'
+      EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359
+        with:
+          version: 2.119.0
+      - name: Install actual Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Commercial Auth RPC UI with base87 plus Storage88 and capabilities OFF
+        run: node --experimental-transform-types tools/asier_staging_schema88/run.mjs
+      - name: Retain this attempt evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: staging-schema88-${{ github.event.pull_request.head.sha }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/staging-schema88.safe.json
+            ${{ runner.temp }}/staging-schema88-ui
+          if-no-files-found: error
+          retention-days: 14
