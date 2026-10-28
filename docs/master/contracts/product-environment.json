@@ -586,6 +586,25 @@
       "required_when": null
     },
     {
+      "name": "PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED",
+      "scope": "server_configuration",
+      "required": {
+        "LOCALDEV": false,
+        "TEST": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "secret": false,
+      "validator": "boolean",
+      "purpose": "Mandatory server-only fixed Supabase Auth/REST gateway for the exact EasyPanel staging origin; no direct fallback or release approval",
+      "provider_class": "product",
+      "runtime_status": "implemented",
+      "required_when": {
+        "name": "PRODUCT_V1_ORIGIN",
+        "equals": "https://crm-telecom-staging.hvdnby.easypanel.host"
+      }
+    },
+    {
       "name": "PRODUCT_STAGING_USER_IDS",
       "scope": "server_configuration",
       "required": {

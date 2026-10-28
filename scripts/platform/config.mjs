@@ -58,6 +58,7 @@ export function validateEnvironment(env,target,manifest=readJson('infra/platform
   else if(env.PRODUCT_V1_ORIGIN!==env.NEXT_PUBLIC_APP_URL||env.AUTH_SITE_URL!==env.NEXT_PUBLIC_APP_URL)errors.push('APP_AUTH_ORIGIN_MISMATCH')
  }
  if(target!=='STAGING'&&env.PRODUCT_STAGING_INTEGRATION!==undefined&&env.PRODUCT_STAGING_INTEGRATION!=='false')errors.push('STAGING_ADMISSION_OUTSIDE_STAGING')
+ if(target!=='STAGING'&&env.PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED!==undefined&&env.PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED!=='false')errors.push('PRIVATE_EGRESS_OUTSIDE_STAGING')
  const requirements={AUTH_EMAIL_ENABLED:['SMTP_HOST','SMTP_PORT','SMTP_USER','SMTP_PASSWORD','AUTH_MAIL_FROM'],CRM_EMAIL_ENABLED:['CRM_MAIL_PROVIDER_REF','CRM_MAIL_FROM'],N8N_ENABLED:['N8N_BASE_URL','N8N_API_KEY','N8N_WEBHOOK_SECRET'],AI_ENABLED:['OPENAI_API_KEY']}
  for(const [flag,names]of Object.entries(requirements))if(env[flag]==='true')for(const n of names)if(!env[n])errors.push(`MISSING_${n}`)
  if(target==='STAGING'&&env.CRM_EMAIL_ENABLED==='true'&&!validValue('json_emails',env.CRM_EMAIL_ALLOWLIST,target))errors.push('STAGING_MAIL_ALLOWLIST_REQUIRED')

@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'tools/asier_staging_network/**'
+      - 'src/lib/server/product-private-egress-v1.ts'
+      - 'src/lib/server/product-staging-admission-v1.ts'
       - '.github/workflows/staging-gateways.yml'
 permissions:
   contents: read
