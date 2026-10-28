@@ -48,6 +48,7 @@ test('existing publisher retains public-package, uncertain-push and credential-c
   const f=fixture();if(kind==='privacy')f.pkg.visibility='public'
   else{const create=f.ports.publisher.createSession;f.ports.publisher.createSession=async()=>({...await create(),[kind]:async()=>{throw Error(f.token)}})}
   const result=await publishCandidateV1(f);assert.equal(result.result,'FAIL');assert.equal(result.deploying_authorized,false);assert.equal(JSON.stringify(result).includes(f.token),false)
+  assert.equal(result.receipt,null)
   if(kind==='push')assert.equal(result.publication,'OUTCOME_UNKNOWN');if(kind==='cleanup')assert.equal(result.publication,'VERIFIED_PRIVATE_DIGEST')
  }
 })
