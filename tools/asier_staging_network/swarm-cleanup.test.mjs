@@ -22,3 +22,25 @@ test('cleanup rejects foreign resource names before any Docker operation',async(
  await assert.rejects(cleanupSwarmLabV1({...owned,services:['another-app']},()=>calls++,async()=>{},async()=>{}),/OWNED_LAB_RESOURCES_REQUIRED/)
  assert.equal(calls,0)
 })
+
+test('retained stopped owned task is explicitly removed without force before cleanup can pass',async()=>{
+ const id='a'.repeat(64);let present=true,removed=0
+ const result=await cleanupSwarmLabV1(owned,args=>{
+  if(args[0]==='ps')return{status:0,stdout:present?id+'\n':'',stderr:''}
+  if(args[0]==='container'&&args[1]==='inspect')return{status:0,stdout:prefix+'|'+owned.services[0]+'|false|exited\n',stderr:''}
+  if(args[0]==='container'&&args[1]==='rm'){assert.deepEqual(args,['container','rm',id]);present=false;removed++;return success(args)}
+  return success(args)
+ },async()=>{},async()=>{})
+ assert.equal(result.ok,true);assert.equal(removed,1);assert.equal(result.absence.containers,'ABSENT')
+})
+
+for(const scenario of ['running','foreign_service','inspection_denied'])test('teardown never removes an unconfirmed or running container: '+scenario,async()=>{
+ const id='b'.repeat(64);let removals=0
+ const result=await cleanupSwarmLabV1(owned,args=>{
+  if(args[0]==='ps')return{status:0,stdout:id+'\n',stderr:''}
+  if(args[0]==='container'&&args[1]==='inspect')return scenario==='inspection_denied'?{status:1,stdout:'',stderr:'permission denied'}:{status:0,stdout:prefix+'|'+(scenario==='foreign_service'?'other-service':owned.services[0])+'|'+(scenario==='running'?'true|running':'false|exited')+'\n',stderr:''}
+  if(args[0]==='container'&&args[1]==='rm'){removals++;return success(args)}
+  return success(args)
+ },async()=>{},async()=>{})
+ assert.equal(result.ok,false);assert.equal(removals,0);assert.equal(result.absence.containers,'PRESENT')
+})

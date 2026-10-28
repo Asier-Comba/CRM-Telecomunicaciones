@@ -15,9 +15,24 @@ export async function cleanupSwarmLabV1({prefix,services,networks,secret,swarm},
  const call=(name,args)=>record(name,raw(args))
  for(const [index,service]of [...services].reverse().entries()){call('service_remove_'+index,['service','rm',service]);steps.at(-1).resource=service}
  if(raw)for(let n=0;n<30;n++){
-  const result=raw(['ps','-a','--filter','label=crm.disposable='+prefix,'--format','{{.ID}}'])
+  const result=raw(['ps','-a','--no-trunc','--filter','label=crm.disposable='+prefix,'--format','{{.ID}}'])
   if(result.status!==0){record('owned_containers_wait',result);break}
   if(!result.stdout.trim()){steps.push({operation:'owned_containers_wait',ok:true,exit_code:0,error:'NONE',observations:n+1});break}
+  const ids=result.stdout.trim().split('\n')
+  if(ids.length>64||ids.some(id=>!/^[a-f0-9]{64}$/.test(id))){clean=false;steps.push({operation:'owned_containers_validate',ok:false,exit_code:0,error:'CONTAINER_IDENTITIES_UNCONFIRMED'});break}
+  for(const id of ids){
+   const identity=call('owned_container_inspect',['container','inspect','--format','{{index .Config.Labels "crm.disposable"}}|{{index .Config.Labels "com.docker.swarm.service.name"}}|{{.State.Running}}|{{.State.Status}}',id])
+   steps.at(-1).resource=id
+   if(identity.status!==0)continue
+   const [label,service,running,status,...extra]=identity.stdout.trim().split('|')
+   if(label!==prefix||!services.includes(service)||extra.length||!['true','false'].includes(running)){
+    clean=false;Object.assign(steps.at(-1),{ok:false,error:'CONTAINER_OWNERSHIP_UNCONFIRMED'});continue
+   }
+   steps.at(-1).state=status
+   if(running==='false'&&['exited','dead','created'].includes(status)){
+    call('stopped_owned_container_remove',['container','rm',id]);steps.at(-1).resource=id;steps.at(-1).state=status
+   }
+  }
   if(n===29){clean=false;steps.push({operation:'owned_containers_wait',ok:false,exit_code:0,error:'OWNED_CONTAINERS_REMAIN',observations:n+1})}
   await pause()
  }
