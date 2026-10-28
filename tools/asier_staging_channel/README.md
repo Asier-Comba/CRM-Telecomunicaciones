@@ -33,7 +33,10 @@ It rejects ordinary/nonmanual/non-Linux/nonrepository execution before filesyste
 or Docker effects. A future protected manual CI driver may create an owned700
 temporary DOCKER_CONFIG under RUNNER_TEMP. Token is supplied through stdin, never
 argv or logs; only PATH/HOME/that config reach Docker. Before tagging/pushing,
-the current local image ID must match the verified build. Cleanup attempts logout
+the current immutable local image ID must match the verified build; tagging uses
+that ID, and destination ID is rechecked before push. A mutable local alias cannot
+select different bytes. This does not make tags globally atomic against another
+authorized writer. Cleanup attempts logout
 and removes/verifies only that owned directory, even when logout fails; unexpected
 filesystem errors cannot count as removal. A crashed job is not cleanup proof.
 The pure command protocol allows injected login/push/logout/removal failures.
@@ -59,10 +62,13 @@ smoke evidence remain separate from the structural proof.
 Validation: `node --test tools/asier_staging_channel/*.test.mjs`.
 Tests use doubles for every HTTP/CLI action and never supply live credentials or
 contact a registry. The ordinary-execution test cannot create an auth directory.
-27 checks cover private/foreign/missing packages, tag preexistence/denial, raw-byte
+29 checks cover private/foreign/missing packages, tag preexistence/denial, raw-byte
 tampering, config mismatch, post-push privacy drift, partial outcomes, arbitrary
 error redaction, stdin/cleanup, logout/removal failures and redirect/header limits.
-No actual image or registry privacy is accepted by those tests.
+No actual image or registry privacy is accepted by those tests. W4's review of
+15fc254 found a mutable local-alias race between inspect/tag. Two controls against
+that published adapter fail (27PASS/2FAIL); using immutable imageConfigDigest and
+checking the destination before push closes both (29PASS). Prior attempts retained.
 
 Official contracts checked28/10:
 [GHCR authentication/linking](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry),

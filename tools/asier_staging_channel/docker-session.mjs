@@ -23,8 +23,10 @@ export function dockerSessionActions({imageConfigDigest,actor,command,removeConf
   async login(token){if(cleaned||typeof token!=='string'||token.length<16||/[\r\n\0]/.test(token))throw Error('STAGING_DOCKER_AUTH_INVALID');command(['login','ghcr.io','--username',actor,'--password-stdin'],token+'\n')},
   async push(reference){
    if(cleaned||typeof reference!=='string'||!/^ghcr\.io\/asier-comba\/crm-telecom-staging:sha-[a-f0-9]{40}-config-[a-f0-9]{64}$/.test(reference))throw Error('STAGING_DOCKER_REFERENCE_INVALID')
-   if(command(['image','inspect','crm-w5-package:test','--format','{{.Id}}'])!==imageConfigDigest)throw Error('STAGING_DOCKER_LOCAL_IMAGE_CHANGED')
-   command(['image','tag','crm-w5-package:test',reference]);command(['push',reference])
+   if(command(['image','inspect',imageConfigDigest,'--format','{{.Id}}'])!==imageConfigDigest)throw Error('STAGING_DOCKER_LOCAL_IMAGE_CHANGED')
+   command(['image','tag',imageConfigDigest,reference])
+   if(command(['image','inspect',reference,'--format','{{.Id}}'])!==imageConfigDigest)throw Error('STAGING_DOCKER_DESTINATION_CHANGED')
+   command(['push',reference])
   },
   async cleanup(){
    if(cleaned)return

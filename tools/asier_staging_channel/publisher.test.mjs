@@ -48,3 +48,23 @@ test('changed local image cannot be tagged or pushed and credentials are cleaned
  f.ports.createSession=async()=>dockerSessionActions({imageConfigDigest:f.imageConfigDigest,actor:'synthetic',command(args){commands.push(args);if(args[0]==='image'&&args[1]==='inspect')return'sha256:'+'9'.repeat(64);return''},removeConfig:async()=>{removed=true}})
  const r=await publishVerifiedImage(f);assert.equal(r.result,'FAIL');assert.equal(r.publication,'OUTCOME_UNKNOWN');assert.equal(removed,true);assert.equal(commands.some(args=>args[0]==='push'||args[1]==='tag'),false)
 })
+test('changing the local alias after inspection cannot change the image selected for tagging',async()=>{
+ const f=fixture(),bad='sha256:'+'9'.repeat(64),reference=imageTag(f.expected.source,f.expected.public_build_sha256);let alias=f.imageConfigDigest,destination,pushed
+ f.ports.createSession=async()=>dockerSessionActions({imageConfigDigest:f.imageConfigDigest,actor:'synthetic',command(args){
+  if(args[0]==='image'&&args[1]==='inspect'){const value=args[2]===reference?destination:args[2]===f.imageConfigDigest?f.imageConfigDigest:alias;alias=bad;return value}
+  if(args[0]==='image'&&args[1]==='tag')destination=args[2]===f.imageConfigDigest?f.imageConfigDigest:alias
+  if(args[0]==='push')pushed=destination
+  return''
+ },removeConfig:async()=>{}})
+ const result=await publishVerifiedImage(f);assert.equal(pushed,f.imageConfigDigest);assert.equal(result.result,'PASS')
+})
+test('a changed destination tag is rejected before any push',async()=>{
+ const f=fixture(),reference=imageTag(f.expected.source,f.expected.public_build_sha256);let pushed=false,tagged=false
+ f.ports.createSession=async()=>dockerSessionActions({imageConfigDigest:f.imageConfigDigest,actor:'synthetic',command(args){
+  if(args[0]==='image'&&args[1]==='inspect')return args[2]===reference&&tagged?'sha256:'+'9'.repeat(64):f.imageConfigDigest
+  if(args[0]==='image'&&args[1]==='tag')tagged=true
+  if(args[0]==='push')pushed=true
+  return''
+ },removeConfig:async()=>{}})
+ const result=await publishVerifiedImage(f);assert.equal(result.result,'FAIL');assert.equal(pushed,false);assert.equal(result.credential_cleanup,'PASS')
+})
