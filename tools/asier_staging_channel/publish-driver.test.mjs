@@ -59,3 +59,21 @@ test('a verifier cannot change the source tuple already authorized for this publ
  const result=await publishCandidateV1(f)
  assert.equal(result.result,'PASS');assert.equal(result.receipt.tree,tree)
 })
+
+test('another published manifest sharing the verified config cannot yield a consumable receipt',async()=>{
+ for(const change of ['media_type','compressed_layer']){
+  const f=fixture(),original=f.evidence.image,manifest=JSON.parse(original.manifestBytes)
+  if(change==='media_type')manifest.mediaType='application/vnd.docker.distribution.manifest.v2+json'
+  else{manifest.layers[0].digest='sha256:'+'3'.repeat(64);manifest.layers[0].size=13}
+  const manifestBytes=f.bytes(manifest),readback={...original,manifestBytes,requestedDigest:'sha256:'+digest(manifestBytes)}
+  assert.notEqual(readback.requestedDigest,original.requestedDigest)
+  assert.equal(JSON.parse(readback.manifestBytes).config.digest,JSON.parse(original.manifestBytes).config.digest)
+  f.ports.publisher.readImage=async()=>readback
+  const result=await publishCandidateV1(f)
+  assert.equal(result.result,'FAIL');assert.equal(result.error,'CANDIDATE_PUBLISHED_MANIFEST_MISMATCH');assert.equal(result.receipt,null)
+  assert.equal(result.publication,'VERIFIED_PRIVATE_DIGEST');assert.equal(result.credential_cleanup,'PASS');assert.equal(result.deploying_authorized,false)
+  assert.equal(result.evidence.manifest_digest,original.requestedDigest)
+  assert.equal(result.published_manifest_digest,readback.requestedDigest)
+  assert.deepEqual(f.calls,['session','login','push','cleanup'])
+ }
+})

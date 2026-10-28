@@ -40,6 +40,11 @@ export async function publishCandidateV1({expected,env,token,ports}={}){
   result.result=published.result;result.publication=published.publication;result.credential_cleanup=published.credential_cleanup;result.error=published.error??null
   // Preserve the partial outcome, but do not export a consumable receipt after failure.
   result.receipt=published.result==='PASS'&&published.credential_cleanup==='PASS'?published.receipt:null
+  // A shared config ID does not bind different manifest bytes to verified provenance.
+  if(result.receipt&&result.receipt.manifest_digest!==proof.subjects.manifest_digest){
+   result.published_manifest_digest=result.receipt.manifest_digest
+   result.result='FAIL';result.receipt=null;result.error='CANDIDATE_PUBLISHED_MANIFEST_MISMATCH'
+  }
   result.evidence={...proof.subjects}
  }catch(error){
   const allowed=new Set(['CANDIDATE_MANUAL_DRIVER_REQUIRED','CANDIDATE_TRUSTED_PORTS_REQUIRED','CANDIDATE_PUBLICATION_NOT_AUTHORIZED','CANDIDATE_EXPECTED_INVALID','CANDIDATE_SOURCE_BINDING_INVALID','CANDIDATE_VERIFIER_REQUIRED','CANDIDATE_SCAN_INVALID','CANDIDATE_EVIDENCE_UNVERIFIED'])
