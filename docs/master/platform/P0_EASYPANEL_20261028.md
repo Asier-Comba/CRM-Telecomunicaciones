@@ -1,0 +1,24 @@
+# P0 EasyPanel runtime composition — 28 October 2026
+
+Priority is private hosting. D2 is preserved on #204@44b44c4 and excluded here. This branch starts at #203@bcacf1115893c527142036a513a2720f141b648f. No main or remote service change. CLAIM6476343675; physical lab extension6476497477. W5 confirmed no active conflicting claim and that selective preparation may proceed, without giving runtime/release approval.
+
+Selective #189/#190 composition uses b1334a5e5ed06659b319986ffa6ea443e29d9957 config/entrypoint/profile/admission/build-binding/policy/tests. Existing Dockerfile bases/digests remain; only parser and generated public binding are copied into the existing nonroot image. The manifest is regenerated from current sources, preserving base87+D1, not replaced by an old inventory. No migration adopted.
+
+Two causal tests on unchanged bcac failed: managed Supabase Auth incorrectly required application SMTP/control-plane variables; channelReadiness expected ACCEPTED reviews while runtime expected APPROVED. After composition, the report reuses the complete runtime policy validator, with a required HTTPS origin. Both consume a single canonical three-public-value hash, preserving #203 name/value-pair identity. No acceptance flags were set: actual policy remains PROPOSED/PENDING, origin null, PROD rejected. Test policies are synthetic fixtures only.
+
+Local evidence outside Git: runtime-before2FAIL; runtime-final42PASS; platform122PASS/1SKIP; inventory/repository verificationPASS, targeted lint/YAMLPASS. The first broad platform attempt failed on inventory drift; regeneration corrects source consumers rather than suppressing the check. New physical lab is opt-in to an exact reviewed PR head; it builds the existing Dockerfile on GitHub standard Linux, never on the VPS, and verifies actual nonroot/platform/official entrypoint and expected PROPOSED denial with network none. It publishes no image. A LAB_ONLY build is not a promotable image or positive STAGING acceptance. No Docker execution is claimed until its source-bound report exists.
+
+Read-only observations this unit: authenticated EasyPanel2.38.0 exact App crm-inmobiliario/crm-telecom-staging still init/source with empty GitHub fields. Dashboard point-in-time:2cores,89%CPU,load2.75/0.91/0.78,memory2.3/7.8GB,disk35.8/95.8GB. This is not a capacity reservation or load acceptance. GitHub authenticated account Packages page shows onboarding/no packages listed; no existing private package is demonstrated. No source saved, image pushed, credentials entered, deployment, network mutation or new cost.
+
+Effective remaining blockers:
+
+- Admission still pins Netlify; a concrete authorized EasyPanel HTTPS origin and shared parser adaptation must be agreed, including callbacks/cohort/proxy/SDK. No arbitrary origin environment bypass.
+- promotion.mjs remains closed; reviewed successor and real source/image/security evidence are required, not a JSON approval claim.
+- Private GHCR bootstrap/visibility/repository access and read-only pull credential are not established. Existing publisher requires a pre-existing private package; resolve bootstrap under a separately reviewed minimum-permission procedure, not a public first image.
+- Hosted overlay isolation, private TLS/access and exact App limits must be proven without modifying other services/global networks. Lab188 is insufficient.
+- W4 requires private classification of28 historical findings by fingerprint/current exposure/credential validity and artifact inclusion; count alone does not determine effective risk. Never publish raw findings or secrets.
+- Hosted ledger last read base87+Storage88 differs from this base87+D1. No hosted binding or SQL here. Evaluate a separately accepted compatible commercial source or reviewed forward-only composition; D1 stays disabled until compatibility/Auth acceptance.
+
+CODE_PUSHED is recorded by the PR/issue handoff with SOURCE/TREE/EXECUTED. PIPELINE_READY=false, IMAGE_BUILT=false until physical evidence, IMAGE_PUBLISHED=false, STAGING_DEPLOYED=false, STAGING_ACCEPTED=false, PRODUCTION_NOT_APPROVED. No verified private CRM URL exists. Rollback selects the previous accepted digest with matching configuration/schema; absent such a first receipt, withdraw only the new App/route. SQL stays forward-only.
+
+Next3: independent exact composition/lab review and one physical image-negative run; agree origin/admission/promotion plus private registry bootstrap; complete hosted isolation/config/schema acceptance and only then build/scan/provenance/private publish/digest deployment and Auth/tenant/UI smoke.
