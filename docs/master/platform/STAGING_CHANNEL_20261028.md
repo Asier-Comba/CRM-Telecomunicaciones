@@ -83,6 +83,18 @@ workflow orders build before the existing promotion gate; verification and
 publication remain absent until implemented/reviewed, without placeholder digest
 or fabricated candidate. This correction does not activate the job.
 
+The additional pure OCI verifier hashes raw manifest/config bytes, checks their
+actual relationship, linux/amd64/nonroot/entrypoint/port structure and expected
+source/tree/lockfile/Dockerfile/public-config labels. Changed bytes, config-ID
+substitution, wrong platform/root/command, extra port, runtime public/private key
+bindings, label drift, external layers and unsupported indexes fail. Seven
+focused contract/OCI tests PASS. These synthetic fixtures do not prove an actual
+image, layer security, source authenticity, signature, registry privacy or runtime
+smoke. Output explicitly retains registry_visibility/source_authenticity
+NOT_VERIFIED and publishable:false; it cannot masquerade as a private receipt.
+The future publisher still must fetch the registry metadata and verify provenance
+plus independent scan/smoke evidence before promotion. No network call is added.
+
 The new workflow runs only contract tests on PRs. Manual build job is explicitly
 inert (`if:false`), has contents-read only, reuses the existing Dockerfile and
 existing promotion gate. No registry login/push/package-write/VPS token or webhook.
