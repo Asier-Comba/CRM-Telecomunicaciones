@@ -9,6 +9,9 @@ on:
       - 'src/proxy.ts'
       - 'tests/bootstrap/product-easypanel-private-egress-v1.test.mjs'
       - 'tests/bootstrap/product-staging-admission-v1.test.mjs'
+      - 'src/lib/server/product-readiness-v1.ts'
+      - 'src/app/api/health/ready/route.ts'
+      - 'tests/bootstrap/product-readiness-v1.test.mjs'
       - 'docs/master/contracts/product-environment.json'
       - 'infra/platform/environment-manifest.json'
       - 'scripts/platform/config.mjs'
@@ -32,4 +35,4 @@ jobs:
           node-version-file: .nvmrc
       - run: npm ci
       - name: Actual gateway, admission and SDK consumer contracts
-        run: node --experimental-transform-types --test tools/asier_staging_network/*.test.mjs tests/bootstrap/product-easypanel-private-egress-v1.test.mjs tests/bootstrap/product-staging-admission-v1.test.mjs
+        run: node --experimental-transform-types --test tools/asier_staging_network/*.test.mjs tests/bootstrap/product-easypanel-private-egress-v1.test.mjs tests/bootstrap/product-staging-admission-v1.test.mjs tests/bootstrap/product-readiness-v1.test.mjs

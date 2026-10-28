@@ -2,6 +2,9 @@
 # Reuses the existing image/publisher; one immutable digest for all three roles.
 x-crm-runtime: &runtime
   image: ${APP_IMAGE:?Approved private ghcr.io repository@sha256 digest required}
+  # An independently verified temporary pull must populate this exact digest first.
+  # No registry credential is inherited by Compose or the service environment.
+  pull_policy: never
   env_file: ${APP_ENV_FILE:?Owner-managed private environment file outside Git required}
   environment: &environment
     PLATFORM_TARGET: STAGING
