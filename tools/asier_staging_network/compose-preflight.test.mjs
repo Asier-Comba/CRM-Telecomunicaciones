@@ -88,6 +88,7 @@ const mutations={
  noPrivilegeGuard:i=>{delete ingress(i).security_opt},
  unlimitedMemory:i=>{delete app(i).mem_limit},
  largerCpu:i=>{egress(i).cpus=2},
+ arrayCpu:i=>{egress(i).cpus=[0.25]},
  alternateTmpfs:i=>{app(i).tmpfs.push('/etc')},
  unboundedRestart:i=>{app(i).restart='always'},
  increasedShutdown:i=>{ingress(i).stop_grace_period='5m'},

@@ -11,6 +11,7 @@ const subset=(value,keys)=>value!==null&&typeof value==='object'&&!Array.isArray
 const empty=value=>value===undefined||value===null||sameKeys(value,[])
 const sorted=value=>Array.isArray(value)?[...value].sort():null
 const memory=value=>typeof value==='number'?value:typeof value==='string'&&/^\d+m$/.test(value)?Number(value.slice(0,-1))*1024*1024:NaN
+const cpu=value=>typeof value==='number'?value:typeof value==='string'&&/^\d+(\.\d+)?$/.test(value)?Number(value):NaN
 
 // Only inspect the resolved `docker compose config --format json` document.
 // This pure check cannot authenticate its receipt/reviews or authorize publication/deployment.
@@ -44,7 +45,7 @@ export function composePreflightV1({configuration,receipt,expected,policy,bindin
   if(service.entrypoint!==undefined&&service.entrypoint!==null)fail('SERVICE_ENTRYPOINT_INVALID')
   if(service.user!=='65532:65532'||service.read_only!==true||!isDeepStrictEqual(service.cap_drop,['ALL'])||!isDeepStrictEqual(service.security_opt,['no-new-privileges:true']))fail('SERVICE_PRIVILEGES_INVALID')
   if(service.restart!=='on-failure:3'||service.stop_grace_period!=='35s'||!isDeepStrictEqual(service.logging,{driver:'json-file',options:{'max-size':'5m','max-file':'2'}}))fail('SERVICE_LIFECYCLE_INVALID')
-  if(memory(service.mem_limit)!==(isApp?768:256)*1024*1024||Number(service.cpus)!==(isApp?0.75:0.25))fail('SERVICE_RESOURCE_BOUND_INVALID')
+  if(memory(service.mem_limit)!==(isApp?768:256)*1024*1024||cpu(service.cpus)!==(isApp?0.75:0.25))fail('SERVICE_RESOURCE_BOUND_INVALID')
   const environment=service.environment
   if(!subset(environment,[...environmentNames,'HOSTNAME','PORT']))fail('SERVICE_ENVIRONMENT_FIELDS_INVALID')
   try{gatewayRuntimeSettingsV1(isIngress?'ingress':'egress',environment,policy,binding)}catch{fail('SERVICE_RUNTIME_ADMISSION_DENIED')}
