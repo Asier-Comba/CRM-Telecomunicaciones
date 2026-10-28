@@ -22,9 +22,8 @@ jobs:
     env:
       CI: 'true'
       TELECOM_NATIVE_RESOURCE_DISPOSABLE: 'true'
-      # Historical scope: on a profile87 checkout apply only the 86 pinned blobs
-      # (whole 87 directory validated first); a non-87 directory keeps grants86.
-      TELECOM_NATIVE_CONSUMER_MIGRATION_CLOSURE: historical_grants_86
+      # Validate complete BASE87_PLUS_D1 before applying only pinned historical86.
+      TELECOM_NATIVE_CONSUMER_MIGRATION_CLOSURE: historical_grants_86_from_d1
       DOCKER_HOST: unix:///var/run/docker.sock
       DOCKER_CONTEXT: ''
       NODE_ENV: test

@@ -3,6 +3,7 @@
 import { readFile, readdir } from 'node:fs/promises'
 import path from 'node:path'
 import process from 'node:process'
+import {collectPublicSqlNames} from './audit-supabase-identifiers.mjs'
 
 const root = process.cwd()
 const migrationsDir = path.join(root, 'supabase', 'migrations')
@@ -72,19 +73,19 @@ const sourceFunctions = new Map()
 for (const file of migrationFiles) {
   const sql = await readFile(file, 'utf8')
 
-  for (const relation of collectMatches(
+  for (const relation of collectPublicSqlNames(
     sql,
-    /create\s+(?:or\s+replace\s+)?(?:table|view|materialized\s+view)\s+(?:if\s+not\s+exists\s+)?(?:public\.)?["']?([a-z_][a-z0-9_]*)["']?/gi,
+    'create\\s+(?:or\\s+replace\\s+)?(?:table|view|materialized\\s+view)\\s+(?:if\\s+not\\s+exists\\s+)?',
   )) createdRelations.add(relation)
 
-  for (const fn of collectMatches(
+  for (const fn of collectPublicSqlNames(
     sql,
-    /create\s+(?:or\s+replace\s+)?function\s+(?:public\.)?["']?([a-z_][a-z0-9_]*)["']?/gi,
+    'create\\s+(?:or\\s+replace\\s+)?function\\s+',
   )) createdFunctions.add(fn)
 
   const referenced = new Set([
-    ...collectMatches(sql, /alter\s+table\s+(?:if\s+exists\s+)?(?:only\s+)?(?:public\.)?["']?([a-z_][a-z0-9_]*)["']?/gi),
-    ...collectMatches(sql, /grant[\s\S]{0,180}?\bon\s+table\s+(?:public\.)?["']?([a-z_][a-z0-9_]*)["']?/gi),
+    ...collectPublicSqlNames(sql, 'alter\\s+table\\s+(?:if\\s+exists\\s+)?(?:only\\s+)?'),
+    ...collectPublicSqlNames(sql, 'grant[\\s\\S]{0,180}?\\bon\\s+table\\s+'),
   ])
 
   for (const relation of referenced) addEvidence(migrationReferences, relation, file)
@@ -93,14 +94,14 @@ for (const file of migrationFiles) {
 for (const file of historicalSqlFiles) {
   const sql = await readFile(file, 'utf8')
 
-  for (const relation of collectMatches(
+  for (const relation of collectPublicSqlNames(
     sql,
-    /create\s+(?:or\s+replace\s+)?(?:table|view|materialized\s+view)\s+(?:if\s+not\s+exists\s+)?(?:public\.)?["']?([a-z_][a-z0-9_]*)["']?/gi,
+    'create\\s+(?:or\\s+replace\\s+)?(?:table|view|materialized\\s+view)\\s+(?:if\\s+not\\s+exists\\s+)?',
   )) addEvidence(historicalRelations, relation, file)
 
-  for (const fn of collectMatches(
+  for (const fn of collectPublicSqlNames(
     sql,
-    /create\s+(?:or\s+replace\s+)?function\s+(?:public\.)?["']?([a-z_][a-z0-9_]*)["']?/gi,
+    'create\\s+(?:or\\s+replace\\s+)?function\\s+',
   )) addEvidence(historicalFunctions, fn, file)
 }
 

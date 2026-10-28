@@ -1,12 +1,16 @@
 import {createRequire} from 'node:module'
 import {readFileSync,readdirSync,writeFileSync} from 'node:fs'
 import {resolve} from 'node:path'
-import {randomUUID} from 'node:crypto'
+import {randomUUID,createHash} from 'node:crypto'
 import {parseDocumentLibraryInputV2,parseDocumentLibraryPageV2} from '../../src/lib/server/document-library-runtime-v2.ts'
 const require=createRequire(resolve('scripts/security/ephemeral-postgres/package.json'))
 const {PGlite}=require('@electric-sql/pglite'),{pgcrypto}=require('@electric-sql/pglite/contrib/pgcrypto'),{btree_gist}=require('@electric-sql/pglite/contrib/btree_gist')
 const db=new PGlite({extensions:{pgcrypto,btree_gist}})
-const report={environment:'EMBEDDED_SQL_ONLY_NOT_AUTH',result:'NOT_RUN',checks:[],storage_88_adopted:false,private_bytes:'OFF'}
+// Optional immutable D1 source is solely for a local RED/GREEN causal pair.
+// Every other migration and all test actions/assertions remain identical.
+if(process.argv.length!==2&&(process.argv.length!==4||process.argv[2]!=='--d1-source'))throw Error('D1_INVALID_TEST_ARGUMENTS')
+const d1Source=process.argv[3]??'supabase/migrations/20261027154155_documents_library_v2.sql'
+const report={environment:'EMBEDDED_SQL_ONLY_NOT_AUTH',result:'NOT_RUN',checks:[],storage_88_adopted:false,private_bytes:'OFF',migration_sha256:createHash('sha256').update(readFileSync(d1Source)).digest('hex')}
 let phase='bootstrap'
 function check(ok,name){report.checks.push({name,result:ok?'PASS':'FAIL'});if(!ok)throw Error('D1_SQL_CHECK_FAILED')}
 async function root(source,params=[]){await db.exec('reset role');return db.query(source,params)}
@@ -26,7 +30,10 @@ try{
  phase='canonical_then_d1_migration'
  const migrations=readdirSync('supabase/migrations').filter(n=>n.endsWith('.sql')).sort()
  check(migrations.length===88&&migrations.at(-1)==='20261027154155_documents_library_v2.sql','base_87_plus_d1_not_storage_88')
- for(const name of migrations)await db.exec(readFileSync('supabase/migrations/'+name,'utf8'))
+ for(const name of migrations)await db.exec(readFileSync(name==='20261027154155_documents_library_v2.sql'?d1Source:'supabase/migrations/'+name,'utf8'))
+ phase='unchanged_legacy_rls_fixture_with_library_gate_off'
+ await db.exec(readFileSync('supabase/tests/telecom-domain-rls.sql','utf8').replace(/^\\.*$/gm,''))
+ check(true,'unchanged_legacy_transactional_rls_mutations_preserved_with_gate_off')
  phase='synthetic_density'
  await db.exec(readFileSync('supabase/seeds/synthetic_product.sql','utf8'))
  const wa=(await root("select id from public.workspaces where slug='synthetic-density-1'")).rows[0].id,wb=(await root("select id from public.workspaces where slug='synthetic-density-2'")).rows[0].id
@@ -47,6 +54,16 @@ try{
   await root(`insert into public.documents(id,workspace_id,${target[2]},document_kind,file_name,media_type,size_bytes,storage_path,created_at)values($1,$2,$3,$4,'PRIVATE_D1_UNSEARCHABLE.pdf',$5,1024,$6,$7)`,[id,wa,targetId,n%2?'contract':'general',n%3?'application/pdf':'image/png',wa+'/documents/'+id+'/'+randomUUID(),time]);docs.push(id)
  }
  const foreignDoc=randomUUID();await root("insert into public.documents(id,workspace_id,customer_id,document_kind,file_name,media_type,size_bytes,storage_path)values($1,$2,$3,'general','FOREIGN_PRIVATE_UNSEARCHABLE.pdf','application/pdf',10,$4)",[foreignDoc,wb,cb,wb+'/documents/'+foreignDoc+'/'+randomUUID()])
+ phase='legacy_customer_update_with_library_gate_off'
+ const customerVersion=(await root('select version from public.customers where id=$1',[ca])).rows[0].version
+ await as('authenticated',ownerA)
+ const updated=(await db.query('select public.product_v1_customer_update($1,$2::jsonb) as receipt',[wa,JSON.stringify({command_id:randomUUID(),id:ca,expected_version:Number(customerVersion),trade_name:'D1 legitimate owner edit'})])).rows[0].receipt
+ check(updated.id===ca&&updated.version===Number(customerVersion)+1,'disabled_library_preserves_existing_authorized_customer_update')
+ phase='legacy_document_commands_with_library_gate_off'
+ const archived=(await db.query('select public.document_v1_archive($1,$2::jsonb) as receipt',[wa,JSON.stringify({id:docs[0],command_id:randomUUID(),expected_version:1})])).rows[0].receipt
+ check(archived.version===2&&archived.status==='archived','disabled_library_preserves_existing_authorized_document_archive')
+ const restored=(await db.query('select public.document_v1_restore($1,$2::jsonb) as receipt',[wa,JSON.stringify({id:docs[0],command_id:randomUUID(),expected_version:2})])).rows[0].receipt
+ check(restored.version===3&&restored.status==='active','disabled_library_preserves_existing_authorized_document_restore')
  phase='gate_and_privileges'
  await denied(()=>call(ownerA,wa),'PT503','direct_rpc_cannot_bypass_disabled_database_gate')
  for(const role of ['anon','service_role'])await denied(()=>call(ownerA,wa,{},role),'42501','rpc_execute_denied_'+role)
@@ -81,5 +98,5 @@ try{
  await root("update public.documents set status='active',archived_at=null where id=$1",[docs[0]])
  await root("update documents_library_private.settings set key_bytes=extensions.gen_random_bytes(32),key_generation=key_generation+1 where singleton");await denied(()=>call(ownerA,wa,{cursor:fresh.next_cursor}),'22023','key_rotation_invalidates_old_cursor');check((await call(ownerA,wa)).total_count===123,'new_cursor_after_rotation_works')
  phase='completed';report.result='PASS';report.migrations=88;report.rows=123;report.targets=6;report.roles=['owner','admin','member','viewer'];report.auth='NOT_RUN_EMBEDDED_SQL_ONLY'
-}catch(error){report.result='FAIL';report.phase=phase;report.error=/^D1_[A-Z_]+$/.test(error?.message??'')?error.message:'D1_SQL_SAFE_FAILURE';report.sqlstate=/^[A-Z0-9]{5}$/.test(error?.code??'')?error.code:null;process.exitCode=1}
+}catch(error){report.result='FAIL';report.phase=phase;report.error=/^D1_[A-Z_]+$/.test(error?.message??'')?error.message:'D1_SQL_SAFE_FAILURE';report.sqlstate=/^[A-Z0-9]{5}$/.test(error?.code??'')?error.code:null;report.permission_error=/^permission denied for (function|table|schema) [a-z0-9_]+$/.test(error?.message??'')?error.message:null;process.exitCode=1}
 finally{await db.close();report.passed=report.checks.filter(c=>c.result==='PASS').length;console.log(JSON.stringify(report));if(process.env.DOCUMENTS_GLOBAL_SQL_OUTPUT)writeFileSync(process.env.DOCUMENTS_GLOBAL_SQL_OUTPUT,JSON.stringify(report,null,2)+'\n')}

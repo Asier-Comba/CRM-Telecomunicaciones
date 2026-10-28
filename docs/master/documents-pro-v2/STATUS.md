@@ -1,5 +1,17 @@
 # Documents Pro V2 — D1A scoped frontend checkpoint
 
+## Recovery / D1 source-gate increment — 2026-10-28
+
+Remote refresh confirmed #198 ddcd9ea, #199 37d48e9 and #200 8cc9adf (tree f2ed1b83586553e75cb57237ba153712c5725dc0), with no later D1 source. Retained local global UI3337d4cad727b0ef62815b32935fd51e33081d82 is present and committed; it is not rebuilt or credited as Auth acceptance. #200 native PostgreSQL122343835125 and embedded122343837068 passed in CI40548021775, closing the index regression physically for that source. Supabase40548021789 is SUCCESS; global Auth/UI remains unaccredited. The rest of the original CI remains FAIL, not inherited by this increment.
+
+This increment fixes source compatibility without changing SQL: explicit BASE87_PLUS_D1 manifest pins the two historical manifests and the corrected D1 SHA256/blob/source8cc/tree. Strict85/86/87 loaders remain unchanged and reject D1. Explicit historical projections validate all88 files first, then expose only exact86/87 pinned SQL; new consumer modes have no count inference or fallback. Native workflow selects historical87 and full D1 separately, while both86 workflows explicitly select their historical scope. All old unknown/missing/modified negatives remain and D1 adds same-count Storage88-substitution, altered/missing SQL and source-selection rejection.23 focused profile tests PASS locally; physical committed restart for this new source is pending.
+
+Five bootstrap failures at8cc were D1-caused: two obsolete assumptions that the actual checkout is profile87, missing bootstrap migration name, and two public-catalog assertions affected by a regex truncating private_schema.object into a fictitious public relation. Historical87 tests now use an exact87 fixture, with strict D1 rejection separately enforced; no criteria are relaxed. Namespace recognition consumes qualified/quoted names before selecting public scope; private function grants remain checked independently by existing domain/SQL gates. Seven audit checks PASS. W4/W5 technical ACK delimited inventories: only D1 filename/hash, optional server-only defaultOFF flag and new endpoint consumer references for PRODUCT_V1_ENABLED/ORIGIN. Prior87 inventory entries and public allowlist remain unchanged. Actual regenerated diff and adapters still require independent review.
+
+Recovery CLAIM6465703344. D2 is now a human product objective but shared ownership/contract remain to be agreed before SQL/backend edits. No Storage88/#179, main, staging, hosting, private bytes, live AI or costs enabled. RELEASE_NOT_ACCEPTED.
+
+The existing composition generator also requires its source inventory to include D1: W5 reviewed precisely head.migrations87→88, one forward filename and public_rpc_manifest319→320. Its historical sources and composition_accepted:false remain untouched. Inventory and composition checks PASS after those exact changes. Local lint/typecheck/production build and5 contract checks PASS. Broad Windows bootstrap:678PASS/5FAIL (683 total), all five failures in unchanged encrypted import adapters rejecting local filesystem prerequisites; assistant stage was not reached because of the existing &&. These failures remain FAIL, not waived. Linux exact-source CI must validate the complete suite. No migration SQL or privilege entry changed in this recovery increment.
+
 2026-10-27. Base: integrated commercial B43 `b43f459e8ee26e5d684206842e5acb377b364875` (#191). This is a partial checkpoint, not D1/global inventory acceptance or a release.
 
 ## Delivered

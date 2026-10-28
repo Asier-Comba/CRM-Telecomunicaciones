@@ -15,17 +15,12 @@ revoke all on documents_library_private.settings from public,anon,authenticated,
 insert into documents_library_private.settings(singleton)values(true);
 -- A privileged future rotation replaces key_bytes and increments generation,
 -- invalidating every old cursor. No public rotation/key-export function exists.
-create function documents_library_private.title(p_kind text,p_id uuid)returns text
-language sql immutable set search_path=''as $$
- select case p_kind when 'general'then 'General'when 'identity'then 'Identidad'when 'contract'then 'Contrato'when 'service'then 'Servicio'when 'incident'then 'Incidencia'when 'billing'then 'Facturación'else 'Otro'end||' · ref '||left(p_id::text,8)
-$$;
-revoke all on function documents_library_private.title(text,uuid)from public,anon,authenticated,service_role;
-create function documents_library_private.customer_label(p_trade text,p_legal text,p_id uuid)returns text
-language sql immutable set search_path=''as $$select case when p_id is null then null else coalesce(nullif(btrim(regexp_replace(coalesce(nullif(btrim(p_trade),''),p_legal),'[[:cntrl:]]',' ','g')),''),'Empresa · ref '||left(p_id::text,8))end$$;
-revoke all on function documents_library_private.customer_label(text,text,uuid)from public,anon,authenticated,service_role;
+-- Index maintenance runs with the legitimate writer's privileges. Use only
+-- built-ins here and the identical expressions in the guarded reader below;
+-- a private formatter would require new EXECUTE grants on legacy mutations.
 create index documents_library_workspace_status_created_id_idx on public.documents(workspace_id,status,created_at,id);
-create index documents_library_title_search_idx on public.documents using gin(to_tsvector('simple'::regconfig,documents_library_private.title(document_kind,id)||' '||document_kind));
-create index documents_library_customer_label_search_idx on public.customers using gin(to_tsvector('simple'::regconfig,documents_library_private.customer_label(trade_name,legal_name,id)));
+create index documents_library_title_search_idx on public.documents using gin(to_tsvector('simple'::regconfig,(case document_kind when 'general'then 'General'when 'identity'then 'Identidad'when 'contract'then 'Contrato'when 'service'then 'Servicio'when 'incident'then 'Incidencia'when 'billing'then 'Facturación'else 'Otro'end||' · ref '||left(id::text,8))||' '||document_kind));
+create index documents_library_customer_label_search_idx on public.customers using gin(to_tsvector('simple'::regconfig,case when id is null then null else coalesce(nullif(btrim(regexp_replace(coalesce(nullif(btrim(trade_name),''),legal_name),'[[:cntrl:]]',' ','g')),''),'Empresa · ref '||left(id::text,8))end));
 
 create function documents_library_private.list(p_workspace_id uuid,p_input jsonb)returns jsonb
 language plpgsql security definer set search_path=''as $$
@@ -83,10 +78,10 @@ begin
  -- targets. Current labels/status/relations are re-read, never a frozen snapshot.
  with authorized as(
   select d.id,d.version,d.status,d.document_kind,d.media_type,d.size_bytes,d.created_at,
-   documents_library_private.title(d.document_kind,d.id)display_title,
+   case d.document_kind when 'general'then 'General'when 'identity'then 'Identidad'when 'contract'then 'Contrato'when 'service'then 'Servicio'when 'incident'then 'Incidencia'when 'billing'then 'Facturación'else 'Otro'end||' · ref '||left(d.id::text,8)display_title,
    case when d.customer_id is not null then 'customer'when d.contract_id is not null then 'contract'when d.service_id is not null then 'service'when d.line_id is not null then 'line'when d.service_case_id is not null then 'service_case'else 'opportunity'end entity_kind,
    coalesce(d.customer_id,co.id,sv.id,ln.id,cs.id,op.id)entity_id,
-   cu.id customer_id,documents_library_private.customer_label(cu.trade_name,cu.legal_name,cu.id)customer_label
+   cu.id customer_id,case when cu.id is null then null else coalesce(nullif(btrim(regexp_replace(coalesce(nullif(btrim(cu.trade_name),''),cu.legal_name),'[[:cntrl:]]',' ','g')),''),'Empresa · ref '||left(cu.id::text,8))end customer_label
   from public.documents d
   left join public.telecom_contracts co on co.workspace_id=d.workspace_id and co.id=d.contract_id
   left join public.telecom_services sv on sv.workspace_id=d.workspace_id and sv.id=d.service_id

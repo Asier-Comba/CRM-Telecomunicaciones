@@ -2948,6 +2948,35 @@
       "required_when": null
     },
     {
+      "name": "PRODUCT_DOCUMENT_LIBRARY_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "LOCAL",
+        "DEV",
+        "STAGING",
+        "PROD"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "src/app/api/document/library/v2/queries/route.ts"
+      ],
+      "validation_rule": "boolean",
+      "description": "Configuration binding for PRODUCT_DOCUMENT_LIBRARY_ENABLED; presence does not prove provider readiness.",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "application",
+      "destination": "environment-specific configuration",
+      "required_when": null
+    },
+    {
       "name": "PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
       "type": "boolean",
       "secret": false,
@@ -3218,6 +3247,7 @@
         "src/app/api/billing/v1/queries/route.ts",
         "src/app/api/cases/v1/route.ts",
         "src/app/api/catalog/v1/route.ts",
+        "src/app/api/document/library/v2/queries/route.ts",
         "src/app/api/document/v1/commands/route.ts",
         "src/app/api/document/v1/content/commands/route.ts",
         "src/app/api/document/v1/content/download/route.ts",
@@ -3287,6 +3317,7 @@
         "src/app/api/billing/v1/queries/route.ts",
         "src/app/api/cases/v1/route.ts",
         "src/app/api/catalog/v1/route.ts",
+        "src/app/api/document/library/v2/queries/route.ts",
         "src/app/api/document/v1/commands/route.ts",
         "src/app/api/document/v1/content/commands/route.ts",
         "src/app/api/document/v1/content/download/route.ts",
@@ -4277,6 +4308,11 @@
       "name": "20261020100000_business_conflict_non_retryable.sql",
       "version": "20261020100000",
       "sha256": "5cb2704c505a82426b583f129be6a24d384b129ec4fd66d878dec91ea7524245"
+    },
+    {
+      "name": "20261027154155_documents_library_v2.sql",
+      "version": "20261027154155",
+      "sha256": "e7d70227a3fc4b9470a5895962c97291087a70dfb79d29ec350cf8bc0faca036"
     }
   ]
 }

@@ -1,5 +1,7 @@
 # Documents Pro V2 acceptance matrix
 
+2026-10-28 source-gate recovery: #200 source8cc native PostgreSQL/PGlite PASS in40548021775, Supabase40548021789 SUCCESS; no global UI/Auth acceptance inferred. New exact BASE87_PLUS_D1/historical projection controls23PASS, namespace audit7PASS, bootstrap/inventory/composition checks PASS locally. Whole Windows bootstrap678PASS/5FAIL in unchanged encrypted-import filesystem prerequisites; complete Linux CI/native restart pending on successor SHA. Global UI3337d4c is recovered locally (20 controlled checks previously PASS), not yet published or physically accepted. Folders remain shared-contract/ownership pending under the new D2 objective. All earlier failed QA attempts remain FAIL.
+
 2026-10-27 — partial D1A. PASS controlled does not mean PASS Auth or global inventory. No module DONE, W4_ACCEPTED, hosted or release acceptance.
 
 | # | Required scenario | Current evidence / result |
