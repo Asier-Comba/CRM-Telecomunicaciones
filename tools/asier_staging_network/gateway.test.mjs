@@ -51,7 +51,7 @@ test('CONNECT cannot open a tunnel or trigger DNS',async t=>{
  assert.equal(status,403);assert.equal(dns,0);assert.equal(calls.length,0)
 })
 test('oversized upstream responses fail closed instead of returning truncated success',async t=>{
- const transport=(_target,_options,callback)=>{const request=new EventEmitter();request.end=()=>queueMicrotask(()=>{const response=Readable.from([Buffer.alloc(bodyLimit+1)]);response.statusCode=200;response.headers={};callback(response)});return request}
+ const transport=(_target,_options,callback)=>{const request=new EventEmitter();request.destroy=()=>request.emit('error',Error('synthetic-close'));request.end=()=>queueMicrotask(()=>{const response=Readable.from([Buffer.alloc(bodyLimit+1)]);response.statusCode=200;response.headers={};callback(response)});return request}
  const url=await listen(t,createEgressGateway({resolve:async()=>[{address:'8.8.8.8',family:4}],transport}))
  const response=await fetch(url+'/rest/v1/rpc/example');assert.equal(response.status,502);assert.ok((await response.text()).length<100)
 })
@@ -133,6 +133,18 @@ test('absolute upstream deadline stops a continuously dripping response',async t
  const request=fetch(url+'/auth/v1/user')
  try{const status=await Promise.race([request.then(r=>r.status),new Promise(resolve=>{timer=setTimeout(()=>resolve('UNBOUNDED_DRIP'),500)})]);assert.equal(status,504);assert.equal(stopped,true)}
  finally{clearTimeout(timer);stop?.();await request}
+})
+test('rejected redirects destroy the upstream request and continuous response before releasing work',async t=>{
+ let stop,ticks=0,requestDestroyed=false,responseDestroyed=false
+ const transport=(_target,_options,callback)=>{
+  const request=new EventEmitter();let interval,response
+  stop=()=>{if(requestDestroyed)return;requestDestroyed=true;clearInterval(interval);response?.destroy();request.emit('error',Error('synthetic-close'))}
+  request.destroy=stop
+  request.end=()=>queueMicrotask(()=>{response=new Readable({read(){},destroy(_error,done){responseDestroyed=true;done()}});response.statusCode=302;response.headers={location:'https://other.invalid/'};interval=setInterval(()=>{ticks++;response.push(Buffer.from('synthetic'))},5);callback(response)})
+  return request
+ }
+ const url=await listen(t,createEgressGateway({upstreamDeadlineMs:25,resolve:async()=>[{address:'8.8.8.8',family:4}],transport}))
+ try{assert.equal((await fetch(url+'/auth/v1/user')).status,502);await new Promise(resolve=>setTimeout(resolve,60));assert.deepEqual({requestDestroyed,responseDestroyed,ticks},{requestDestroyed:true,responseDestroyed:true,ticks:0})}finally{stop?.()}
 })
 test('SDK fetch adapter preserves the public origin contract and request transport semantics',async()=>{
  const calls=[],transport=createGatewayFetch(async(request,options)=>{calls.push({request,options});return new Response('{}')})

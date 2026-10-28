@@ -29,18 +29,18 @@ async function forward(request,response,target,transport,options={},redirectOrig
  const headers={...headersWithoutHop(options.headers??request.headers),'content-length':String(bytes.length)}
  // No stdout/stderr access logs, payloads, JWTs, cookies or DNS answers.
  await new Promise(resolve=>{
-  let upstream,incoming,deadline,settled=false
-  const abort=()=>{incoming?.destroy();upstream?.destroy()}
+  let upstream,incoming,deadline,settled=false,cancelling=false
+  const abort=()=>{if(cancelling)return;cancelling=true;incoming?.destroy();upstream?.destroy()}
   const cancel=()=>{if(!response.writableEnded){abort();finish()}}
   const finish=()=>{if(settled)return;settled=true;clearTimeout(deadline);response.off('close',cancel);resolve()}
   response.once('close',cancel)
   deadline=setTimeout(()=>{closed(response,504);abort();finish()},deadlineMs)
   try{upstream=transport(target,{...options,method:request.method,headers,timeout:30000},async result=>{
    incoming=result
-   if(result.statusCode>=300&&result.statusCode<400&&result.statusCode!==304&&(!redirectOrigin||!safeIngressRedirect(result.headers.location,redirectOrigin))){result.resume();closed(response,502);return finish()}
-   try{const chunks=[];let count=0;for await(const chunk of result){count+=chunk.length;if(count>bodyLimit){result.destroy();throw Error('UPSTREAM_TOO_LARGE')}chunks.push(chunk)}if(!response.destroyed){response.writeHead(result.statusCode??502,headersWithoutHop(result.headers));response.end(Buffer.concat(chunks))}}catch{closed(response,502)}finally{finish()}
-  })}catch{closed(response,502);finish();return}
-  upstream.on('timeout',()=>upstream.destroy());upstream.on('error',()=>{closed(response,502);finish()});upstream.end(bytes)
+   if(result.statusCode>=300&&result.statusCode<400&&result.statusCode!==304&&(!redirectOrigin||!safeIngressRedirect(result.headers.location,redirectOrigin))){abort();closed(response,502);return finish()}
+   try{const chunks=[];let count=0;for await(const chunk of result){count+=chunk.length;if(count>bodyLimit){result.destroy();throw Error('UPSTREAM_TOO_LARGE')}chunks.push(chunk)}if(!response.destroyed){response.writeHead(result.statusCode??502,headersWithoutHop(result.headers));response.end(Buffer.concat(chunks))}}catch{abort();closed(response,502)}finally{finish()}
+  })}catch{abort();closed(response,502);finish();return}
+  upstream.on('timeout',()=>{abort();closed(response,504);finish()});upstream.on('error',()=>{abort();closed(response,502);finish()});upstream.end(bytes)
  })
 }
 async function resolveA(hostname,{signal}){
