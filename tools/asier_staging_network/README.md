@@ -1,0 +1,15 @@
+# Exclusive CRM gateways — implementation under review
+
+Human scope expansion28/10 authorizes preparation and verification of the private network and two CRM-only helpers. CLAIM6476830494. No hosted mutation or production acceptance is implied.
+
+`gateway.mjs` implements Node HTTP server factories, without top-level effects or a deployment entrypoint. Ingress requires explicit canonical HTTPS origin and private Basic credentials, fixes the app destination, removes Basic credentials, and replaces forwarding identity headers. Actual credentials must be entered only through the owner's secure channel; fixtures generate ephemeral credentials and never print them. No account password is set here.
+
+Egress is a fixed reverse proxy, not an encrypted CONNECT tunnel that could conceal a different HTTP Host on shared provider infrastructure. It forwards only Auth/REST to the current canonical Supabase project. It rejects redirects, CONNECT/upgrades, private/reserved/mixed DNS answers, encoded traversal and unbounded bodies; pins a checked IPv4 answer with certificate/SNI validation. Only necessary Supabase headers pass, not application cookies or forwarded-host hints. This profile intentionally supports IPv4 only; actual provider A records/TLS must be verified before use. No service-role credential is required or accepted as configuration.
+
+`server-fetch.mjs` prepares the server-only SDK transport adapter. The public Supabase URL, browser client and build fingerprint stay unchanged. It is NOT imported by any current SDK consumer. `supabase-user.ts` and `proxy.ts` remain untouched until contract/ownership review; no DTO/RPC/SQL change.
+
+Local12 tests use actual loopback HTTP listeners with controlled DNS/TLS transport doubles. They do not contact Supabase or prove certificate behavior, DNS containment, overlay isolation, private TLS ingress or authentication on the hosted App. Initial8PASS/1FAIL retained: the fetch client did not provide the intended Host; using the explicit HTTP Host client exercises the real host check without weakening assertions. Successor12PASS includes CONNECT, oversized upstream and ingress-configuration negatives. No timeouts relaxed.
+
+Not yet present: container startup wiring, reviewed images/scans/provenance/digests, network deployment descriptor, secret-store binding, outer TLS/proxy integration, real Swarm/DNS tests or remote installation. The factories and policy are a reviewable unit, not a deployed network. Do not enable these on the VPS from the unit tests.
+
+Next: independent W4/W5 review; connect the approved fetch adapter and packaged gateway processes with exact manifest/configuration; disposable Swarm + real TLS/DNS/traffic tests, then narrowly scoped hosted verification before app startup. Deployment must leave Traefik/global networks/other Apps unchanged and use only the authorized private network/gateways on existing capacity. Staging and production remain unaccepted.
