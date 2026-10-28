@@ -1,5 +1,22 @@
 # Private staging channel — preparation, not acceptance
 
+Current closure: Documentos FULLc17 run40720188927/job122928653044 PASS117;
+source/executedc17d8666dd39435112ac9e1745f496add68147c0,
+tree4c87996c28103ce6a40c9eff741480c27eeca2bf. Prior FAILs below remain history.
+Safe/UI artifacts12829214919/12830710718 were downloaded/checksummed and six
+loaded screenshots visually inspected. See the current Documents matrix/report.
+Channel source3a502a4712c3fde452a9e274a8c3809a76ed2a9d,
+treeea750486bc503fd99c5a7dd6393c8cd8885bf875 received exact limited technical
+W4/W5 ACK and own contract run40720364276/job122929280380 PASS12.
+Executed GitHub merge74ade102846eee59286a0064b491cef9f92cacb7,
+treed208b730be6bfd92310239b02957b3a45bff6bdf includes reviewed c17. The local
+selective merge produces the identical tree before evidence-only edits; this
+does not transfer full Auth to platform code or grant release acceptance.
+Main source3aCI40720364089 native122929837710 FAIL before SQL due registry limit;
+allref40720364393FAIL. Current final checkpoint HEAD/CI are recorded in issue67.
+PIPELINE_READY=false, no image or provider runtime. The rest of this report
+retains the original observations, validation failures and their corrections.
+
 Owner addendum28/10 keeps Documentos active and conditionally authorizes only
 `crm-inmobiliario/crm-telecom-staging`. Existing `crm-staging`, real-estate CRM,
 n8n, global networks, credentials and volumes remain outside this scope.
@@ -159,8 +176,9 @@ accepted image exists, stop only the new App and withdraw only its new route.
 Do not stop, restart, remove or reconfigure any existing service/network/volume.
 
 Next three executable units:
-1. Diagnose the exact late-response observation failure, retain the first FAIL,
-   prove any causal correction and obtain W4/W5 review before further Auth.
+1. Agree D2 backend ownership and a closed persistent-folder contract; D1 metadata
+   now has its own complete real acceptance. Do not implement shared SQL/backend
+   folders under the earlier D1-only delegation or repeat the closed D1 bank.
 2. Review this additive channel source; agree accepted runtime/binding/origin,
    private access and network design without changing global infrastructure.
 3. Complete source-bound CI/scan/provenance/private GHCR publisher only after those
