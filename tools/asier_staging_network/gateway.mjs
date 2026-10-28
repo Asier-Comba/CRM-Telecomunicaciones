@@ -9,7 +9,7 @@ const hash=value=>createHash('sha256').update(value).digest()
 const hop=new Set(['connection','keep-alive','proxy-authenticate','proxy-authorization','te','trailer','transfer-encoding','upgrade','content-length'])
 const supabaseHeaders=new Set(['authorization','apikey','content-type','accept','accept-profile','content-profile','prefer','range','range-unit','x-client-info','x-supabase-api-version','if-match','if-none-match'])
 function headersWithoutHop(headers){const denied=new Set([...hop,...String(headers.connection??'').toLowerCase().split(',').map(v=>v.trim())]);return Object.fromEntries(Object.entries(headers).filter(([name])=>!denied.has(name.toLowerCase())))}
-function closed(response,status){if(!response.headersSent)response.writeHead(status,{'cache-control':'no-store','content-type':'text/plain'});response.end('Gateway request unavailable')}
+function closed(response,status){if(response.destroyed||response.writableEnded)return;if(!response.headersSent)response.writeHead(status,{'cache-control':'no-store','content-type':'text/plain'});response.end('Gateway request unavailable')}
 async function body(request){const chunks=[];let count=0;for await(const chunk of request){count+=chunk.length;if(count>bodyLimit)throw Error('BODY_TOO_LARGE');chunks.push(chunk)}return Buffer.concat(chunks)}
 function server(handler,maxConcurrent){
  let active=0
@@ -25,14 +25,19 @@ function server(handler,maxConcurrent){
 }
 async function forward(request,response,target,transport,options={},redirectOrigin){
  let bytes;try{bytes=await body(request)}catch{return closed(response,413)}
+ if(response.destroyed)return
  const headers={...headersWithoutHop(options.headers??request.headers),'content-length':String(bytes.length)}
  // No stdout/stderr access logs, payloads, JWTs, cookies or DNS answers.
  await new Promise(resolve=>{
-  const upstream=transport(target,{...options,method:request.method,headers,timeout:30000},async result=>{
-   if(result.statusCode>=300&&result.statusCode<400&&result.statusCode!==304&&(!redirectOrigin||!safeIngressRedirect(result.headers.location,redirectOrigin))){result.resume();closed(response,502);return resolve()}
-   try{const chunks=[];let count=0;for await(const chunk of result){count+=chunk.length;if(count>bodyLimit){result.destroy();throw Error('UPSTREAM_TOO_LARGE')}chunks.push(chunk)}response.writeHead(result.statusCode??502,headersWithoutHop(result.headers));response.end(Buffer.concat(chunks))}catch{closed(response,502)}finally{resolve()}
+  let upstream
+  const cancel=()=>{if(!response.writableEnded)upstream?.destroy()}
+  const finish=()=>{response.off('close',cancel);resolve()}
+  response.once('close',cancel)
+  upstream=transport(target,{...options,method:request.method,headers,timeout:30000},async result=>{
+   if(result.statusCode>=300&&result.statusCode<400&&result.statusCode!==304&&(!redirectOrigin||!safeIngressRedirect(result.headers.location,redirectOrigin))){result.resume();closed(response,502);return finish()}
+   try{const chunks=[];let count=0;for await(const chunk of result){count+=chunk.length;if(count>bodyLimit){result.destroy();throw Error('UPSTREAM_TOO_LARGE')}chunks.push(chunk)}if(!response.destroyed){response.writeHead(result.statusCode??502,headersWithoutHop(result.headers));response.end(Buffer.concat(chunks))}}catch{closed(response,502)}finally{finish()}
   })
-  upstream.on('timeout',()=>upstream.destroy());upstream.on('error',()=>{closed(response,502);resolve()});upstream.end(bytes)
+  upstream.on('timeout',()=>upstream.destroy());upstream.on('error',()=>{closed(response,502);finish()});upstream.end(bytes)
  })
 }
 async function resolveA(hostname,{signal}){
@@ -46,7 +51,9 @@ export function createEgressGateway({resolve=resolveA,transport=httpsRequest,dns
  return server(async(req,res)=>{
   if(!['GET','HEAD','POST','PATCH','PUT','DELETE'].includes(req.method)||!allowedSupabasePath(req.url))return closed(res,403)
   const controller=new AbortController();let timer,addresses
-  try{addresses=await Promise.race([resolve(origin.hostname,{family:4,all:true,signal:controller.signal}),new Promise((_resolve,reject)=>{timer=setTimeout(()=>{controller.abort();reject(Error('DNS_DEADLINE'))},dnsTimeoutMs)})])}finally{clearTimeout(timer)}
+  const retire=()=>{if(!res.writableEnded)controller.abort()};res.once('close',retire)
+  try{addresses=await Promise.race([resolve(origin.hostname,{family:4,all:true,signal:controller.signal}),new Promise((_resolve,reject)=>{controller.signal.addEventListener('abort',()=>reject(Error('DNS_CANCELLED')),{once:true});timer=setTimeout(()=>controller.abort(),dnsTimeoutMs)})])}finally{clearTimeout(timer);res.off('close',retire)}
+  if(res.destroyed||controller.signal.aborted)return
   if(!Array.isArray(addresses)||!addresses.length||addresses.length>16||addresses.some(row=>row.family!==4||!publicIpv4(row.address)))return closed(res,502)
   const address=addresses[0].address
   const headers=Object.fromEntries(Object.entries(headersWithoutHop(req.headers)).filter(([name])=>supabaseHeaders.has(name)))

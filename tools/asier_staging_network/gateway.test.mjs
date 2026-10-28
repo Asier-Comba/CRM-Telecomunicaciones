@@ -105,6 +105,15 @@ test('egress cancels an unresolved DNS lookup within its bounded DNS budget',asy
  try{const status=await Promise.race([request.then(r=>r.status),new Promise(resolve=>{timer=setTimeout(()=>resolve('UNBOUNDED_DNS'),500)})]);assert.equal(status,502);assert.equal(aborted,true)}
  finally{clearTimeout(timer);release?.([{address:'8.8.8.8',family:4}]);await request}
 })
+test('client cancellation retires late DNS without starting upstream traffic',async t=>{
+ let entered,release,notifyAbort,timer
+ const started=new Promise(resolve=>{entered=resolve}),aborted=new Promise(resolve=>{notifyAbort=resolve}),calls=[]
+ const url=await listen(t,createEgressGateway({resolve:(_host,options)=>new Promise(resolve=>{release=resolve;options.signal.addEventListener('abort',()=>notifyAbort(true),{once:true});entered()}),transport:upstream(calls)}))
+ const request=httpRequest(url+'/auth/v1/user');request.on('error',()=>{});request.end();await started;request.destroy()
+ const cancelled=await Promise.race([aborted,new Promise(resolve=>{timer=setTimeout(()=>resolve(false),500)})]);clearTimeout(timer)
+ release([{address:'8.8.8.8',family:4}]);await new Promise(resolve=>setImmediate(resolve));await new Promise(resolve=>setImmediate(resolve))
+ assert.deepEqual({cancelled,upstreamCalls:calls.length},{cancelled:true,upstreamCalls:0})
+})
 test('SDK fetch adapter preserves the public origin contract and request transport semantics',async()=>{
  const calls=[],transport=createGatewayFetch(async(request,options)=>{calls.push({request,options});return new Response('{}')})
  await transport(supabaseOrigin+'/auth/v1/token?grant_type=refresh_token',{method:'POST',headers:{apikey:'synthetic-public-only',authorization:'Bearer synthetic-user-only'},body:'{}'})
