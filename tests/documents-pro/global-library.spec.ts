@@ -62,6 +62,26 @@ test('uncertain archive retry freezes the exact command then restore uses the cu
  const s=await setup(page)
  try{await s.open();s.loseNext();await page.locator('[data-document-id]').first().getByRole('button',{name:'Archivar',exact:true}).click();await page.getByRole('button',{name:'Confirmar',exact:true}).click();await expect(page.getByRole('button',{name:'Reintentar la misma acción',exact:true})).toBeVisible();await expect(page.getByLabel('Estado de biblioteca',{exact:true})).toBeDisabled();await page.getByRole('button',{name:'Reintentar la misma acción',exact:true}).click();await expect(page.getByText('Documento actualizado.',{exact:true})).toBeVisible();expect(s.commands).toHaveLength(2);expect(s.commands[0]).toEqual(s.commands[1]);await page.getByLabel('Estado de biblioteca',{exact:true}).selectOption('archived');await expect(page.locator('[data-document-id]')).toHaveCount(1);await page.getByRole('button',{name:'Restaurar',exact:true}).click();await page.getByRole('button',{name:'Confirmar',exact:true}).click();await expect(page.locator('[data-document-id]')).toHaveCount(0);expect(s.commands[2].input.expected_version).toBe(2);expect(s.records.find(r=>r.id===id(123))?.version).toBe(3)}finally{await s.close()}
 })
+
+test('unsent archive confirmation retires when browser history changes context without sending a command',async({page})=>{
+ const s=await setup(page)
+ try{
+  await s.open();await page.locator('[data-document-id]').first().getByRole('button',{name:'Sólo este registro',exact:true}).click();await expect(page.locator('[data-document-id]')).toHaveCount(1)
+  await page.locator('[data-document-id]').getByRole('button',{name:'Archivar',exact:true}).click();const proposal=page.getByRole('dialog',{name:'Archivar documento',exact:true});await expect(proposal).toBeVisible();expect(s.commands).toHaveLength(0)
+  await page.goBack();await expect(page.locator('[data-document-id]')).toHaveCount(20);expect(s.commands).toHaveLength(0);await expect(proposal).toHaveCount(0)
+  await page.goForward();await expect(page.locator('[data-document-id]')).toHaveCount(1);await expect(proposal).toHaveCount(0);expect(s.commands).toHaveLength(0)
+ }finally{await s.close()}
+})
+
+test('uncertain archive history navigation preserves the frozen command until exact retry',async({page})=>{
+ const s=await setup(page)
+ try{
+  await s.open();await page.locator('[data-document-id]').first().getByRole('button',{name:'Sólo este registro',exact:true}).click();await expect(page.locator('[data-document-id]')).toHaveCount(1)
+  s.loseNext();await page.locator('[data-document-id]').getByRole('button',{name:'Archivar',exact:true}).click();await page.getByRole('button',{name:'Confirmar',exact:true}).click();await expect(page.getByRole('button',{name:'Reintentar la misma acción',exact:true})).toBeVisible()
+  await page.goBack();await expect(page.getByRole('dialog',{name:'Archivar documento',exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'Cancelar',exact:true})).toBeDisabled();expect(s.commands).toHaveLength(1)
+  await page.getByRole('button',{name:'Reintentar la misma acción',exact:true}).click();await expect(page.getByText('Documento actualizado.',{exact:true})).toBeVisible();expect(s.commands).toHaveLength(2);expect(s.commands[0]).toEqual(s.commands[1]);expect(s.records.find(r=>r.id===id(123))?.version).toBe(2);await expect(page.locator('[data-document-id]')).toHaveCount(0)
+ }finally{await s.close()}
+})
 for(const width of [390,768,1440])test(`global loaded inventory details context and keyboard at${width}`,async({page},info)=>{
  const s=await setup(page)
  try{await page.setViewportSize({width,height:960});await s.open();expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1)).toBe(false);await page.screenshot({path:info.outputPath('global-'+width+'.png'),fullPage:false});const row=page.locator('[data-document-id]').first(),trigger=row.getByRole('button',{name:'Ver detalles',exact:true});await trigger.click();const drawer=page.getByRole('dialog',{name:'Detalles del documento',exact:true});await expect(drawer).toBeVisible();await expect(drawer.getByRole('link',{name:'Abrir registro vinculado',exact:true})).toHaveAttribute('href','/services/'+id(1122));await page.screenshot({path:info.outputPath('global-details-'+width+'.png'),fullPage:false});await page.keyboard.press('Escape');await expect(drawer).toHaveCount(0);await expect(trigger).toBeFocused();await expect(page.getByRole('button',{name:'Descargar archivo privado',exact:true})).toHaveCount(0)}finally{await s.close()}

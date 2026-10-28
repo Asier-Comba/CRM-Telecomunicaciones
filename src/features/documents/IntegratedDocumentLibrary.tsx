@@ -29,6 +29,7 @@ function ScopedLibrary({initialTarget,initialStatus='active'}:Props){
   const pop=()=>{
    if(locked){window.history.replaceState({...window.history.state,crmDocumentLibraryV2:{contract:'documents.library.navigation.v2',scope,...nav}},'',libraryUrl(nav.input));return}
    const next=readLibraryHistory(window.history.state?.crmDocumentLibraryV2,scope)??{input:libraryUrlInput(window.location.search),page:1,back:[]}
+   pending.current=null;setConfirm(null)
    epoch.current++;closeMetadata();setNav(next);setQuery(next.input.query??'');setEditing(false);setError('');setMessage('');setRevision(n=>n+1)
   }
   window.addEventListener('popstate',pop);return()=>window.removeEventListener('popstate',pop)
@@ -44,7 +45,7 @@ function ScopedLibrary({initialTarget,initialStatus='active'}:Props){
   // Removing an optional UI filter means omitting its JSON key. The server's
   // closed validator still rejects undefined/non-JSON and unknown inputs.
   const input=parseDocumentLibraryInputV2(Object.fromEntries(Object.entries(value).filter(([,v])=>v!==undefined)));if(!input){setError('Revisa los filtros y escribe al menos dos caracteres para buscar.');return}
-  const next={input,back:back.slice(-32),page};epoch.current++;metadata.close();setNav(next);setQuery(input.query??'');setEditing(false);setError('');setMessage('');setRevision(n=>n+1)
+  const next={input,back:back.slice(-32),page};pending.current=null;setConfirm(null);epoch.current++;metadata.close();setNav(next);setQuery(input.query??'');setEditing(false);setError('');setMessage('');setRevision(n=>n+1)
   window.history.pushState({...window.history.state,crmDocumentLibraryV2:{contract:'documents.library.navigation.v2',scope,...next}},'',libraryUrl(input))
  }
  function filter(patch:Partial<DocumentLibraryInputV2>){const next={...nav.input,query:query.trim()||undefined,...patch};delete next.cursor;apply(next)}
