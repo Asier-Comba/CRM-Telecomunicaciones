@@ -7,6 +7,9 @@ import {chromium,expect} from '@playwright/test'
 import {parseDocumentLibraryInputV2,parseDocumentLibraryPageV2} from '../../src/lib/server/document-library-runtime-v2.ts'
 import {parseDocumentGetV1,parseDocumentReceiptV1} from '../../src/lib/server/document-runtime-v1.ts'
 import {globalDocumentsFixture} from './fixture-sql.mjs'
+import {beginLateResponseObservation,settledLateResponseObservation,cleanLateResponseObservation,endLateResponseObservation} from './late-response-observer.mjs'
+import {independentCleanup} from './independent-cleanup.mjs'
+import {responseForAction} from '../asier_compat62/response-action.mjs'
 
 // Only synthetic metadata and current USER JWTs. Service credentials stay in
 // this Node fixture process; local outage is never hosted Storage acceptance.
@@ -107,7 +110,7 @@ export async function realGlobalDocumentsAcceptance({url,anon,service,sql,comman
   phase('current_database_gate_unavailable_ui_is_not_empty')
   try{
    sql('update documents_library_private.settings set enabled=false where singleton')
-   const pending=page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.operation==='document.library_list');await page.getByRole('button',{name:'Actualizar biblioteca',exact:true}).click();const response=await pending,body=await response.json()
+   const response=await responseForAction(()=>page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.operation==='document.library_list'),()=>page.getByRole('button',{name:'Actualizar biblioteca',exact:true}).click()),body=await response.json()
    check(response.status()===503&&body.error==='unavailable','real_database_gate_blocks_current_http_read');await expect(page.locator('[data-document-id]')).toHaveCount(0);await expect(page.getByRole('heading',{name:'Biblioteca pendiente de habilitación',exact:true})).toBeVisible();await expect(page.getByRole('heading',{name:'Sin documentos activos',exact:true})).toHaveCount(0);check(true,'real_unavailable_ui_distinct_from_complete_empty')
   }finally{sql('update documents_library_private.settings set enabled=true where singleton');check(sql('select enabled::text from documents_library_private.settings where singleton')==='true','own_disposable_database_gate_restored')}
   await page.getByRole('button',{name:'Reintentar consulta',exact:true}).click();await expect(page.locator('[data-document-id]')).toHaveCount(20)
@@ -191,18 +194,27 @@ export async function realGlobalDocumentsAcceptance({url,anon,service,sql,comman
   try{
    await page.getByRole('textbox',{name:'Buscar documentos',exact:true}).fill('General');await page.getByRole('button',{name:'Buscar documentos',exact:true}).click();await expect.poll(()=>held).toBe(true)
    sql(`update public.workspace_members set role='viewer'where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'`)
-   await page.getByRole('textbox',{name:'Buscar documentos',exact:true}).fill('NO_MATCH_GLOBAL');const denied=page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.input?.query==='NO_MATCH_GLOBAL');await page.getByRole('button',{name:'Buscar documentos',exact:true}).click();check((await denied).status()===403,'real_new_read_denied_after_role_change');releaseHold();await page.unrouteAll({behavior:'wait'});await expect(page.locator('[data-document-id]')).toHaveCount(0);check(!heldFailure,'late_old_authorized_real_response_retired')
+   await page.getByRole('textbox',{name:'Buscar documentos',exact:true}).fill('NO_MATCH_GLOBAL');const denied=await responseForAction(()=>page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.input?.query==='NO_MATCH_GLOBAL'),()=>page.getByRole('button',{name:'Buscar documentos',exact:true}).click()),deniedBody=await denied.json();check(denied.status()===403&&deniedBody.ok===false&&deniedBody.error==='access_denied','real_new_read_denied_after_role_change');await expect(page.getByRole('alert')).toBeVisible();await expect(page.locator('[data-document-id]')).toHaveCount(0)
+   await beginLateResponseObservation(page,library);releaseHold();await page.unrouteAll({behavior:'wait'});const observed=await settledLateResponseObservation(page);report.late_response_observation=observed
+   check(!heldFailure&&cleanLateResponseObservation(observed)&&await page.locator('[data-document-id]').count()===0,'late_real_response_processed_and_retired_before_reload')
+   await endLateResponseObservation(page)
    await page.reload();await expect(page.getByText('Documentos disponibles para administradores del espacio.',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'Archivar',exact:true})).toHaveCount(0);check(true,'real_role_reload_withdraws_privileged_controls')
-  }finally{releaseHold();await page.unrouteAll({behavior:'wait'});sql(`update public.workspace_members set role='owner'where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'`);check(sql(`select count(*)from public.workspace_members where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'and role='owner'`)==='1','own_role_restored')}
+  }finally{
+   report.role_restoration='FAIL'
+   // No browser failure may prevent either DB restoration or verification.
+   const cleanup=await independentCleanup([()=>releaseHold(),()=>sql(`update public.workspace_members set role='owner'where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'`),()=>{check(sql(`select count(*)from public.workspace_members where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'and role='owner'`)==='1','own_role_restored');report.role_restoration='PASS'},()=>endLateResponseObservation(page),()=>page.unrouteAll({behavior:'wait'})])
+   if(cleanup.failed)throw Error('D1_GLOBAL_ROLE_CLEANUP_FAILED')
+  }
 
   phase('same_still_valid_browser_jwt_membership_revocation')
   await page.goto(origin+'/documents');await page.getByRole('button',{name:'Todos los documentos',exact:true}).click();await expect(page.locator('[data-document-id]')).toHaveCount(20)
   const token=await verifiedToken(await context.cookies(origin))
   try{
    sql(`update public.workspace_members set status='suspended'where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'`)
+   check(sql(`select count(*)from public.workspace_members where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'and status='suspended'`)==='1','actual_membership_suspended_before_denied_request')
    const verified=await admin.auth.getUser(token);check(!verified.error&&verified.data.user?.id===users.ownerA.id,'same_revoked_membership_jwt_still_auth_valid')
-   const pending=page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.operation==='document.library_list');await page.getByRole('button',{name:'Actualizar biblioteca',exact:true}).click();const denied=await pending,request=denied.request(),headers=await request.allHeaders(),body=request.postDataJSON(),actualToken=await verifiedToken(parseCookieHeader(headers.cookie??''))
-   check(actualToken===token&&denied.status()===403&&body.operation==='document.library_list'&&JSON.stringify(Object.entries(body.input).sort())===JSON.stringify(Object.entries(parseDocumentLibraryInputV2({})).sort()),'exact_denied_global_request_uses_same_live_jwt_and_input');await expect(page.locator('[data-document-id]')).toHaveCount(0);check(true,'real_membership_revocation_withdraws_loaded_inventory')
+   const denied=await responseForAction(()=>page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.operation==='document.library_list'),()=>page.getByRole('button',{name:'Actualizar biblioteca',exact:true}).click()),request=denied.request(),headers=await request.allHeaders(),body=request.postDataJSON(),actualToken=await verifiedToken(parseCookieHeader(headers.cookie??'')),deniedBody=await denied.json()
+   check(actualToken===token&&denied.status()===403&&deniedBody.ok===false&&deniedBody.error==='access_denied'&&body.operation==='document.library_list'&&JSON.stringify(Object.entries(body.input).sort())===JSON.stringify(Object.entries(parseDocumentLibraryInputV2({})).sort()),'exact_denied_global_request_uses_same_live_jwt_and_input');await expect(page.locator('[data-document-id]')).toHaveCount(0);check(true,'real_membership_revocation_withdraws_loaded_inventory')
   }finally{sql(`update public.workspace_members set status='active'where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'`);check(sql(`select count(*)from public.workspace_members where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'and status='active'`)==='1','own_membership_restored')}
   await page.getByRole('button',{name:'Reintentar consulta',exact:true}).click();await expect(page.locator('[data-document-id]')).toHaveCount(20)
 
@@ -213,7 +225,7 @@ export async function realGlobalDocumentsAcceptance({url,anon,service,sql,comman
   check(await probe()===200,'actual_storage_healthy_before_outage');let pauseAttempt=false
   try{
    pauseAttempt=true;command('docker',['pause',storage]);check(inspected().State.Paused===true,'exact_storage_pause_confirmed');const unavailable=await probe();check(unavailable===0||unavailable>=500,'actual_storage_unavailable_not_auth_denial')
-   const pending=page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.operation==='document.library_list');await page.getByRole('button',{name:'Actualizar biblioteca',exact:true}).click();const response=await pending,body=await response.json();check(response.status()===200&&!!parseDocumentLibraryPageV2(parseDocumentLibraryInputV2({}),body.data),'real_global_metadata_http_survives_storage_outage');await expect(page.locator('[data-document-id]')).toHaveCount(20);check(true,'real_global_ui_survives_storage_outage')
+   const response=await responseForAction(()=>page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.operation==='document.library_list'),()=>page.getByRole('button',{name:'Actualizar biblioteca',exact:true}).click()),body=await response.json();check(response.status()===200&&!!parseDocumentLibraryPageV2(parseDocumentLibraryInputV2({}),body.data),'real_global_metadata_http_survives_storage_outage');await expect(page.locator('[data-document-id]')).toHaveCount(20);check(true,'real_global_ui_survives_storage_outage')
    const ownGet=await post(context,'document.get_metadata',{id:changedId},v1+'queries');check(ownGet.status===200&&!!parseDocumentGetV1(changedId,ownGet.body.data),'existing_metadata_reader_independent_of_storage')
   }finally{if(pauseAttempt){report.storage_restoration='FAIL';if(inspected().State.Paused)command('docker',['unpause',storage]);const restored=inspected();check(restored.State.Running&&!restored.State.Paused&&await probe()===200,'storage_restored_running_and_http_healthy');report.storage_restoration='PASS'}}
   phase('completed_global_metadata_only')

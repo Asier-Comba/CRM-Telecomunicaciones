@@ -32,6 +32,7 @@ jobs:
         run: |
           node --experimental-transform-types --test tests/bootstrap/document-library-v2.test.ts
           node --experimental-transform-types --test tests/documents-pro/*.test.mjs
+          node --test tests/unit62/response-action.test.mjs
       - name: Locked embedded harness and exact D1 SQL/fixture checks (not Auth)
         run: |
           npm ci --prefix scripts/security/ephemeral-postgres --ignore-scripts --no-audit --fund=false
