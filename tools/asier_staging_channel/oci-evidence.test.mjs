@@ -40,3 +40,6 @@ test('OCI digests are strings, never arrays coerced by a regular expression',()=
  assert.throws(()=>registryImageEvidence(fixture({rootfs:{type:'layers',diff_ids:[['sha256:'+'1'.repeat(64)]]}})),/ROOTFS_INVALID/)
  assert.throws(()=>registryImageEvidence(fixture({},{layers:[{mediaType:'application/vnd.oci.image.layer.v1.tar+gzip',size:123,digest:['sha256:'+'f'.repeat(64)]}]})),/LAYERS_INVALID/)
 })
+test('relative platform entrypoint requires exact /app WorkingDir',()=>{
+ for(const WorkingDir of [undefined,'/','/tmp','/app/alternate'])assert.throws(()=>registryImageEvidence(fixture({config:{...config.config,WorkingDir}})),/RUNTIME_INVALID/)
+})

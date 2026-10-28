@@ -114,6 +114,11 @@ before regex validation for OCI digests and all source/config/receipt hashes;
 unknown/null layer objects also fail closed. No value is converted into an
 identity. The correction remains pure validation with no provider/activation.
 
+W4 independently found WorkingDir unconstrained at24ca6e8, despite the relative
+platform entrypoint. A new control reproduces11PASS/1FAIL, then requiring exact
+/app rejects absent, root, tmp and alternate directories:12PASS after correction.
+This changes no Dockerfile or running container; independent exact review follows.
+
 The new workflow runs only contract tests on PRs. Manual build job is explicitly
 inert (`if:false`), has contents-read only, reuses the existing Dockerfile and
 existing promotion gate. No registry login/push/package-write/VPS token or webhook.
