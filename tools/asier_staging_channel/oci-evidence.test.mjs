@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import {digest,validateReceipt} from './contract.mjs'
 import {registryImageEvidence} from './oci-evidence.mjs'
 const expected={source:'a'.repeat(40),tree:'b'.repeat(40),lockfile_sha256:'c'.repeat(64),dockerfile_sha256:'d'.repeat(64),public_build_sha256:'e'.repeat(64)}
-const config={architecture:'amd64',os:'linux',config:{User:'65532:65532',Entrypoint:['/nodejs/bin/node'],Cmd:['scripts/platform/entrypoint.mjs'],ExposedPorts:{'3000/tcp':{}},Env:['NODE_ENV=production','PORT=3000'],Labels:{'org.opencontainers.image.revision':expected.source,'io.crm.source.tree':expected.tree,'io.crm.lockfile.sha256':expected.lockfile_sha256,'io.crm.dockerfile.sha256':expected.dockerfile_sha256,'io.crm.public-build.sha256':expected.public_build_sha256}}}
+const config={architecture:'amd64',os:'linux',rootfs:{type:'layers',diff_ids:['sha256:'+'1'.repeat(64)]},config:{User:'65532:65532',WorkingDir:'/app',Entrypoint:['/nodejs/bin/node'],Cmd:['scripts/platform/entrypoint.mjs'],ExposedPorts:{'3000/tcp':{}},Env:['NODE_ENV=production','NEXT_TELEMETRY_DISABLED=1','HOSTNAME=0.0.0.0','PORT=3000','TZ=UTC'],Labels:{'org.opencontainers.image.revision':expected.source,'io.crm.source.tree':expected.tree,'io.crm.lockfile.sha256':expected.lockfile_sha256,'io.crm.dockerfile.sha256':expected.dockerfile_sha256,'io.crm.public-build.sha256':expected.public_build_sha256}}}
 const bytes=value=>Buffer.from(JSON.stringify(value))
 function fixture(delta={},manifestDelta={}){
  const configBytes=bytes({...config,...delta}),manifest={schemaVersion:2,mediaType:'application/vnd.oci.image.manifest.v1+json',config:{mediaType:'application/vnd.oci.image.config.v1+json',size:configBytes.length,digest:'sha256:'+digest(configBytes)},layers:[{mediaType:'application/vnd.oci.image.layer.v1.tar+gzip',size:123,digest:'sha256:'+'f'.repeat(64)}],...manifestDelta},manifestBytes=bytes(manifest)
@@ -25,4 +25,14 @@ test('root, alternate command/platform, extra port and secret/public runtime bin
 test('index, external layers and malformed or substituted config objects cannot masquerade as verified image',()=>{
  for(const delta of [{mediaType:'application/vnd.oci.image.index.v1+json'},{layers:[]},{layers:[{mediaType:'application/vnd.oci.image.layer.v1.tar+gzip',size:123,digest:'sha256:'+'f'.repeat(64),urls:['https://unapproved.example.invalid']}]},{config:{mediaType:'application/vnd.oci.image.config.v1+json',size:1,digest:'sha256:'+'f'.repeat(64)}}])assert.throws(()=>registryImageEvidence(fixture({},delta)))
  assert.throws(()=>registryImageEvidence({...fixture(),manifestBytes:Buffer.from('SYNTHETIC_NOT_JSON')}),/JSON_INVALID/)
+})
+test('required rootfs has ordered uncompressed diff IDs coherent with manifest layer count',()=>{
+ for(const rootfs of [undefined,null,{type:'unknown',diff_ids:[]},{type:'layers',diff_ids:[]},{type:'layers',diff_ids:['not-a-digest']},{type:'layers',diff_ids:['sha256:'+'1'.repeat(64),'sha256:'+'2'.repeat(64)]}])assert.throws(()=>registryImageEvidence(fixture({rootfs})),/ROOTFS_INVALID/)
+ // A compressed layer digest hashes different bytes than its DiffID. The
+ // positive fixture intentionally uses different values; never equate them.
+ assert.equal(registryImageEvidence(fixture()).publishable,false)
+})
+test('runtime environment rejects execution hooks, duplicate bindings, unknown names and changed fixed values',()=>{
+ for(const extra of ['NODE_OPTIONS=--require=/app/alternate.cjs','LD_PRELOAD=/app/alternate.so','NODE_PATH=/app/alternate','NODE_ENV=development','PATH=/app/alternate','UNKNOWN=SYNTHETIC','PORT=3000'])assert.throws(()=>registryImageEvidence(fixture({config:{...config.config,Env:[...config.config.Env,extra]}})),/RUNTIME_BINDINGS_FORBIDDEN/)
+ assert.throws(()=>registryImageEvidence(fixture({config:{...config.config,Env:config.config.Env.filter(value=>!value.startsWith('NODE_ENV='))}})),/RUNTIME_BINDINGS_FORBIDDEN/)
 })

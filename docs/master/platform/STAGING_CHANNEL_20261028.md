@@ -95,6 +95,19 @@ NOT_VERIFIED and publishable:false; it cannot masquerade as a private receipt.
 The future publisher still must fetch the registry metadata and verify provenance
 plus independent scan/smoke evidence before promotion. No network call is added.
 
+W5 found two P2 in66e76a2 before technical ACK: rootfs omitted and execution-hook
+environment accepted. New tests reproduce3PASS/2FAIL on that published verifier.
+Correction requires rootfs.type=layers, ordered sha256 DiffIDs and exact layer
+count. DiffIDs describe uncompressed layers and are not equated with compressed
+manifest digests; actual decompression/layer verification is still NOT_RUN.
+Environment becomes an exact allowlist: five fixed Dockerfile values required,
+only explicit optional base defaults, no duplicates/unknown names/changed values,
+NODE_OPTIONS/LD_PRELOAD/NODE_PATH or missing production binding. The optional base
+defaults are policy, not evidence that the actual pinned image has been checked.
+Unknown image defaults must block and receive review, never be silently admitted.
+[OCI1.1.1 configuration](https://github.com/opencontainers/image-spec/blob/v1.1.1/config.md)
+supports the rootfs/DiffID distinction. New source tests/review are recorded in PR.
+
 The new workflow runs only contract tests on PRs. Manual build job is explicitly
 inert (`if:false`), has contents-read only, reuses the existing Dockerfile and
 existing promotion gate. No registry login/push/package-write/VPS token or webhook.
