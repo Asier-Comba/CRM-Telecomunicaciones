@@ -6,11 +6,13 @@ import {randomBytes} from 'node:crypto'
 import {resolve4} from 'node:dns/promises'
 import {publicIpv4} from './policy.mjs'
 import {localDockerCallV1} from './local-docker.mjs'
+import {cleanupSwarmLabV1} from './swarm-cleanup.mjs'
 
 const image='node:24.21.0-trixie-slim@sha256:c83040f7e24bacea68e58a0b96a484ba430bf24abb2973eab7ba4701144b7b63'
 export async function runSwarmLab(env=process.env){
  if(process.platform!=='linux'||env.GITHUB_ACTIONS!=='true'||env.GITHUB_EVENT_NAME!=='pull_request'||env.GITHUB_REPOSITORY!=='Asier-Comba/CRM-Telecomunicaciones'||!env.RUNNER_TEMP||!/^[a-f0-9]{40}$/.test(env.EXPECTED_SOURCE??''))throw Error('SWARM_LAB_NOT_AUTHORIZED')
- const report={contract:'crm.private.swarm.lab.v1',scope:'DISPOSABLE_SYNTHETIC_APP_REAL_GATEWAYS',status:'FAIL',source:env.EXPECTED_SOURCE,tree:null,phase:'preflight',checks:[],recreated:false,cleanup:false,hosted:false,app_image_accepted:false,capacity_accepted:false,error:null}
+ const diagnostic=env.P0_SWARM_TEARDOWN_DIAGNOSTIC==='true'
+ const report={contract:'crm.private.swarm.lab.v1',scope:diagnostic?'DISPOSABLE_TEARDOWN_DIAGNOSTIC_ONLY':'DISPOSABLE_SYNTHETIC_APP_REAL_GATEWAYS',status:'FAIL',source:env.EXPECTED_SOURCE,tree:null,phase:'preflight',checks:[],recreated:false,cleanup:false,hosted:false,app_image_accepted:false,capacity_accepted:false,error:null}
  const prefix='crm-p0-'+env.EXPECTED_SOURCE.slice(0,12),services=[],networks=[]
  let secret,swarm=false,dockerConfig,raw
  const docker=(args,options)=>{const r=raw(args,options);if(r.status!==0)throw Error('LAB_DOCKER_COMMAND_FAILED');return r.stdout.trim()}
@@ -35,7 +37,7 @@ export async function runSwarmLab(env=process.env){
   if(JSON.parse(docker(['network','inspect',privateNetwork]))[0].Internal!==true)throw Error('INTERNAL_NETWORK_REQUIRED')
   report.checks.push('physical_internal_overlay_created')
   const username='crm_lab',password=randomBytes(36).toString('base64url')
-  secret=prefix+'-ingress';docker(['secret','create',secret,'-'],{input:JSON.stringify({username,password})})
+  secret=prefix+'-ingress';docker(['secret','create','--label','crm.disposable='+prefix,secret,'-'],{input:JSON.stringify({username,password})})
   const fixture=role=>['node','--experimental-transform-types','tools/asier_staging_network/swarm-fixture.mjs',role]
   const create=(role,nets,extras=[])=>{
    const name=prefix+'-'+role
@@ -52,6 +54,7 @@ export async function runSwarmLab(env=process.env){
   const spec=JSON.parse(docker(['service','inspect',app]))[0].Spec.TaskTemplate
   if(JSON.stringify(spec.ContainerSpec.DNSConfig.Nameservers)!=='["127.0.0.1"]'||spec.Networks.length!==1||spec.ContainerSpec.Privileges?.CredentialSpec)throw Error('APP_NETWORK_SPEC_INVALID')
   report.checks.push('service_dns_upstream_loopback_only')
+  if(diagnostic){report.phase='teardown_diagnostic_recreation';docker(['service','update','--detach','--force',app]);await task(app,appTask);report.recreated=true;report.status='PASS';return report}
   const answers=await resolve4('zgwotxnyqzfuzcnmgvtn.supabase.co')
   if(!answers.length||!answers.every(publicIpv4))throw Error('SUPABASE_PUBLIC_IPV4_REQUIRED')
   report.phase='outside_positive_controls';probe(canaryTask,{kind:'outside',canaryIp,appIp,supabaseIp:answers[0],username,password})
@@ -60,14 +63,11 @@ export async function runSwarmLab(env=process.env){
   docker(['service','update','--detach','--force',app]);const recreated=await task(app,appTask)
   probe(recreated,{kind:'internal',canaryIp,supabaseIp:answers[0]});report.recreated=true;report.status='PASS'
  }catch(error){report.error=/^[A-Z0-9_]{1,100}$/.test(error?.message??'')?error.message:'LAB_FAILED'}finally{
-  let clean=true
-  for(const service of services.reverse())if(raw(['service','rm',service]).status!==0)clean=false
-  if(raw)for(let n=0;n<30;n++){const r=raw(['ps','-a','--filter','label=crm.disposable='+prefix,'--format','{{.ID}}']);if(r.status!==0){clean=false;break}if(!r.stdout.trim())break;if(n===29)clean=false;await pause()}
-  if(secret&&raw(['secret','rm',secret]).status!==0)clean=false
-  for(const network of networks.reverse())if(raw(['network','rm',network]).status!==0)clean=false
-  if(swarm&&raw(['swarm','leave','--force']).status!==0)clean=false
-  if(dockerConfig){const parent=resolve(env.RUNNER_TEMP),target=resolve(dockerConfig);if(target.startsWith(parent+sep)&&target.slice(parent.length+1).startsWith('crm-docker-swarm-')){try{rmSync(target,{recursive:true})}catch{clean=false}}else clean=false}
-  report.cleanup=clean;if(!clean)report.status='FAIL'
+  const cleanup=await cleanupSwarmLabV1({prefix,services,networks,secret,swarm},raw,pause,()=>{
+   if(dockerConfig){const parent=resolve(env.RUNNER_TEMP),target=resolve(dockerConfig);if(!target.startsWith(parent+sep)||!target.slice(parent.length+1).startsWith('crm-docker-swarm-'))throw Error('OWNED_PATH_REQUIRED');rmSync(target,{recursive:true})}
+  })
+  report.cleanup=cleanup.ok;report.cleanup_steps=cleanup.steps;report.absence=cleanup.absence
+  if(!cleanup.ok){report.status='FAIL';report.error??='CLEANUP_FAILED'}
   writeFileSync(join(env.RUNNER_TEMP,'staging-swarm.safe.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx'})
  }
  return report
