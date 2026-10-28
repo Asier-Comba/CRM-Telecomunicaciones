@@ -24,7 +24,7 @@ export function imageTag(source,configuration){
 export function validateReceipt(receipt,expected){
  if(!exact(receipt,['version','source','tree','lockfile_sha256','dockerfile_sha256','public_build_sha256','image_config_digest','manifest_digest','image_reference','visibility']))throw Error('STAGING_RECEIPT_SHAPE_INVALID')
  if(receipt.version!=='staging.image.receipt.v1'||!sha.test(receipt.source)||!sha.test(receipt.tree)||!['lockfile_sha256','dockerfile_sha256','public_build_sha256'].every(k=>hash.test(receipt[k]))||!['image_config_digest','manifest_digest'].every(k=>/^sha256:[a-f0-9]{64}$/.test(receipt[k]))||receipt.visibility!=='private')throw Error('STAGING_RECEIPT_IDENTITY_INVALID')
- if(receipt.image_reference!==imageRepository+'@'+receipt.manifest_digest)throw Error('STAGING_MANIFEST_REFERENCE_REQUIRED')
+ if(receipt.image_reference!==imageRepository+'@'+receipt.manifest_digest||receipt.image_config_digest===receipt.manifest_digest)throw Error('STAGING_MANIFEST_REFERENCE_REQUIRED')
  if(!expected||!['source','tree','lockfile_sha256','dockerfile_sha256','public_build_sha256'].every(k=>receipt[k]===expected[k]))throw Error('STAGING_RECEIPT_BINDING_MISMATCH')
  return Object.freeze({...receipt})
 }

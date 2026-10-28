@@ -17,7 +17,7 @@ test('tags bind full source and full public configuration; digest receipt reject
  for(const bad of ['main','latest',source.slice(0,7),'$(synthetic)'])assert.throws(()=>imageTag(bad,h))
  const expected={source,tree,lockfile_sha256:h,dockerfile_sha256:h,public_build_sha256:h},receipt={version:'staging.image.receipt.v1',...expected,image_config_digest:'sha256:'+'d'.repeat(64),manifest_digest:'sha256:'+'e'.repeat(64),image_reference:imageRepository+'@sha256:'+'e'.repeat(64),visibility:'private'}
  assert.deepEqual(validateReceipt(receipt,expected),receipt)
- for(const delta of [{image_reference:imageTag(source,h)},{image_reference:imageRepository+'@'+receipt.image_config_digest},{visibility:'public'},{source:'f'.repeat(40)},{public_build_sha256:'f'.repeat(64)},{manifest_digest:'IMAGE_BUILT'},{extra:'synthetic'}])assert.throws(()=>validateReceipt({...receipt,...delta},expected))
+ for(const delta of [{image_reference:imageTag(source,h)},{image_reference:imageRepository+'@'+receipt.image_config_digest},{manifest_digest:receipt.image_config_digest,image_reference:imageRepository+'@'+receipt.image_config_digest},{visibility:'public'},{source:'f'.repeat(40)},{public_build_sha256:'f'.repeat(64)},{manifest_digest:'IMAGE_BUILT'},{extra:'synthetic'}])assert.throws(()=>validateReceipt({...receipt,...delta},expected))
 })
 test('all seven independent gates stay closed; a report never grants publish or deploy authority',()=>{
  const blocked=channelReadiness({runtimePolicy:{status:'PROPOSED',reviews:{w2:'PENDING',w5:'PENDING',w4:'PENDING'}}})

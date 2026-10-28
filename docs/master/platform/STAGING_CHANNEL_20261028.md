@@ -73,6 +73,16 @@ unknown/alias/private key input fails. No values enter the receipt/logs.
 The readiness report cannot authorize publication/deployment even with synthetic
 accepted inputs; existing promotion and protected-environment approval still apply.
 
+W5's exact static review ofbd6608e confirms inert preparation, not PIPELINE_READY.
+It found two concrete limits: structural receipt validation is not registry
+provenance, and promotion-before-build incorrectly expected an existing digest.
+The receipt now also rejects identical config/manifest digests; that negative
+is not proof of actual OCI objects. A future publisher must fetch/verify the real
+registry manifest/config relationship and actual private visibility. The inert
+workflow orders build before the existing promotion gate; verification and
+publication remain absent until implemented/reviewed, without placeholder digest
+or fabricated candidate. This correction does not activate the job.
+
 The new workflow runs only contract tests on PRs. Manual build job is explicitly
 inert (`if:false`), has contents-read only, reuses the existing Dockerfile and
 existing promotion gate. No registry login/push/package-write/VPS token or webhook.
