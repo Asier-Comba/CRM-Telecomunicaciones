@@ -7,9 +7,15 @@ export async function beginLateResponseObservation(page,path){
  await page.evaluate(endpoint=>{
   if(document.querySelector('[data-document-id]'))throw Error('LATE_OBSERVER_REQUIRES_WITHDRAWN_ROWS')
   if(window.__crmGlobalLateObservation)throw Error('LATE_OBSERVER_ALREADY_ACTIVE')
-  const original=Response.prototype.json,state={json_consumed:false,settled:false,saw_rows:false}
-  const observer=new MutationObserver(()=>{if(document.querySelector('[data-document-id]'))state.saw_rows=true})
-  observer.observe(document.body,{childList:true,subtree:true})
+  const original=Response.prototype.json,state={json_consumed:false,settled:false,saw_rows:false},selector='[data-document-id]'
+  const containsRow=node=>node.nodeType===Node.ELEMENT_NODE&&(node.matches(selector)||!!node.querySelector(selector))
+  const observer=new MutationObserver(records=>{
+   // Added/removed node references survive a same-batch insertion/removal.
+   // Attribute oldValue also detects a marker erased before delivery; values
+   // themselves are never copied into the observation or logs.
+   if(document.querySelector(selector)||records.some(record=>record.type==='attributes'?(record.oldValue!==null||record.target.hasAttribute('data-document-id')):[...record.addedNodes,...record.removedNodes].some(containsRow)))state.saw_rows=true
+  })
+  observer.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['data-document-id'],attributeOldValue:true})
   Response.prototype.json=function(...args){
    const watched=this.url===location.origin+endpoint&&this.status===200
    const result=Reflect.apply(original,this,args)
@@ -25,7 +31,8 @@ export async function beginLateResponseObservation(page,path){
 }
 export async function settledLateResponseObservation(page){
  await expect.poll(()=>page.evaluate(()=>window.__crmGlobalLateObservation?.state.settled===true)).toBe(true)
- return page.evaluate(()=>({...window.__crmGlobalLateObservation.state}))
+ return lateResponseObservation(page)
 }
+export async function lateResponseObservation(page){return page.evaluate(()=>({...window.__crmGlobalLateObservation.state}))}
 export function cleanLateResponseObservation(state){return state?.json_consumed===true&&state.settled===true&&state.saw_rows===false}
 export async function endLateResponseObservation(page){await page.evaluate(()=>window.__crmGlobalLateObservation?.restore())}
