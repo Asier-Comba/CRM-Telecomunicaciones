@@ -1,0 +1,89 @@
+# PROPOSED ONLY. Not approved for installation. No credentials or published ports.
+# Reuses the existing image/publisher; one immutable digest for all three roles.
+x-crm-runtime: &runtime
+  image: ${APP_IMAGE:?Approved private ghcr.io repository@sha256 digest required}
+  env_file: ${APP_ENV_FILE:?Owner-managed private environment file outside Git required}
+  environment: &environment
+    PLATFORM_TARGET: STAGING
+    NODE_ENV: production
+    APP_ENV: staging
+    NEXT_PUBLIC_APP_URL: https://crm-telecom-staging.hvdnby.easypanel.host
+    PRODUCT_V1_ORIGIN: https://crm-telecom-staging.hvdnby.easypanel.host
+    NEXT_PUBLIC_SUPABASE_URL: https://zgwotxnyqzfuzcnmgvtn.supabase.co
+    PRODUCT_V1_ENABLED: 'true'
+    PRODUCT_STAGING_INTEGRATION: 'true'
+    PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED: 'true'
+    PRODUCT_DOCUMENT_LIBRARY_ENABLED: 'false'
+    PRODUCT_DOCUMENT_CONTENT_ENABLED: 'false'
+    PRODUCT_DOCUMENT_MAINTENANCE_ENABLED: 'false'
+    AI_ENABLED: 'false'
+    CRM_EMAIL_ENABLED: 'false'
+    NEXT_PUBLIC_ENABLE_DEMO_DATA: 'false'
+    NEXT_PUBLIC_FORCE_OFFLINE_DEV: 'false'
+  user: '65532:65532'
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: ['no-new-privileges:true']
+  restart: 'on-failure:3'
+  stop_grace_period: 35s
+  logging:
+    driver: json-file
+    options: {max-size: 5m, max-file: '2'}
+x-gateway-health: &gateway-health
+  test: [CMD, /nodejs/bin/node, -e, 'const s=require("node:net").connect({host:"127.0.0.1",port:8080});s.setTimeout(2000);s.once("connect",()=>{s.destroy();process.exit(0)});s.once("error",()=>process.exit(1));s.once("timeout",()=>{s.destroy();process.exit(1)})']
+  interval: 30s
+  timeout: 5s
+  start_period: 10s
+services:
+  crm-telecom-staging:
+    <<: *runtime
+    environment:
+      <<: *environment
+      HOSTNAME: 0.0.0.0
+      PORT: '3000'
+    networks:
+      crm-private:
+        aliases: [crm-telecom-staging]
+    dns: [127.0.0.1]
+    dns_opt: ['timeout:1', 'attempts:1']
+    tmpfs: ['/tmp:size=64m,mode=1777', '/app/.next/cache:size=128m,uid=65532,gid=65532']
+    mem_limit: 768m
+    cpus: 0.75
+  crm-telecom-ingress:
+    <<: *runtime
+    command: [tools/asier_staging_network/runtime.mjs, ingress]
+    healthcheck: *gateway-health
+    networks: [crm-private, easypanel]
+    secrets: [crm-staging-ingress]
+    tmpfs: ['/tmp:size=16m,mode=1777']
+    mem_limit: 256m
+    cpus: 0.25
+  crm-telecom-egress:
+    <<: *runtime
+    command: [tools/asier_staging_network/runtime.mjs, egress]
+    healthcheck: *gateway-health
+    networks:
+      crm-private:
+        aliases: [crm-telecom-egress]
+      crm-outbound: {}
+    tmpfs: ['/tmp:size=16m,mode=1777']
+    mem_limit: 256m
+    cpus: 0.25
+secrets:
+  crm-staging-ingress:
+    # Source must already be a protected regular file UID65532/mode0400.
+    # Compose file-backed secrets retain host permissions; runtime verifies its FD.
+    file: ${CRM_INGRESS_CREDENTIAL_FILE:?Private credential file outside Git required}
+networks:
+  crm-private:
+    driver: overlay
+    internal: true
+    attachable: true
+    labels: {crm.scope: crm-telecom-staging}
+  crm-outbound:
+    driver: overlay
+    attachable: true
+    labels: {crm.scope: crm-telecom-staging}
+  easypanel:
+    external: true
+    name: easypanel
