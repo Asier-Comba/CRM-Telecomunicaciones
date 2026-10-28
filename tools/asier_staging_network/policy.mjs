@@ -19,3 +19,8 @@ export function rewriteSupabaseRequest(input){
  if(url.origin!==supabaseOrigin||url.username||url.password||url.hash||!allowedSupabasePath(url.pathname+url.search))throw Error('EGRESS_DESTINATION_DENIED')
  return gatewayOrigin+url.pathname+url.search
 }
+export function safeIngressRedirect(location,origin){
+ if(typeof location!=='string'||location.length>8192||/[\\\u0000-\u0020\u007f]/.test(location)||location.startsWith('//'))return false
+ if(!location.startsWith('/')&&location!==origin&&!location.startsWith(origin+'/'))return false
+ try{const url=new URL(location,origin);return url.origin===origin&&!url.username&&!url.password}catch{return false}
+}
