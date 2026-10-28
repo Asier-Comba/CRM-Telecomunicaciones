@@ -1,0 +1,17 @@
+{
+  "contract_version":"document.library.v2",
+  "status":"OWNER_DELEGATED_IMPLEMENTATION_INDEPENDENT_W4_REVIEW_REQUIRED",
+  "operation":"document.library_list",
+  "endpoint":"POST /api/document/library/v2/queries",
+  "rpc":"public.document_library_v2_list(uuid, jsonb)",
+  "client_authority":"Current verified USER JWT and current locked active owner/admin workspace membership; no caller actor/workspace/role input.",
+  "gates":{"http":"PRODUCT_V1_ENABLED=true AND PRODUCT_DOCUMENT_LIBRARY_ENABLED=true","database":"private settings.enabled=true; defaultfalse and not bypassed by direct RPC"},
+  "input":{"status":"active|archived defaultactive","query":"2..100 Unicode codepoints; only generated title/reference/category and safe authorized relation labels","customer_id":"optional UUID","target":"optional closed kind/id for existing6 target kinds","document_kind":"existing7 categories","format":"pdf|image; current byte contracts PDF/PNG/JPEG only","created_from":"optional inclusive canonical ISO-millisecond UTC instant","created_before":"optional exclusive canonical ISO-millisecond UTC instant","sort":"created_asc|created_desc defaultdesc; UUID tie breaker","limit":"1..100 default20","cursor":"optional opaque bounded base64url; never URL/query log"},
+  "output":"Closed DocumentLibraryPageV2 / DocumentLibraryEntryV2. No raw filename/path/object reference/private note/content capability. Exact total is evaluated with the page in one authorized statement. Partial cannot advertise exact totals.",
+  "consistency":"live_reauthorized_creation_cutoff, not a repeatable snapshot. Current status/labels/relationships can change counts between calls; each row is freshly authorized.",
+  "cursor":"Encrypted+integrity protected, ten-minute maximum; binds actor/workspace/current membership+workspace revisions including xmin/filter hash/sort/limit. Manipulated/expired/foreign/stale cursors are validation failures. Rotation invalidates old cursors.",
+  "minimization":"See docs/master/documents-pro-v2/D1_MINIMIZATION_POLICY.json. Owner requests minimized title/date/context; original file_name remains protected and unsearchable.",
+  "legacy":"document.v1 and document.content.v1 remain unchanged. Optional repository capability has no fallback global inventory.",
+  "not_in_scope":["D2 folders","Storage88/#179 adoption","new bytes/download/PDF preview enablement","hosted configuration","staging migration application","IA live"],
+  "release":"NOT_ACCEPTED"
+}

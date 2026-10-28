@@ -1,0 +1,36 @@
+{
+  "status": "OWNER_DELEGATED_D1_IMPLEMENTATION_W4_REVIEW_REQUIRED_NOT_RELEASE",
+  "authorization": "Human Documents Pro mission section2B requests minimized title/type/size/date/context; explicit reply delegates only backend proposal f1d452b with independent W4 review. No raw filename authorization is inferred.",
+  "claim": 6446243091,
+  "operation": "document.library_list",
+  "version": "document.library.v2",
+  "roles": ["owner", "admin"],
+  "row_policy": "Same active workspace/membership and owner/admin metadata scope as document.v1; canonical target/ancestor joins all require same workspace. Target statuses do not silently change v1 metadata authority. Every page re-evaluates current rows before search/count/pagination.",
+  "fields": {
+    "display_title": "Generated solely from approved document category and first8 characters of the already returned document UUID; never original filename.",
+    "created_at": "Operational incorporation timestamp explicitly requested by owner; UTC with microsecond precision retained for correct stable keyset validation.",
+    "customer_label": "Same coalesce(trim(trade_name),legal_name) provenance as existing ordinary customer collection DTO, same authorized workspace; current value re-read each call.",
+    "target_label": "Generated entity category and short already-authorized target UUID; no phone/SIM/tax/private-note or protected commercial identifier.",
+    "media_type_size": "Existing document.v1 metadata fields; does not imply supported byte handling for arbitrary MIME. Filter groups limited to existing PDF/PNG/JPEG contracts."
+  },
+  "search": {
+    "fields": ["generated_title", "short_document_reference", "category", "safe_customer_label", "generated_target_reference"],
+    "not_searched": ["file_name", "storage_path", "private_notes", "file_contents", "OCR", "tax_phone_SIM_identifiers"],
+    "transport": "Bounded POST body only; never raw query/title/cursor in URL, analytics or logs."
+  },
+  "cursor": {
+    "opaque": "PGP symmetric AES256 encryption with integrity protection; base64url bounded4096; key is random32bytes generated inside a private database table, never a literal secret in source/migration.",
+    "authority_binding": "auth.uid, workspace, current membership ID/role/updated_at/xmin, workspace updated_at/xmin, key generation, canonical filter hash and sort/limit.",
+    "expiration": "10minutes maximum from initial creation cutoff, preserved across pages.",
+    "rotation": "Privileged replacement of private key plus generation increment invalidates all old cursors; no public key-export or rotation endpoint.",
+    "drift": "live_reauthorized_creation_cutoff. Creation cutoff bounds later normal inserts, but never promises a repeatable snapshot. Labels/status/relationships are current, and exact count can change between calls. Count and page are evaluated in one statement over the same authorized filter set."
+  },
+  "gates": {
+    "http": "PRODUCT_DOCUMENT_LIBRARY_ENABLED must be explicitly true; defaultOFF.",
+    "database": "Private settings.enabled defaultsfalse; direct authenticated RPC cannot bypass it. Only disposable fixtures enable it for tests.",
+    "storage": "No policy/grant/object changes, no179/Storage88 adoption, no new bytes/preview enablement.",
+    "folders": "D2 NOT delegated; no folder schema or localStorage substitute.",
+    "hosting": "No staging/Netlify/EasyPanel changes.",
+    "acceptance": "Independent W4 policy/SQL/registry review and actual disposable Auth/browser evidence still required."
+  }
+}

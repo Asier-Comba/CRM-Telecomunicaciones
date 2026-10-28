@@ -1,4 +1,6 @@
 import {telecomBoundary,type TelecomOperation,type TelecomInputs,type TelecomResult} from './telecom-client.ts'
+import type {DocumentLibraryInputV2,DocumentLibraryPageV2} from '@/lib/contracts/document-library-v2'
+import {parseDocumentLibraryInputV2,parseDocumentLibraryPageV2} from '../../../lib/server/document-library-runtime-v2.ts'
 import type {TelecomCollectionOperationV1,TelecomCollectionInputsV1,TelecomCollectionPageV1,TelecomCollectionGetV1} from '@/lib/contracts/telecom-collections-v1'
 import {parseTelecomCollectionInputV1,parseTelecomCollectionResultV1} from '../../../lib/server/telecom-collection-runtime-v1.ts'
 export type CollectionResult<O extends TelecomCollectionOperationV1> = O extends `${string}.get` ? TelecomCollectionGetV1<O> : TelecomCollectionPageV1<O>
@@ -99,6 +101,7 @@ export interface ProductRepository {
   maintenance(operation:Exclude<DocumentMaintenanceOperationV1,'document.expired_list'>,input:DocumentMaintenanceInputV1):Promise<DocumentMaintenanceReceiptV1>
   expiredDocuments(input:TeamListInputV1):Promise<ExpiredDocumentPage>
   documents(input: DocumentListInputV1): Promise<DocumentListV1>
+  documentLibrary?(input:DocumentLibraryInputV2):Promise<DocumentLibraryPageV2>
   document(id: string): Promise<DocumentGetV1>
   documentCommand<O extends DocumentOperationV1>(operation: O, input: DocumentInputsV1[O]): Promise<DocumentReceiptV1>
   billing<Q extends BillingQueryV1>(operation: Q,input:BillingQueriesV1[Q]):Promise<Extract<BillingReadDataV1,{operation:Q}>>
@@ -193,6 +196,7 @@ export class IntegratedLocalProductRepository implements ProductRepository {
   maintenance(operation:Exclude<DocumentMaintenanceOperationV1,'document.expired_list'>,value:DocumentMaintenanceInputV1){const input=parseDocumentMaintenanceInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('commands',operation,input,v=>parseDocumentMaintenanceReceiptV1(operation,input,v),'document','/api/document/v1/maintenance')}
   expiredDocuments(value:TeamListInputV1){const input=parseTeamListInputV1(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','document.expired_list',input,v=>parseExpiredDocumentPage(input,v),'document','/api/document/v1/maintenance')}
   documents(input: DocumentListInputV1) { return this.post('queries','document.list',input,v=>parseDocumentListV1(input,v),'document') }
+  documentLibrary(value:DocumentLibraryInputV2){const input=parseDocumentLibraryInputV2(value);if(!input)return Promise.reject(new ProductUiError('validation'));return this.post('queries','document.library_list',input,v=>parseDocumentLibraryPageV2(input,v),'document','/api/document/library/v2/queries')}
   document(id:string) { return this.post('queries','document.get_metadata',{id},v=>parseDocumentGetV1(id,v),'document') }
   documentCommand<O extends DocumentOperationV1>(operation: O,value:DocumentInputsV1[O]) {
     const input=parseDocumentInputV1(operation,value);if(!input)return Promise.reject(new ProductUiError('validation'))

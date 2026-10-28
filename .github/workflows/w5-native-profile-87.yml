@@ -17,13 +17,17 @@ concurrency:
   cancel-in-progress: false
 jobs:
   profile87:
-    name: W5 exact profile87 closure and independent committed restart
+    name: Exact ${{ matrix.mode }} closure and independent committed restart
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [historical_profile_87_from_d1, require_base87_plus_d1]
     env:
       CI: 'true'
       TELECOM_NATIVE_RESOURCE_DISPOSABLE: 'true'
-      TELECOM_NATIVE_CONSUMER_MIGRATION_CLOSURE: require_profile_87
+      TELECOM_NATIVE_CONSUMER_MIGRATION_CLOSURE: ${{ matrix.mode }}
       DOCKER_HOST: unix:///var/run/docker.sock
       DOCKER_CONTEXT: ''
       NODE_ENV: test
@@ -43,6 +47,6 @@ jobs:
         run: npm ci
       - name: Exact 85/86 closures still strict and profile87 exact
         run: |
-          node --test tests/bootstrap/owned-consumer-migration-closure.test.mjs tests/bootstrap/owned-consumer-migration-profile87.test.mjs
-      - name: Physical profile87 migration, committed restart and teardown
+          node --test tests/bootstrap/owned-consumer-migration-closure.test.mjs tests/bootstrap/owned-consumer-migration-profile87.test.mjs tests/bootstrap/owned-consumer-migration-d1.test.mjs
+      - name: Physical explicitly selected migration profile, committed restart and teardown
         run: node --experimental-transform-types scripts/security/native-postgres/consume-owned-resource-committed-restart-v1.mjs
