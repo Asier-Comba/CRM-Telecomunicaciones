@@ -57,7 +57,8 @@
         "status",
         "version",
         "created_at",
-        "updated_at"
+        "updated_at",
+        "children_revision"
       ],
       "depth_limit": 8,
       "root_level": 1,
@@ -89,7 +90,18 @@
       "document_version": "Existing document.version remains a separate metadata CAS; classification command checks both current versions"
     },
     "archive_policy": "Initial bounded proposal: only leaf folders with zero child folders of any status and zero assigned documents of any status. Reject with conflict, never implicitly reparent/delete documents. Restore requires active ancestor chain, depth and active-name uniqueness.",
-    "migration": "One new forward-only CLI-generated migration after agreement; no canonical SQL file is created by this proposal. Exact composed manifests/hashes/blobs must distinguish base87+D1 from hosted base87+Storage88."
+    "migration": "One new forward-only CLI-generated migration after agreement; no canonical SQL file is created by this proposal. Exact composed manifests/hashes/blobs must distinguish base87+D1 from hosted base87+Storage88.",
+    "revision_policy": {
+      "folder_version": "Changes only when that folder name/parent/status changes; child collection changes use children_revision, not cascading parent metadata CAS.",
+      "children_revision": "Monotonic revision on each direct parent collection; create/rename/move/archive/restore increments each affected distinct parent once. Virtual root has a private root_children_revision.",
+      "graph_revision": "Private monotonic workspace revision incremented once for every committed create/rename/move/archive/restore; exact idempotent replay does not increment again.",
+      "classification_revision": "Private monotonic workspace revision for committed document classification changes, in addition to per-document classification_version; folder metadata/children revisions are not classification counters.",
+      "create": "New folder version1, children_revision0; destination parent/root children revision increments; graph revision increments.",
+      "rename": "Folder.version increments; its direct parent/root children revision increments because sibling name order changes; graph revision increments.",
+      "move": "Folder.version increments; old and new direct parent/root children revisions increment once each if distinct; graph revision increments; no descendant metadata version rewrite.",
+      "archive_restore": "Folder.version plus direct parent/root children revision plus graph revision increment under shared workspace serialization and current policy checks.",
+      "classification": "Assignment.classification_version plus workspace classification revision increment under the same serialization used by folder archive; canonical document.version remains separate and checked, never rewritten by classification."
+    }
   },
   "reads": {
     "folder_list": {
@@ -134,7 +146,7 @@
       "proposed_repository_dispatch": "Add distinct documentLibraryV3 typed consumer only after W1 agreement; no overload that silently changes v2 DTO/meaning",
       "enablement": "Separate default-OFF D2 gate plus accepted D1 gate; unavailable/denied cannot fall back to complete empty. Exact flag/config inventory needs W5 agreement before code."
     },
-    "cursors": "Opaque encrypted, domain separated, expiring; bind actor/workspace/current membership revision/query/filter/sort/limit/parent/classification. No count or folder label leakage from foreign or stale cursors."
+    "cursors": "Opaque encrypted, domain separated, expiring and bound to current actor/workspace/membership/query/filter/sort/limit/parent/classification. Folder-list cursors also bind graph_revision and direct-parent children_revision; v3 library cursors bind graph_revision and classification_revision. Any mismatching revision rejects before rows/counts, requiring fresh page1 with retained filters, not silent continuation or a claimed snapshot. v2 remains unchanged."
   },
   "commands": {
     "common": [
@@ -257,6 +269,11 @@
     {
       "id": "D2_16",
       "case": "Move a valid parent whose descendants would exceed depth8: reject even when the moved node alone is within limit; concurrent subtree changes cannot bypass the serialized maximum-depth check",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_17",
+      "case": "Between folder pages rename/move/archive and between v3 pages classify: exact old cursors reject before rows/counts; fresh page1 retains filters and shows current ordering. Verify each source/destination/root revision changes once and idempotent replay changes none. v2 cursor semantics unchanged.",
       "result": "NOT_RUN"
     }
   ],
