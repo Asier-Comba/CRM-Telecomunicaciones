@@ -90,6 +90,12 @@ test('private ingress rejects external ambiguous or credential-bearing redirects
 test('DNS budget cannot be absent, unbounded or raised past five seconds',()=>{
  for(const dnsTimeoutMs of [0,9,5001,Infinity,NaN,'5000'])assert.throws(()=>createEgressGateway({dnsTimeoutMs}),/DNS_BUDGET_INVALID/)
 })
+test('upstream deadline cannot be unbounded or raised past thirty seconds in either gateway',()=>{
+ for(const upstreamDeadlineMs of [0,9,30001,Infinity,'30000']){
+  assert.throws(()=>createEgressGateway({upstreamDeadlineMs}),/UPSTREAM_BUDGET_INVALID/)
+  assert.throws(()=>createIngressGateway({origin,username,password,upstreamDeadlineMs}),/UPSTREAM_BUDGET_INVALID/)
+ }
+})
 test('egress bounds concurrent unresolved DNS requests without admitting a fifth lookup',async t=>{
  const releases=[];let entered;const fourEntered=new Promise(resolve=>{entered=resolve})
  const url=await listen(t,createEgressGateway({resolve:()=>new Promise(resolve=>{releases.push(resolve);if(releases.length===4)entered()}),transport:upstream([])}))
@@ -113,6 +119,20 @@ test('client cancellation retires late DNS without starting upstream traffic',as
  const cancelled=await Promise.race([aborted,new Promise(resolve=>{timer=setTimeout(()=>resolve(false),500)})]);clearTimeout(timer)
  release([{address:'8.8.8.8',family:4}]);await new Promise(resolve=>setImmediate(resolve));await new Promise(resolve=>setImmediate(resolve))
  assert.deepEqual({cancelled,upstreamCalls:calls.length},{cancelled:true,upstreamCalls:0})
+})
+test('absolute upstream deadline stops a continuously dripping response',async t=>{
+ let stop,timer,stopped=false
+ const transport=(_target,_options,callback)=>{
+  const request=new EventEmitter();let interval,response
+  request.destroy=()=>{stopped=true;clearInterval(interval);response?.destroy();request.emit('error',Error('synthetic-close'))}
+  stop=request.destroy
+  request.end=()=>{response=new Readable({read(){}});response.statusCode=200;response.headers={};callback(response);interval=setInterval(()=>response.push(Buffer.from('synthetic')),5)}
+  return request
+ }
+ const url=await listen(t,createEgressGateway({upstreamDeadlineMs:25,resolve:async()=>[{address:'8.8.8.8',family:4}],transport}))
+ const request=fetch(url+'/auth/v1/user')
+ try{const status=await Promise.race([request.then(r=>r.status),new Promise(resolve=>{timer=setTimeout(()=>resolve('UNBOUNDED_DRIP'),500)})]);assert.equal(status,504);assert.equal(stopped,true)}
+ finally{clearTimeout(timer);stop?.();await request}
 })
 test('SDK fetch adapter preserves the public origin contract and request transport semantics',async()=>{
  const calls=[],transport=createGatewayFetch(async(request,options)=>{calls.push({request,options});return new Response('{}')})
