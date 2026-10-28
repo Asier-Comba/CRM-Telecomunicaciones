@@ -13,7 +13,7 @@ export async function cleanupSwarmLabV1({prefix,services,networks,secret,swarm},
  const steps=[];let clean=true
  const record=(name,result)=>{const ok=result.status===0;steps.push({operation:name,ok,exit_code:result.status??null,error:category(result)});if(!ok)clean=false;return result}
  const call=(name,args)=>record(name,raw(args))
- for(const [index,service]of [...services].reverse().entries())call('service_remove_'+index,['service','rm',service])
+ for(const [index,service]of [...services].reverse().entries()){call('service_remove_'+index,['service','rm',service]);steps.at(-1).resource=service}
  if(raw)for(let n=0;n<30;n++){
   const result=raw(['ps','-a','--filter','label=crm.disposable='+prefix,'--format','{{.ID}}'])
   if(result.status!==0){record('owned_containers_wait',result);break}
@@ -21,18 +21,18 @@ export async function cleanupSwarmLabV1({prefix,services,networks,secret,swarm},
   if(n===29){clean=false;steps.push({operation:'owned_containers_wait',ok:false,exit_code:0,error:'OWNED_CONTAINERS_REMAIN',observations:n+1})}
   await pause()
  }
- if(secret)call('secret_remove',['secret','rm',secret])
- for(const [index,network]of [...networks].reverse().entries())call('network_remove_'+index,['network','rm',network])
+ if(secret){call('secret_remove',['secret','rm',secret]);steps.at(-1).resource=secret}
+ for(const [index,network]of [...networks].reverse().entries()){call('network_remove_'+index,['network','rm',network]);steps.at(-1).resource=network}
  const absence={}
  if(swarm){
   for(const [kind,args]of [['services',['service','ls']],['networks',['network','ls']],['secrets',['secret','ls']],['containers',['ps','-a']]]){
    const result=call('readback_'+kind,[...args,'--filter','label=crm.disposable='+prefix,'--format','{{.ID}}'])
-   absence[kind]=result.status===0&&result.stdout.trim()===''
-   if(!absence[kind])clean=false
+   absence[kind]=result.status!==0?'UNKNOWN':result.stdout.trim()===''?'ABSENT':'PRESENT'
+   if(absence[kind]!=='ABSENT')clean=false
   }
   call('swarm_leave',['swarm','leave','--force'])
   const state=call('swarm_state_readback',['info','--format','{{.Swarm.LocalNodeState}}'])
-  absence.swarm=state.status===0&&state.stdout.trim()==='inactive';if(!absence.swarm)clean=false
+  absence.swarm=state.status!==0?'UNKNOWN':state.stdout.trim()==='inactive'?'ABSENT':'PRESENT';if(absence.swarm!=='ABSENT')clean=false
  }
  try{await removeConfig();steps.push({operation:'owned_config_remove',ok:true,exit_code:null,error:'NONE'})}catch{clean=false;steps.push({operation:'owned_config_remove',ok:false,exit_code:null,error:'OWNED_CONFIG_REMOVE_FAILED'})}
  return {ok:clean,steps,absence}
