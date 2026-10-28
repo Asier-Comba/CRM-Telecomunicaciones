@@ -1,0 +1,252 @@
+{
+  "status": "PROPOSED_NOT_IMPLEMENTED",
+  "authority": "W1_OWNERSHIP_AND_SHARED_CONTRACT_AGREEMENT_REQUIRED_BEFORE_SQL_OR_BACKEND_EDITS",
+  "version": "documents.folders.d2.proposal.v1",
+  "baseline": {
+    "metadata_source": "c17d8666dd39435112ac9e1745f496add68147c0",
+    "metadata_tree": "4c87996c28103ce6a40c9eff741480c27eeca2bf",
+    "auth_run": 40720188927,
+    "auth_checks": 117,
+    "integrator_source": "bcacf1115893c527142036a513a2720f141b648f",
+    "staging_mutations": false
+  },
+  "ownership": {
+    "claim_issue": 67,
+    "claim_comment": 6474577709,
+    "requested_backend": "W1",
+    "frontend": "ASIER_DOCUMENTS_W2",
+    "security_review": "W4",
+    "storage_and_migration_profiles": "W5",
+    "backend_delegation_received": false,
+    "contract_accepted": false
+  },
+  "scope": {
+    "folders": "Persistent workspace classification, never a Storage path or permission grant",
+    "roles": [
+      "owner",
+      "admin"
+    ],
+    "service_role": "DENIED",
+    "member_viewer": "NO_NEW_GLOBAL_READ_OR_WRITE",
+    "identity": "Current server-validated USER JWT plus active selected workspace and current membership on every read/command",
+    "foreign_resource": "not_found/access_denied without foreign names/counts",
+    "bytes": "OFF",
+    "bulk_actions": "OUT_OF_SCOPE",
+    "editable_document_titles": "SEPARATE_PROPOSAL_NOT_INCLUDED",
+    "fiscal_snapshots": "UNCHANGED"
+  },
+  "invariants": [
+    "Folder and document always belong to the same authorized workspace; no actor/workspace/role/path/object_ref is accepted from input.",
+    "Classification cannot alter canonical document customer/contract/service/line/case/opportunity ancestry or broaden document read authorization.",
+    "No browser/localStorage truth and no physical object move/reupload.",
+    "Folder structure and assignments are transactional, forced-RLS, closed RPC/DTO, CAS, idempotent command and audit.",
+    "Structure changes serialize within the workspace before cycle/depth checks; simultaneous reverse moves cannot both create a cycle.",
+    "Assignment state persists with a monotonic classification_version even when folder_id becomes null, preventing ABA reset.",
+    "Existing document.library.v2 and all legacy metadata/commands remain unchanged; additive v3 only after agreement.",
+    "Feature gates default OFF in HTTP and DB; no remote migration or hosted flag change."
+  ],
+  "model": {
+    "folder": {
+      "fields": [
+        "id",
+        "workspace_id",
+        "parent_id|null",
+        "name",
+        "status",
+        "version",
+        "created_at",
+        "updated_at"
+      ],
+      "depth_limit": 8,
+      "root_level": 1,
+      "proposed_workspace_limit": 5000,
+      "customer_context": "Not part of initial D2. Customer filters continue to derive exclusively from canonical document ancestry."
+    },
+    "names": {
+      "max_characters": 80,
+      "normalization": "NFC and trim; active sibling duplicate equivalence must have an exact deterministic DB/JS policy agreed by W1 before implementation",
+      "reject": [
+        "empty",
+        ".",
+        "..",
+        "slash",
+        "backslash",
+        "control and bidi-format characters"
+      ],
+      "privacy": "Names are authorized metadata for owner/admin, not original filenames; no global.search/assistant indexing or diagnostic logging"
+    },
+    "assignment": {
+      "primary_scope": "workspace_id + document_id",
+      "fields": [
+        "folder_id|null",
+        "classification_version",
+        "updated_at"
+      ],
+      "initial_version": 0,
+      "never_delete_for_unclassify": true,
+      "document_version": "Existing document.version remains a separate metadata CAS; classification command checks both current versions"
+    },
+    "archive_policy": "Initial bounded proposal: only leaf folders with zero child folders of any status and zero assigned documents of any status. Reject with conflict, never implicitly reparent/delete documents. Restore requires active ancestor chain, depth and active-name uniqueness.",
+    "migration": "One new forward-only CLI-generated migration after agreement; no canonical SQL file is created by this proposal. Exact composed manifests/hashes/blobs must distinguish base87+D1 from hosted base87+Storage88."
+  },
+  "reads": {
+    "folder_list": {
+      "contract": "document.folder.v1",
+      "operation": "document.folder_list",
+      "input": {
+        "parent_id": "UUID|null",
+        "status": "active|archived",
+        "limit": "default50,max100",
+        "cursor": "bounded opaque current-authority-bound keyset"
+      },
+      "output": [
+        "closed folder metadata",
+        "next_cursor",
+        "exact authorized sibling count when proved",
+        "completeness"
+      ],
+      "ordering": "Deterministic approved normalized name + UUID, agreed with W1"
+    },
+    "folder_get": {
+      "operation": "document.folder_get",
+      "input": [
+        "id"
+      ],
+      "output": [
+        "closed current folder metadata",
+        "bounded authorized ancestor breadcrumbs"
+      ]
+    },
+    "library_v3": {
+      "contract": "document.library.v3",
+      "operation": "document.library_list",
+      "preserves": "Approved v2 metadata/search/filter/created-order/count/keyset and current ancestry authorization",
+      "classification_selector": "Exactly one of {kind:all}, {kind:unclassified}, {kind:folder,id:UUID}; filter before count/limit",
+      "additive_fields": [
+        "current classification_version",
+        "authorized folder metadata/breadcrumb context"
+      ],
+      "no_v2_field_extension": true
+    },
+    "cursors": "Opaque encrypted, domain separated, expiring; bind actor/workspace/current membership revision/query/filter/sort/limit/parent/classification. No count or folder label leakage from foreign or stale cursors."
+  },
+  "commands": {
+    "common": [
+      "command_id:UUID",
+      "expected_version for the mutated resource",
+      "closed typed input",
+      "current actor/workspace/role resolved server-side",
+      "exact retry is one committed effect; changed input with same command_id conflicts"
+    ],
+    "folder_create": [
+      "name",
+      "parent_id|null",
+      "expected_parent_version when parent non-null"
+    ],
+    "folder_rename": [
+      "id",
+      "name",
+      "expected_version"
+    ],
+    "folder_move": [
+      "id",
+      "parent_id|null",
+      "expected_version",
+      "expected_parent_version when new parent non-null"
+    ],
+    "folder_archive": [
+      "id",
+      "expected_version"
+    ],
+    "folder_restore": [
+      "id",
+      "expected_version"
+    ],
+    "document_classify": [
+      "id",
+      "folder_id|null",
+      "expected_document_version",
+      "expected_classification_version",
+      "expected_folder_version when non-null"
+    ],
+    "receipt": "Versioned command identity/resource/revisions only; receipt does not replace a fresh authorized readback.",
+    "audit": "Record registered action, tenant/actor/resource/command identity and revision changes; no filename/name/body/path/token/URL in application diagnostics."
+  },
+  "expected_acceptance": [
+    {
+      "id": "D2_01",
+      "case": "Owner/admin create root/subfolder and classify document through UI; reload preserves IDs/hierarchy/classification",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_02",
+      "case": "Tenant A document to tenant B folder and foreign parent/get/search/cursor: denied, exact state unchanged, no foreign labels/counts",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_03",
+      "case": "A→B→C hierarchy rejects moving A under C; simultaneous reverse-parent moves serialize and cannot both form a cycle",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_04",
+      "case": "Concurrent rename with the same expected_version yields one effect and a conflict; exact command replay adds no audit/effect",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_05",
+      "case": "Classification A→null→A monotonically increments classification_version; old CAS cannot succeed after ABA",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_06",
+      "case": "Archive assigned/nonleaf folder rejects without document deletion/move; empty leaf archive/restore persists and enforces parent/name policy",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_07",
+      "case": "More than100 siblings and123 documents support complete cursor pages/all/unclassified/folder plus combined canonical customer/target filters",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_08",
+      "case": "Member/viewer/anon/service_role gain no folder/library privileges; direct tables and unknown API input denied",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_09",
+      "case": "Same valid JWT after membership suspension denies read/command and retires rows, cursors and controls",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_10",
+      "case": "Lost committed response freezes exact classification/rename command intent; retry has one effect and authorized readback",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_11",
+      "case": "Late folder/list/assignment responses after query, customer, role or workspace change cannot repopulate stale UI",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_12",
+      "case": "390/768/1440 tree/breadcrumbs/forms/actions loaded; focus/Tab/ShiftTab/Escape/scroll and no overflow",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_13",
+      "case": "Actual Storage pause leaves folder and metadata listing usable; restore and own stack teardown verified",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_14",
+      "case": "D2 gate OFF preserves unchanged legacy customer/document writes, v2 bank and exact old migration-profile rejection",
+      "result": "NOT_RUN"
+    }
+  ],
+  "next": [
+    "W1 ACK ownership and exact names/normalization/archive/API invariants or return a bounded alternative",
+    "W4 review of authorization/concurrency/privacy and W5 profile integration scope",
+    "Only then create failing real acceptance and minimal backend/frontend changes under agreed CLAIM"
+  ]
+}
