@@ -37,7 +37,9 @@ export async function publishCandidateV1({expected,env,token,ports}={}){
   const proof=await verifyCandidateEvidenceV1({expected,source:await ports.readSource(),evidence:await ports.readEvidence(),verifyEvidence:ports.verifyEvidence})
   result.evidence_verification='TRUSTED_PORT_VERIFIED'
   const published=await publishVerifiedImage({expected,imageConfigDigest:proof.image.image_config_digest,scan:proof.scan,token,ports:ports.publisher})
-  result.result=published.result;result.publication=published.publication;result.receipt=published.receipt;result.credential_cleanup=published.credential_cleanup;result.error=published.error??null
+  result.result=published.result;result.publication=published.publication;result.credential_cleanup=published.credential_cleanup;result.error=published.error??null
+  // Preserve the partial outcome, but do not export a consumable receipt after failure.
+  result.receipt=published.result==='PASS'&&published.credential_cleanup==='PASS'?published.receipt:null
   result.evidence={...proof.subjects}
  }catch(error){
   const allowed=new Set(['CANDIDATE_MANUAL_DRIVER_REQUIRED','CANDIDATE_TRUSTED_PORTS_REQUIRED','CANDIDATE_PUBLICATION_NOT_AUTHORIZED','CANDIDATE_EXPECTED_INVALID','CANDIDATE_SOURCE_BINDING_INVALID','CANDIDATE_VERIFIER_REQUIRED','CANDIDATE_SCAN_INVALID','CANDIDATE_EVIDENCE_UNVERIFIED'])
