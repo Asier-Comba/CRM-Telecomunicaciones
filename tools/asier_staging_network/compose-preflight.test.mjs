@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import {readFileSync,mkdtempSync,writeFileSync,rmSync} from 'node:fs'
+import {readFileSync,mkdtempSync,mkdirSync,writeFileSync,rmSync} from 'node:fs'
 import {createRequire} from 'node:module'
 import {spawnSync} from 'node:child_process'
 import {tmpdir} from 'node:os'
@@ -87,6 +87,8 @@ const mutations={
  elevatedCapabilities:i=>{app(i).cap_add=['NET_ADMIN']},
  noPrivilegeGuard:i=>{delete ingress(i).security_opt},
  unlimitedMemory:i=>{delete app(i).mem_limit},
+ arrayMemory:i=>{egress(i).mem_limit=[268435456]},
+ secretTargetTraversal:i=>{ingress(i).secrets[0].target='/run/secrets/crm-staging-ingress/../other'},
  largerCpu:i=>{egress(i).cpus=2},
  arrayCpu:i=>{egress(i).cpus=[0.25]},
  alternateTmpfs:i=>{app(i).tmpfs.push('/etc')},
@@ -129,22 +131,37 @@ test('only documented null defaults, empty IPAM and known nonexecuting extension
  assert.equal(composePreflightV1(changed).status,'BLOCKED')
 })
 
-test('actual Actions Compose parser resolves the proposal before the same closed checks; no engine or containers',{skip:process.env.GITHUB_ACTIONS!=='true'},()=>{
+test('actual observed decimal byte strings and canonical secret mount retain the exact same limits and destination',()=>{
+ const input=fixture()
+ for(const service of Object.values(input.configuration.services))service.mem_limit=service.mem_limit==='768m'?'805306368':'268435456'
+ ingress(input).secrets[0].target='/run/secrets/crm-staging-ingress'
+ assert.equal(composePreflightV1(input).status,'CONFIGURATION_CHECKED')
+})
+
+test('actual Compose parser resolves the proposal before the same closed checks; no engine or containers',{skip:process.env.GITHUB_ACTIONS!=='true'&&process.env.CRM_COMPOSE_PARSER_ONLY!=='true'},t=>{
  const input=fixture(),directory=mkdtempSync(join(tmpdir(),'crm-compose-parser-'))
  try{
   const synthetic={...app(input).environment};delete synthetic.HOSTNAME;delete synthetic.PORT
   const environmentFile=join(directory,'synthetic.env')
   writeFileSync(environmentFile,Object.entries(synthetic).map(([name,value])=>name+'='+value).join('\n')+'\n',{mode:0o600})
+  const interpolationFile=join(directory,'empty.env'),dockerConfig=join(directory,'docker-config')
+  writeFileSync(interpolationFile,'',{mode:0o600});mkdirSync(dockerConfig,{mode:0o700})
   // `config` parses only. Closed environment: no inherited registry auth, selectors or credentials.
-  const result=spawnSync('docker',['compose','--project-name',project,'--file','tools/asier_staging_network/compose.proposed.yaml','config','--format','json'],{
-   env:{PATH:process.env.PATH,HOME:directory,APP_IMAGE:input.receipt.image_reference,APP_ENV_FILE:environmentFile,CRM_INGRESS_CREDENTIAL_FILE:'/etc/crm-telecom-runtime/ingress.json'},
+  const windows=process.platform==='win32'
+  const options={
+   env:{PATH:process.env.PATH,HOME:directory,DOCKER_CONFIG:dockerConfig,...windows?{USERPROFILE:directory,SystemRoot:process.env.SystemRoot}:{},APP_IMAGE:input.receipt.image_reference,APP_ENV_FILE:environmentFile,CRM_INGRESS_CREDENTIAL_FILE:'/etc/crm-telecom-runtime/ingress.json'},
    encoding:'utf8',timeout:10000,maxBuffer:1024*1024,shell:false
-  })
+  }
+  const executable=windows?'docker-compose':'docker',prefix=windows?[]:['compose']
+  const version=spawnSync(executable,[...prefix,'version','--short'],options)
+  assert.equal(version.status,0,'COMPOSE_PARSER_VERSION_FAILED');assert.match(version.stdout.trim(),/^v?\d+\.\d+\.\d+$/)
+  t.diagnostic('SYNTHETIC_PARSER_ONLY_VERSION='+version.stdout.trim())
+  const result=spawnSync(executable,[...prefix,'--project-name',project,'--env-file',interpolationFile,'--file','tools/asier_staging_network/compose.proposed.yaml','config','--format','json'],options)
   assert.equal(result.status,0,'ACTUAL_COMPOSE_PARSE_FAILED')
   input.configuration=JSON.parse(result.stdout)
   const report=composePreflightV1(input)
   // Safe observation of real parser normalization. Never dump resolved environment/file values.
-  const structure={root:Object.keys(input.configuration),services:Object.fromEntries(Object.entries(input.configuration.services??{}).map(([name,service])=>[name,Object.keys(service)])),networks:Object.fromEntries(Object.entries(input.configuration.networks??{}).map(([name,network])=>[name,Object.fromEntries(Object.entries(network).map(([field,value])=>[field,typeof value]))]))}
+  const structure={root:Object.keys(input.configuration),services:Object.fromEntries(Object.entries(input.configuration.services??{}).map(([name,service])=>[name,{fields:Object.keys(service),resources:{cpus:service.cpus,mem_limit:service.mem_limit},secrets:service.secrets}])),networks:Object.fromEntries(Object.entries(input.configuration.networks??{}).map(([name,network])=>[name,Object.fromEntries(Object.entries(network).map(([field,value])=>[field,typeof value]))]))}
   assert.equal(report.status,'CONFIGURATION_CHECKED',JSON.stringify({errors:report.errors,structure}))
   assert.equal(report.hosted_acceptance,'NOT_RUN');assert.equal(report.deploying_authorized,false)
  }finally{

@@ -10,7 +10,7 @@ const sameKeys=(value,keys)=>value!==null&&typeof value==='object'&&!Array.isArr
 const subset=(value,keys)=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).every(key=>keys.includes(key))
 const empty=value=>value===undefined||value===null||sameKeys(value,[])
 const sorted=value=>Array.isArray(value)?[...value].sort():null
-const memory=value=>typeof value==='number'?value:typeof value==='string'&&/^\d+m$/.test(value)?Number(value.slice(0,-1))*1024*1024:NaN
+const memory=value=>typeof value==='number'?value:typeof value==='string'&&/^\d+$/.test(value)?Number(value):typeof value==='string'&&/^\d+m$/.test(value)?Number(value.slice(0,-1))*1024*1024:NaN
 const cpu=value=>typeof value==='number'?value:typeof value==='string'&&/^\d+(\.\d+)?$/.test(value)?Number(value):NaN
 
 // Only inspect the resolved `docker compose config --format json` document.
@@ -71,7 +71,10 @@ export function composePreflightV1({configuration,receipt,expected,policy,bindin
   }
   const tmpfs=isApp?['/tmp:size=64m,mode=1777','/app/.next/cache:size=128m,uid=65532,gid=65532']:['/tmp:size=16m,mode=1777']
   if(!isDeepStrictEqual(sorted(service.tmpfs),sorted(tmpfs)))fail('SERVICE_TMPFS_INVALID')
-  if(isIngress){if(!isDeepStrictEqual(service.secrets,[{source:'crm-staging-ingress',target:'crm-staging-ingress'}]))fail('INGRESS_SECRET_MOUNT_INVALID')}
+  if(isIngress){
+   const mount=Array.isArray(service.secrets)&&service.secrets.length===1?service.secrets[0]:null
+   if(!sameKeys(mount,['source','target'])||mount.source!=='crm-staging-ingress'||!['crm-staging-ingress','/run/secrets/crm-staging-ingress'].includes(mount.target))fail('INGRESS_SECRET_MOUNT_INVALID')
+  }
   else if(service.secrets!==undefined)fail('SECRET_OUTSIDE_INGRESS')
  }
  return {version:'staging.compose.preflight.v1',status:errors.size?'BLOCKED':'CONFIGURATION_CHECKED',errors:[...errors].sort(),destination:composeDestination,source:verified?.source??null,tree:verified?.tree??null,image_reference:verified?.image_reference??null,values_included:false,mutation_performed:false,publishing_authorized:false,deploying_authorized:false,external_evidence_verified:false,hosted_acceptance:'NOT_RUN'}
