@@ -1,0 +1,58 @@
+name: Private staging channel preparation (publication closed)
+on:
+  pull_request:
+    paths:
+      - 'tools/asier_staging_channel/**'
+      - '.github/workflows/private-staging-channel.yml'
+  workflow_dispatch:
+    inputs:
+      reviewed_source_sha:
+        description: Full independently reviewed source; never a moving branch
+        type: string
+        required: true
+permissions:
+  contents: read
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version-file: .nvmrc}
+      - run: node --test tools/asier_staging_channel/*.test.mjs
+  reviewed-image:
+    # Intentionally inert. W4/W5 must review this workflow's exact SHA, the
+    # accepted runtime/binding successor and protected environment first.
+    # Enabling this job is a separate reviewed change, never a dispatch input.
+    if: false
+    needs: contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: staging-image-build
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.reviewed_source_sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version-file: .nvmrc}
+      - name: Existing Dockerfile only; no shared VPS build
+        env:
+          NEXT_PUBLIC_APP_URL: ${{ vars.STAGING_PUBLIC_APP_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.STAGING_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.STAGING_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          node --input-type=module -e 'import {publicBuildIdentity} from "./tools/asier_staging_channel/contract.mjs"; publicBuildIdentity(Object.fromEntries(["NEXT_PUBLIC_APP_URL","NEXT_PUBLIC_SUPABASE_URL","NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY"].map(k=>[k,process.env[k]])))'
+          docker build --platform linux/amd64 -f infra/deployment/Dockerfile --build-arg NEXT_PUBLIC_APP_URL --build-arg NEXT_PUBLIC_SUPABASE_URL --build-arg NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY -t crm-w5-package:test .
+      # Exact image scan, physical smoke and registry provenance must be
+      # implemented before the publication job can be proposed for activation.
+      # Promotion consumes a real manifest digest AFTER build/verification;
+      # never invent a digest to pass a pre-build gate.
+      - name: Existing immutable promotion gate remains mandatory
+        run: node scripts/platform/promotion.mjs docs/master/platform/staging-channel/candidate.json STAGING
+      # Publication is deliberately absent: no package write permission, token,
+      # login or push until private visibility, exact image scan/provenance and
+      # reviewed environment controls are implemented and independently accepted.
+      # EasyPanel mutation is a separate gate and is not part of this workflow.

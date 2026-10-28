@@ -1,0 +1,530 @@
+{
+  "acceptance_scope": "FULL",
+  "contract": "documents.global.d1.acceptance.v1",
+  "result": "PASS",
+  "checks": [
+    {
+      "name": "exact_base87_plus_d1_hash_blob_closure",
+      "result": "PASS"
+    },
+    {
+      "name": "all_exact_profile_versions_applied_in_order",
+      "result": "PASS"
+    },
+    {
+      "name": "real_synthetic_auth_user_ownerA",
+      "result": "PASS"
+    },
+    {
+      "name": "real_synthetic_auth_user_adminA",
+      "result": "PASS"
+    },
+    {
+      "name": "real_synthetic_auth_user_memberA",
+      "result": "PASS"
+    },
+    {
+      "name": "real_synthetic_auth_user_viewerA",
+      "result": "PASS"
+    },
+    {
+      "name": "real_synthetic_auth_user_ownerB",
+      "result": "PASS"
+    },
+    {
+      "name": "real_synthetic_auth_user_emptyOwner",
+      "result": "PASS"
+    },
+    {
+      "name": "fixture_user_password_auth_before_gate_check",
+      "result": "PASS"
+    },
+    {
+      "name": "database_library_gate_defaults_off",
+      "result": "PASS"
+    },
+    {
+      "name": "authenticated_rpc_cannot_bypass_disabled_gate",
+      "result": "PASS"
+    },
+    {
+      "name": "rpc_execute_denied_anonymous",
+      "result": "PASS"
+    },
+    {
+      "name": "rpc_execute_denied_service_role",
+      "result": "PASS"
+    },
+    {
+      "name": "service_key_excluded_from_next_environment",
+      "result": "PASS"
+    },
+    {
+      "name": "own_loopback_next_ready_and_anonymous_denied",
+      "result": "PASS"
+    },
+    {
+      "name": "real_login_page_ready",
+      "result": "PASS"
+    },
+    {
+      "name": "owner_real_browser_login",
+      "result": "PASS"
+    },
+    {
+      "name": "real_global_all_123_exact_order_no_omission_duplicate",
+      "result": "PASS"
+    },
+    {
+      "name": "real_seven_global_cursor_reads_no_target_fanout",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "real_global_first_page_and_old_document_outside_it",
+      "result": "PASS"
+    },
+    {
+      "name": "real_global_reload_and_previous_cursor",
+      "result": "PASS"
+    },
+    {
+      "name": "opaque_cursor_never_in_browser_url",
+      "result": "PASS"
+    },
+    {
+      "name": "real_database_gate_blocks_current_http_read",
+      "result": "PASS"
+    },
+    {
+      "name": "real_unavailable_ui_distinct_from_complete_empty",
+      "result": "PASS"
+    },
+    {
+      "name": "own_disposable_database_gate_restored",
+      "result": "PASS"
+    },
+    {
+      "name": "query_reference_never_in_browser_url",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "protected_original_filename_not_searchable",
+      "result": "PASS"
+    },
+    {
+      "name": "real_combined_server_filters_order_and_reload",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "real_customer_filter_includes_canonical_ancestry",
+      "result": "PASS"
+    },
+    {
+      "name": "real_exact_target_filter",
+      "result": "PASS"
+    },
+    {
+      "name": "real_global_browser_back_forward",
+      "result": "PASS"
+    },
+    {
+      "name": "real_loaded_no_horizontal_overflow_390",
+      "result": "PASS"
+    },
+    {
+      "name": "real_drawer_tab_stays_inside_390",
+      "result": "PASS"
+    },
+    {
+      "name": "real_drawer_shift_tab_stays_inside_390",
+      "result": "PASS"
+    },
+    {
+      "name": "real_loaded_escape_and_return_focus_390",
+      "result": "PASS"
+    },
+    {
+      "name": "real_loaded_no_horizontal_overflow_768",
+      "result": "PASS"
+    },
+    {
+      "name": "real_drawer_tab_stays_inside_768",
+      "result": "PASS"
+    },
+    {
+      "name": "real_drawer_shift_tab_stays_inside_768",
+      "result": "PASS"
+    },
+    {
+      "name": "real_loaded_escape_and_return_focus_768",
+      "result": "PASS"
+    },
+    {
+      "name": "real_loaded_no_horizontal_overflow_1440",
+      "result": "PASS"
+    },
+    {
+      "name": "real_drawer_tab_stays_inside_1440",
+      "result": "PASS"
+    },
+    {
+      "name": "real_drawer_shift_tab_stays_inside_1440",
+      "result": "PASS"
+    },
+    {
+      "name": "real_loaded_escape_and_return_focus_1440",
+      "result": "PASS"
+    },
+    {
+      "name": "new_private_byte_controls_not_enabled",
+      "result": "PASS"
+    },
+    {
+      "name": "protected_filename_and_service_key_absent_from_loaded_html",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "real_owner_cursor_positive_before_other_scope_negatives",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "real_positive_workspace_inventory_adminA",
+      "result": "PASS"
+    },
+    {
+      "name": "real_other_actor_cursor_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "real_positive_workspace_inventory_ownerB",
+      "result": "PASS"
+    },
+    {
+      "name": "real_tenant_b_positive_set",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "real_tenant_b_cannot_search_a",
+      "result": "PASS"
+    },
+    {
+      "name": "real_foreign_tenant_cursor_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "real_positive_workspace_inventory_emptyOwner",
+      "result": "PASS"
+    },
+    {
+      "name": "real_empty_workspace_complete_distinct_from_failure",
+      "result": "PASS"
+    },
+    {
+      "name": "real_current_role_server_and_ui_denied_memberA",
+      "result": "PASS"
+    },
+    {
+      "name": "real_current_role_server_and_ui_denied_viewerA",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "real_foreign_query_filter_or_target_no_count_leak",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "real_foreign_query_filter_or_target_no_count_leak",
+      "result": "PASS"
+    },
+    {
+      "name": "real_authorized_global_closed_contract",
+      "result": "PASS"
+    },
+    {
+      "name": "real_metadata_excludes_protected_filename_and_path",
+      "result": "PASS"
+    },
+    {
+      "name": "real_foreign_query_filter_or_target_no_count_leak",
+      "result": "PASS"
+    },
+    {
+      "name": "real_foreign_get_write_denied_and_unchanged",
+      "result": "PASS"
+    },
+    {
+      "name": "real_tampered_or_changed_filter_cursor_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "real_tampered_or_changed_filter_cursor_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "real_tampered_or_changed_filter_cursor_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "real_tampered_or_changed_filter_cursor_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "real_expired_authentic_cursor_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "real_closed_input_rejects_storage_identifier",
+      "result": "PASS"
+    },
+    {
+      "name": "real_archive_committed_before_lost_response",
+      "result": "PASS"
+    },
+    {
+      "name": "real_uncertain_retry_same_intent_one_command_one_effect",
+      "result": "PASS"
+    },
+    {
+      "name": "real_restore_persists_and_readback",
+      "result": "PASS"
+    },
+    {
+      "name": "real_stale_cas_denied_without_effect",
+      "result": "PASS"
+    },
+    {
+      "name": "real_new_read_denied_after_role_change",
+      "result": "PASS"
+    },
+    {
+      "name": "late_real_response_processed_and_retired_before_reload",
+      "result": "PASS"
+    },
+    {
+      "name": "real_role_reload_withdraws_privileged_controls",
+      "result": "PASS"
+    },
+    {
+      "name": "own_role_restored",
+      "result": "PASS"
+    },
+    {
+      "name": "actual_browser_cookie_token_available",
+      "result": "PASS"
+    },
+    {
+      "name": "actual_browser_jwt_verified_and_unexpired",
+      "result": "PASS"
+    },
+    {
+      "name": "actual_membership_suspended_before_denied_request",
+      "result": "PASS"
+    },
+    {
+      "name": "same_revoked_membership_jwt_still_auth_valid",
+      "result": "PASS"
+    },
+    {
+      "name": "actual_browser_cookie_token_available",
+      "result": "PASS"
+    },
+    {
+      "name": "actual_browser_jwt_verified_and_unexpired",
+      "result": "PASS"
+    },
+    {
+      "name": "exact_denied_global_request_uses_same_live_jwt_and_input",
+      "result": "PASS"
+    },
+    {
+      "name": "real_membership_revocation_withdraws_loaded_inventory",
+      "result": "PASS"
+    },
+    {
+      "name": "own_membership_restored",
+      "result": "PASS"
+    },
+    {
+      "name": "exact_disposable_storage_running_unpaused",
+      "result": "PASS"
+    },
+    {
+      "name": "actual_storage_healthy_before_outage",
+      "result": "PASS"
+    },
+    {
+      "name": "exact_storage_pause_confirmed",
+      "result": "PASS"
+    },
+    {
+      "name": "actual_storage_unavailable_not_auth_denial",
+      "result": "PASS"
+    },
+    {
+      "name": "real_global_metadata_http_survives_storage_outage",
+      "result": "PASS"
+    },
+    {
+      "name": "real_global_ui_survives_storage_outage",
+      "result": "PASS"
+    },
+    {
+      "name": "existing_metadata_reader_independent_of_storage",
+      "result": "PASS"
+    },
+    {
+      "name": "storage_restored_running_and_http_healthy",
+      "result": "PASS"
+    },
+    {
+      "name": "own_next_process_stopped",
+      "result": "PASS"
+    },
+    {
+      "name": "own_disposable_stack_containers_removed",
+      "result": "PASS"
+    }
+  ],
+  "folders": "NOT_IMPLEMENTED_CONTRACT_PENDING",
+  "private_bytes": "OFF",
+  "hosted": "NOT_RUN",
+  "storage_security_acceptance": "NOT_GRANTED",
+  "storage_88_adopted": false,
+  "source": "c17d8666dd39435112ac9e1745f496add68147c0",
+  "tree": "4c87996c28103ce6a40c9eff741480c27eeca2bf",
+  "migration_profile": "BASE87_PLUS_D1_NOT_STORAGE88",
+  "document_phase": "completed_global_metadata_only",
+  "fixtures": {
+    "workspaces": 3,
+    "actors": 6,
+    "roles": [
+      "owner",
+      "admin",
+      "member",
+      "viewer"
+    ],
+    "active_a": 123,
+    "active_b": 3,
+    "empty_workspace": 0,
+    "archived_a": 1,
+    "target_kinds": 6,
+    "customers_a": 3,
+    "bytes": "NOT_CREATED_METADATA_ONLY"
+  },
+  "pagination_observation": {
+    "observed_rows": 123,
+    "unique_rows": 123,
+    "expected_rows": 123,
+    "ordered_set_exact": true,
+    "missing_rows": 0,
+    "unexpected_rows": 0,
+    "requests": 7,
+    "global_inputs_only": true
+  },
+  "late_step": "wait_json_and_render",
+  "late_response_observation": {
+    "json_consumed": true,
+    "settled": true,
+    "saw_rows": false
+  },
+  "role_restoration": "PASS",
+  "storage_restoration": "PASS",
+  "auth": "REAL_PASSWORD_LOGIN_USER_JWT",
+  "metadata_acceptance": "GLOBAL_LIBRARY_REAL",
+  "storage_availability": "LOCAL_OUTAGE_ONLY",
+  "ui_widths": [
+    390,
+    768,
+    1440
+  ],
+  "browser_cleanup": "PASS",
+  "teardown": "PASS",
+  "passed": 117
+}

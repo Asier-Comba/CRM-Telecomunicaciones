@@ -1,5 +1,19 @@
 # Documents Pro V2 — D1A scoped frontend checkpoint
 
+## Current global metadata acceptance — 2026-10-28
+
+SOURCE/EXECUTEDc17d8666dd39435112ac9e1745f496add68147c0 / TREE4c87996c28103ce6a40c9eff741480c27eeca2bf: FULL40720188927/job122928653044 PASS117/117, role/membership/Storage/browser/server/stack restoration and cleanupPASS. This is the new global-metadata bank, not a replacement for historical116 product scenarios. [Closed report](evidence/20261028_GLOBAL_AUTH_C17.safe.json), [current matrix](ACCEPTANCE_MATRIX.md). Safe/UI artifacts12829214919/12830710718 downloaded, SHA256 verified; all six loaded inventory/details390/768/1440 captures visually inspected. W4 independently corroborates the physical report within completed_global_metadata_only; no W4_ACCEPTED or release.
+
+Causal history retained:785 originalFAIL98, focused e222FAIL21 identifies competing library/Next alerts before the observer, corrected c17 focalPASS23, then one c17FULLPASS117. Only the test locator changed; no product, permission, action or timeout change. Opt-ins removed after each completion. Main c17CI40718130579 remainsFAIL: native122921930245 blocked by registry data limit before SQL, while quality/build/embedded/preview checksPASS. All-ref40718130643FAIL. D2 folders, private bytes/#179, hosted schema/runtime/network/private-origin and release remain separate gates.
+
+Private staging preparation203 contains the reviewed c17 correction and source3a502a4 platform preparation. The composed tree before evidence-only edits equals previously executed contract tree d208b730be6bfd92310239b02957b3a45bff6bdf (GitHub74ade102846eee59286a0064b491cef9f92cacb7),12 contractsPASS; exact composed commit/result are recorded separately. No image, publisher activation or hosting change. PIPELINE_READY=false. No acceptance is transferred from c17 to untested product changes.
+
+## Global real Auth checkpoint and private staging addendum — 2026-10-28
+
+Exact202 source785decebdbc2185946c0ea6169bf6f84f2a7a024/treeca1699f63ceb1b61f343258d815f2d2cadd74cca received limited technical W4/W5 ACK and was activated once. Run40714047550/job122906772159 FAIL after98PASS; role/browser/stack cleanupPASS. Initial global123/7reads, search/filter/history, roles/tenants/cursors, loaded390/768/1440/focus and committed archive/lost-response/exact replay/restore/CAS passed. The late-response phase failed after real403/access_denied and rows withdrawal, before a completed observation was reported; cause remains unclassified. Membership suspension and Storage outage not reached. No whole-acceptance PASS or rerun claimed. Original safe/UI artifacts retained. D2 contract/ownership pending; private bytes stillOFF.
+
+Owner adds a conditional private EasyPanel destination only for crm-inmobiliario/crm-telecom-staging. [Read-only infrastructure evidence and closed preparation](../platform/STAGING_CHANNEL_20261028.md). Current staging ledger is87base+Storage88, not this branch's87base+D1; D1 absent. Runtime/origin/network/private-access/release gates unresolved; no image, secrets, deployment or provider mutation. Documents remains active. No global W4_ACCEPTED.
+
 ## Recovery / D1 source-gate increment — 2026-10-28
 
 Remote refresh confirmed #198 ddcd9ea, #199 37d48e9 and #200 8cc9adf (tree f2ed1b83586553e75cb57237ba153712c5725dc0), with no later D1 source. Retained local global UI3337d4cad727b0ef62815b32935fd51e33081d82 is present and committed; it is not rebuilt or credited as Auth acceptance. #200 native PostgreSQL122343835125 and embedded122343837068 passed in CI40548021775, closing the index regression physically for that source. Supabase40548021789 is SUCCESS; global Auth/UI remains unaccredited. The rest of the original CI remains FAIL, not inherited by this increment.
