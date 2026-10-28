@@ -5,7 +5,7 @@ import {createIngressGateway,createEgressGateway} from './gateway.mjs'
 import {stagingEasyPanelOriginV1} from '../../src/lib/server/product-staging-admission-v1.ts'
 const role=process.argv[2]
 if(process.env.CRM_DISPOSABLE_SWARM_FIXTURE!=='true')throw Error('DISPOSABLE_FIXTURE_REQUIRED')
-if(role==='app')createServer((_req,res)=>res.end('CRM_LAB_ONLY')).listen(3000,'0.0.0.0')
+if(role==='app')createServer((req,res)=>{res.setHeader('x-crm-lab-local-address',req.socket.localAddress);res.end('CRM_LAB_ONLY')}).listen(3000,'0.0.0.0')
 else if(role==='canary')createServer((_req,res)=>res.end('OWNED_NETWORK_CANARY')).listen(8081,'0.0.0.0')
 else if(role==='egress')createEgressGateway().listen(8080,'0.0.0.0')
 else if(role==='ingress'){

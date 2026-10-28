@@ -9,7 +9,7 @@ const input=JSON.parse(readFileSync(0,'utf8')),checks=[]
 let failedCheck=null
 const check=(ok,name)=>{failedCheck=name;assert.ok(ok,'LAB_ASSERTION_FAILED');checks.push(name);failedCheck=null}
 async function tcp(address,port){return new Promise(resolve=>{const socket=connect({host:address,port});let done=false;const finish=value=>{if(done)return;done=true;socket.destroy();resolve(value)};socket.setTimeout(1500);socket.on('connect',()=>finish(true));socket.on('error',()=>finish(false));socket.on('timeout',()=>finish(false))})}
-async function http(host,path,headers={}){return new Promise((resolve,reject)=>{const req=request({host,port:8080,path,headers,timeout:10000},res=>{const chunks=[];res.on('data',x=>chunks.push(x));res.on('end',()=>resolve({status:res.statusCode,body:Buffer.concat(chunks).toString()}));res.on('error',reject)});req.on('timeout',()=>req.destroy(Error('LAB_HTTP_TIMEOUT')));req.on('error',reject);req.end()})}
+async function http(host,path,headers={}){return new Promise((resolve,reject)=>{const req=request({host,port:8080,path,headers,timeout:10000},res=>{const chunks=[];res.on('data',x=>chunks.push(x));res.on('end',()=>resolve({status:res.statusCode,headers:res.headers,body:Buffer.concat(chunks).toString()}));res.on('error',reject)});req.on('timeout',()=>req.destroy(Error('LAB_HTTP_TIMEOUT')));req.on('error',reject);req.end()})}
 try{if(input.kind==='internal'){
  failedCheck='internal_egress_alias_resolves'
  check((await lookup('crm-telecom-egress')).family===4,'internal_egress_alias_resolves')
@@ -29,12 +29,12 @@ try{if(input.kind==='internal'){
 }else if(input.kind==='outside'){
  check(await tcp(input.canaryIp,8081),'owned_canary_positive_control')
  check(await tcp(input.supabaseIp,443),'same_supabase_ip_port_positive_control')
- check(!await tcp(input.appIp,3000),'outside_private_app_ip_denied')
  const headers={host:new URL(stagingEasyPanelOriginV1).host}
  failedCheck='private_ingress_unauthenticated_denied';check((await http('crm-telecom-ingress','/login',headers)).status===401,'private_ingress_unauthenticated_denied')
  failedCheck='private_ingress_authenticated_fixed_app'
  const result=await http('crm-telecom-ingress','/login',{...headers,authorization:'Basic '+Buffer.from(input.username+':'+input.password).toString('base64')})
- check(result.status===200&&result.body==='CRM_LAB_ONLY','private_ingress_authenticated_fixed_app')
+ check(result.status===200&&result.body==='CRM_LAB_ONLY'&&result.headers['x-crm-lab-local-address']===input.appIp,'private_ingress_authenticated_fixed_app')
+ check(!await tcp(input.appIp,3000),'outside_private_app_ip_denied')
 }else throw Error('DISPOSABLE_PROBE_INVALID')
 console.log(JSON.stringify({checks,result:'PASS'}))
 }catch{console.log(JSON.stringify({checks,result:'FAIL',failed_check:failedCheck??'PROBE_TRANSPORT_FAILED'}));process.exitCode=1}
