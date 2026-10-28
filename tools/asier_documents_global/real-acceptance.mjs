@@ -8,6 +8,7 @@ import {parseDocumentLibraryInputV2,parseDocumentLibraryPageV2} from '../../src/
 import {parseDocumentGetV1,parseDocumentReceiptV1} from '../../src/lib/server/document-runtime-v1.ts'
 import {globalDocumentsFixture} from './fixture-sql.mjs'
 import {beginLateResponseObservation,settledLateResponseObservation,cleanLateResponseObservation,endLateResponseObservation} from './late-response-observer.mjs'
+import {closedLateFailure,libraryDenialAlert} from './late-failure-diagnostic.mjs'
 import {independentCleanup} from './independent-cleanup.mjs'
 import {responseForAction} from '../asier_compat62/response-action.mjs'
 
@@ -82,6 +83,28 @@ export async function realGlobalDocumentsAcceptance({url,anon,service,sql,comman
   check(ready,'own_loopback_next_ready_and_anonymous_denied')
   check((await fetch(origin+'/login',{signal:AbortSignal.timeout(30000)})).status===200,'real_login_page_ready')
   browser=await chromium.launch();({ctx:context,p:page}=await login(users.ownerA));check(true,'owner_real_browser_login')
+
+  async function lateRoleDrill(){
+  phase('late_real_authorized_response_after_role_revocation')
+  await page.goto(origin+'/documents');await page.getByRole('button',{name:'Todos los documentos',exact:true}).click();await expect(page.locator('[data-document-id]')).toHaveCount(20)
+  let held=false,releaseHold,heldFailure=false;const hold=new Promise(accept=>{releaseHold=accept})
+  await page.route(origin+library,async route=>{const body=route.request().postDataJSON();if(body.input?.query!=='General'){await route.continue();return}try{const response=await route.fetch({timeout:15000});held=response.status()===200;await hold;await route.fulfill({response})}catch{heldFailure=true}})
+  try{
+   await page.getByRole('textbox',{name:'Buscar documentos',exact:true}).fill('General');await page.getByRole('button',{name:'Buscar documentos',exact:true}).click();await expect.poll(()=>held).toBe(true)
+   sql(`update public.workspace_members set role='viewer'where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'`)
+   report.late_step='new_denied_read_and_alert';await page.getByRole('textbox',{name:'Buscar documentos',exact:true}).fill('NO_MATCH_GLOBAL');const denied=await responseForAction(()=>page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.input?.query==='NO_MATCH_GLOBAL'),()=>page.getByRole('button',{name:'Buscar documentos',exact:true}).click()),deniedBody=await denied.json();check(denied.status()===403&&deniedBody.ok===false&&deniedBody.error==='access_denied','real_new_read_denied_after_role_change');const denial=libraryDenialAlert(page);await expect(denial).toHaveCount(1);await expect(denial).toBeVisible();await expect(denial).toContainText('No tienes permiso para esta acción.');await expect(page.locator('[data-document-id]')).toHaveCount(0)
+   report.late_step='install_observer';await beginLateResponseObservation(page,library);report.late_step='release_and_finish_route';releaseHold();await page.unrouteAll({behavior:'wait'});report.late_step='wait_json_and_render';const observed=await settledLateResponseObservation(page);report.late_response_observation=observed
+   check(!heldFailure&&cleanLateResponseObservation(observed)&&await page.locator('[data-document-id]').count()===0,'late_real_response_processed_and_retired_before_reload')
+   await endLateResponseObservation(page)
+   await page.reload();await expect(page.getByText('Documentos disponibles para administradores del espacio.',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'Archivar',exact:true})).toHaveCount(0);check(true,'real_role_reload_withdraws_privileged_controls')
+  }catch(error){report.late_failure=await closedLateFailure(page,error);throw error}finally{
+   report.role_restoration='FAIL'
+   // No browser failure may prevent either DB restoration or verification.
+   const cleanup=await independentCleanup([()=>releaseHold(),()=>sql(`update public.workspace_members set role='owner'where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'`),()=>{check(sql(`select count(*)from public.workspace_members where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'and role='owner'`)==='1','own_role_restored');report.role_restoration='PASS'},()=>endLateResponseObservation(page),()=>page.unrouteAll({behavior:'wait'})])
+   if(cleanup.failed)throw Error('D1_GLOBAL_ROLE_CLEANUP_FAILED')
+  }
+  }
+  if(process.env.DOCUMENTS_GLOBAL_SCOPE==='LATE_ROLE_ONLY'){await lateRoleDrill();report.diagnostic_scope='LATE_ROLE_ONLY_NOT_FULL_ACCEPTANCE';return}
 
   phase('initial_global_123_six_targets_seven_pages')
   const inputs=[],observe=request=>{if(request.url()===origin+library&&request.method()==='POST'){try{const body=request.postDataJSON();if(body.operation==='document.library_list')inputs.push(body.input)}catch{}}}
@@ -187,24 +210,7 @@ export async function realGlobalDocumentsAcceptance({url,anon,service,sql,comman
   check(sql(`select version::text||':'||status from public.documents where id='${changedId}'`)==='3:active','real_restore_persists_and_readback')
   const stale=await post(context,'document.archive',{id:changedId,command_id:randomUUID(),expected_version:1},v1+'commands');check(stale.status===409&&stale.body.error==='conflict'&&sql(`select version from public.documents where id='${changedId}'`)==='3','real_stale_cas_denied_without_effect')
 
-  phase('late_real_authorized_response_after_role_revocation')
-  await page.goto(origin+'/documents');await page.getByRole('button',{name:'Todos los documentos',exact:true}).click();await expect(page.locator('[data-document-id]')).toHaveCount(20)
-  let held=false,releaseHold,heldFailure=false;const hold=new Promise(accept=>{releaseHold=accept})
-  await page.route(origin+library,async route=>{const body=route.request().postDataJSON();if(body.input?.query!=='General'){await route.continue();return}try{const response=await route.fetch({timeout:15000});held=response.status()===200;await hold;await route.fulfill({response})}catch{heldFailure=true}})
-  try{
-   await page.getByRole('textbox',{name:'Buscar documentos',exact:true}).fill('General');await page.getByRole('button',{name:'Buscar documentos',exact:true}).click();await expect.poll(()=>held).toBe(true)
-   sql(`update public.workspace_members set role='viewer'where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'`)
-   await page.getByRole('textbox',{name:'Buscar documentos',exact:true}).fill('NO_MATCH_GLOBAL');const denied=await responseForAction(()=>page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.input?.query==='NO_MATCH_GLOBAL'),()=>page.getByRole('button',{name:'Buscar documentos',exact:true}).click()),deniedBody=await denied.json();check(denied.status()===403&&deniedBody.ok===false&&deniedBody.error==='access_denied','real_new_read_denied_after_role_change');await expect(page.getByRole('alert')).toBeVisible();await expect(page.locator('[data-document-id]')).toHaveCount(0)
-   await beginLateResponseObservation(page,library);releaseHold();await page.unrouteAll({behavior:'wait'});const observed=await settledLateResponseObservation(page);report.late_response_observation=observed
-   check(!heldFailure&&cleanLateResponseObservation(observed)&&await page.locator('[data-document-id]').count()===0,'late_real_response_processed_and_retired_before_reload')
-   await endLateResponseObservation(page)
-   await page.reload();await expect(page.getByText('Documentos disponibles para administradores del espacio.',{exact:true})).toBeVisible();await expect(page.getByRole('button',{name:'Archivar',exact:true})).toHaveCount(0);check(true,'real_role_reload_withdraws_privileged_controls')
-  }finally{
-   report.role_restoration='FAIL'
-   // No browser failure may prevent either DB restoration or verification.
-   const cleanup=await independentCleanup([()=>releaseHold(),()=>sql(`update public.workspace_members set role='owner'where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'`),()=>{check(sql(`select count(*)from public.workspace_members where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'and role='owner'`)==='1','own_role_restored');report.role_restoration='PASS'},()=>endLateResponseObservation(page),()=>page.unrouteAll({behavior:'wait'})])
-   if(cleanup.failed)throw Error('D1_GLOBAL_ROLE_CLEANUP_FAILED')
-  }
+  await lateRoleDrill()
 
   phase('same_still_valid_browser_jwt_membership_revocation')
   await page.goto(origin+'/documents');await page.getByRole('button',{name:'Todos los documentos',exact:true}).click();await expect(page.locator('[data-document-id]')).toHaveCount(20)
