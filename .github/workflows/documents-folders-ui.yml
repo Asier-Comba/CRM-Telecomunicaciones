@@ -1,0 +1,55 @@
+name: Documents folders controlled presentation
+on:
+  pull_request:
+    paths:
+      - 'src/features/documents/FolderNavigation.tsx'
+      - 'tests/documents-pro/folder-navigation.spec.ts'
+      - 'tests/documents-pro/global-late-oracle.spec.ts'
+      - 'tools/asier_documents_pro/**'
+      - '.github/workflows/documents-folders-ui.yml'
+permissions:
+  contents: read
+jobs:
+  controlled-presentation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+      NEXT_TELEMETRY_DISABLED: '1'
+      DOCUMENTS_PRO_OUTPUT: ${{ runner.temp }}/documents-folders-controlled
+      EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - name: Record actual source and tree without acceptance inheritance
+        run: |
+          node --input-type=module <<'NODE'
+          import {execFileSync} from 'node:child_process';
+          import {writeFileSync} from 'node:fs';
+          import {join} from 'node:path';
+          const git=(...args)=>execFileSync('git',args,{encoding:'utf8'}).trim();
+          const source=git('rev-parse','HEAD');
+          if(source!==process.env.EXPECTED_SOURCE)throw Error('SOURCE_MISMATCH');
+          writeFileSync(join(process.env.RUNNER_TEMP,'documents-folders-source.json'),JSON.stringify({contract:'documents-folders-controlled.v1',scope:'CONTROLLED_PRESENTATION_ONLY',source,tree:git('rev-parse','HEAD^{tree}'),run_id:process.env.GITHUB_RUN_ID,real_auth:false,persistence:false,product_route_integrated:false},null,2)+'\n');
+          NODE
+      - name: Install pinned Chromium and verify actual launch
+        run: |
+          npx playwright install chromium
+          node --input-type=module -e 'import {chromium} from "@playwright/test"; const b=await chromium.launch(); await b.close();'
+      - name: Folder presentation and fixture regression, zero retries
+        run: npx playwright test --config tools/asier_documents_pro/playwright.config.mjs folder-navigation.spec.ts global-late-oracle.spec.ts
+      - name: Retain synthetic results and captures including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: documents-folders-controlled
+          path: |
+            ${{ runner.temp }}/documents-folders-source.json
+            ${{ runner.temp }}/documents-folders-controlled
+          retention-days: 7

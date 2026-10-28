@@ -33,13 +33,13 @@ async function build(){
  })()
  return assets
 }
-exports.startDocumentsFixture=async function({library=false,strict=false}={}){
+exports.startDocumentsFixture=async function({library=false,strict=false,folderNavigation=false}={}){
  const files=await build()
  const server=createServer((request,response)=>{
   if(request.url==='/component.js'){response.writeHead(200,{'Content-Type':'text/javascript; charset=utf-8'});response.end(files.js);return}
   if(request.url==='/styles.css'){response.writeHead(200,{'Content-Type':'text/css; charset=utf-8'});response.end(files.css);return}
   if(!['/','/documents'].includes(request.url.split('?')[0])){response.writeHead(404);response.end();return}
-  response.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});response.end('<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/styles.css"><style>body{font-family:Arial,sans-serif}header.fixture{height:64px;padding:20px;background:white}main{height:calc(100vh - 64px);overflow:auto;padding:16px;overflow-anchor:none}#app{max-width:1240px;margin:auto}</style><header class="fixture">CRM · Documentación sintética</header><main><div id="app"></div></main><script>window.crmDocumentsLibraryFixture='+JSON.stringify(library)+';window.crmDocumentsStrictFixture='+JSON.stringify(strict)+'</script><script src="/component.js"></script>')
+  response.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});response.end('<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/styles.css"><style>body{font-family:Arial,sans-serif}header.fixture{height:64px;padding:20px;background:white}main{height:calc(100vh - 64px);overflow:auto;padding:16px;overflow-anchor:none}#app{max-width:1240px;margin:auto}</style><header class="fixture">CRM · Documentación sintética</header><main><div id="app"></div></main><script>window.crmDocumentsLibraryFixture='+JSON.stringify(library)+';window.crmDocumentsStrictFixture='+JSON.stringify(strict)+';window.crmFolderNavigationFixture='+JSON.stringify(folderNavigation)+'</script><script src="/component.js"></script>')
  })
  await new Promise(accept=>server.listen(0,'127.0.0.1',accept))
  const address=server.address();if(!address||typeof address==='string')throw Error('LOOPBACK_REQUIRED')
