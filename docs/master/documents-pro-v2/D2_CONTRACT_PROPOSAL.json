@@ -43,7 +43,9 @@
     "Structure changes serialize within the workspace before cycle/depth checks; simultaneous reverse moves cannot both create a cycle.",
     "Assignment state persists with a monotonic classification_version even when folder_id becomes null, preventing ABA reset.",
     "Existing document.library.v2 and all legacy metadata/commands remain unchanged; additive v3 only after agreement.",
-    "Feature gates default OFF in HTTP and DB; no remote migration or hosted flag change."
+    "Feature gates default OFF in HTTP and DB; no remote migration or hosted flag change.",
+    "Classification and folder archive share the same workspace serialization boundary; after acquiring it, recheck folder active status, assignments, ancestry and current authorization within the transaction. They cannot both commit a dangling assignment into an archived folder.",
+    "Moving a folder validates maximum resulting depth of its entire subtree, including archived descendants, under the same workspace serialization; checking only the moved node is insufficient."
   ],
   "model": {
     "folder": {
@@ -126,7 +128,11 @@
         "current classification_version",
         "authorized folder metadata/breadcrumb context"
       ],
-      "no_v2_field_extension": true
+      "no_v2_field_extension": true,
+      "proposed_http_dispatch": "/api/document/library/v3/queries only; existing /api/document/library/v2/queries and repository.documentLibrary remain v2 unchanged",
+      "proposed_rpc_dispatch": "New document_library_v3_list signature; never redefine document_library_v2_list or route v2 input to v3 by a mutable flag",
+      "proposed_repository_dispatch": "Add distinct documentLibraryV3 typed consumer only after W1 agreement; no overload that silently changes v2 DTO/meaning",
+      "enablement": "Separate default-OFF D2 gate plus accepted D1 gate; unavailable/denied cannot fall back to complete empty. Exact flag/config inventory needs W5 agreement before code."
     },
     "cursors": "Opaque encrypted, domain separated, expiring; bind actor/workspace/current membership revision/query/filter/sort/limit/parent/classification. No count or folder label leakage from foreign or stale cursors."
   },
@@ -185,7 +191,7 @@
     },
     {
       "id": "D2_03",
-      "case": "A→B→C hierarchy rejects moving A under C; simultaneous reverse-parent moves serialize and cannot both form a cycle",
+      "case": "A\u2192B\u2192C hierarchy rejects moving A under C; simultaneous reverse-parent moves serialize and cannot both form a cycle",
       "result": "NOT_RUN"
     },
     {
@@ -195,7 +201,7 @@
     },
     {
       "id": "D2_05",
-      "case": "Classification A→null→A monotonically increments classification_version; old CAS cannot succeed after ABA",
+      "case": "Classification A\u2192null\u2192A monotonically increments classification_version; old CAS cannot succeed after ABA",
       "result": "NOT_RUN"
     },
     {
@@ -241,6 +247,16 @@
     {
       "id": "D2_14",
       "case": "D2 gate OFF preserves unchanged legacy customer/document writes, v2 bank and exact old migration-profile rejection",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_15",
+      "case": "Race classify against empty-leaf archive using independent connections/barrier: serialization and transactional rechecks prevent both commits from leaving an assignment in an archived folder; exact losing state/audit unchanged",
+      "result": "NOT_RUN"
+    },
+    {
+      "id": "D2_16",
+      "case": "Move a valid parent whose descendants would exceed depth8: reject even when the moved node alone is within limit; concurrent subtree changes cannot bypass the serialized maximum-depth check",
       "result": "NOT_RUN"
     }
   ],
