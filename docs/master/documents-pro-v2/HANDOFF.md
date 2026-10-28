@@ -10,3 +10,7 @@ Base B43 (#191); proposal f1d452b; own branch `codex/documents-pro-d1-20261027`.
 4. Integrator: retain original failures and bind every run to its exact source SHA. The first UI source should trigger original real Supabase browser acceptance once. Do not rerun the full suite to hide intermittency. Own QA-only revisions can be stacked separately and must report their own source and limits.
 
 Next executable independent unit: real Auth acceptance of the existing scoped reader (123-row pagination, two tenants, member/viewer rejection, same live JWT after revocation, exact uncertain archive replay and metadata during a controlled local Storage outage). Next product unit after backend agreement: consume the agreed global reader, then persistent folders; no frontend emulation.
+# 2026-10-28 continuation checkpoint
+
+Global Auth202@785dece exact checkout run40714047550/job122906772159: FAIL after98PASS, role/browser/stack cleanupPASS. Retain safe12827098386 and synthetic UI12828105721. Late-role response observation failed after new403/access_denied; cause not yet attributed, later membership/Storage scenarios NOT_RUN. No rerun or product patch inferred. W4 read-only diagnosis requested. Technical ACK of harness is not physical acceptance. Private staging addendum is additive; new own contract/workflow files only with W5 bounded ACK, publication inert. See [staging preparation](../platform/STAGING_CHANNEL_20261028.md); no change to shared infrastructure or providers.
+
