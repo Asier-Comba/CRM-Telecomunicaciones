@@ -2,6 +2,7 @@ export function lateFailureCategory(error){
  const message=typeof error?.message==='string'?error.message:''
  return /strict mode violation/.test(message)?'LOCATOR_AMBIGUOUS':error?.name==='TimeoutError'||/Timeout|Timed out/.test(message)?'BOUNDED_WAIT_FAILED':'OTHER_SAFE_FAILURE'
 }
+export function libraryDenialAlert(page){return page.getByRole('alert').filter({has:page.getByRole('button',{name:'Reintentar consulta',exact:true})})}
 export async function closedLateFailure(page,error){
  const result={category:lateFailureCategory(error)}
  for(const [name,read]of Object.entries({

@@ -8,7 +8,7 @@ import {parseDocumentLibraryInputV2,parseDocumentLibraryPageV2} from '../../src/
 import {parseDocumentGetV1,parseDocumentReceiptV1} from '../../src/lib/server/document-runtime-v1.ts'
 import {globalDocumentsFixture} from './fixture-sql.mjs'
 import {beginLateResponseObservation,settledLateResponseObservation,cleanLateResponseObservation,endLateResponseObservation} from './late-response-observer.mjs'
-import {closedLateFailure} from './late-failure-diagnostic.mjs'
+import {closedLateFailure,libraryDenialAlert} from './late-failure-diagnostic.mjs'
 import {independentCleanup} from './independent-cleanup.mjs'
 import {responseForAction} from '../asier_compat62/response-action.mjs'
 
@@ -92,7 +92,7 @@ export async function realGlobalDocumentsAcceptance({url,anon,service,sql,comman
   try{
    await page.getByRole('textbox',{name:'Buscar documentos',exact:true}).fill('General');await page.getByRole('button',{name:'Buscar documentos',exact:true}).click();await expect.poll(()=>held).toBe(true)
    sql(`update public.workspace_members set role='viewer'where workspace_id='${f.wa}'and user_id='${users.ownerA.id}'`)
-   report.late_step='new_denied_read_and_alert';await page.getByRole('textbox',{name:'Buscar documentos',exact:true}).fill('NO_MATCH_GLOBAL');const denied=await responseForAction(()=>page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.input?.query==='NO_MATCH_GLOBAL'),()=>page.getByRole('button',{name:'Buscar documentos',exact:true}).click()),deniedBody=await denied.json();check(denied.status()===403&&deniedBody.ok===false&&deniedBody.error==='access_denied','real_new_read_denied_after_role_change');await expect(page.getByRole('alert')).toBeVisible();await expect(page.locator('[data-document-id]')).toHaveCount(0)
+   report.late_step='new_denied_read_and_alert';await page.getByRole('textbox',{name:'Buscar documentos',exact:true}).fill('NO_MATCH_GLOBAL');const denied=await responseForAction(()=>page.waitForResponse(r=>r.url()===origin+library&&r.request().postDataJSON()?.input?.query==='NO_MATCH_GLOBAL'),()=>page.getByRole('button',{name:'Buscar documentos',exact:true}).click()),deniedBody=await denied.json();check(denied.status()===403&&deniedBody.ok===false&&deniedBody.error==='access_denied','real_new_read_denied_after_role_change');const denial=libraryDenialAlert(page);await expect(denial).toHaveCount(1);await expect(denial).toBeVisible();await expect(denial).toContainText('No tienes permiso para esta acción.');await expect(page.locator('[data-document-id]')).toHaveCount(0)
    report.late_step='install_observer';await beginLateResponseObservation(page,library);report.late_step='release_and_finish_route';releaseHold();await page.unrouteAll({behavior:'wait'});report.late_step='wait_json_and_render';const observed=await settledLateResponseObservation(page);report.late_response_observation=observed
    check(!heldFailure&&cleanLateResponseObservation(observed)&&await page.locator('[data-document-id]').count()===0,'late_real_response_processed_and_retired_before_reload')
    await endLateResponseObservation(page)

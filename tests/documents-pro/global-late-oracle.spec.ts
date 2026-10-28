@@ -1,6 +1,7 @@
 import {test,expect,type Route} from '@playwright/test'
 import {startDocumentsFixture} from '../../tools/asier_documents_pro/fixture.cjs'
 import {beginLateResponseObservation,settledLateResponseObservation,lateResponseObservation,cleanLateResponseObservation,endLateResponseObservation} from '../../tools/asier_documents_global/late-response-observer.mjs'
+import {libraryDenialAlert} from '../../tools/asier_documents_global/late-failure-diagnostic.mjs'
 test('late-response oracle waits for consumed JSON and rendered delivery before accepting zero rows',async({page})=>{
  const server=await startDocumentsFixture({library:true,strict:true}),id=(n:number)=>n.toString(16).padStart(8,'0')+'-0000-4000-8000-000000000001'
  const body={ok:true,data:{contract_version:'document.library.v2',operation:'document.library_list',items:Array.from({length:20},(_,i)=>({id:id(100-i),version:1,status:'active',document_kind:'general',display_title:'General · ref '+id(100-i).slice(0,8),title_state:'available',media_type:'application/pdf',size_bytes:1024,created_at:'2026-09-01T00:00:00.000000Z',context:{target:{kind:'customer',id:id(999),label:'Empresa · ref '+id(999).slice(0,8)},customer:{id:id(999),label:'Synthetic Company'}}})),next_cursor:null,completeness:'complete',total_count:20,count_state:'exact',capabilities:{search_fields:['title','reference','customer_label','category'],sort_fields:['created_asc','created_desc'],private_content:false,folders:false,file_name:false,consistency:'live_reauthorized_creation_cutoff'}}}
@@ -52,7 +53,7 @@ test('actual library error plus Next route announcer makes the broad alert asser
   })
   await expect(page.getByRole('alert')).toHaveCount(2)
   await expect(expect(page.getByRole('alert')).toBeVisible()).rejects.toThrow(/strict mode violation/)
-  const failure=page.getByRole('alert').filter({has:page.getByRole('button',{name:'Reintentar consulta',exact:true})})
+  const failure=libraryDenialAlert(page)
   await expect(failure).toHaveCount(1);await expect(failure).toContainText('No tienes permiso para esta acción.');await expect(failure).toBeVisible()
   await page.evaluate(()=>document.querySelector('main [role="alert"]')?.remove())
   await expect(page.getByRole('alert')).toHaveCount(1);await expect(failure).toHaveCount(0)
