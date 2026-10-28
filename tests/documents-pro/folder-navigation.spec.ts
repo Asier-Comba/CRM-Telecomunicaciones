@@ -60,3 +60,13 @@ test('partial paging is explicit and unavailable retry only emits the supplied c
  await expect(page.getByRole('status',{name:'Consulta parcial de carpetas',exact:true})).toHaveCount(1);await expect(page.getByRole('status',{name:'Consulta parcial de carpetas',exact:true})).toHaveText('La consulta de carpetas es parcial. Puede faltar organización por cargar.');await page.getByRole('button',{name:'Más carpetas',exact:true}).click();await expect(page.getByLabel('Última acción',{exact:true})).toHaveText('more')
  await page.evaluate(()=>window.folderFixtureSetState({view:{scope:'synthetic-A',status:'unavailable'}}));await page.getByRole('button',{name:'Reintentar carpetas',exact:true}).click();await expect(page.getByLabel('Última acción',{exact:true})).toHaveText('retry')
 })
+
+for(const flags of [{partial:true,hasMore:false},{partial:false,hasMore:true}])test(`zero nodes with partial=${flags.partial} hasMore=${flags.hasMore} never asserts complete emptiness`,async({page},info)=>{
+ await page.goto(server.url+'/documents');const view=ready();if(view.status==='ready'){view.nodes=[];view.partial=flags.partial;view.hasMore=flags.hasMore}
+ await page.evaluate(value=>window.folderFixtureSetState({view:value}),view)
+ await expect(page.getByText('Sin carpetas en esta consulta.',{exact:true})).toHaveCount(0)
+ await expect(page.getByText('Todavía no se ha cargado toda la organización de carpetas.',{exact:true})).toBeVisible()
+ await expect(page.getByRole('button',{name:'Más carpetas',exact:true})).toHaveCount(flags.hasMore?1:0)
+ if(flags.hasMore){await page.getByRole('button',{name:'Más carpetas',exact:true}).click();await expect(page.getByLabel('Última acción',{exact:true})).toHaveText('more')}
+ await page.screenshot({path:info.outputPath(`folder-incomplete-${flags.partial}-${flags.hasMore}.png`)})
+})
