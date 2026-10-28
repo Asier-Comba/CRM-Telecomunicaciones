@@ -108,6 +108,12 @@ Unknown image defaults must block and receive review, never be silently admitted
 [OCI1.1.1 configuration](https://github.com/opencontainers/image-spec/blob/v1.1.1/config.md)
 supports the rootfs/DiffID distinction. New source tests/review are recorded in PR.
 
+W5's follow-up found regex type coercion for nested-array DiffIDs/layer digests.
+Two new controls reproduce9PASS/2FAIL on c736. String types are now required
+before regex validation for OCI digests and all source/config/receipt hashes;
+unknown/null layer objects also fail closed. No value is converted into an
+identity. The correction remains pure validation with no provider/activation.
+
 The new workflow runs only contract tests on PRs. Manual build job is explicitly
 inert (`if:false`), has contents-read only, reuses the existing Dockerfile and
 existing promotion gate. No registry login/push/package-write/VPS token or webhook.

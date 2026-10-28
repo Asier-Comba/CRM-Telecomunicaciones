@@ -3,6 +3,7 @@ import {createHash} from 'node:crypto'
 export const destination=Object.freeze({project:'crm-inmobiliario',service:'crm-telecom-staging',port:3000})
 export const imageRepository='ghcr.io/asier-comba/crm-telecom-staging'
 const sha=/^[a-f0-9]{40}$/,hash=/^[a-f0-9]{64}$/
+const matches=(expression,value)=>typeof value==='string'&&expression.test(value)
 const publicNames=['NEXT_PUBLIC_APP_URL','NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY','NEXT_PUBLIC_SUPABASE_URL']
 export const digest=value=>createHash('sha256').update(value).digest('hex')
 const exact=(value,names)=>!!value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).sort().join(',')===[...names].sort().join(',')
@@ -18,12 +19,12 @@ export function publicBuildIdentity(values){
  return digest(JSON.stringify(publicNames.map(name=>[name,values[name]])))
 }
 export function imageTag(source,configuration){
- if(!sha.test(source??'')||!hash.test(configuration??''))throw Error('STAGING_IDENTITY_INVALID')
+ if(!matches(sha,source)||!matches(hash,configuration))throw Error('STAGING_IDENTITY_INVALID')
  return `${imageRepository}:sha-${source}-config-${configuration}`
 }
 export function validateReceipt(receipt,expected){
  if(!exact(receipt,['version','source','tree','lockfile_sha256','dockerfile_sha256','public_build_sha256','image_config_digest','manifest_digest','image_reference','visibility']))throw Error('STAGING_RECEIPT_SHAPE_INVALID')
- if(receipt.version!=='staging.image.receipt.v1'||!sha.test(receipt.source)||!sha.test(receipt.tree)||!['lockfile_sha256','dockerfile_sha256','public_build_sha256'].every(k=>hash.test(receipt[k]))||!['image_config_digest','manifest_digest'].every(k=>/^sha256:[a-f0-9]{64}$/.test(receipt[k]))||receipt.visibility!=='private')throw Error('STAGING_RECEIPT_IDENTITY_INVALID')
+ if(receipt.version!=='staging.image.receipt.v1'||!matches(sha,receipt.source)||!matches(sha,receipt.tree)||!['lockfile_sha256','dockerfile_sha256','public_build_sha256'].every(k=>matches(hash,receipt[k]))||!['image_config_digest','manifest_digest'].every(k=>matches(/^sha256:[a-f0-9]{64}$/,receipt[k]))||receipt.visibility!=='private')throw Error('STAGING_RECEIPT_IDENTITY_INVALID')
  if(receipt.image_reference!==imageRepository+'@'+receipt.manifest_digest||receipt.image_config_digest===receipt.manifest_digest)throw Error('STAGING_MANIFEST_REFERENCE_REQUIRED')
  if(!expected||!['source','tree','lockfile_sha256','dockerfile_sha256','public_build_sha256'].every(k=>receipt[k]===expected[k]))throw Error('STAGING_RECEIPT_BINDING_MISMATCH')
  return Object.freeze({...receipt})

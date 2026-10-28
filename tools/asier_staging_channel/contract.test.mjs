@@ -31,3 +31,7 @@ test('publication workflow is manual and inert pending exact review, with no VPS
  assert.match(text,/workflow_dispatch:/);assert.doesNotMatch(text,/pull_request_target:|packages: write|:latest(?:\s|$)|EASYPANEL_TOKEN|server\.js|APP_ENV: (local|dev)/)
  assert.match(text,/if: false/);assert.match(text,/infra\/deployment\/Dockerfile/);assert.match(text,/scripts\/platform\/promotion\.mjs/)
 })
+test('source and configuration identity reject array-to-string coercion',()=>{
+ assert.throws(()=>imageTag([source],h),/IDENTITY_INVALID/)
+ assert.throws(()=>imageTag(source,[h]),/IDENTITY_INVALID/)
+})

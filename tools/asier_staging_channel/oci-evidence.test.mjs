@@ -36,3 +36,7 @@ test('runtime environment rejects execution hooks, duplicate bindings, unknown n
  for(const extra of ['NODE_OPTIONS=--require=/app/alternate.cjs','LD_PRELOAD=/app/alternate.so','NODE_PATH=/app/alternate','NODE_ENV=development','PATH=/app/alternate','UNKNOWN=SYNTHETIC','PORT=3000'])assert.throws(()=>registryImageEvidence(fixture({config:{...config.config,Env:[...config.config.Env,extra]}})),/RUNTIME_BINDINGS_FORBIDDEN/)
  assert.throws(()=>registryImageEvidence(fixture({config:{...config.config,Env:config.config.Env.filter(value=>!value.startsWith('NODE_ENV='))}})),/RUNTIME_BINDINGS_FORBIDDEN/)
 })
+test('OCI digests are strings, never arrays coerced by a regular expression',()=>{
+ assert.throws(()=>registryImageEvidence(fixture({rootfs:{type:'layers',diff_ids:[['sha256:'+'1'.repeat(64)]]}})),/ROOTFS_INVALID/)
+ assert.throws(()=>registryImageEvidence(fixture({},{layers:[{mediaType:'application/vnd.oci.image.layer.v1.tar+gzip',size:123,digest:['sha256:'+'f'.repeat(64)]}]})),/LAYERS_INVALID/)
+})
