@@ -16,7 +16,7 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version-file: .nvmrc
-      - run: node --experimental-transform-types --test tools/asier_staging_schema88/projection.test.mjs
+      - run: node --experimental-transform-types --test tools/asier_staging_schema88/*.test.mjs tests/unit62/response-action.test.mjs
   commercial-compatibility:
     if: contains(github.event.pull_request.body, format('SCHEMA88_LAB_SHA={0}', github.event.pull_request.head.sha))
     runs-on: ubuntu-latest

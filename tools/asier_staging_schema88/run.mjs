@@ -7,14 +7,14 @@ import {createServerClient} from '@supabase/ssr'
 import {commercialChain} from './commercial-chain.mjs'
 import {prepareProjection} from './projection.mjs'
 import {commercialBrowser} from './commercial-browser.mjs'
+import {cleanupOwnedSteps,stopOwnedChild} from './cleanup.mjs'
 
 const project='crm-telecom-p0-schema88-'+process.env.GITHUB_RUN_ID,origin='http://127.0.0.1:3182'
 let projectRoot
 const report={contract:'staging.base87-plus-storage88.acceptance.v1',result:'NOT_RUN',checks:[],hosted:'NOT_TESTED',cdn_revocation:'NOT_TESTED',storage179_adopted:false,capabilities_enabled:false}
 let started=false,server,phase='preflight'
 async function stopApp(){
-  if(!server||server.exitCode!==null)return
-  server.kill('SIGTERM');await new Promise(resolve=>{const t=setTimeout(()=>{server.kill('SIGKILL');resolve()},5000);server.once('exit',()=>{clearTimeout(t);resolve()})})
+  await stopOwnedChild(server)
 }
 const check=(ok,name)=>{report.checks.push({name,result:ok?'PASS':'FAIL'});if(!ok)throw Error('CHECK_'+name.toUpperCase())}
 function command(bin,args,options={}){
@@ -97,13 +97,19 @@ try{
   report.error=/^[A-Z0-9_]{1,180}$/.test(error?.message??'')?error.message:'SAFE_UNCLASSIFIED_FAILURE'
   process.exitCode=1
 }finally{
-  await stopApp()
-  if(started){try{command('supabase',['stop','--no-backup','--project-id',project]);report.teardown='PASS'}catch{report.teardown='FAIL';process.exitCode=1}}
-  if(projectRoot){
-    const parent=resolve(process.env.RUNNER_TEMP),target=resolve(projectRoot)
-    if(target.startsWith(parent+sep)&&target.slice(parent.length+1).startsWith('crm-p0-schema88-')){try{rmSync(target,{recursive:true});report.project_files_removed=true}catch{report.project_files_removed=false;process.exitCode=1}}
-    else{report.project_files_removed=false;process.exitCode=1}
-  }
+  const cleanup=await cleanupOwnedSteps({
+    app:stopApp,
+    ...(started?{stack:()=>command('supabase',['stop','--no-backup','--project-id',project])}:{}),
+    ...(projectRoot?{files:()=>{
+      const parent=resolve(process.env.RUNNER_TEMP),target=resolve(projectRoot)
+      if(!target.startsWith(parent+sep)||!target.slice(parent.length+1).startsWith('crm-p0-schema88-'))throw Error('OWNED_PATH_REQUIRED')
+      rmSync(target,{recursive:true})
+    }}:{})
+  })
+  report.cleanup=cleanup.result
+  report.teardown=cleanup.result.stack??'NOT_STARTED'
+  report.project_files_removed=cleanup.result.files==='PASS'
+  if(!cleanup.ok){report.result='FAIL';report.failed_phase??='cleanup';report.error??='CLEANUP_FAILED';process.exitCode=1}
   report.passed=report.checks.filter(c=>c.result==='PASS').length
   writeFileSync(resolve(process.env.RUNNER_TEMP??'.','staging-schema88.safe.json'),JSON.stringify(report,null,2)+'\n')
   console.log(JSON.stringify(report))
