@@ -1,0 +1,11 @@
+# P0 hosted-schema compatibility in a disposable platform
+
+CLAIM #67 comment6477877734. This QA adapter validates the current complete BASE87+D1 source with the existing owned-consumer loader, then explicitly projects historical87 into a fresh owned runner directory and adds the exact W5 Storage88 fixture. It never edits the source migrations, connects to hosted Supabase, resets staging or enables document bytes. PostgreSQL major17 matches the observed hosted major; this is not a claim of identical provider patch/configuration.
+
+Storage fixture source d9799f6610c9841528040c6437f3a51cea4ee386; blob381cfb530a98676806eda2bb89504475b8acbd00; SHA25664bc484e1e80db1766e5265e1f96e4040d995086c3067682791146cbe5ab6fcc. This is a disposable test overlay, not adoption of PR179 or W5's production Storage server adapter.
+
+Commercial RPC and browser assertions are recovered from Unit62 eb77d77d5e2a1df0a45412e1fcfa7a292b66a66b, preserving the coherent customer→active contract→active service→active line→opportunity→draft invoice363EUR→reload and roles/tenant denials. No old result is inherited. Private-byte diagnostic functions were excluded. The only browser harness change is its artifact directory name; assertions/actions/timeouts unchanged.
+
+App starts once with library/content/maintenance/AI/providers OFF. The adapter asserts D1 RPC absence, both Storage88 read policies absent, all four feature routes503 unavailable, then runs the commercial RPC and actual browser controls. Synthetic infrastructure/Auth belongs only to the disposable local platform. Source, tree, executed source, schema composition, per-check PASS/FAIL, failed phase, screenshots and teardown are retained per attempt. Credentials and request bodies are never logged.
+
+Execution requires Linux GitHub Actions, a fresh container-free runner, CLI2.119.0, explicit P0_SCHEMA88_LAB marker and an exact-head SCHEMA88_LAB_SHA PR marker. Workflow contents-read only, no repository/environment/provider secrets, no publishing or VPS operation. Contract tests alone do not establish real Auth/UI compatibility. W4/W5 review is required before the physical lab. A failed scenario is retained and diagnosed on its source, not retried for a green.
