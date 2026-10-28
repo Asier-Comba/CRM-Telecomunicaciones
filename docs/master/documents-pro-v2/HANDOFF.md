@@ -1,5 +1,7 @@
 # D1A handoff
 
+2026-10-28 continuation: recover from #200@8cc9adf, not main. Local global frontend commit3337d4cad727b0ef62815b32935fd51e33081d82 is retained and must be composed after the source-gate correction. Recovery CLAIM6465703344. Exact D1 migration/profile provenance and independent W4/W5 reviews are in STATUS and the new owned-consumer-migrations-d1-v1 manifest. Historical loaders85/86/87 are unchanged; explicit projections validate the full D1 closure before excluding exactly the declared forward files. W4/W5 technical ACK delimited inventory changes; W5 also reviewed the existing composition-generator delta. Concrete adapters/workflows and regenerated inventory still require exact-SHA independent review and physical CI. Native/PGlite source8cc passed; global real Auth is not inherited. Next3: verify successor source gates/native restarts; compose retained frontend and run global Auth/browser; register D2 claim/proposal and agree its ownership/invariants before shared backend edits. Private bytes, hosted changes and release remain blocked.
+
 Base B43 (#191); proposal f1d452b; own branch `codex/documents-pro-d1-20261027`. Keep the PR Draft against the integrated commercial branch. No automatic adoption of #179/#195/#196/#197.
 
 1. W1 or explicitly delegated owner: review the closed D1 proposal; decide metadata title/date minimization, authorization before page/count, permission-bound cursors, exact search semantics and canonical field provenance. No global library or folders are enabled pending that agreement.

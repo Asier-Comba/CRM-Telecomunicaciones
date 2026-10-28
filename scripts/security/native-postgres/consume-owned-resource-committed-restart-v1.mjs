@@ -3,8 +3,7 @@ import {bindOwnedResourceRestartV1,closedOwnedConsumerPhaseV1} from './owned-res
 import {execFileSync,fork,spawnSync} from 'node:child_process'
 import {readFileSync} from 'node:fs'
 import {fileURLToPath} from 'node:url'
-import {loadOwnedConsumerMigrationsV1,loadOwnedConsumerGrants86V1} from './owned-consumer-migrations-v1.mjs'
-import {loadOwnedConsumerProfile87V1,loadOwnedConsumerHistorical86V1} from './owned-consumer-migrations-87-v1.mjs'
+import {selectOwnedConsumerMigrationsV1} from './owned-consumer-migration-selection-v1.mjs'
 import {collectOwnedConsumerChildOutputV1} from './owned-consumer-child-output-v1.mjs'
 const fail=()=>Error('OWNED_RESOURCE_BUSINESS_CONSUMER_UNAVAILABLE')
 const diagnostic={stage:'RESOURCE_CREATE',lastObservedPhase:null,migration:null,teardown:'NOT_RUN'}
@@ -28,8 +27,7 @@ async function main(){
   sql(readFileSync(new URL('scripts/security/native-postgres/bootstrap.sql',root),'utf8'))
   sql(readFileSync(new URL('scripts/security/ephemeral-postgres/storage-stub.sql',root),'utf8'))
   diagnostic.stage='MIGRATIONS'
-  if(mode!==undefined&&mode!==''&&mode!=='delivered_grants_86'&&mode!=='require_grants_86'&&mode!=='require_profile_87'&&mode!=='historical_grants_86')throw fail()
-  const closure=mode==='require_profile_87'?loadOwnedConsumerProfile87V1(root):mode==='historical_grants_86'?loadOwnedConsumerHistorical86V1(root,loadOwnedConsumerGrants86V1):mode==='require_grants_86'?loadOwnedConsumerGrants86V1(root):loadOwnedConsumerMigrationsV1(root,mode==='delivered_grants_86'?mode:'directory')
+  const closure=selectOwnedConsumerMigrationsV1(root,mode)
   for(const migration of closure.migrations){diagnostic.migration=migration.name;sql(migration.sql)}
   diagnostic.migration=null;diagnostic.stage='SYNTHETIC_BASE_SEED'
   sql("set app.environment='test';\n"+readFileSync(new URL('supabase/seeds/synthetic_portfolio.sql',root),'utf8'))
@@ -54,7 +52,7 @@ async function main(){
  }
 }
 try{await main()}catch(error){
- const category=error?.message==='OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED'?error.message:/^NATIVE_RESOURCE_IMAGE_PULL_(?:RATE_LIMITED|TLS_FAILED|AUTH_UNAVAILABLE|REFERENCE_UNAVAILABLE|NETWORK_UNAVAILABLE|OUTPUT_LIMIT|TIMEOUT|UNAVAILABLE)$/.test(error?.message??'')?error.message:'OWNED_RESOURCE_BUSINESS_CONSUMER_UNAVAILABLE'
+ const category=/^OWNED_CONSUMER_MIGRATION_(?:CLOSURE|PROFILE_87|PROFILE_D1|MODE)_REJECTED$/.test(error?.message??'')?error.message:/^NATIVE_RESOURCE_IMAGE_PULL_(?:RATE_LIMITED|TLS_FAILED|AUTH_UNAVAILABLE|REFERENCE_UNAVAILABLE|NETWORK_UNAVAILABLE|OUTPUT_LIMIT|TIMEOUT|UNAVAILABLE)$/.test(error?.message??'')?error.message:'OWNED_RESOURCE_BUSINESS_CONSUMER_UNAVAILABLE'
  console.log(JSON.stringify({contract:'assistant.owned-resource-consumer-failure.v1',result:'FAIL',category,...diagnostic,full23:'NOT_RUN',businessAiWrites:'OFF',release:'NOT_ACCEPTED'}))
  console.error(category);process.exitCode=1
 }

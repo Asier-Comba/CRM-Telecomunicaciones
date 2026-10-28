@@ -23,17 +23,18 @@ function files(t,{extension=true,forwardFile=true}={}){
   return {root:pathToFileURL(dir+'/'),migrationDir}
 }
 
-test('actual checkout is exactly profile87 while the strict 85/86 closures keep rejecting it',()=>{
-  const p=loadOwnedConsumerProfile87V1(root)
+test('exact profile87 fixture is admitted while the strict 85/86 closures keep rejecting it',t=>{
+  const exact=files(t).root
+  const p=loadOwnedConsumerProfile87V1(exact)
   assert.equal(p.count,87);assert.equal(p.closure,'profile_87')
   assert.deepEqual(p.migrations.map(m=>m.name),[...p.migrations.map(m=>m.name)].sort())
   assert.equal(p.migrations.at(-1).name,forward.name)
   assert.equal(p.migrations.filter(m=>m.name===base.owner_extension.name).length,1)
   assert.equal(p.ownerExtensionSha256,base.owner_extension.sha256);assert.deepEqual(p.forwardSha256,[forward.sha256])
   assert.ok(Object.isFrozen(p)&&Object.isFrozen(p.migrations)&&p.migrations.every(Object.isFrozen))
-  assert.throws(()=>loadOwnedConsumerMigrationsV1(root),/OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED/)
-  assert.throws(()=>loadOwnedConsumerGrants86V1(root),/OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED/)
-  assert.throws(()=>loadOwnedConsumerMigrationsV1(root,'delivered_grants_86'),/OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED/)
+  assert.throws(()=>loadOwnedConsumerMigrationsV1(exact),/OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED/)
+  assert.throws(()=>loadOwnedConsumerGrants86V1(exact),/OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED/)
+  assert.throws(()=>loadOwnedConsumerMigrationsV1(exact,'delivered_grants_86'),/OWNED_CONSUMER_MIGRATION_CLOSURE_REJECTED/)
 })
 
 test('profile87 applies the same 86 SQL as the owner-directory86 closure plus only the pinned forward migration',t=>{
@@ -85,8 +86,8 @@ test('profile87 rejects non-file roots',()=>{
   assert.throws(()=>loadOwnedConsumerProfile87V1(new URL('https://example.invalid/')),rejected)
 })
 
-test('historical 86 scope on the actual 87 checkout applies exactly the owner-directory86 SQL and never the forward migration',t=>{
-  const h=loadOwnedConsumerHistorical86V1(root,loadOwnedConsumerGrants86V1)
+test('historical 86 scope on an exact 87 fixture applies exactly the owner-directory86 SQL and never the forward migration',t=>{
+  const h=loadOwnedConsumerHistorical86V1(files(t).root,loadOwnedConsumerGrants86V1)
   assert.equal(h.count,86);assert.equal(h.closure,'historical_86_from_profile_87')
   assert.ok(!h.migrations.some(m=>m.name===forward.name));assert.deepEqual(h.excludedForward,[forward.name])
   assert.ok(Object.isFrozen(h)&&Object.isFrozen(h.migrations))
