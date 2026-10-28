@@ -2,6 +2,9 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import {readFileSync} from 'node:fs'
 import {createServer,request} from 'node:http'
+import {createConnection} from 'node:net'
+import {randomBytes} from 'node:crypto'
+import {createIngressGateway,createEgressGateway} from './gateway.mjs'
 import {gatewayRuntimeSettingsV1,closeGatewayRuntimeV1} from './runtime.mjs'
 import {createPublicBuildBinding} from '../../scripts/platform/build-binding.mjs'
 import {stagingEasyPanelOriginV1,stagingSupabaseUrlV1} from '../../src/lib/server/product-staging-admission-v1.ts'
@@ -34,4 +37,26 @@ test('idle gateway shutdown is graceful and its deadline cannot be removed or ra
  const server=createServer();await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve))
  for(const deadlineMs of [0,-1,Infinity,30001])assert.throws(()=>closeGatewayRuntimeV1(server,{deadlineMs}),/GATEWAY_SHUTDOWN_BUDGET_INVALID/)
  assert.deepEqual(await closeGatewayRuntimeV1(server),{closed:true,forced:false})
+})
+
+for(const role of ['ingress','egress'])test('rejected CONNECT with peer write-half open cannot outlive '+role+' shutdown',async()=>{
+ let dns=0,upstream=0
+ const server=role==='egress'?createEgressGateway({resolve:async()=>{dns++;throw Error('UNEXPECTED_DNS')},transport:()=>{upstream++;throw Error('UNEXPECTED_UPSTREAM')}}):createIngressGateway({origin:stagingEasyPanelOriginV1,username:'crm_test',password:randomBytes(32).toString('base64url'),transport:()=>{upstream++;throw Error('UNEXPECTED_UPSTREAM')}})
+ const sockets=new Set();server.on('connection',socket=>{sockets.add(socket);socket.once('close',()=>sockets.delete(socket))})
+ let client,stopping,setupTimer,observeTimer
+ try{
+  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve))
+  client=createConnection({host:'127.0.0.1',port:server.address().port,allowHalfOpen:true})
+  let reply='';client.on('data',chunk=>{reply+=chunk.toString('ascii')});client.on('error',()=>{})
+  await new Promise((resolve,reject)=>{setupTimer=setTimeout(()=>reject(Error('CONNECT_PRECONDITION_TIMEOUT')),2000);client.once('error',reject);client.once('end',()=>{clearTimeout(setupTimer);resolve()});client.once('connect',()=>client.write('CONNECT blocked.invalid:443 HTTP/1.1\r\nHost: blocked.invalid:443\r\n\r\n'))})
+  assert.match(reply,/^HTTP\/1\.1 403\b/);assert.equal(client.readableEnded,true);assert.equal(client.writableEnded,false)
+  assert.equal(dns,0);assert.equal(upstream,0)
+  stopping=closeGatewayRuntimeV1(server,{deadlineMs:25})
+  const outcome=await Promise.race([stopping,new Promise(resolve=>{observeTimer=setTimeout(()=>resolve(null),500)})])
+  assert.ok(outcome?.closed,'CONNECT cannot survive the declared shutdown grace')
+  assert.ok([...sockets].every(socket=>socket.destroyed),'all owned raw sockets must be closed')
+ }finally{
+  clearTimeout(setupTimer);clearTimeout(observeTimer);client?.destroy();for(const socket of sockets)socket.destroy()
+  if(stopping)await stopping;else server.close()
+ }
 })

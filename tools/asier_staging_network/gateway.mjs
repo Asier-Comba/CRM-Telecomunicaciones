@@ -19,7 +19,11 @@ function server(handler,maxConcurrent){
  })
  instance.maxConnections=maxConcurrent*4;instance.maxRequestsPerSocket=32
  instance.requestTimeout=60000;instance.headersTimeout=10000;instance.keepAliveTimeout=5000
- instance.on('connect',(_req,socket)=>socket.end('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n'))
+ const sockets=new Set(),closeHttp=instance.closeAllConnections.bind(instance)
+ instance.on('connection',socket=>{sockets.add(socket);socket.once('close',()=>sockets.delete(socket));socket.once('error',()=>socket.destroy())})
+ // Node's HTTP tracker excludes detached CONNECT/upgrade sockets.
+ instance.closeAllConnections=()=>{closeHttp();for(const socket of sockets)socket.destroy()}
+ instance.on('connect',(_req,socket)=>socket.end('HTTP/1.1 403 Forbidden\r\nConnection: close\r\n\r\n',()=>socket.destroy()))
  instance.on('upgrade',(_req,socket)=>socket.destroy())
  return instance
 }
