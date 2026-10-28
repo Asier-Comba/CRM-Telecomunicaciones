@@ -1,6 +1,6 @@
 // Adapted from Unit62; disposable projection only, all document capabilities OFF from startup.
 import {spawn,spawnSync} from 'node:child_process'
-import {existsSync,mkdtempSync,rmSync,writeFileSync} from 'node:fs'
+import {existsSync,lstatSync,mkdtempSync,rmSync,writeFileSync} from 'node:fs'
 import {resolve,join,sep} from 'node:path'
 import {randomBytes,randomUUID} from 'node:crypto'
 import {createServerClient} from '@supabase/ssr'
@@ -8,9 +8,10 @@ import {commercialChain} from './commercial-chain.mjs'
 import {prepareProjection} from './projection.mjs'
 import {commercialBrowser} from './commercial-browser.mjs'
 import {cleanupOwnedSteps,stopOwnedChild} from './cleanup.mjs'
+import {localDockerCallV1,localPlatformEnvironmentV1} from '../asier_staging_network/local-docker.mjs'
 
 const project='crm-telecom-p0-schema88-'+process.env.GITHUB_RUN_ID,origin='http://127.0.0.1:3182'
-let projectRoot
+let projectRoot,dockerConfig,dockerCall,platformEnv
 const report={contract:'staging.base87-plus-storage88.acceptance.v1',result:'NOT_RUN',checks:[],hosted:'NOT_TESTED',cdn_revocation:'NOT_TESTED',storage179_adopted:false,capabilities_enabled:false}
 let started=false,server,phase='preflight'
 async function stopApp(){
@@ -19,19 +20,25 @@ async function stopApp(){
 const check=(ok,name)=>{report.checks.push({name,result:ok?'PASS':'FAIL'});if(!ok)throw Error('CHECK_'+name.toUpperCase())}
 function command(bin,args,options={}){
   if(bin==='supabase'&&projectRoot)args=['--workdir',projectRoot,...args]
-  const r=spawnSync(bin,args,{encoding:'utf8',timeout:120000,maxBuffer:20*1024*1024,...options})
+  const r=bin==='docker'?dockerCall(args,options):spawnSync(bin,args,{encoding:'utf8',timeout:120000,maxBuffer:20*1024*1024,...options,...(bin==='supabase'?{env:platformEnv}:{})})
   if(r.status!==0)throw Error('COMMAND_'+bin.toUpperCase()+'_FAILED') // Never print CLI credentials.
   return r.stdout.trim()
 }
 try{
   if(process.platform!=='linux'||process.env.GITHUB_ACTIONS!=='true'||process.env.CI!=='true'||process.env.P0_SCHEMA88_LAB!=='BASE87_PLUS_STORAGE88_ALWAYS_OFF')throw Error('EXPLICIT_DISPOSABLE_CI_ONLY')
   if(!/^[0-9]{1,20}$/.test(process.env.GITHUB_RUN_ID??'')||!process.env.RUNNER_TEMP)throw Error('OWNED_RUNNER_REQUIRED')
+  if(process.env.GITHUB_REPOSITORY!=='Asier-Comba/CRM-Telecomunicaciones'||process.env.GITHUB_EVENT_NAME!=='pull_request'||!/^[a-f0-9]{40}$/.test(process.env.EXPECTED_SOURCE??''))throw Error('EXACT_REVIEWED_SOURCE_REQUIRED')
   if(['SUPABASE_ACCESS_TOKEN','SUPABASE_DB_PASSWORD','SUPABASE_SERVICE_ROLE_KEY','NEXT_PUBLIC_SUPABASE_URL'].some(k=>process.env[k])||existsSync('supabase/.temp/project-ref'))throw Error('HOSTED_CONFIG_FORBIDDEN')
+  localDockerCallV1(process.env,join(process.env.RUNNER_TEMP,'crm-docker-selection-preflight'))
+  if(process.env.RUNNER_ENVIRONMENT!=='github-hosted'||process.env.RUNNER_OS!=='Linux'||!lstatSync('/var/run/docker.sock').isSocket())throw Error('HOSTED_RUNNER_LOCAL_SOCKET_REQUIRED')
+  dockerConfig=mkdtempSync(join(resolve(process.env.RUNNER_TEMP),'crm-docker-schema88-'))
+  dockerCall=localDockerCallV1(process.env,dockerConfig);platformEnv=localPlatformEnvironmentV1(process.env,dockerConfig)
   if(command('docker',['ps','-a','--format','{{.Names}}']).trim())throw Error('EMPTY_RUNNER_REQUIRED')
   if(command('supabase',['--version'])!=='2.119.0')throw Error('CLI_PIN_MISMATCH')
   command('supabase',['start','--help'])
   command('supabase',['stop','--help'])
   report.source=command('git',['rev-parse','HEAD']);report.tree=command('git',['rev-parse','HEAD^{tree}'])
+  if(report.source!==process.env.EXPECTED_SOURCE)throw Error('SOURCE_MISMATCH')
   projectRoot=mkdtempSync(join(resolve(process.env.RUNNER_TEMP),'crm-p0-schema88-'))
   report.schema=prepareProjection(new URL('../../',import.meta.url),projectRoot,project)
   report.executed=report.source
@@ -103,6 +110,11 @@ try{
     ...(projectRoot?{files:()=>{
       const parent=resolve(process.env.RUNNER_TEMP),target=resolve(projectRoot)
       if(!target.startsWith(parent+sep)||!target.slice(parent.length+1).startsWith('crm-p0-schema88-'))throw Error('OWNED_PATH_REQUIRED')
+      rmSync(target,{recursive:true})
+    }}:{}),
+    ...(dockerConfig?{docker_config:()=>{
+      const parent=resolve(process.env.RUNNER_TEMP),target=resolve(dockerConfig)
+      if(!target.startsWith(parent+sep)||!target.slice(parent.length+1).startsWith('crm-docker-schema88-'))throw Error('OWNED_PATH_REQUIRED')
       rmSync(target,{recursive:true})
     }}:{})
   })

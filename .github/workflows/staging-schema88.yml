@@ -16,15 +16,16 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
           node-version-file: .nvmrc
-      - run: node --experimental-transform-types --test tools/asier_staging_schema88/*.test.mjs tests/unit62/response-action.test.mjs
+      - run: node --experimental-transform-types --test tools/asier_staging_schema88/*.test.mjs tools/asier_staging_network/local-docker.test.mjs tests/unit62/response-action.test.mjs
   commercial-compatibility:
-    if: contains(github.event.pull_request.body, format('SCHEMA88_LAB_SHA={0}', github.event.pull_request.head.sha))
+    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, format('SCHEMA88_LAB_SHA={0}', github.event.pull_request.head.sha))
     runs-on: ubuntu-latest
     timeout-minutes: 35
     env:
       CI: 'true'
       P0_SCHEMA88_LAB: BASE87_PLUS_STORAGE88_ALWAYS_OFF
       NEXT_TELEMETRY_DISABLED: '1'
+      EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:

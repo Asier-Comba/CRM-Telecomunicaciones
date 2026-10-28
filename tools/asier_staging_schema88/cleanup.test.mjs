@@ -9,7 +9,7 @@ test('actual lab finalizer reports FAIL after a failed stack teardown and still 
  const source=readFileSync(new URL('./run.mjs',import.meta.url),'utf8')
  const body=source.slice(source.lastIndexOf('}finally{')+'}finally{'.length).trim().slice(0,-1)
  const AsyncFunction=Object.getPrototypeOf(async function(){}).constructor
- const execute=new AsyncFunction('stopApp','started','command','report','process','projectRoot','resolve','sep','rmSync','writeFileSync','console','cleanupOwnedSteps',body)
+ const execute=new AsyncFunction('stopApp','started','command','report','process','projectRoot','resolve','sep','rmSync','writeFileSync','console','cleanupOwnedSteps','dockerConfig',body)
  const report={result:'PASS',checks:[]},process={env:{RUNNER_TEMP:resolve('owned-runner')},exitCode:0};let saved,removed=false
  await execute(async()=>{},true,()=>{throw Error('TEARDOWN_DENIED')},report,process,resolve('owned-runner','crm-p0-schema88-owned'),resolve,sep,()=>{removed=true},(_path,wire)=>{saved=JSON.parse(wire)},{log(){}},cleanupOwnedSteps)
  assert.equal(saved.result,'FAIL');assert.equal(process.exitCode,1);assert.equal(removed,true)
