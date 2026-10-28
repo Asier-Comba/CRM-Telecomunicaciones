@@ -119,7 +119,9 @@ test('actual Actions Compose parser resolves the proposal before the same closed
   assert.equal(result.status,0,'ACTUAL_COMPOSE_PARSE_FAILED')
   input.configuration=JSON.parse(result.stdout)
   const report=composePreflightV1(input)
-  assert.equal(report.status,'CONFIGURATION_CHECKED',JSON.stringify(report.errors))
+  // Safe observation of real parser normalization. Never dump resolved environment/file values.
+  const structure={root:Object.keys(input.configuration),services:Object.fromEntries(Object.entries(input.configuration.services??{}).map(([name,service])=>[name,Object.keys(service)])),networks:Object.fromEntries(Object.entries(input.configuration.networks??{}).map(([name,network])=>[name,Object.fromEntries(Object.entries(network).map(([field,value])=>[field,typeof value]))]))}
+  assert.equal(report.status,'CONFIGURATION_CHECKED',JSON.stringify({errors:report.errors,structure}))
   assert.equal(report.hosted_acceptance,'NOT_RUN');assert.equal(report.deploying_authorized,false)
  }finally{
   assert.match(relative(tmpdir(),directory),/^crm-compose-parser-[^/\\]+$/)
