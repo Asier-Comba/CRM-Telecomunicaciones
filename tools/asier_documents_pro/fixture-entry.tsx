@@ -2,14 +2,15 @@ import {StrictMode,useEffect,useState} from 'react'
 import {createRoot} from 'react-dom/client'
 import {ProductProvider} from '@/features/product/integration/Provider'
 import {IntegratedDocuments} from '@/features/documents/IntegratedDocuments'
+import {IntegratedDocumentLibrary} from '@/features/documents/IntegratedDocumentLibrary'
 import {readDocumentView} from '@/features/documents/document-navigation'
 import type {WorkspaceRole} from '@/lib/workspace-roles'
-declare global{interface Window{docsSetScope:(actor:string,workspace:string,role:WorkspaceRole)=>void}}
+declare global{interface Window{docsSetScope:(actor:string,workspace:string,role:WorkspaceRole)=>void;crmDocumentsLibraryFixture?:boolean;crmDocumentsStrictFixture?:boolean}}
 function Fixture(){
   const [scope,setScope]=useState({actor:'10000000-0000-4000-8000-000000000001',workspace:'20000000-0000-4000-8000-000000000001',role:'owner' as WorkspaceRole})
   const [initial]=useState(()=>readDocumentView(location.search).view)
   const [contentEnabled]=useState(()=>new URLSearchParams(location.search).get('content')==='1')
   useEffect(()=>{window.docsSetScope=(actor,workspace,role)=>setScope({actor,workspace,role})},[])
-  return <ProductProvider integrated role={scope.role} actorId={scope.actor} workspaceId={scope.workspace}><IntegratedDocuments customerId={initial.target?.kind==='customer'?initial.target.id:undefined} initialView={initial} syncUrl contentEnabled={contentEnabled}/></ProductProvider>
+  return <ProductProvider integrated role={scope.role} actorId={scope.actor} workspaceId={scope.workspace}>{window.crmDocumentsLibraryFixture?<IntegratedDocumentLibrary initialTarget={initial.target??undefined} initialStatus={initial.status}/>:<IntegratedDocuments customerId={initial.target?.kind==='customer'?initial.target.id:undefined} initialView={initial} syncUrl contentEnabled={contentEnabled}/>}</ProductProvider>
 }
-createRoot(document.getElementById('app')!).render(new URLSearchParams(location.search).get('strict')==='1'?<StrictMode><Fixture/></StrictMode>:<Fixture/>)
+createRoot(document.getElementById('app')!).render(window.crmDocumentsStrictFixture||new URLSearchParams(location.search).get('strict')==='1'?<StrictMode><Fixture/></StrictMode>:<Fixture/>)

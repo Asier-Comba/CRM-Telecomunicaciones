@@ -1,5 +1,7 @@
 # Documents Pro V2 acceptance matrix
 
+Global frontend recovery2026-10-28: retained3337 implementation composed with backend recovery;20/20 actual-component controlled HTTP and8/8 navigation PASS on composed source, loaded390/768/1440 inspected. Global Auth/browser with real Supabase remains NOT_RUN. Search/filter/pagination presentation is implemented against actual v2 repository; no 116/116 baseline or embedded SQL result is treated as global acceptance. D2/bytes/hosted remain blocked by their separate agreements and gates.
+
 2026-10-28 source-gate recovery: #200 source8cc native PostgreSQL/PGlite PASS in40548021775, Supabase40548021789 SUCCESS; no global UI/Auth acceptance inferred. New exact BASE87_PLUS_D1/historical projection controls23PASS, namespace audit7PASS, bootstrap/inventory/composition checks PASS locally. Whole Windows bootstrap678PASS/5FAIL in unchanged encrypted-import filesystem prerequisites; complete Linux CI/native restart pending on successor SHA. Global UI3337d4c is recovered locally (20 controlled checks previously PASS), not yet published or physically accepted. Folders remain shared-contract/ownership pending under the new D2 objective. All earlier failed QA attempts remain FAIL.
 
 2026-10-27 — partial D1A. PASS controlled does not mean PASS Auth or global inventory. No module DONE, W4_ACCEPTED, hosted or release acceptance.
