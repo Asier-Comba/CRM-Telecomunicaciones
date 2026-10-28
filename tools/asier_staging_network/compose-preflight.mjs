@@ -5,7 +5,7 @@ import {gatewayRuntimeSettingsV1} from './runtime.mjs'
 
 export const composeDestination=Object.freeze({project:'crm-inmobiliario',service:'crm-telecom-runtime',ingress:'crm-telecom-ingress',port:8080,original_app:'crm-telecom-staging'})
 const roles=['crm-telecom-staging','crm-telecom-ingress','crm-telecom-egress']
-const serviceFields=['image','pull_policy','environment','user','read_only','cap_drop','security_opt','restart','stop_grace_period','logging','command','healthcheck','networks','secrets','tmpfs','mem_limit','cpus','dns','dns_opt']
+const serviceFields=['image','pull_policy','environment','user','read_only','cap_drop','security_opt','restart','stop_grace_period','logging','command','entrypoint','healthcheck','networks','secrets','tmpfs','mem_limit','cpus','dns','dns_opt']
 const sameKeys=(value,keys)=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&isDeepStrictEqual(Object.keys(value).sort(),[...keys].sort())
 const subset=(value,keys)=>value!==null&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).every(key=>keys.includes(key))
 const empty=value=>value===undefined||value===null||sameKeys(value,[])
@@ -19,16 +19,18 @@ export function composePreflightV1({configuration,receipt,expected,policy,bindin
  const errors=new Set(),fail=code=>errors.add(code)
  let verified
  try{verified=validateReceipt(receipt,expected)}catch{fail('PRIVATE_IMAGE_RECEIPT_INVALID')}
- if(!subset(configuration,['name','services','networks','secrets'])||!sameKeys(configuration?.services,roles))fail('COMPOSE_SHAPE_INVALID')
+ // Compose preserves these known x- extensions in JSON; only resolved services execute.
+ if(!subset(configuration,['name','services','networks','secrets','x-crm-runtime','x-gateway-health'])||!sameKeys(configuration?.services,roles))fail('COMPOSE_SHAPE_INVALID')
  const networks=configuration?.networks
  if(!sameKeys(networks,['crm-private','crm-outbound','easypanel']))fail('NETWORK_SET_INVALID')
  for(const key of ['crm-private','crm-outbound']){
   const network=networks?.[key]
-  if(!subset(network,['name','driver','internal','attachable','labels'])||network.driver!=='overlay'||network.attachable!==true||Boolean(network.internal)!==(key==='crm-private')||!sameKeys(network.labels,['crm.scope'])||network.labels['crm.scope']!=='crm-telecom-staging')fail('OWNED_NETWORK_INVALID')
-  if(network?.name!==undefined&&network.name!==`crm-inmobiliario_crm-telecom-runtime_${key}`)fail('OWNED_NETWORK_NAME_INVALID')
+  if(!subset(network,['name','driver','internal','attachable','labels','ipam'])||network.driver!=='overlay'||network.attachable!==true||!sameKeys(network.labels,['crm.scope'])||network.labels['crm.scope']!=='crm-telecom-staging'||!empty(network.ipam))fail('OWNED_NETWORK_INVALID')
+  if(key==='crm-private'?network?.internal!==true:network?.internal!==undefined&&network.internal!==false)fail('NETWORK_INTERNAL_TYPE_INVALID')
+  if(network?.name!==`crm-inmobiliario_crm-telecom-runtime_${key}`)fail('OWNED_NETWORK_NAME_INVALID')
  }
- if(!sameKeys(networks?.easypanel,['name','external'])||networks.easypanel.name!=='easypanel'||networks.easypanel.external!==true)fail('EXISTING_NETWORK_INVALID')
- if(configuration?.name!==undefined&&configuration.name!=='crm-inmobiliario_crm-telecom-runtime')fail('COMPOSE_PROJECT_INVALID')
+ if(!subset(networks?.easypanel,['name','external','ipam'])||networks.easypanel.name!=='easypanel'||networks.easypanel.external!==true||!empty(networks.easypanel.ipam))fail('EXISTING_NETWORK_INVALID')
+ if(configuration?.name!=='crm-inmobiliario_crm-telecom-runtime')fail('COMPOSE_PROJECT_INVALID')
  const secret=configuration?.secrets?.['crm-staging-ingress']
  if(!sameKeys(configuration?.secrets,['crm-staging-ingress'])||!subset(secret,['name','file'])||secret.file!=='/etc/crm-telecom-runtime/ingress.json'||secret.name!==undefined&&secret.name!=='crm-inmobiliario_crm-telecom-runtime_crm-staging-ingress')fail('INGRESS_SECRET_SOURCE_INVALID')
  const environmentNames=JSON.parse(readFileSync(new URL('../../infra/platform/environment-manifest.json',import.meta.url),'utf8')).entries.map(entry=>entry.name)
@@ -38,6 +40,8 @@ export function composePreflightV1({configuration,receipt,expected,policy,bindin
   if(!subset(service,serviceFields)){fail('SERVICE_FIELDS_INVALID');continue}
   if(!verified||service.image!==verified.image_reference)fail('SERVICE_IMAGE_MISMATCH')
   if(service.pull_policy!=='never')fail('UNCONTROLLED_IMAGE_PULL')
+  // null keeps the immutable image entrypoint; [] and '' explicitly remove it.
+  if(service.entrypoint!==undefined&&service.entrypoint!==null)fail('SERVICE_ENTRYPOINT_INVALID')
   if(service.user!=='65532:65532'||service.read_only!==true||!isDeepStrictEqual(service.cap_drop,['ALL'])||!isDeepStrictEqual(service.security_opt,['no-new-privileges:true']))fail('SERVICE_PRIVILEGES_INVALID')
   if(service.restart!=='on-failure:3'||service.stop_grace_period!=='35s'||!isDeepStrictEqual(service.logging,{driver:'json-file',options:{'max-size':'5m','max-file':'2'}}))fail('SERVICE_LIFECYCLE_INVALID')
   if(memory(service.mem_limit)!==(isApp?768:256)*1024*1024||Number(service.cpus)!==(isApp?0.75:0.25))fail('SERVICE_RESOURCE_BOUND_INVALID')
@@ -48,7 +52,7 @@ export function composePreflightV1({configuration,receipt,expected,policy,bindin
   for(const flag of ['PRODUCT_DOCUMENT_LIBRARY_ENABLED','PRODUCT_DOCUMENT_CONTENT_ENABLED','PRODUCT_DOCUMENT_MAINTENANCE_ENABLED','AI_ENABLED','CRM_EMAIL_ENABLED','NEXT_PUBLIC_ENABLE_DEMO_DATA','NEXT_PUBLIC_FORCE_OFFLINE_DEV'])if(environment?.[flag]!=='false')fail('SERVICE_CAPABILITIES_NOT_OFF')
   if(isApp){
    appEnvironment=environment
-   if(environment?.HOSTNAME!=='0.0.0.0'||environment?.PORT!=='3000'||service.command!==undefined||service.healthcheck!==undefined)fail('APP_COMMAND_INVALID')
+   if(environment?.HOSTNAME!=='0.0.0.0'||environment?.PORT!=='3000'||service.command!==undefined&&service.command!==null||service.healthcheck!==undefined)fail('APP_COMMAND_INVALID')
    if(!isDeepStrictEqual(service.dns,['127.0.0.1'])||!isDeepStrictEqual(service.dns_opt,['timeout:1','attempts:1']))fail('APP_DNS_INVALID')
   }else{
    const role=isIngress?'ingress':'egress'

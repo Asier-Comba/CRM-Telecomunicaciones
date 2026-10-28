@@ -50,6 +50,8 @@ const mutations={
  wrongPublicFingerprint:i=>{i.receipt.public_build_sha256=i.expected.public_build_sha256='0'.repeat(64)},
  unreviewedPolicy:i=>{i.policy.reviews.w4='PENDING'},
  otherProject:i=>{i.configuration.name='other-app'},
+ missingProject:i=>{delete i.configuration.name},
+ missingOwnedNetworkName:i=>{delete i.configuration.networks['crm-private'].name},
  additionalService:i=>{i.configuration.services.other=structuredClone(app(i))},
  publicPort:i=>{app(i).ports=[{target:3000,published:'3000'}]},
  socketMount:i=>{egress(i).volumes=[{source:'/var/run/docker.sock',target:'/var/run/docker.sock',type:'bind'}]},
@@ -58,6 +60,10 @@ const mutations={
  internetOnApp:i=>{app(i).networks['crm-outbound']=null},
  egressOnShared:i=>{egress(i).networks.easypanel=null},
  privateNotInternal:i=>{i.configuration.networks['crm-private'].internal=false},
+ privateStringFalse:i=>{i.configuration.networks['crm-private'].internal='false'},
+ privateStringTrue:i=>{i.configuration.networks['crm-private'].internal='true'},
+ privateNumericTrue:i=>{i.configuration.networks['crm-private'].internal=1},
+ outboundNumericFalse:i=>{i.configuration.networks['crm-outbound'].internal=0},
  privateExternal:i=>{i.configuration.networks['crm-private'].external=true},
  foreignNamedPrivate:i=>{i.configuration.networks['crm-private'].name='easypanel'},
  externalChanged:i=>{i.configuration.networks.easypanel.name='foreign'},
@@ -72,6 +78,8 @@ const mutations={
  secretHostPath:i=>{i.configuration.secrets['crm-staging-ingress'].file='/etc/foreign/password'},
  inlineSecret:i=>{i.configuration.secrets['crm-staging-ingress']={environment:'PASSWORD'}},
  alternateEntrypoint:i=>{ingress(i).entrypoint=['sh']},
+ emptyEntrypoint:i=>{app(i).entrypoint=[]},
+ emptyCommand:i=>{app(i).command=[]},
  alternateCommand:i=>{egress(i).command=['other.mjs']},
  appCommand:i=>{app(i).command=['server.js']},
  rootUser:i=>{app(i).user='0:0'},
@@ -103,6 +111,21 @@ test('missing/malformed input blocks without exposing configuration or credentia
  }
  const input=fixture();app(input).environment.SUPABASE_SERVICE_ROLE_KEY='synthetic-private-value';const report=composePreflightV1(input)
  assert.equal(report.status,'BLOCKED');assert.equal(JSON.stringify(report).includes('synthetic-private-value'),false)
+})
+
+test('only documented null defaults, empty IPAM and known nonexecuting extensions preserve the resolved model',()=>{
+ const input=fixture()
+ input.configuration['x-crm-runtime']={image:'ignored-extension-only'};input.configuration['x-gateway-health']={test:['ignored-extension-only']}
+ for(const service of Object.values(input.configuration.services))service.entrypoint=null
+ app(input).command=null
+ for(const network of Object.values(input.configuration.networks))network.ipam={}
+ assert.equal(composePreflightV1(input).status,'CONFIGURATION_CHECKED')
+ for(const field of ['entrypoint','command']){
+  const changed=structuredClone(input);app(changed)[field]=[]
+  assert.equal(composePreflightV1(changed).status,'BLOCKED')
+ }
+ const changed=structuredClone(input);changed.configuration.networks['crm-private'].ipam={config:[{subnet:'10.0.0.0/8'}]}
+ assert.equal(composePreflightV1(changed).status,'BLOCKED')
 })
 
 test('actual Actions Compose parser resolves the proposal before the same closed checks; no engine or containers',{skip:process.env.GITHUB_ACTIONS!=='true'},()=>{
