@@ -37,3 +37,24 @@ for(const mode of ['row','subtree','attribute-erased']as const)test(`late observ
   await expect.poll(async()=>(await lateResponseObservation(page)).saw_rows).toBe(true)
  }finally{await endLateResponseObservation(page)}
 })
+
+test('actual library error plus Next route announcer makes the broad alert assertion ambiguous',async({page})=>{
+ const server=await startDocumentsFixture({library:true,strict:true})
+ await page.route('**/api/**',route=>route.fulfill({status:403,json:{ok:false,error:'access_denied'}}))
+ try{
+  await page.goto(server.url+'/documents');await expect(page.getByRole('alert')).toBeVisible()
+  // Exact node/style/role structure from installed Next16.4.3 AppRouterAnnouncer;
+  // no route-announcer behavior or product data is replaced by this control.
+  await page.evaluate(()=>{
+   const container=document.createElement('next-route-announcer');container.style.cssText='position:absolute'
+   const announcer=document.createElement('div');announcer.ariaLive='assertive';announcer.id='__next-route-announcer__';announcer.role='alert';announcer.style.cssText='position:absolute;border:0;height:1px;margin:-1px;padding:0;width:1px;clip:rect(0 0 0 0);overflow:hidden;white-space:nowrap;word-wrap:normal'
+   container.attachShadow({mode:'open'}).appendChild(announcer);document.body.appendChild(container)
+  })
+  await expect(page.getByRole('alert')).toHaveCount(2)
+  await expect(expect(page.getByRole('alert')).toBeVisible()).rejects.toThrow(/strict mode violation/)
+  const failure=page.getByRole('alert').filter({has:page.getByRole('button',{name:'Reintentar consulta',exact:true})})
+  await expect(failure).toHaveCount(1);await expect(failure).toContainText('No tienes permiso para esta acción.');await expect(failure).toBeVisible()
+  await page.evaluate(()=>document.querySelector('main [role="alert"]')?.remove())
+  await expect(page.getByRole('alert')).toHaveCount(1);await expect(failure).toHaveCount(0)
+ }finally{await page.close();await server.close()}
+})

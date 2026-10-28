@@ -16,7 +16,9 @@ jobs:
   global-auth:
     # Publish for independent review first. Only a separate body edit naming
     # the exact reviewed head starts the disposable runner; later pushes stop it.
-    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, format('DOCUMENTS_GLOBAL_RUN_SHA={0}', github.event.pull_request.head.sha))
+    if: github.event.pull_request.head.repo.full_name == github.repository && (contains(github.event.pull_request.body, format('DOCUMENTS_GLOBAL_RUN_SHA={0}', github.event.pull_request.head.sha)) != contains(github.event.pull_request.body, format('DOCUMENTS_LATE_DIAGNOSTIC_SHA={0}', github.event.pull_request.head.sha)))
+    env:
+      DOCUMENTS_GLOBAL_SCOPE: ${{ contains(github.event.pull_request.body, format('DOCUMENTS_LATE_DIAGNOSTIC_SHA={0}', github.event.pull_request.head.sha)) && 'LATE_ROLE_ONLY' || '' }}
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:

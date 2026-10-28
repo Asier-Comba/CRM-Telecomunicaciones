@@ -4,7 +4,8 @@ import {resolve} from 'node:path'
 import {loadOwnedConsumerD1V1} from '../../scripts/security/native-postgres/owned-consumer-migrations-d1-v1.mjs'
 import {realGlobalDocumentsAcceptance} from './real-acceptance.mjs'
 const project='crm-telecom-local'
-const report={contract:'documents.global.d1.acceptance.v1',result:'NOT_RUN',checks:[],folders:'NOT_IMPLEMENTED_CONTRACT_PENDING',private_bytes:'OFF',hosted:'NOT_RUN',storage_security_acceptance:'NOT_GRANTED',storage_88_adopted:false}
+const diagnostic=process.env.DOCUMENTS_GLOBAL_SCOPE==='LATE_ROLE_ONLY'
+const report={acceptance_scope:diagnostic?'LATE_ROLE_DIAGNOSTIC_ONLY':'FULL',contract:diagnostic?'documents.global.d1.late-diagnostic.v1':'documents.global.d1.acceptance.v1',result:'NOT_RUN',checks:[],folders:'NOT_IMPLEMENTED_CONTRACT_PENDING',private_bytes:'OFF',hosted:'NOT_RUN',storage_security_acceptance:'NOT_GRANTED',storage_88_adopted:false}
 let started=false,phase='preflight'
 function command(bin,args,options={}){
  const r=spawnSync(bin,args,{encoding:'utf8',timeout:120000,maxBuffer:20*1024*1024,...options})
@@ -17,6 +18,7 @@ function command(bin,args,options={}){
 }
 const check=(ok,name)=>{report.checks.push({name,result:ok?'PASS':'FAIL'});if(!ok)throw Error('D1_GLOBAL_CHECK_FAILED')}
 try{
+ if(process.env.DOCUMENTS_GLOBAL_SCOPE&&!diagnostic)throw Error('D1_GLOBAL_UNKNOWN_ACCEPTANCE_SCOPE')
  if(process.platform!=='linux'||process.env.CI!=='true'||process.env.GITHUB_ACTIONS!=='true'||process.env.DOCUMENTS_GLOBAL_AUTH!=='true')throw Error('D1_GLOBAL_EXPLICIT_DISPOSABLE_CI_ONLY')
  if(['SUPABASE_ACCESS_TOKEN','SUPABASE_DB_PASSWORD','SUPABASE_SERVICE_ROLE_KEY','NEXT_PUBLIC_SUPABASE_URL'].some(k=>process.env[k])||existsSync('supabase/.temp/project-ref'))throw Error('D1_GLOBAL_HOSTED_CONFIG_FORBIDDEN')
  if(['.env','.env.local','.env.development','.env.development.local'].some(path=>existsSync(path)))throw Error('D1_GLOBAL_DOTENV_FORBIDDEN')
