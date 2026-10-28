@@ -3,6 +3,7 @@ import {readFileSync,readdirSync,writeFileSync} from 'node:fs'
 import {resolve} from 'node:path'
 import {randomUUID,createHash} from 'node:crypto'
 import {parseDocumentLibraryInputV2,parseDocumentLibraryPageV2} from '../../src/lib/server/document-library-runtime-v2.ts'
+import {globalDocumentsFixture} from './fixture-sql.mjs'
 const require=createRequire(resolve('scripts/security/ephemeral-postgres/package.json'))
 const {PGlite}=require('@electric-sql/pglite'),{pgcrypto}=require('@electric-sql/pglite/contrib/pgcrypto'),{btree_gist}=require('@electric-sql/pglite/contrib/btree_gist')
 const db=new PGlite({extensions:{pgcrypto,btree_gist}})
@@ -10,7 +11,7 @@ const db=new PGlite({extensions:{pgcrypto,btree_gist}})
 // Every other migration and all test actions/assertions remain identical.
 if(process.argv.length!==2&&(process.argv.length!==4||process.argv[2]!=='--d1-source'))throw Error('D1_INVALID_TEST_ARGUMENTS')
 const d1Source=process.argv[3]??'supabase/migrations/20261027154155_documents_library_v2.sql'
-const report={environment:'EMBEDDED_SQL_ONLY_NOT_AUTH',result:'NOT_RUN',checks:[],storage_88_adopted:false,private_bytes:'OFF',migration_sha256:createHash('sha256').update(readFileSync(d1Source)).digest('hex')}
+const report={environment:'EMBEDDED_SQL_ONLY_NOT_AUTH',result:'NOT_RUN',checks:[],storage_88_adopted:false,private_bytes:'OFF',migration_sha256:createHash('sha256').update(readFileSync(d1Source,'utf8').replaceAll('\r\n','\n')).digest('hex')}
 let phase='bootstrap'
 function check(ok,name){report.checks.push({name,result:ok?'PASS':'FAIL'});if(!ok)throw Error('D1_SQL_CHECK_FAILED')}
 async function root(source,params=[]){await db.exec('reset role');return db.query(source,params)}
@@ -97,6 +98,15 @@ try{
  await root("update public.documents set status='archived',archived_at=now()where id=$1",[docs[0]]);const drifted=await call(ownerA,wa,{cursor:fresh.next_cursor});check(drifted.total_count===122&&!drifted.items.some(r=>r.id===docs[0]),'current_status_reauthorized_count_drift_explicit_not_snapshot')
  await root("update public.documents set status='active',archived_at=null where id=$1",[docs[0]])
  await root("update documents_library_private.settings set key_bytes=extensions.gen_random_bytes(32),key_generation=key_generation+1 where singleton");await denied(()=>call(ownerA,wa,{cursor:fresh.next_cursor}),'22023','key_rotation_invalidates_old_cursor');check((await call(ownerA,wa)).total_count===123,'new_cursor_after_rotation_works')
+ phase='real_auth_fixture_schema_compatibility_only'
+ const fixtureWorkspaces=[randomUUID(),randomUUID(),randomUUID()],fixtureUsers={}
+ for(const [name,index,role]of [['ownerA',0,'owner'],['adminA',0,'admin'],['memberA',0,'member'],['viewerA',0,'viewer'],['ownerB',1,'owner'],['emptyOwner',2,'owner']])fixtureUsers[name]={id:randomUUID(),workspace:fixtureWorkspaces[index],role}
+ for(const [name,user]of Object.entries(fixtureUsers))await root('insert into auth.users(id,email)values($1,$2)',[user.id,'global-fixture-'+name.toLowerCase()+'@example.invalid'])
+ const globalFixture=globalDocumentsFixture(fixtureUsers);await db.exec('reset role');await db.exec(globalFixture.sql)
+ const globalPage=await call(fixtureUsers.ownerA.id,globalFixture.wa)
+ check(globalPage.total_count===123&&globalPage.items.length===20,'actual_global_auth_fixture_123_schema_compatible_not_auth_proof')
+ for(const customer of globalFixture.customers){const rows=await call(fixtureUsers.ownerA.id,globalFixture.wa,{customer_id:customer});check(rows.total_count===globalFixture.docs.filter(d=>d.target.customer===customer).length,'fixture_customer_ancestry_exact')}
+ check((await call(fixtureUsers.ownerB.id,globalFixture.wb)).total_count===3&&(await call(fixtureUsers.emptyOwner.id,globalFixture.wc)).total_count===0,'actual_global_auth_fixture_b_and_empty_schema_compatible')
  phase='completed';report.result='PASS';report.migrations=88;report.rows=123;report.targets=6;report.roles=['owner','admin','member','viewer'];report.auth='NOT_RUN_EMBEDDED_SQL_ONLY'
 }catch(error){report.result='FAIL';report.phase=phase;report.error=/^D1_[A-Z_]+$/.test(error?.message??'')?error.message:'D1_SQL_SAFE_FAILURE';report.sqlstate=/^[A-Z0-9]{5}$/.test(error?.code??'')?error.code:null;report.permission_error=/^permission denied for (function|table|schema) [a-z0-9_]+$/.test(error?.message??'')?error.message:null;process.exitCode=1}
 finally{await db.close();report.passed=report.checks.filter(c=>c.result==='PASS').length;console.log(JSON.stringify(report));if(process.env.DOCUMENTS_GLOBAL_SQL_OUTPUT)writeFileSync(process.env.DOCUMENTS_GLOBAL_SQL_OUTPUT,JSON.stringify(report,null,2)+'\n')}

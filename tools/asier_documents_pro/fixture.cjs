@@ -11,12 +11,14 @@ async function build(){
   const {compile}=await import('@tailwindcss/node'),{Scanner}=await import('@tailwindcss/oxide')
   const output=await mkdtemp(resolve(tmpdir(),'crm-documents-pro-'))
   const before=process.env.DOCUMENTS_PRO_BEFORE_SOURCE
+  const globalBefore=process.env.DOCUMENTS_PRO_GLOBAL_BEFORE_SOURCE
   if(before&&!resolve(before).startsWith(resolve(root,'../../outputs')+sep))throw Error('OWNED_BEFORE_SOURCE_REQUIRED')
+  if(globalBefore&&!resolve(globalBefore).startsWith(resolve(root,'../../outputs')+sep))throw Error('OWNED_GLOBAL_BEFORE_SOURCE_REQUIRED')
   try{
    await new Promise((accept,reject)=>{
     const compiler=webpack({mode:'development',context:root,target:'web',devtool:false,
      entry:resolve(__dirname,'fixture-entry.tsx'),output:{path:output,filename:'component.js'},optimization:{minimize:false},
-     plugins:[new webpack.DefinePlugin({'process.env':JSON.stringify({NODE_ENV:'development'})}),...(before?[new webpack.NormalModuleReplacementPlugin(/IntegratedDocuments$/,resource=>{resource.request=resolve(before)}),new webpack.NormalModuleReplacementPlugin(/^\.\//,resource=>{if(resource.context===dirname(resolve(before)))resource.request=resolve(root,'src/features/documents',resource.request)})]:[])],
+     plugins:[new webpack.DefinePlugin({'process.env':JSON.stringify({NODE_ENV:'development'})}),...(before?[new webpack.NormalModuleReplacementPlugin(/IntegratedDocuments$/,resource=>{resource.request=resolve(before)}),new webpack.NormalModuleReplacementPlugin(/^\.\//,resource=>{if(resource.context===dirname(resolve(before)))resource.request=resolve(root,'src/features/documents',resource.request)})]:[]),...(globalBefore?[new webpack.NormalModuleReplacementPlugin(/IntegratedDocumentLibrary$/,resource=>{resource.request=resolve(globalBefore)}),new webpack.NormalModuleReplacementPlugin(/^\.\//,resource=>{if(resource.context===dirname(resolve(globalBefore)))resource.request=resolve(root,'src/features/documents',resource.request)})]:[])],
      resolve:{extensions:['.tsx','.ts','.js'],modules:[resolve(root,'node_modules'),'node_modules'],alias:{'@':resolve(root,'src')}},
      module:{rules:[{test:/\.tsx?$/,exclude:/node_modules/,use:resolve(root,'tests/e2e-preview/fixtures/billing-focus-loader.cjs')}]}})
     compiler.run((error,stats)=>compiler.close(closeError=>{if(error||closeError||stats?.hasErrors())reject(error??closeError??Error(stats.toString({all:false,errors:true})));else accept()}))

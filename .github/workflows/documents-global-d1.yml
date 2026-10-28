@@ -1,0 +1,65 @@
+name: Documents global D1 real Auth acceptance
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    paths:
+      - 'tools/asier_documents_global/**'
+      - 'tests/documents-pro/**'
+      - 'src/features/documents/**'
+      - '.github/workflows/documents-global-d1.yml'
+permissions:
+  contents: read
+env:
+  CI: 'true'
+  DOCUMENTS_GLOBAL_AUTH: 'true'
+jobs:
+  global-auth:
+    # Publish for independent review first. Only a separate body edit naming
+    # the exact reviewed head starts the disposable runner; later pushes stop it.
+    if: github.event.pull_request.head.repo.full_name == github.repository && (contains(github.event.pull_request.body, format('DOCUMENTS_GLOBAL_RUN_SHA={0}', github.event.pull_request.head.sha)) != contains(github.event.pull_request.body, format('DOCUMENTS_LATE_DIAGNOSTIC_SHA={0}', github.event.pull_request.head.sha)))
+    env:
+      DOCUMENTS_GLOBAL_SCOPE: ${{ contains(github.event.pull_request.body, format('DOCUMENTS_LATE_DIAGNOSTIC_SHA={0}', github.event.pull_request.head.sha)) && 'LATE_ROLE_ONLY' || '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - name: Closed contracts, navigation and ordinary-execution denial
+        run: |
+          node --experimental-transform-types --test tests/bootstrap/document-library-v2.test.ts
+          node --experimental-transform-types --test tests/documents-pro/*.test.mjs
+          node --test tests/unit62/response-action.test.mjs
+      - name: Locked embedded harness and exact D1 SQL/fixture checks (not Auth)
+        run: |
+          npm ci --prefix scripts/security/ephemeral-postgres --ignore-scripts --no-audit --fund=false
+          node --experimental-transform-types tools/asier_documents_global/sql-acceptance.mjs
+      - name: Pinned Chromium and actual launch prerequisite
+        timeout-minutes: 6
+        run: |
+          npx playwright install chromium
+          node --input-type=module -e 'import {chromium} from "@playwright/test"; const browser=await chromium.launch(); await browser.close();'
+      - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359
+        with:
+          version: 2.119.0
+      - name: Real disposable Auth, global UI, exact JWT revocation and Storage outage
+        run: node --experimental-transform-types tools/asier_documents_global/run.mjs
+      - name: Retain safe result including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: documents-global-d1-safe
+          path: ${{ runner.temp }}/documents-global-d1.safe.json
+          retention-days: 7
+      - name: Retain only synthetic loaded authenticated CRM captures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: documents-global-d1-ui
+          path: ${{ runner.temp }}/documents-global-d1-ui
+          retention-days: 7
