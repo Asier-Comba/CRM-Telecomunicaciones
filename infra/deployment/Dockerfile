@@ -12,7 +12,7 @@ ARG NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
 ARG NEXT_PUBLIC_SUPABASE_ANON_KEY
 ARG NEXT_PUBLIC_APP_URL
 ENV NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=${NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:-$NEXT_PUBLIC_SUPABASE_ANON_KEY} NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY NEXT_PUBLIC_APP_URL=$NEXT_PUBLIC_APP_URL
-RUN npm run build
+RUN npm run build && node scripts/platform/build-binding.mjs
 
 # Signed official index; Linux amd64 child2a2f6eb2687719a49d0662615ffab9b78994a722ad64c508d62f1e24857c4068.
 FROM gcr.io/distroless/nodejs24-debian13:nonroot@sha256:9eeb7f5887d0e239e78264b06f7f11d2e14be534050481803a9e4728fcdd278e AS runtime
@@ -23,6 +23,8 @@ COPY --from=build --chown=65532:65532 /app/.next/static ./.next/static
 COPY --from=build --chown=65532:65532 /app/public ./public
 COPY --from=build --chown=65532:65532 /app/scripts/platform ./scripts/platform
 COPY --from=build --chown=65532:65532 /app/infra/platform ./infra/platform
+COPY --from=build --chown=65532:65532 /app/.next/public-build-binding.json ./infra/platform/public-build-binding.json
+COPY --from=build --chown=65532:65532 /app/src/lib/server/product-staging-admission-v1.ts ./src/lib/server/product-staging-admission-v1.ts
 USER 65532:65532
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s CMD ["/nodejs/bin/node", "-e", "fetch('http://127.0.0.1:3000/api/health/live').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]

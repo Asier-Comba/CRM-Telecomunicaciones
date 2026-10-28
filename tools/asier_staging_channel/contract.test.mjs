@@ -22,7 +22,9 @@ test('tags bind full source and full public configuration; digest receipt reject
 test('all seven independent gates stay closed; a report never grants publish or deploy authority',()=>{
  const blocked=channelReadiness({runtimePolicy:{status:'PROPOSED',reviews:{w2:'PENDING',w5:'PENDING',w4:'PENDING'}}})
  assert.equal(blocked.status,'BLOCKED');assert.equal(blocked.blockers.length,7)
- const report=channelReadiness({runtimePolicy:{status:'ACCEPTED',reviews:{w2:'ACCEPTED',w5:'ACCEPTED',w4:'ACCEPTED'}},originAccepted:true,publicBindingAccepted:true,networkAccepted:true,privateAccessAccepted:true,schemaAccepted:true,independentReleaseAccepted:true})
+ const runtimePolicy={version:'product.staging.runtime.v1',status:'ACCEPTED',origin:values.NEXT_PUBLIC_APP_URL,auth:'supabase-managed',capabilities:{ai:false,crm_mail:false,n8n:false,document_content:false,document_maintenance:false},reviews:{w2:'APPROVED',w5:'APPROVED',w4:'APPROVED'},production_accepted:false}
+ const report=channelReadiness({runtimePolicy,originAccepted:true,publicBindingAccepted:true,networkAccepted:true,privateAccessAccepted:true,schemaAccepted:true,independentReleaseAccepted:true})
+ for(const change of [{reviews:{w2:'ACCEPTED',w5:'ACCEPTED',w4:'ACCEPTED'}},{production_accepted:true},{capabilities:{...runtimePolicy.capabilities,ai:true}}])assert.ok(channelReadiness({runtimePolicy:{...runtimePolicy,...change}}).blockers.includes('HOSTED_RUNTIME_NOT_ACCEPTED'))
  assert.equal(report.status,'REQUIRES_EXISTING_PROMOTION_GATE');assert.equal(report.publishing_authorized,false);assert.equal(report.deploying_authorized,false)
  assert.deepEqual(destination,{project:'crm-inmobiliario',service:'crm-telecom-staging',port:3000})
 })

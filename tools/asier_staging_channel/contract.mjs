@@ -1,4 +1,6 @@
 import {createHash} from 'node:crypto'
+import {publicBuildSha256} from '../../scripts/platform/build-binding.mjs'
+import {reviewedStagingPolicy} from '../../scripts/platform/runtime-admission.mjs'
 
 export const destination=Object.freeze({project:'crm-inmobiliario',service:'crm-telecom-staging',port:3000})
 export const imageRepository='ghcr.io/asier-comba/crm-telecom-staging'
@@ -16,7 +18,7 @@ function publicKey(value){
 export function publicBuildIdentity(values){
  if(!exact(values,publicNames)||!httpsOrigin(values.NEXT_PUBLIC_APP_URL)||!httpsOrigin(values.NEXT_PUBLIC_SUPABASE_URL)||!publicKey(values.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY))throw Error('STAGING_PUBLIC_BINDINGS_INVALID')
  // Only the fingerprint is reported. No public key, origin or credentials in logs.
- return digest(JSON.stringify(publicNames.map(name=>[name,values[name]])))
+ return publicBuildSha256(values)
 }
 export function imageTag(source,configuration){
  if(!matches(sha,source)||!matches(hash,configuration))throw Error('STAGING_IDENTITY_INVALID')
@@ -31,7 +33,7 @@ export function validateReceipt(receipt,expected){
 }
 export function channelReadiness({runtimePolicy,originAccepted=false,publicBindingAccepted=false,networkAccepted=false,privateAccessAccepted=false,schemaAccepted=false,independentReleaseAccepted=false}={}){
  const blockers=[]
- if(runtimePolicy?.status!=='ACCEPTED'||!['w2','w5','w4'].every(k=>runtimePolicy?.reviews?.[k]==='ACCEPTED'))blockers.push('HOSTED_RUNTIME_NOT_ACCEPTED')
+ if(!httpsOrigin(runtimePolicy?.origin)||!reviewedStagingPolicy(runtimePolicy,runtimePolicy?.origin))blockers.push('HOSTED_RUNTIME_NOT_ACCEPTED')
  for(const [name,ok]of Object.entries({ORIGIN:originAccepted,PUBLIC_BUILD_RUNTIME_BINDING:publicBindingAccepted,HOSTED_NETWORK:networkAccepted,PRIVATE_ACCESS:privateAccessAccepted,EXACT_SCHEMA:schemaAccepted,INDEPENDENT_RELEASE:independentReleaseAccepted}))if(ok!==true)blockers.push(name+'_NOT_ACCEPTED')
  // This is a readiness report, never deployment authority. The existing
  // platform promotion gate and protected environment remain mandatory.
