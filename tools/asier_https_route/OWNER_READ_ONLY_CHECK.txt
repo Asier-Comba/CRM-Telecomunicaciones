@@ -1,0 +1,154 @@
+CRM TELECOM — P0 HTTPS: UNA COMPROBACIÓN HUMANA DE SÓLO LECTURA
+29/10/2026 · BLOCKER_INSTALLED_CUSTOM_DESTINATION_READBACK
+No guardar, crear, desplegar, reiniciar, cambiar DNS, publicar puertos ni editar
+Traefik. No volver a probar el laboratorio de211. No se ha usado el navegador
+local ni una API autenticada del panel en esta unidad.
+
+RESULTADO TÉCNICO Y FUENTES
+1. App Domains documenta Custom Destination por dominio:
+   https://easypanel.io/docs/services/app/#domains
+2. Compose Domains documenta destino a un servicio interno y puerto:
+   https://easypanel.io/docs/services/compose/#domains
+3. La API pública updateDomain describe una modificación de ruta, pero publica
+   destinationType como unknown y ejemplifica serviceDestination. No acredita
+   un cuerpo externo que se pueda construir:
+   https://easypanel.io/docs/api/domains/updateDomain
+   https://easypanel.io/docs/api/domains/createDomain
+No se deduce del caso App que la opción exista para este Compose/versión.
+No se llama a los POST de dominio ni se inventa un endpoint privado.
+Custom Service Domain es otra función: automatización global/premium de nombres.
+No usar Settings/General, wildcard DNS o licencias para resolver esta ruta:
+https://easypanel.io/docs/guides/custom-service-domain
+
+Estado exacto: mecanismo documentado en App, soporte en ESTE Compose instalado
+NO DETERMINADO. Su ausencia tampoco está probada. No procede cambiar de
+arquitectura o afirmar que la ruta esté resuelta. El bloqueo se reduce a la
+visita de lectura descrita abajo, seguida de revisión de su evidencia.
+
+UNA VISITA DEL PROPIETARIO, SIN CAMBIAR NI GUARDAR NADA
+Usar su sesión existente en https://hvdnby.easypanel.host.
+1. Leer la versión visible del panel. Si no aparece, anotar NO VISIBLE; no
+   actualizar ni instalar nada para obtenerla.
+2. Abrir proyecto crm-inmobiliario, servicio de tipo COMPOSE crm-telecom-runtime.
+   No confundirlo con las Apps crm-telecom-staging o crm-staging.
+3. En Domains/Dominios, localizar exactamente:
+   crm-telecom-staging.hvdnby.easypanel.host, ruta /.
+   Si no existe o hay duplicados, detenerse; no crear, borrar o mover rutas.
+4. Abrir la vista de edición de ESA fila sólo si puede inspeccionarse sin
+   persistencia automática. Si la interfaz avisa de autoguardado, detenerse.
+   Leer hostname/path, HTTPS, destino actual, puerto/protocolo, resolver y
+   referencias de middleware ya visibles. Conservar baseline completo PRIVADO
+   de esa fila para rollback futuro; no publicar valores de autenticación.
+5. Si existe un selector de tipo de destino, abrir únicamente la lista.
+   Capturar sus opciones sin CAMBIAR LA SELECCIÓN. Registrar si se ofrece
+   Custom Destination/Destino personalizado u opción equivalente y su ayuda.
+   Si los campos externos sólo aparecen al seleccionar, NO seleccionar:
+   marcar FORMATO NO OBSERVADO. No rellenar el alias para probar validación.
+6. Cerrar con Cancelar o cerrar el editor sin cambios. Volver a la fila y
+   comprobar visualmente que conserva los mismos valores.
+
+Evidencia mínima en una secuencia redactada:
+A. Contexto inequívoco de proyecto/tipo/servicio y versión si visible.
+B. Fila y formulario de esa ruta, con sus valores de enrutamiento visibles.
+C. Lista de destinos abierta y ayuda visible; sin modificar selección.
+D. Fila tras cancelar, coincidente con baseline.
+No capturar pestañas Environment/Security, claves, cookies, contraseñas,
+usuarios Basic, tokens de deploy, cabeceras Authorization o URLs con secretos.
+No abrir DevTools para copiar HAR, cURL, cookies o tokens. No generar claves API.
+Una captura de otro App/formulario genérico no satisface esta comprobación.
+
+Respuesta corta que el propietario puede devolver:
+- Contexto correcto y versión visible/no visible.
+- Una sola fila de ese dominio y ruta: sí/no.
+- Opciones del selector, copiadas literalmente sin valores privados.
+- Campos/ayuda externos visibles sin cambiar selección: sí/no; etiquetas.
+- Cancelado sin guardar y baseline visual igual: sí/no.
+Las capturas son opcionales si contienen valores privados; la lectura puede
+devolverse redactada en texto. No es una nueva autorización de cambios.
+
+CÓMO INTERPRETAR LA RESPUESTA
+CUSTOM_OPTION_VISIBLE: prueba que la opción está expuesta en ESTE Compose.
+No demuestra formato, persistencia, DNS desde el proxy o funcionamiento sin
+contenedores gestionados. Se revisa la ayuda/contrato soportado antes de
+proponer una modificación concreta.
+ONLY_INTERNAL_SERVICE: evidencia de que ESTA vista no ofrece el mecanismo;
+no prueba ausencia universal en el producto. Se mantiene bloqueo y sólo se
+considera la alternativa única indicada abajo.
+CANNOT_VIEW_WITHOUT_WRITE / ROUTE_MISMATCH / MULTIPLE_MATCHES: detenerse,
+conservar el hecho concreto. No seleccionar, guardar o aplicar para descubrirlo.
+Ninguno de estos resultados autoriza Implementar ni modifica211/206/210.
+
+CONTRATO CONDICIONAL DE RUTA (MODELO PROPIO, NO JSON DE API EASYPANEL)
+route-contract.json describe el resultado deseado, no campos persistibles.
+- Una única ruta: HTTPS externo del hostname existente, path /, sin wildcard.
+- Upstream interno equivalente a http://crm-telecom-direct-ingress:8080.
+  Usar sólo los campos realmente soportados y revisados; no inventarlos.
+- Mantener Host externo exacto, path/query y cookies; Basic Authorization debe
+  llegar al ingress existente. El gateway exige Host exacto y Basic, consume
+  Basic y fija x-forwarded-proto=https al App. No cambiar ese código.
+- Conservar certificado/resolver, controles y middlewares existentes; si alguno
+  elimina Basic o reescribe Host, bloquear para revisión, no desactivarlo.
+- Sólo ingress tiene acceso a la red compartida. Sin acceso directo a App3000
+  ni egress, puertos host o reglas globales de Traefik.
+- La ruta debe existir y mantenerse sin arrancar el Compose gestionado; no puede
+  haber dos gestores del runtime ni depender de un App original iniciado.
+- El hostname y contrato build/runtime/Supabase de211 permanecen iguales.
+
+La versión y la configuración actuales no están leídas por el agente.
+La documentación no acredita aquí ciclo de vida, conservación de cabeceras ni
+resolución del alias en el proxy real. Permanecen requisitos, no hechos.
+
+PRUEBAS APLICABLES: REUTILIZACIÓN, SIN OTRA EJECUCIÓN
+Base211 SOURCEddc6e0a278dead67f8dff8142b98c10a9349325e:
+run40906194151/job123561491084,23PASS/1SKIP,36controles físicosPASS.
+Cubierto: ingress HTTP privado401, Basic identificado hacia App sintética,
+Host esperado en el probe, frontera de redes, ausencia de puertos host,
+recreación y conservación de recursos ajenos. Código gateway.mjs valida Host
+exacto y normaliza cabeceras hacia App.
+NO cubierto: TLS/certificado real, serialización Custom Destination del panel,
+resolución de crm-telecom-direct-ingress desde SU proxy, ruta con Compose
+gestionado detenido, passthrough real de Basic/Host/cookies por ese proxy,
+persistencia/rollback de la fila ni Auth alojado. No transferir PASS a esos casos.
+
+Tras una futura promoción AUTORIZADA, el smoke específico deberá verificar:
+TLS válido para el hostname; sin Basic401 del ingress esperado; con acceso
+privado llegada al ingress correcto; Host/path/query/cookies conservados;
+sin ruta pública directa al App; mismo destino tras recreación y sin cambios
+de dominios ajenos. Ninguna de esas pruebas se ejecuta en esta unidad.
+Sin runtime privado iniciado no se exige hoy200 para demostrar soporte de UI.
+
+ROLLBACK CONDICIONAL, ANTES DE CUALQUIER CAMBIO FUTURO
+Conservar ID y snapshot privado exactos de ESA fila, destino/protocolo/puerto,
+host/path/wildcard, TLS/resolver, middlewares y demás opciones visibles.
+Comprobar baseline de nuevo justo antes de cambiar: si otro actor lo modificó,
+abortar; no sobrescribir un estado nuevo.
+Si una futura modificación autorizada falla, restaurar sólo esa misma fila por
+el mecanismo soportado, sin crear una ruta duplicada. Leerla de nuevo, comparar
+baseline y comprobar continuidad de otros servicios. No arrancar App original,
+no DNS/Traefik global, no eliminar contenedores, redes o datos como rollback.
+Si restaurar la ruta requiere destruir/recrear recursos o iniciar otro servicio,
+el mecanismo aún no satisface este contrato.
+
+ÚNICA ALTERNATIVA CONDICIONAL SI COMPOSE NO OFRECE CUSTOM DESTINATION
+Un App dedicado sólo a ser propietario de metadatos de dominio con Custom
+Destination; no relay, otro producto, otra imagen ni cambios en la App original.
+App documenta ese tipo de destino. NO documenta suficientemente que la ruta
+funcione/persista con contenedor detenido o inexistente: antes de llamarlo
+viable se necesita confirmación soportada del ciclo de vida y prueba revisada.
+No se crea ni implementa ese App aquí.
+Autorización adicional requerida, si se acredita: crear sólo esos metadatos,
+reasignar exclusivamente la ruta CRM con baseline/rollback y mantenerla sin
+contenedor ni costes. No autoriza ejecutar runtime o tocar servicios existentes.
+Riesgos: duplicar host/path, dependencia de Stop/Delete/Deploy del App nominal,
+pérdida de middlewares/certificado, resolución incorrecta y nueva dependencia
+operativa. Si requiere contenedor, pago o cambios globales, sigue BLOCKED;
+no se propone una segunda arquitectura como sustitución automática.
+
+ENTREGA Y SIGUIENTE PASO
+Esta unidad sólo añade especificación/checklist; no cambia código ejecutable,
+runtimes, políticas o workflows y no añade pruebas que simulen una UI no leída.
+Se valida JSON/diff y concordancia de alias/origen con211.
+Siguiente acción concreta: realizar la única visita de lectura y devolver la
+respuesta/capturas redactadas. Después W4/W5 revisan ese contrato observado;
+sólo entonces puede prepararse una propuesta de modificación revisable.
+STAGING_DEPLOYED=false; RELEASE_NOT_ACCEPTED; NO_DEPLOYMENT_REQUEST.

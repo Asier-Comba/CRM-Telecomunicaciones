@@ -1,0 +1,64 @@
+{
+  "version": "crm.https.desired-route.v1",
+  "kind": "INTERNAL_REVIEW_SPEC_NOT_EASYPANEL_API_PAYLOAD",
+  "status": "BLOCKER_INSTALLED_CUSTOM_DESTINATION_READBACK",
+  "baseline": {
+    "pr": 211,
+    "source": "ddc6e0a278dead67f8dff8142b98c10a9349325e"
+  },
+  "route": {
+    "public_origin": "https://crm-telecom-staging.hvdnby.easypanel.host",
+    "path": "/",
+    "wildcard": false,
+    "upstream_required": "http://crm-telecom-direct-ingress:8080",
+    "host_header_required": "crm-telecom-staging.hvdnby.easypanel.host",
+    "preserve_path_query_cookies": true,
+    "preserve_basic_to_ingress": true,
+    "preserve_existing_tls_and_middleware": true,
+    "no_host_ports": true,
+    "no_global_traefik_changes": true,
+    "no_managed_runtime_dependency": true
+  },
+  "installed_support": "NOT_DETERMINED",
+  "installed_readback": {
+    "panel_version": null,
+    "project": null,
+    "service": null,
+    "service_type": null,
+    "unique_route": null,
+    "custom_option_visible": null,
+    "external_format_visible_without_selection": null,
+    "cancelled_without_saving": null
+  },
+  "owner_action": "ONE_READ_ONLY_ROUTE_EDITOR_VISIT_WITHOUT_SELECTION_OR_SAVE",
+  "outcomes": [
+    "CUSTOM_OPTION_VISIBLE_REQUIRES_CONTRACT_REVIEW",
+    "ONLY_INTERNAL_SERVICE",
+    "CANNOT_VIEW_WITHOUT_WRITE",
+    "ROUTE_MISMATCH",
+    "MULTIPLE_MATCHES"
+  ],
+  "lab_coverage": {
+    "source": "ddc6e0a278dead67f8dff8142b98c10a9349325e",
+    "run": 40906194151,
+    "job": 123561491084,
+    "rerun": false,
+    "http_ingress_and_network_boundaries": "PASS_AT_BASELINE_ONLY",
+    "tls_panel_serialization_proxy_alias_headers_lifecycle_rollback": "NOT_TESTED",
+    "hosted_acceptance": false
+  },
+  "fallback": {
+    "count": 1,
+    "kind": "DEDICATED_APP_DOMAIN_METADATA_CUSTOM_DESTINATION",
+    "status": "PENDING_SUPPORTED_LIFECYCLE_PROOF_NOT_APPROVED",
+    "new_authorization_required": true,
+    "original_app_modified": false,
+    "container_or_cost_assumed": false
+  },
+  "rollback": "RESTORE_ONLY_SAME_ROUTE_FROM_PRIVATE_EXACT_BASELINE_AFTER_CONCURRENCY_CHECK",
+  "publishing_route_authorized": false,
+  "deploying_authorized": false,
+  "mutation_performed": false,
+  "STAGING_DEPLOYED": false,
+  "RELEASE_NOT_ACCEPTED": true
+}
