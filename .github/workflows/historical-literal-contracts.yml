@@ -1,0 +1,81 @@
+name: Historical input and synthetic producer Linux qualification
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    paths:
+      - '.github/workflows/historical-literal-contracts.yml'
+permissions:
+  contents: read
+jobs:
+  synthetic-linux:
+    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, format('PRIVATE_HISTORY_LINUX_SHA={0}', github.event.pull_request.head.sha))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      REVIEWED_SCANNER_SOURCE: f3621aecbb2a8bd8880ea6840640f2b7ba8c5e46
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Require the unchanged W4 source closure, except this qualification workflow
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha }}"
+          git diff --exit-code "$REVIEWED_SCANNER_SOURCE" HEAD -- . ':(exclude).github/workflows/historical-literal-contracts.yml'
+          git diff --exit-code
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '24.22.1'
+      - name: Verify exact scanner and immediate dependency bytes
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync} from 'node:fs';
+          import {createHash} from 'node:crypto';
+          const pins = {
+            'scan-historical-literals.mjs': 'c66409d0319a59ba6713cf619b77fc4690db4fc5ff3206fb3ac08b5926973c18',
+            'scan-historical-literals.test.mjs': 'fc82b2a497778c8ad6bacadbe29ca08deea604531f6bb1e9b4bfc7fc76d4afb6',
+            'private-scan-input.mjs': '704c6911ed59c9bd201927977f8cec3c728ffc47498a582f9ec3f2bba4a39338',
+            'private-scan-input.test.mjs': 'deb11a78b52e28b7d34b4204d3873e88c9645409d3ed8ca5e858f150977b94ca',
+            'private-history-batch.mjs': 'bfa44e0b591c07d7b3da2227598f680702970c6a7b4d7dd43498cd0c7e52e6cb',
+            'private-history-batch.test.mjs': 'd4648192c45196923be35b6701ccfa78abba2e46ddd3e49f0b65c6163cf6ce79',
+            'synthetic-history-transport.mjs': 'd8df6a5eac473db467d0d359214178ed8983ad4715e16584d99fbcae7c111699',
+            'synthetic-history-transport.test.mjs': '7d08f420b77d973dc97f6a7541f7b6792323f3307db86f7d86db72b81cb7d6f8',
+            'synthetic-history-producer.mjs': '3bd5b2e9fb8428b87d6edb792e145a099ffd4c1e792260c32408fac4161eab5a',
+            'synthetic-history-producer.test.mjs': '30e33705ca7f8d4e1f232ceab07d912db85559f5c70efb4ca6bf456cb7adadcb',
+            'oci-evidence.mjs': '70deb2c42448f3503ae6dd0122801cf70a6e3ec0e539c093fb97b7a5315bf8ba',
+            'contract.mjs': 'a7d266689f8e45a7699b2aad13ea2a1247cc7fafc3e58e555763155c3910abc0'
+          };
+          for (const [name, expected] of Object.entries(pins)) {
+            const actual = createHash('sha256').update(readFileSync('tools/asier_staging_channel/' + name)).digest('hex');
+            if (actual !== expected) throw Error('SCANNER_SOURCE_BYTES_MISMATCH');
+          }
+          console.log('EXACT_W4_SCANNER_BYTES_CHECKED; source provenance and image acceptance not inferred');
+          NODE
+      - name: Seventy scanner, private input, binary decoder and synthetic producer contracts only
+        shell: bash
+        run: |
+          node --experimental-transform-types --test --test-reporter=tap tools/asier_staging_channel/scan-historical-literals.test.mjs tools/asier_staging_channel/private-scan-input.test.mjs tools/asier_staging_channel/private-history-batch.test.mjs tools/asier_staging_channel/synthetic-history-transport.test.mjs tools/asier_staging_channel/synthetic-history-producer.test.mjs > "$RUNNER_TEMP/historical-literals.synthetic.tap"
+      - name: Require seventy passes, zero failures, cancellations and skips
+        if: always()
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync} from 'node:fs';
+          import {join} from 'node:path';
+          const lines = readFileSync(join(process.env.RUNNER_TEMP, 'historical-literals.synthetic.tap'), 'utf8').split(/\r?\n/);
+          for (const [name, expected] of Object.entries({tests:70,pass:70,fail:0,cancelled:0,skipped:0})) {
+            const matches = lines.filter(line => line.startsWith('# ' + name + ' '));
+            if (matches.length !== 1 || matches[0] !== '# ' + name + ' ' + expected) throw Error('SYNTHETIC_LINUX_COVERAGE_INCOMPLETE');
+          }
+          console.log('70_SYNTHETIC_LINUX_TESTS_PASS; REAL_HISTORY_TRANSPORT_NOT_RUN; REAL_TEN_FINDINGS_NOT_CLASSIFIED; IMAGE_PRIVATE_VERIFIED=false; STAGING_DEPLOYED=false');
+          NODE
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: historical-producer-synthetic-linux
+          path: ${{ runner.temp }}/historical-literals.synthetic.tap
+          retention-days: 14
+          if-no-files-found: error
