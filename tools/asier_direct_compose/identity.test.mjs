@@ -2,7 +2,7 @@ import {readFileSync} from 'node:fs'
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import {createRequire} from 'node:module'
-import {directConfiguration,directPreflight} from './contract.mjs'
+import {directConfiguration,directPreflight,privateHostAddressBoundary} from './contract.mjs'
 import {fixture} from './synthetic-fixture.mjs'
 const yaml=createRequire(import.meta.url)('js-yaml')
 function model(){
@@ -39,3 +39,8 @@ for(const kind of ['sameID','unrecordedID','wrongDriver','wrongInternal','nameIn
  assert.equal(directPreflight(i).status,'BLOCKED')
 })
 test('host gateway isolation and IPv6 closure are mandatory',()=>{for(const mutate of [i=>{i.networks[0].Options={}},i=>{i.networks[0].EnableIPv6=true}]){const i=fixture();assert.equal(directPreflight(i).status,'CONFIGURATION_CHECKED');mutate(i);assert.equal(directPreflight(i).status,'BLOCKED')}})
+test('host link-local is conditional on container IPv6 closure, never permits IPv4 or global IPv6',()=>{
+ const link=[{family:'inet6',scope:'link'}]
+ assert.equal(privateHostAddressBoundary(link,0),true)
+ for(const [types,count]of [[link,1],[link,'0'],[[{family:'inet',scope:'global'}],0],[[{family:'inet6',scope:'global'}],0],[null,0]])assert.equal(privateHostAddressBoundary(types,count),false)
+})

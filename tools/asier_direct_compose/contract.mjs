@@ -1,6 +1,9 @@
 import {composePreflightV1} from '../asier_staging_network/compose-preflight.mjs'
 export const project='crm-telecom-direct'
 export const ingressAlias='crm-telecom-direct-ingress'
+export function privateHostAddressBoundary(types,containerIPv6Count){
+ return Array.isArray(types)&&containerIPv6Count===0&&types.every(a=>a&&Object.keys(a).sort().join(',')==='family,scope'&&a.family==='inet6'&&a.scope==='link')
+}
 export const directNetworkPlan=Object.freeze(['crm-private','crm-outbound'].map(key=>Object.freeze({name:project+'_'+key,driver:'bridge',internal:key==='crm-private',attachable:true,owner:project,options:key==='crm-private'?{'com.docker.network.bridge.gateway_mode_ipv4':'isolated'}:{}})))
 const old='crm-inmobiliario_crm-telecom-runtime'
 export function bindNetworkIds(configuration,networks){

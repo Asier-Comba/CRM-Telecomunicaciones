@@ -7,6 +7,7 @@ import {localDockerCallV1} from '../asier_staging_network/local-docker.mjs'
 import {fixture} from './synthetic-fixture.mjs'
 import {executePreparation} from './executor.mjs'
 import {sha256} from './session.mjs'
+import {privateHostAddressBoundary} from './contract.mjs'
 const env=process.env
 if(process.platform!=='linux'||env.GITHUB_ACTIONS!=='true'||env.RUNNER_ENVIRONMENT!=='github-hosted'||env.GITHUB_EVENT_NAME!=='pull_request'||env.GITHUB_REPOSITORY!=='Asier-Comba/CRM-Telecomunicaciones'||!env.RUNNER_TEMP||!/^[a-f0-9]{40}$/.test(env.EXPECTED_SOURCE??''))throw Error('DISPOSABLE_ONLY')
 const dir=mkdtempSync(join(env.RUNNER_TEMP,'crm-direct-')),docker=localDockerCallV1(env,dir),project='crm-direct-lab-'+env.EXPECTED_SOURCE.slice(0,12)
@@ -64,7 +65,7 @@ try{
  const iface=spawnSync('ip',['-j','address','show','dev','br-'+created.private.slice(0,12)],{encoding:'utf8',shell:false,timeout:10000})
  if(iface.status===0)report.private_bridge_address_types=JSON.parse(iface.stdout).flatMap(i=>i.addr_info.map(a=>({family:a.family,scope:a.scope})))
  report.app_nonloopback_ipv6=call(['exec',app,'node','-e','console.log(Object.values(require("node:os").networkInterfaces()).flat().filter(a=>a.family==="IPv6"&&!a.internal).length)'])
- if(iface.status!==0||JSON.parse(iface.stdout).some(i=>i.addr_info.length!==0))throw Error('PRIVATE_HOST_ADDRESS_PRESENT')
+ if(iface.status!==0||!privateHostAddressBoundary(report.private_bridge_address_types,Number(report.app_nonloopback_ipv6)))throw Error('PRIVATE_HOST_ADDRESS_PRESENT')
  hostCanary=fork(new URL('./host-canary.mjs',import.meta.url),[],{env:{CRM_OWNED_HOST_CANARY:'true'},execArgv:[],silent:true})
  const hostPort=String(await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('HOST_CANARY_START_FAILED')),10000);hostCanary.once('message',m=>{clearTimeout(timer);if(!Number.isInteger(m?.port)||m.port<1||m.port>65535)reject(Error('HOST_CANARY_START_FAILED'));else resolve(m.port)});hostCanary.once('error',reject)}))
  const hostIp=JSON.parse(call(['network','inspect',created.outbound]))[0].IPAM.Config[0].Gateway
@@ -90,6 +91,7 @@ try{
  if(recreated===app)throw Error('APP_NOT_RECREATED')
  spec(recreated,805306368,750000000,['private'])
  if(JSON.stringify(inspect(recreated).HostConfig.Dns)!=='["127.0.0.1"]')throw Error('APP_DNS_CHANGED')
+ if(call(['exec',recreated,'node','-e','console.log(Object.values(require("node:os").networkInterfaces()).flat().filter(a=>a.family==="IPv6"&&!a.internal).length)'])!=='0')throw Error('RECREATED_APP_IPV6_OPEN')
  const recreatedIp=address(recreated,'private')
  probe(sentinel,{kind:'outside',canaryIp,appIp:recreatedIp,supabaseIp:ip,username,password})
  probe(recreated,{kind:'internal',canaryIp,supabaseIp:ip})

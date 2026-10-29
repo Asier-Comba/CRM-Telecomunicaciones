@@ -149,6 +149,13 @@ ausencia de direcciones en la interfaz bridge y un canario TCP del host:
 egress accede como control positivo; App debe fallar, también tras recreación.
 Esto prueba ese camino/endpoint, no aislamiento absoluto ante un administrador.
 https://docs.docker.com/engine/network/port-publishing/#gateway-modes
+Observación conservada a7848c78/run40904244897: host bridge tiene sólo IPv6
+link-local y App tiene0 direcciones IPv6 no loopback. El rechazo anterior de
+cualquier dirección era más amplio que la garantía IPv4 de isolated.
+La comprobación actual rechaza toda IPv4 o IPv6 global en esa bridge, y sólo
+tolera link-local del HOST con IPv6 no loopback de App ausente, también tras
+recreación. Se mantienen obligatorias las pruebas de canario identificable y
+las negativas IPv4. Esto no acredita aislamiento IPv6 general del host.
 Lab reutiliza gateway.mjs y App sintética, no una imagen privada aceptada,
 Supabase Auth completo, capacidad del VPS o política real ACCEPTED.
 El último SHA, pruebas y revisiones exactas se registran en211/#67.
