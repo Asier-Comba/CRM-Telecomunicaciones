@@ -15,6 +15,7 @@ function call(args,options={}){report.phase=args[0]==='compose'?'compose_'+args.
 const compose=(...args)=>call(['compose','-p',project,'-f',join(dir,'compose.json'),...args])
 let swarm=false,started=false,sentinel,foreignVolume
 let hostCanary
+let canaryClosed=true
 const created={}
 try{
  const g=spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'});if(g.stdout.trim()!==env.EXPECTED_SOURCE)throw Error('SOURCE_MISMATCH')
@@ -102,8 +103,9 @@ try{
  report.status='PASS'
 }catch(e){report.error=/^[A-Z0-9_]+$/.test(e.message)?e.message:'LAB_FAILED';if(Array.isArray(e.codes))report.config_errors=e.codes}
 finally{
- if(hostCanary)await new Promise(resolve=>{const timer=setTimeout(()=>{report.status='FAIL';report.error='HOST_CANARY_CLEANUP_FAILED';hostCanary.kill('SIGKILL')},5000);hostCanary.once('exit',()=>{clearTimeout(timer);resolve()});if(hostCanary.connected)hostCanary.send('close');else hostCanary.kill()})
+ if(hostCanary)await new Promise(resolve=>{if(hostCanary.exitCode!==null||hostCanary.signalCode!==null){canaryClosed=hostCanary.exitCode===0;resolve();return}const timer=setTimeout(()=>{canaryClosed=false;report.status='FAIL';report.error='HOST_CANARY_CLEANUP_FAILED';hostCanary.kill('SIGKILL')},5000);hostCanary.once('exit',code=>{clearTimeout(timer);canaryClosed=canaryClosed&&code===0;resolve()});if(hostCanary.connected)hostCanary.send('close',()=>{});else hostCanary.kill()})
  try{if(sentinel)call(['rm','-f',sentinel]);if(foreignVolume)call(['volume','rm',foreignVolume]);if(started)compose('down');if(swarm){for(const id of Object.values(created))call(['network','rm',id]);call(['swarm','leave','--force'])}report.cleanup=call(['ps','-aq'])===''&&call(['network','ls','--filter','label=crm.direct.lab='+project,'--format','{{.ID}}'])===''&&call(['info','--format','{{.Swarm.LocalNodeState}}'])==='inactive'}catch{report.cleanup=false}
+ report.cleanup=report.cleanup&&canaryClosed
  if(!report.cleanup)report.status='FAIL'
  try{rmSync(dir,{recursive:true,force:true})}catch{report.cleanup=false;report.status='FAIL';report.error='DIRECTORY_CLEANUP_FAILED'}
  writeFileSync(join(env.RUNNER_TEMP,'direct-compose.safe.json'),JSON.stringify(report),{flag:'wx'})
