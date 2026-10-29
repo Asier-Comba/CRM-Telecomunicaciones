@@ -4,7 +4,8 @@ comentario6479412303). La autorización de alcance no sustituye los gates de
 seguridad, imagen, credenciales, capacidad ni aceptación alojada pendientes.
 
 Destino original preservado: VPS1432901 / crm-inmobiliario / App crm-telecom-staging.
-La App sigue vacía en init/source. No se ha guardado fuente ni desplegado.
+La observación autenticada del28/10 mostraba la App vacía en init/source.
+El estado actual requiere comprobación humana: el navegador local está bloqueado.
 No hemos acreditado una opción soportada que conserve sus redes/DNS al recrearla.
 Un docker service update posterior no ofrece esa persistencia y no se propone.
 
@@ -14,7 +15,8 @@ Git versionado y tools/asier_staging_network/compose.proposed.yaml. La revisión
 debe confirmar qué ref exacto admite EasyPanel2.38 y registrar el SHA utilizado.
 El propietario ya autorizó este cambio de tipo. Se creó únicamente el servicio
 vacío y su ruta propia HTTPS hacia crm-telecom-ingress:8080; UI confirmó consumo0.
-No hay fuente/env/credenciales/imagen ni implementación aplicada. La autorización
+Aquella observación no mostró fuente/env/credenciales/imagen ni implementación.
+No se extrapola a la situación alojada actual. La autorización
 no se pedirá de nuevo; las revisiones y controles técnicos siguen pendientes.
 
 Los tres roles reutilizan la imagen del CRM y el publicador existentes; no hay
@@ -73,3 +75,7 @@ Para promociones posteriores, conservar digest y configuración previamente acep
 Decisión de alcance resuelta: Compose crm-telecom-runtime para el piloto,
 conservando App crm-telecom-staging sin iniciar. No sustituye las revisiones ni
 autoriza publicar o desplegar antes de satisfacerlas.
+
+Continuación manual29/10: EASYPANEL_MANUAL_RUNBOOK.txt y
+manual-deployment-contract.json. CLI manual-preflight.mjs de lectura, sin
+autoridad de despliegue. No reintentar el navegador bloqueado.
