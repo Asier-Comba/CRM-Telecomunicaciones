@@ -2,7 +2,9 @@ import {syntheticGitBatchDecoderV1,pinnedHistoryObjectIdsV1} from './private-his
 
 // Inactive real transport. This fixture controller cannot request pinned real
 // history, does not choose an executable/repository, and never invokes Git.
-export const producePinnedHistoryTransferV1=async()=>({result:'BLOCKED',error:'REAL_HISTORY_PRODUCER_NOT_CONNECTED',publishing_authorized:false,security_accepted:false})
+// No real issuer or production registry exists. Even a fixture lease, JSON
+// receipt, approval flag or caller callback cannot cross this boundary.
+export const producePinnedHistoryTransferV1=async capability=>({result:capability===undefined?'NOT_RUN':'BLOCKED',error:capability===undefined?null:'REAL_HISTORY_ISSUER_NOT_CONFIGURED',real_history_authorized:false,publishing_authorized:false,security_accepted:false})
 
 export async function collectSyntheticHistoryTransportV1({mode,ids,startSyntheticChild,milliseconds=30000,terminationMilliseconds=1000}={}){
  const report={result:'NOT_RUN',error:null,process_cleanup:'NOT_STARTED',exit_observed:false,stdout_end:false,close_observed:false,publishing_authorized:false,security_accepted:false}

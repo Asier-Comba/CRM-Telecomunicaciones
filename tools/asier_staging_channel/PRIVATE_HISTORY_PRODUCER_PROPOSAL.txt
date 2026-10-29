@@ -1,5 +1,67 @@
 W4 PRIVATE HISTORY PRODUCER — REVIEWABLE PLAN, NOT AN ACTIVE PRODUCER
 
+29 Oct follow-up: CLOSED CONSUMER PREPARATION, NOT A REAL CONNECTOR
+Reviewed boundary: W5 issue67/6508462780; W4 CLAIM6508539485/6508652128.
+The shared private executable validation/ownership core now serves the unchanged
+metadata-only public API and a separately named SYNTHETIC_LEASE_ONLY fixture
+scope. Metadata-only calls still close their FD and return no lease/authority.
+Only fixture IDs (never the three pinned historical IDs) can enter the new scope.
+The executable must have the controlled Node fixture prefix; this is an accident
+guard, NOT a sandbox/provenance check against hostile caller code or same euid.
+
+withSyntheticHistoryExecutableLeaseV1 retains its verified FD in a private
+fixture record and lends an opaque frozen, property-free token to a trusted test
+callback. No FD/path/argv/object buffers are properties of that token. Its return
+value cannot fabricate a successful operation. Separate fixture binding/state
+checks reject clones, JSON, forged identities, replay, disposal and expiration.
+READY->CONSUMING happens synchronously before the first await. Deadline is
+monotonic and <=30s; disposal/callback failure/expiry request termination of the
+owned child through the existing bounded transport and independently close the
+owned executable handle. Close/cleanup failure or unknown cannot yield PASS.
+The FD stays retained during the transport, including its actual close protocol;
+missing close remains UNKNOWN, not absence. Filesystem/kernel hangs remain an
+explicit premise, not a guarantee supplied by a JavaScript timer.
+
+The fixture consumer reuses the fixed Git-shaped argv/environment but executes
+only the controlled Node script through /proc/<parentpid>/fd/<retainedfd>. It
+reuses syntheticPrivateHistoryProducerV1, its existing bounded lifecycle and
+private writer, and the existing private reader with a fixed hash verification
+consumer. No arbitrary startChild or private-path consumer is supplied to this
+new consumer. The fixture issuer/callback are test facilities only, not an
+enrollment/bootstrap implementation or production capability factory. The
+fixture binding string is not a reviewed SHA/TREE or external approval proof.
+
+REAL ENTRY: producePinnedHistoryTransferV1() returns NOT_RUN. With any input it
+returns BLOCKED/REAL_HISTORY_ISSUER_NOT_CONFIGURED before privileged I/O. There
+is no production registry, public or private production mint, or flag to add a
+production capability. In particular fixtures never enter a registry accepted
+by the real consumer. This preparation does NOT close the internal real issuer
+or connector debt. It exercises lifetime/state/cleanup building blocks only.
+
+OWNER BLOCKER: designate the trusted launcher/bootstrap and how it receives and
+verifies an exact-source operation authorization; independently establish actual
+Git/runtime provenance and canonical private repository/parent enrollment and
+three-object availability. These are unverified, not known absent. Opaque JS
+objects/WeakMap, caller JSON/hash/booleans, env, GitHub token or OIDC alone cannot
+substitute for that boundary. GHCR promotion bootstrap is not this issuer; do
+not require an already accepted image in a cycle with its historical scan.
+Future real issuer + consumer + exact-source run need separate independent
+review/authority. No actual Git, history reads/literals, image/registry/provider,
+workflow, publisher, staging, release or external account action is performed.
+
+New targeted verification only:
+node --test tools/asier_staging_channel/private-history-consumer-preparation.test.mjs
+14 contracts:4 portable and10 Linux retained-FD/Node/private-transfer fixtures.
+Local Windows result4PASS/0FAIL/10SKIP is NOT Linux qualification. Prior33/70/15
+results keep their own sources and were not repeated or transferred. New source
+requires all14PASS/0FAIL/0CANCELLED/0SKIP on Linux before claiming those contracts.
+No actual Git or historical object is needed or permitted in that qualification.
+
+The script FD does not freeze its Node interpreter/libraries or the repository
+tree. Trusted procfs/runtime/filesystem and absence of hostile same-uid mutation
+remain premises. No secure-erasure or external-enrollment guarantee is inferred.
+
+ORIGINAL PROPOSAL BELOW (historical, superseded by the follow-up above)
 Follow-up: SYNTHETIC_HISTORY_PRODUCER.txt documents newly implemented fixture
 transport/storage scaffolding. Real Git invocation below remains unconnected.
 
