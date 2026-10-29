@@ -15,6 +15,7 @@ export async function realAuthRecoveryAcceptance({url,anon,service,check,report,
  const admin=createClient(url,service,{auth:{persistSession:false,autoRefreshToken:false}})
  const email='auth-recovery-'+randomUUID()+'@example.invalid',password=()=>randomBytes(32).toString('base64url')+'!Aa1'
  const canary='PRIVATE_SYNTHETIC_AUTH_ERROR',contexts=[],pages=[]
+ const pendingHeaderObservations=[],headerObservationState={failed:false}
  const network=[];report.auth_network=network
  let userId,server,browser,spawnFailed=false
  const phase=name=>{report.auth_phase=name;console.log(JSON.stringify({kind:'auth_recovery_progress',phase:name}))}
@@ -157,21 +158,27 @@ export async function realAuthRecoveryAcceptance({url,anon,service,check,report,
   const security=[];report.security_scenarios=security
   async function rejectedPair(name,access,refresh,expectedRefreshes,{priorActor}={}){
    phase('real_pair_negative_'+name)
-   const trial=await fresh(),evidence={name,result:'IN_PROGRESS',refresh_requests:0,password_writes:0,credential_url_at_auth_request:false,prior_session:priorActor?'PENDING':'ABSENT'}
+   const trial=await fresh(),headerObservations=[],evidence={name,result:'IN_PROGRESS',refresh_requests:0,password_writes:0,original_access_requests:0,header_observation_failure:false,credential_url_at_auth_request:false,prior_session:priorActor?'PENDING':'ABSENT'}
    security.push(evidence)
-   trial.page.on('request',request=>{
+   const observePairRequest=request=>{
     const target=new URL(request.url())
     if(target.origin!==url)return
     if(target.pathname==='/auth/v1/user'&&request.method()==='PUT')evidence.password_writes++
-    const refreshRequest=target.pathname==='/auth/v1/token'&&target.searchParams.get('grant_type')==='refresh_token'
+    const refreshRequest=request.method()==='POST'&&target.pathname==='/auth/v1/token'&&target.searchParams.get('grant_type')==='refresh_token'
     if(refreshRequest)evidence.refresh_requests++
+    const address=new URL(trial.page.url()),credentialUrl=address.hash.includes('access_token=')||address.hash.includes('refresh_token=')
+    if(refreshRequest&&credentialUrl)evidence.credential_url_at_auth_request=true
     // An unrelated prior-session read is not admission of the link's access.
-    // The header is compared privately and never retained or reported.
-    if(refreshRequest||target.pathname==='/auth/v1/user'&&request.headers().authorization==='Bearer '+access){
-     const address=new URL(trial.page.url())
-     if(address.hash.includes('access_token=')||address.hash.includes('refresh_token='))evidence.credential_url_at_auth_request=true
+    // Capture URL state BEFORE awaiting the complete sensitive header set.
+    if(target.pathname==='/auth/v1/user'&&request.method()==='GET'){
+     if(headerObservations.length>=32){evidence.header_observation_failure=true;headerObservationState.failed=true;return}
+     const observed=Promise.resolve().then(()=>request.allHeaders()).then(headers=>{
+      if(headers.authorization==='Bearer '+access){evidence.original_access_requests++;if(credentialUrl)evidence.credential_url_at_auth_request=true}
+     }).catch(()=>{evidence.header_observation_failure=true;headerObservationState.failed=true})
+     headerObservations.push(observed);pendingHeaderObservations.push(observed)
     }
-   })
+   }
+   trial.page.on('request',observePairRequest)
    let prior=null
    if(priorActor){
     await trial.page.goto(origin+'/login')
@@ -186,6 +193,9 @@ export async function realAuthRecoveryAcceptance({url,anon,service,check,report,
    await responseForAction(()=>trial.page.waitForURL(origin+'/login?error=callback'),()=>trial.page.goto(origin+'/auth/callback#'+fragment))
    await expect(trial.page.getByRole('button',{name:'Iniciar sesión',exact:true})).toBeVisible()
    const after=await browserIdentity(trial.ctx),address=new URL(trial.page.url())
+   trial.page.off('request',observePairRequest)
+   await Promise.all(headerObservations)
+   check(!evidence.header_observation_failure&&evidence.original_access_requests===(priorActor?0:1),'real_original_access_header_coverage_'+name)
    check(address.origin===origin&&address.pathname==='/login'&&!address.hash&&!address.searchParams.has('access_token')&&!address.searchParams.has('refresh_token'),'real_negative_pair_returns_to_token_free_login_'+name)
    check(prior?after?.id===prior.id&&after?.session===prior.session:after===null,'real_negative_pair_preserves_prior_or_absent_cookie_session_'+name)
    check(evidence.password_writes===0&&trial.errors()===0&&evidence.refresh_requests===expectedRefreshes&&!evidence.credential_url_at_auth_request,'real_negative_pair_no_password_write_or_early_link_credential_request_'+name)
@@ -222,7 +232,11 @@ export async function realAuthRecoveryAcceptance({url,anon,service,check,report,
   }
   throw error
  }finally{
-  const cleanup=await independentCleanup([...contexts.map(ctx=>()=>ctx.close()),()=>browser?.close(),()=>stopServer()])
+  const cleanup=await independentCleanup([...contexts.map(ctx=>()=>ctx.close()),async()=>{
+   await Promise.all(pendingHeaderObservations)
+   report.auth_header_observation_cleanup=headerObservationState.failed?'FAIL':'PASS'
+   if(headerObservationState.failed)throw Error('D1_GLOBAL_AUTH_HEADER_OBSERVATION_FAILED')
+  },()=>browser?.close(),()=>stopServer()])
   report.auth_process_cleanup=cleanup.failed?'FAIL':'PASS'
   if(cleanup.failed)throw Error('D1_GLOBAL_AUTH_PROCESS_CLEANUP_FAILED')
  }
