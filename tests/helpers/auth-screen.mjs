@@ -64,4 +64,3 @@ export function screen(options={}){
   submit(){assert.ok(form(),'password form must be visible');return form().props.onSubmit({preventDefault(){}})}
  }
 }
-
