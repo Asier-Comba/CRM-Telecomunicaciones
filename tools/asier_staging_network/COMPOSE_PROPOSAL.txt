@@ -1,0 +1,81 @@
+P0 — ENCAJE EN EASYPANEL. COMPOSE AUTORIZADO, SIN DESPLEGAR.
+El propietario ha autorizado usar Compose con la App intacta (Issue67,
+comentario6479412303). La autorización de alcance no sustituye los gates de
+seguridad, imagen, credenciales, capacidad ni aceptación alojada pendientes.
+
+Destino original preservado: VPS1432901 / crm-inmobiliario / App crm-telecom-staging.
+La observación autenticada del28/10 mostraba la App vacía en init/source.
+El estado actual requiere comprobación humana: el navegador local está bloqueado.
+No hemos acreditado una opción soportada que conserve sus redes/DNS al recrearla.
+Un docker service update posterior no ofrece esa persistencia y no se propone.
+
+Destino autorizado: un servicio Compose exclusivo crm-telecom-runtime en el
+mismo proyecto/VPS, conservando la App actual vacía e intacta. Su fuente sería
+Git versionado y tools/asier_staging_network/compose.proposed.yaml. La revisión
+debe confirmar qué ref exacto admite EasyPanel2.38 y registrar el SHA utilizado.
+El propietario ya autorizó este cambio de tipo. Se creó únicamente el servicio
+vacío y su ruta propia HTTPS hacia crm-telecom-ingress:8080; UI confirmó consumo0.
+Aquella observación no mostró fuente/env/credenciales/imagen ni implementación.
+No se extrapola a la situación alojada actual. La autorización
+no se pedirá de nuevo; las revisiones y controles técnicos siguen pendientes.
+
+Los tres roles reutilizan la imagen del CRM y el publicador existentes; no hay
+otro empaquetador. APP_IMAGE debe ser la referencia GHCR privada por digest;
+APP_ENV_FILE es la referencia privada del contrato existente. No hay imagen ni
+digest promovible todavía. El CMD normal sigue siendo el de la aplicación.
+Los tres roles exigen pull_policy:never. Una sesión temporal de descarga con
+credenciales mínimas debe verificar el digest y limpiar su configuración antes;
+EasyPanel debe conservar esa política. Si falta caché, no se arranca ni se cae a
+credenciales globales. El preflight consume JSON resuelto y recibo privado ligado
+a fuente/árbol/configuración; no concede por sí mismo autoridad de despliegue.
+Los helpers usan command [tools/asier_staging_network/runtime.mjs, ingress|egress].
+Su salud comprueba sólo TCP127.0.0.1:8080, sin consultas periódicas a Supabase.
+
+App interna crm-telecom-staging: sólo overlay privada/internal, DNS upstream
+127.0.0.1, sin puertos publicados, sin secretos de ingreso ni socket Docker.
+Ingress: privada + easypanel existente, Basic privado antes del destino fijo.
+Egress: privada + salida exclusiva, únicamente Auth/REST del proyecto Supabase.
+Una lectura del VPS confirmó easypanel overlay/swarm, attachable=true,
+internal=false. No se cambió la red. Esto sólo satisface esa precondición:
+debe probarse el spec generado por EasyPanel y su recreación. Si añade la red
+compartida a App o egress, el despliegue queda rechazado; no se adapta la red global.
+
+La política versionada permanece PROPOSED/PENDING. App y helpers deniegan el
+arranque gestionado sin aceptación, configuración y huella pública de la imagen.
+El inventario global D1, bytes, mantenimiento, IA live y correo CRM quedan OFF.
+No se aplican migraciones, fixtures ni cambios Auth en Supabase staging.
+
+Sólo ingress recibe /run/secrets/crm-staging-ingress. La referencia externa
+CRM_INGRESS_CREDENTIAL_FILE debe apuntar a /etc/crm-telecom-runtime/ingress.json
+fuera de Git, ser archivo regular
+UID65532/mode0400 y contener exclusivamente username/password. El runtime abre
+sin seguir symlink y verifica el descriptor antes de leerlo. No se crea ni se
+incluye una credencial en esta propuesta. Se necesita el canal seguro del propietario;
+las contraseñas no se envían al chat. Compose file-backed secrets conserva
+permisos del archivo origen: no asumir que uid/mode del YAML los corregirá.
+
+Límites propuestos, no acreditación de capacidad: App768MiB/0,75CPU y cada helper
+256MiB/0,25CPU, total1280MiB/1,25CPU; sin aumento del plan ni recursos de pago.
+Es necesario medir el arranque, carga y margen de las aplicaciones actuales.
+Las pruebas Swarm con App simulada no acreditan carga de Next ni el Compose
+transformado por el panel. Tampoco demuestran ausencia general de exfiltración DNS.
+
+Antes de promover: revisión exacta W4/W5/W2 aplicable; empaquetado y escaneo del
+digest real; procedencia; GHCR privado y promoción protegida; credenciales mínimas;
+persistencia de redes/DNS; readiness gestionado; TLS/privacidad; Auth real;
+roles/empresas; UI del CRM; readback del SHA y continuidad de servicios anteriores.
+La URL candidata no se presenta como CRM accesible antes de esas verificaciones.
+
+Rollback inicial: no existe despliegue anterior de este nuevo CRM que restaurar.
+Conservar la configuración anterior y estado de la App vacía; detener sólo el
+nuevo Compose y retirar únicamente su nueva ruta si falla. No modificar crm-staging,
+otros proyectos, Traefik/redes globales, volúmenes ajenos ni demo Arizan.
+Para promociones posteriores, conservar digest y configuración previamente aceptados.
+
+Decisión de alcance resuelta: Compose crm-telecom-runtime para el piloto,
+conservando App crm-telecom-staging sin iniciar. No sustituye las revisiones ni
+autoriza publicar o desplegar antes de satisfacerlas.
+
+Continuación manual29/10: EASYPANEL_MANUAL_RUNBOOK.txt y
+manual-deployment-contract.json. CLI manual-preflight.mjs de lectura, sin
+autoridad de despliegue. No reintentar el navegador bloqueado.

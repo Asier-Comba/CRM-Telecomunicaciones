@@ -1,0 +1,53 @@
+name: Staging disposable Swarm isolation lab
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+permissions:
+  contents: read
+jobs:
+  isolation:
+    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, format('SWARM_LAB_SHA={0}', github.event.pull_request.head.sha))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - run: node --experimental-transform-types tools/asier_staging_network/swarm-lab.mjs
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: staging-swarm-${{ github.event.pull_request.head.sha }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/staging-swarm.safe.json
+          if-no-files-found: error
+          retention-days: 14
+  teardown-diagnostic:
+    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, format('SWARM_TEARDOWN_SHA={0}', github.event.pull_request.head.sha))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha }}
+      P0_SWARM_TEARDOWN_DIAGNOSTIC: 'true'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - name: Reproduce owned service recreation and teardown only, without traffic probes
+        run: node --experimental-transform-types tools/asier_staging_network/swarm-lab.mjs
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: staging-swarm-teardown-${{ github.event.pull_request.head.sha }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/staging-swarm.safe.json
+          if-no-files-found: error
+          retention-days: 14

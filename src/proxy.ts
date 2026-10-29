@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import { readStagingAdmissionV1, stagingIdentityAllowedV1, userClientBindingV1 } from './lib/server/product-staging-admission-v1'
+import { createPrivateSupabaseFetchV1, privateSupabaseTransportV1 } from './lib/server/product-private-egress-v1'
 
 const publicPaths = new Set(['/login', '/reset-password', '/auth/callback', '/auth/signout', '/api/health/live', '/api/health/ready'])
 const healthPaths = new Set(['/api/health/live', '/api/health/ready'])
@@ -21,7 +22,8 @@ export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request })
   if (healthPaths.has(request.nextUrl.pathname)) return response
   const policy = readStagingAdmissionV1(process.env)
-  if (policy.status === 'invalid') return unavailable(request)
+  const transport = privateSupabaseTransportV1(process.env)
+  if (policy.status === 'invalid' || transport === 'denied') return unavailable(request)
   if (policy.status === 'enabled' && request.nextUrl.origin !== policy.origin) return unavailable(request)
   if (policy.status === 'disabled' &&
       ['staging', 'production'].includes(process.env.APP_ENV ?? '') &&
@@ -32,6 +34,7 @@ export async function proxy(request: NextRequest) {
 
   if (url && key && userClientBindingV1(process.env) !== 'denied') {
     const supabase = createServerClient(url, key, {
+      global: transport === 'gateway' ? { fetch: createPrivateSupabaseFetchV1() } : undefined,
       cookieOptions: policy.status === 'enabled' ? { secure: true } : undefined,
       cookies: {
         getAll() {

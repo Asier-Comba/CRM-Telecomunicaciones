@@ -25,7 +25,7 @@ export function inventory(){
  for(const entry of entries){
   if(fileSecrets[entry.name])Object.assign(entry,fileSecrets[entry.name],{file_content_secret:true,description:'Reference path only; file contents are private credentials, never included in public configuration/builds/logs. Company runtime remains disabled.'})
   if(entry.name==='IMPORT_STAGING_TEST_KEY'){entry.target=['LOCAL'];entry.destination='Ephemeral disposable local test process only; forbidden in hosted environments'}
-  if(['PRODUCT_STAGING_INTEGRATION','PRODUCT_STAGING_USER_IDS'].includes(entry.name))entry.target=['STAGING']
+  if(['PRODUCT_STAGING_INTEGRATION','PRODUCT_STAGING_USER_IDS','PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED'].includes(entry.name))entry.target=['STAGING']
  }
  return {version:2,values_included:false,environments:['LOCAL','DEV','STAGING','PROD'],entries,public_allowlist:publicNames,alternative_required_groups:[['NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY','NEXT_PUBLIC_SUPABASE_ANON_KEY']],config_artifacts:['supabase/config.toml','infra/platform/company.schema.json','infra/platform/providers.json'],migration_inventory:migrations()}
 }

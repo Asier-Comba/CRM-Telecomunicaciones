@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { readStagingAdmissionV1, stagingClientAdmittedV1, userClientBindingV1 } from './product-staging-admission-v1'
+import { createPrivateSupabaseFetchV1, privateSupabaseTransportV1 } from './product-private-egress-v1'
 
 export async function createUserServerClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()
@@ -10,10 +11,12 @@ export async function createUserServerClient() {
   )?.trim()
   if (!url || !key) return null
   const binding = userClientBindingV1(process.env)
-  if (binding === 'denied') return null
+  const transport = privateSupabaseTransportV1(process.env)
+  if (binding === 'denied' || transport === 'denied') return null
 
   const cookieStore = await cookies()
   const client = createServerClient(url, key, {
+    global: transport === 'gateway' ? { fetch: createPrivateSupabaseFetchV1() } : undefined,
     cookieOptions: binding === 'staging' ? { secure: true } : undefined,
     cookies: {
       getAll() {

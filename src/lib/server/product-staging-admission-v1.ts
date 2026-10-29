@@ -1,5 +1,6 @@
 /** Application admission only. This neither grants database permissions nor accepts a release. */
 export const stagingAppOriginV1 = 'https://crm-telecom-staging-preview.netlify.app'
+export const stagingEasyPanelOriginV1 = 'https://crm-telecom-staging.hvdnby.easypanel.host'
 export const stagingSupabaseUrlV1 = 'https://zgwotxnyqzfuzcnmgvtn.supabase.co'
 type Environment = Readonly<Record<string, string | undefined>>
 export type StagingAdmissionV1 = Readonly<{ status: 'disabled' | 'invalid' }> |
@@ -25,12 +26,15 @@ export function readStagingAdmissionV1(env: Environment): StagingAdmissionV1 {
   const flag = env.PRODUCT_STAGING_INTEGRATION
   if (flag === undefined || flag === 'false') return Object.freeze({ status: 'disabled' })
   const userIds = parseStagingUserIdsV1(env.PRODUCT_STAGING_USER_IDS)
+  const origin = env.PRODUCT_V1_ORIGIN
+  const privateEgress = env.PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED
   if (flag !== 'true' || env.APP_ENV !== 'staging' || nodeEnvOf(env) !== 'production' ||
-      env.PRODUCT_V1_ENABLED !== 'true' || env.PRODUCT_V1_ORIGIN !== stagingAppOriginV1 ||
+      env.PRODUCT_V1_ENABLED !== 'true' || ![stagingAppOriginV1, stagingEasyPanelOriginV1].includes(origin ?? '') ||
+      (origin === stagingEasyPanelOriginV1 ? privateEgress !== 'true' : privateEgress !== undefined && privateEgress !== 'false') ||
       env.NEXT_PUBLIC_SUPABASE_URL !== stagingSupabaseUrlV1 || !userIds ||
       [env.PRODUCT_LOCAL_INTEGRATION, env.PRODUCT_LOCAL_SYNTHETIC].some(v => v !== undefined && v !== 'false'))
     return Object.freeze({ status: 'invalid' })
-  return Object.freeze({ status: 'enabled', origin: stagingAppOriginV1, userIds })
+  return Object.freeze({ status: 'enabled', origin: origin as string, userIds })
 }
 
 export function isCanonicalLocalSupabaseUrlV1(value: unknown): boolean {

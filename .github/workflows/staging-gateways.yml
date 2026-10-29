@@ -1,0 +1,38 @@
+name: Staging private gateway contracts
+on:
+  pull_request:
+    paths:
+      - 'tools/asier_staging_network/**'
+      - 'src/lib/server/product-private-egress-v1.ts'
+      - 'src/lib/server/product-staging-admission-v1.ts'
+      - 'src/lib/server/supabase-user.ts'
+      - 'src/proxy.ts'
+      - 'tests/bootstrap/product-easypanel-private-egress-v1.test.mjs'
+      - 'tests/bootstrap/product-staging-admission-v1.test.mjs'
+      - 'src/lib/server/product-readiness-v1.ts'
+      - 'src/app/api/health/ready/route.ts'
+      - 'tests/bootstrap/product-readiness-v1.test.mjs'
+      - 'docs/master/contracts/product-environment.json'
+      - 'infra/platform/environment-manifest.json'
+      - 'scripts/platform/config.mjs'
+      - 'scripts/platform/inventory.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/staging-gateways.yml'
+permissions:
+  contents: read
+jobs:
+  gateway-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - name: Actual gateway, admission and SDK consumer contracts
+        run: node --experimental-transform-types --test tools/asier_staging_network/*.test.mjs tests/bootstrap/product-easypanel-private-egress-v1.test.mjs tests/bootstrap/product-staging-admission-v1.test.mjs tests/bootstrap/product-readiness-v1.test.mjs

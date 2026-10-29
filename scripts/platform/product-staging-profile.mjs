@@ -14,7 +14,7 @@ export function productStagingErrors(env){
  for(const name of ['AUTH_SITE_URL','AUTH_REDIRECT_URLS','AUTH_MAIL_FROM','SUPABASE_SERVICE_ROLE_KEY','AGENT_TOOL_SECRET','ASSISTANT_PROVIDER'])
   if(env[name]!==undefined)errors.push('PRODUCT_STAGING_FORBIDDEN_'+name)
  for(const name of Object.keys(env))if(/^(SMTP_|N8N_|META_|OPENAI_)/.test(name))errors.push('PRODUCT_STAGING_EXTERNAL_BINDING_FORBIDDEN')
- for(const name of ['AI_ENABLED','CRM_EMAIL_ENABLED','PRODUCT_DOCUMENT_CONTENT_ENABLED','PRODUCT_DOCUMENT_MAINTENANCE_ENABLED'])
+ for(const name of ['AI_ENABLED','CRM_EMAIL_ENABLED','PRODUCT_DOCUMENT_LIBRARY_ENABLED','PRODUCT_DOCUMENT_CONTENT_ENABLED','PRODUCT_DOCUMENT_MAINTENANCE_ENABLED'])
   if(env[name]!==undefined&&env[name]!=='false')errors.push('PRODUCT_STAGING_CAPABILITY_FORBIDDEN_'+name)
  return errors
 }

@@ -1,0 +1,222 @@
+CRM TELECOM — EASYPANEL 2.38: PLAN ANTES DE IMPLEMENTAR
+29/10/2026 · BLOCKER_NO_SUPPORTED_PREAPPLY_PLAN_DEMONSTRATED
+
+Alcance nuevo: investigación del ejecutor, no repetición del procedimiento
+02560566. No se ha accedido al navegador, VPS, API autenticada ni sesión ajena.
+No se ha guardado configuración ni ejecutado Implementar, Start, Restart,
+create, up, dry-run contra el VPS o cambios de red/Supabase/Documentos.
+Root conserva #206/runtime/configuración; Claude conserva #210/imagen/GHCR.
+
+BASE Y VEREDICTO
+
+Base revisada: #206 SOURCE02560566bb0fa4dcbda42d2880c9ae047d8c990a,
+TREE9ece87152c36d9e05c04d81b23fca72d4db32512.
+El próximo checkpoint registra el SHA documental final; no sustituye la
+identidad SOURCE/TREE de la futura imagen.
+
+No se ha demostrado un mecanismo soportado de EasyPanel que:
+(1) genere el resultado completo posterior a sus transformaciones sin aplicar;
+(2) muestre todos los inputs, opciones y comandos efectivos;
+(3) ligue la futura aplicación al resultado revisado sin regenerarlo/cambiarlo.
+Por ello, el destino gestionado sigue BLOCKED. No equivale a demostrar que
+EasyPanel carezca de esa capacidad en toda versión: faltan un contrato soportado
+y evidencia de la instalación concreta. No solicitar Implementar.
+
+CONTRASTE DE FUENTES PRIMARIAS Y VERSIÓN
+
+EP-COMPOSE: https://easypanel.io/docs/services/compose
+Documenta fuentes Inline/Git, entorno y despliegue con
+docker compose up --build -d. Los conflictos publicados cubren container_name
+y ports. No documenta un exportador completo posterior a transformaciones ni
+una aplicación ligada a una huella. Inferencia: esos controles no bastan para
+acreditar las redes, la configuración o los argumentos finales.
+
+EP-INSPECT:
+https://easypanel.io/docs/api/services/compose/inspectComposeService
+GET con projectName/serviceName. Su descripción es configuración y detalles
+de despliegue; el esquema publicado no garantiza YAML final, argv ni vínculo
+de aplicación. No se ha llamado al servidor real.
+
+EP-ISSUES:
+https://easypanel.io/docs/api/services/compose/getComposeIssues
+GET de conflictos. Una lista vacía no demuestra aislamiento completo.
+EP-DEPLOY:
+https://easypanel.io/docs/api/services/compose/deployComposeService
+La petición publicada admite projectName, serviceName y forceRebuild; no expone
+dryRun ni una huella/token de plan revisado. No enviar esta petición como prueba.
+
+EP-CLI: https://easypanel.io/docs/cli
+Los comandos disponibles proceden del servidor. Su ayuda/manifest podría
+descubrir una capacidad concreta, pero no se ha leído el de esta instalación.
+La documentación genérica del CLI no prueba soporte de plan en el VPS.
+No instalar, conectar ni generar una clave API para eludir el navegador.
+
+EP-RELEASE: https://easypanel.io/changelog/2-38-0
+Publica2.38.0, fecha22/10/2026. No anuncia un contrato de plan Compose previo.
+El changelog2.33 introduce API pública estable y desaconseja depender de la API
+interna: https://easypanel.io/changelog .
+No se proponen rutas internas, parches al panel, wrappers del socket, interceptar
+su ejecutor ni ingeniería inversa de cookies/credenciales.
+
+Versión del VPS:2.38 es la referencia proporcionada en la misión/contexto.
+Versión exacta, digest del panel, plugin Compose, Engine/API y opciones actuales:
+NOT_CURRENTLY_VERIFIED. No inferir instalación a partir del changelog público.
+El propietario puede recoger versión visible y ayuda soportada en sólo lectura;
+no necesita cambiar versión ni generar credenciales para este informe.
+
+Separación crítica:
+- Docker Compose2.38.2: parser Linux del laboratorio anterior d76153f9,
+  run40767824368/job123096638140, NO versión de EasyPanel.
+- Docker Compose5.3.0: parser Windows local observado hoy, NO versión del VPS.
+Ninguno verifica cómo el panel2.38 transforma o ejecuta su servicio real.
+
+DOCKER-CONFIG: https://docs.docker.com/reference/cli/docker/compose/config/
+Normaliza los archivos/variables suministrados. No conoce futuras modificaciones
+del panel, inputs ocultos o decisiones de otro proceso.
+DOCKER-CLI: https://docs.docker.com/reference/cli/docker/compose/
+--dry-run muestra acciones sin aplicarlas. Sigue dependiendo de las entradas
+y contexto de esa invocación; no produce un plan binario que up consuma.
+DOCKER-UP: https://docs.docker.com/reference/cli/docker/compose/up/
+Describe --no-build y --pull never. --no-start y create NO son sólo lectura:
+pueden crear recursos; no sirven como ensayo autorizado contra el VPS.
+DOCKER-ENV:
+https://docs.docker.com/compose/how-tos/environment-variables/envvars/
+Revisar todos los selectores COMPOSE_* y DOCKER_* además de los archivos.
+DOCKER-OVERLAY: https://docs.docker.com/engine/network/drivers/overlay/
+Compose puede conectar contenedores independientes a overlay attachable en un
+Swarm existente. No requiere convertir el CRM en un servicio Swarm, abrir
+puertos adicionales o inicializar otro clúster.
+
+QUÉ SE SABE DE LA PROPUESTA Y QUÉ NO PRUEBA EL PANEL
+
+La matriz consumible effective-plan-investigation.json distingue contrato de
+evidencia. No declara ninguna fila como verificada en el VPS.
+
+1. Identidad: proyecto crm-inmobiliario, Compose crm-telecom-runtime.
+   Los tres roles son crm-telecom-staging, crm-telecom-ingress y
+   crm-telecom-egress. El App gestionado original queda fuera.
+2. Fuente: mismo manifest privado auténtico para tres roles; pull_policy never,
+   sin build, sin tag mutable, sin auto-deploy. Un config ID no es manifiesto.
+3. Redes: App sólo crm-private/internal; ingress privado+easypanel; egress
+   privado+crm-outbound. Sin puertos host, sockets, red host o red adicional.
+   Es UNKNOWN si EasyPanel añade/redimensiona/conecta algo; no se inventa causa.
+4. Límites: App768MiB/0,75CPU; helpers256MiB/0,25CPU cada uno; UID65532,
+   read_only, cap_drop ALL, no-new-privileges, tmpfs, gracia35s y logs acotados.
+   Límites declarados no acreditan capacidad disponible o aplicación efectiva.
+5. Comandos: entrypoint/CMD original de la imagen para App; helpers ejecutan
+   runtime.mjs ingress/egress. Prohibidos overrides/hook/perfiles adicionales.
+6. Salud/política: healthchecks canónicos, readiness3s por salida privada,
+   política horneada aceptada y revisiones reales. PROPOSED/PENDING bloquea.
+7. Origen/build: mismo fingerprint público build/runtime/recibo, HTTPS/callbacks
+   y Supabase exactos del contrato actual. Sin cambios de ledger/Auth alojados.
+8. Persistencia: la aceptación incluye recreación exclusiva del nuevo servicio
+   con la misma especificación, después de autorizar la primera promoción.
+   Inspect posterior permite detectar desvíos; no autoriza el primer arranque.
+
+No se ha añadido --build a la propuesta ni retirado pull_policy. La presencia
+de --build en la documentación del panel no demuestra por sí sola que vaya a
+construir imágenes cuando no hay build. Falta la invocación y transformación
+concreta, no una causa asumida.
+
+MÍNIMO ENTREGABLE PARA CERRAR LA VÍA EASYPANEL
+
+El operador o proveedor debe entregar por vía soportada y sin aplicar:
+A. Identidad/versiones exactas y huellas del ejecutor/transformador.
+B. Lista ordenada de fuentes, archivos generados/overrides/includes, env-files,
+   perfiles, directorio, selectores de entorno y endpoint Docker.
+C. Modelo final y hashes privados, tres roles y cada campo de la matriz.
+D. argv de todas las fases capaces de crear/conectar/cambiar recursos.
+E. Mecanismo de exclusión/revalidación y evidencia de que la aplicación usará
+   esos mismos bytes/opciones; si genera otro archivo al pulsar Deploy, no basta.
+F. Revisión W5/W4 exacta y referencias de evidencias, sin valores de secretos.
+
+Una captura, inspect guardado, issues vacío, export de fuente, YAML normalizado
+local, SUCCESS de un laboratorio o diff posterior no satisfacen A–F.
+La CLI actual de lectura conserva EFFECTIVE_PLAN_UNVERIFIED incluso con exit0.
+
+ALTERNATIVA PARA DECISIÓN DEL PROPIETARIO: COMPOSE DIRECTO EXCLUSIVO
+
+Es viable técnicamente bajo Docker soportado, pero cambia el gestor de este
+runtime. No está implementada, autorizada como cambio de destino ni aceptada.
+Mantener el Compose del panel detenido; no permitir dos gestores del mismo
+proyecto. No pulsar Implementar en el panel para preparar esta alternativa.
+
+Preparación concreta antes de solicitar ejecutar:
+1. Elegir y aprobar un namespace/proyecto DIRECTO exclusivo que no colisione con
+   servicios/redes actuales. La guardia actual fija el proyecto del panel:
+   rechazará otro namespace. Requiere una adaptación pequeña, explícita y
+   revisada de identidad/alias/ruta y pruebas; no relajar la guardia existente.
+2. Reutilizar el YAML, las tres funciones, el digest y runtime/Supabase actuales.
+   Sólo adaptar identidad/redes propias y destino del ingress si se acepta.
+   No copiar el nombre upstream histórico del panel: no prueba el nombre DNS
+   de contenedores creados con Compose directo. Verificar un alias exclusivo de
+   ingress en la red existente y una ruta CRM propia hacia8080, sin tocar
+   Traefik global ni publicar3000/8080 en host. Sin esa resolución, BLOCKED.
+3. Fijar binarios/versión/hash de Compose y Engine/API/endpoint local.
+   Directorio privado protegido; inventario de todos los archivos y referencias.
+   Ejecutar sin selectores COMPOSE_*/DOCKER_* heredados, sin descubrimiento
+   implícito de .env/overrides, sin perfiles o hooks ajenos.
+4. Usar las mismas entradas originales inmutables y entorno explícito para
+   config, dry-run y la futura aplicación. Protegerlas frente a cambios mediante
+   propietario/permisos/lock y revalidar huellas justo antes. No volver a pasar
+   un JSON normalizado con secretos por interpolación sin probar su semántica.
+   El resolved JSON privado se usa para verificar, no como nueva fuente casual.
+5. Después de validar el digest descargado y limpiar credenciales, el esquema
+   de invocación futura es Compose con -p/-f/--project-directory/--env-file
+   explícitos, dry-run para revisar y up --no-build --pull never -d sólo tras
+   promoción. No se adjunta un comando listo para ejecutar con datos inventados.
+6. Eliminar la capa de transformaciones de EasyPanel permite ligar entradas y
+   ejecutor revisados a la aplicación. No crea una garantía transaccional contra
+   cambios del Engine o un administrador hostil: se necesita exclusión operativa
+   y después inspección de recursos, privacidad, Auth/tenants y recreación.
+   Compose vuelve a interpretar las entradas: NO satisface literalmente una
+   aplicación de un plan sellado sin regeneración. El propietario deberá decidir
+   si acepta este modelo distinto de control, además del cambio de gestor;
+   el ACK condicionado de W5 no sustituye esa decisión ni levanta el bloqueo.
+7. Capacidad/coste0, certificados/ruta CRM, ficheros secretos, aceptación de
+   política y recibo reales siguen pendientes. Rollback sólo Stop de ese
+   proyecto directo y su ruta propia; sin prune, volúmenes o servicios ajenos.
+
+Alternativa de investigación: laboratorio desechable de la MISMA imagen/digest
+EasyPanel, Engine/Compose y ajustes, sin licencias/coste nuevo ni secretos.
+Puede revelar una transformación o detectar incompatibilidades. No prueba que
+el servidor real vaya a consumir los mismos bytes; por sí solo no cierra E.
+No se ha creado ni ejecutado ese laboratorio en esta unidad.
+
+HANDOFF PARA EL DIGEST AUTÉNTICO DE CLAUDE
+
+#210 observado en cf9293fdd853f8317f4d728fad7a69c9548082a1.
+No se integra automáticamente; la entrega puede tener otro SHA.
+Recibir evidencia auténtica vinculada al recibo staging.image.receipt.v1:
+- SOURCE/TREE/lockfile/Dockerfile y fingerprint público exactos.
+- image_config_digest separado de manifest_digest; referencia privada por
+  manifest, linux/amd64, configuración/entrypoint/usuario y tres roles.
+- Procedencia/scan del mismo artefacto, privacidad/vínculo de repositorio,
+  descarga temporal por digest, readback y limpieza PASS.
+- Política horneada/huella pública y revisiones independientes reales, incluido
+  contraste de literales históricos sin publicar valores.
+validateReceipt comprueba DIEZ campos exactos; valida forma/binding, no
+autenticidad de las evidencias. No crear un recibo de ejemplo para promover.
+Consultar contract.mjs, manual-preflight.mjs y el procedimiento02560566.
+
+La autenticidad de esa imagen no cierra el bloqueo del plan del panel.
+Conservar compatibilidad BASE87+Storage88, documentos/IA/proveedores OFF,
+transporte privado y getUser. D1 no se habilita ni se aplican migraciones.
+Ninguna prueba alojada se acredita a partir de los casos locales.
+
+PRUEBAS Y SIGUIENTE UNIDAD
+
+SOURCE EJECUTADO02560566, sin cambios de código/configuración ejecutable:
+- Node24.20.0: preflight+admisión+readiness,106PASS/0FAIL/1SKIP.
+  El skip es parser opt-in; no evidencia contra EasyPanel.
+- Sólo parser opt-in después:1PASS/0FAIL/0SKIP, Docker Compose5.3.0 local,
+  valores sintéticos, sin Engine/contenedores/red. No se repitió una suite
+  fallida: se ejecutó el único caso antes omitido por su opt-in.
+- El nuevo SHA documental y la revisión exacta W5 quedan en el handoff #67.
+  No transferir el162PASS de02560566 como ejecución de otro commit.
+
+Próximo paso ejecutable, sin VPS: recibir el bundle auténtico de Claude y
+verificar sus identidades/evidencias; en paralelo, decisión del propietario
+entre solicitar A–F al proveedor/operador o preparar el namespace/ejecutor
+directo para revisión. No solicitud de Implementar y no despliegue pendiente
+que pueda iniciarse por un flag, un recibo sintético o una aprobación propia.

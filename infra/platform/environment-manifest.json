@@ -2377,8 +2377,8 @@
       "owner": "W5",
       "consumer": [
         "docs/master/contracts/product-environment.json",
-        "src/app/api/health/ready/route.ts",
         "src/lib/integrations.ts",
+        "src/lib/server/product-readiness-v1.ts",
         "src/lib/server/supabase-user.ts",
         "src/lib/supabase.ts",
         "src/proxy.ts",
@@ -2415,8 +2415,8 @@
       "owner": "W5",
       "consumer": [
         "docs/master/contracts/product-environment.json",
-        "src/app/api/health/ready/route.ts",
         "src/lib/integrations.ts",
+        "src/lib/server/product-readiness-v1.ts",
         "src/lib/server/supabase-user.ts",
         "src/lib/supabase.ts",
         "src/proxy.ts",
@@ -2453,9 +2453,9 @@
       "owner": "W5",
       "consumer": [
         "docs/master/contracts/product-environment.json",
-        "src/app/api/health/ready/route.ts",
         "src/features/product/integration/mode.ts",
         "src/lib/integrations.ts",
+        "src/lib/server/product-readiness-v1.ts",
         "src/lib/server/product-staging-admission-v1.ts",
         "src/lib/server/supabase-user.ts",
         "src/lib/supabase-admin.ts",
@@ -2900,7 +2900,7 @@
       },
       "owner": "W5",
       "consumer": [
-        "src/app/api/health/ready/route.ts",
+        "src/lib/server/product-readiness-v1.ts",
         "scripts/platform/config.mjs",
         "scripts/platform/entrypoint.mjs",
         "scripts/platform/hosted-bootstrap.mjs",
@@ -3201,6 +3201,38 @@
       "required_when": null
     },
     {
+      "name": "PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED",
+      "type": "boolean",
+      "secret": false,
+      "target": [
+        "STAGING"
+      ],
+      "required": {
+        "LOCAL": false,
+        "DEV": false,
+        "STAGING": false,
+        "PROD": false
+      },
+      "owner": "W5",
+      "consumer": [
+        "docs/master/contracts/product-environment.json",
+        "src/lib/server/product-private-egress-v1.ts",
+        "src/lib/server/product-staging-admission-v1.ts",
+        "scripts/platform/config.mjs"
+      ],
+      "validation_rule": "boolean",
+      "description": "Mandatory server-only fixed Supabase Auth/REST gateway for the exact EasyPanel staging origin; no direct fallback or release approval",
+      "rotation_expectation": "Review on release/config change.",
+      "revocation_expectation": "Revalidate and remove obsolete environment bindings.",
+      "health_test_reference": "scripts/platform/config.mjs read-only validation; presence is not provider readiness.",
+      "provider": "product",
+      "destination": "environment-specific configuration",
+      "required_when": {
+        "name": "PRODUCT_V1_ORIGIN",
+        "equals": "https://crm-telecom-staging.hvdnby.easypanel.host"
+      }
+    },
+    {
       "name": "PRODUCT_STAGING_USER_IDS",
       "type": "uuid_csv",
       "secret": true,
@@ -3357,6 +3389,7 @@
         "src/app/api/telecom/services/v1/route.ts",
         "src/features/product/integration/mode.ts",
         "src/lib/server/product-http-v1.ts",
+        "src/lib/server/product-private-egress-v1.ts",
         "src/lib/server/product-staging-admission-v1.ts",
         "scripts/platform/company-state.mjs",
         "scripts/platform/config.mjs",

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict'
 import {readFileSync} from 'node:fs'
 import {createRequire} from 'node:module'
 import * as admission from '../../src/lib/server/product-staging-admission-v1.ts'
+import * as egress from '../../src/lib/server/product-private-egress-v1.ts'
 import {integratedLocalAllowed,integratedProductAllowed} from '../../src/features/product/integration/mode.ts'
 import {validateProductEnvironmentV1} from '../../src/lib/server/product-environment-v1.ts'
 const require=createRequire(import.meta.url),ts=require('typescript'),next=require('next/server')
@@ -84,7 +85,7 @@ test('production build mode preserves the existing loopback API transport withou
 })
 test('actual factory preserves production-build loopback transport and rejects declared hosted environments before SDK access',async()=>{
  let constructors=0
- const make=environment=>actual('src/lib/server/supabase-user.ts',{'next/headers':{cookies:async()=>({getAll:()=>[],set(){}})},'./product-staging-admission-v1':admission,'@supabase/ssr':{createServerClient(url){constructors++;assert.equal(url,localBuiltTransport.NEXT_PUBLIC_SUPABASE_URL);return{synthetic:true}}}},environment)
+ const make=environment=>actual('src/lib/server/supabase-user.ts',{'next/headers':{cookies:async()=>({getAll:()=>[],set(){}})},'./product-staging-admission-v1':admission,'./product-private-egress-v1':egress,'@supabase/ssr':{createServerClient(url){constructors++;assert.equal(url,localBuiltTransport.NEXT_PUBLIC_SUPABASE_URL);return{synthetic:true}}}},environment)
  assert.deepEqual(await make(localBuiltTransport).createUserServerClient(),{synthetic:true})
  for(const APP_ENV of ['staging','production'])assert.equal(await make({...localBuiltTransport,APP_ENV}).createUserServerClient(),null)
  assert.equal(constructors,1)
@@ -96,7 +97,7 @@ function proxyFixture(outcome,environment=env){
   if(outcome instanceof Error)throw outcome
   return typeof outcome==='function'?outcome(options.cookies.getAll()):outcome
  }}}}}
- const proxyModule=actual('src/proxy.ts',{'@supabase/ssr':sdk,'next/server':next,'./lib/server/product-staging-admission-v1':admission},environment)
+ const proxyModule=actual('src/proxy.ts',{'@supabase/ssr':sdk,'next/server':next,'./lib/server/product-staging-admission-v1':admission,'./lib/server/product-private-egress-v1':egress},environment)
  return{...proxyModule,calls}
 }
 const request=(path,headers={})=>new next.NextRequest(admission.stagingAppOriginV1+path,{headers})
@@ -162,7 +163,7 @@ test('separate requests cannot reuse another actor; revoking the configured coho
 
 test('actual server factory revalidates cohort even without Proxy and never constructs an unapproved remote client',async()=>{
  let who=actor,reads=0,constructors=0
- const make=environment=>actual('src/lib/server/supabase-user.ts',{'next/headers':{cookies:async()=>({getAll:()=>[],set(){}})},'./product-staging-admission-v1':admission,'@supabase/ssr':{createServerClient(_url,_key,options){constructors++;assert.equal(options.cookieOptions.secure,true);return{auth:{async getUser(){reads++;return{data:{user:registered(who)},error:null}}}}}}},environment)
+ const make=environment=>actual('src/lib/server/supabase-user.ts',{'next/headers':{cookies:async()=>({getAll:()=>[],set(){}})},'./product-staging-admission-v1':admission,'./product-private-egress-v1':egress,'@supabase/ssr':{createServerClient(_url,_key,options){constructors++;assert.equal(options.cookieOptions.secure,true);return{auth:{async getUser(){reads++;return{data:{user:registered(who)},error:null}}}}}}},environment)
  const f=make(env);assert.ok(await f.createUserServerClient());who=other;assert.equal(await f.createUserServerClient(),null);assert.equal(reads,2)
  assert.equal(await make({...env,PRODUCT_STAGING_INTEGRATION:'false'}).createUserServerClient(),null);assert.equal(constructors,2)
 })

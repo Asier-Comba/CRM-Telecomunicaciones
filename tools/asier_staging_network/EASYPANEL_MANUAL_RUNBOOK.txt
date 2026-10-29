@@ -1,0 +1,298 @@
+CRM TELECOM — PROCEDIMIENTO MANUAL DE EASYPANEL
+29/10/2026 · PROPUESTA PARA REVISIÓN · NO SOLICITA IMPLEMENTAR AHORA
+
+La autorización del propietario para Compose con la App intacta ya existe.
+No falta repetir esa autorización de alcance. Faltan controles técnicos y
+aceptación independiente. Este documento no convierte un recibo, un laboratorio
+o CONFIGURATION_CHECKED en permiso para desplegar.
+
+Referencia de composición antes de esta unidad: PR206, SOURCE
+6564dac14a43823fa25a8ffc5ff773c1fd668bc3, TREE
+0bc4e6ce8706e7d99f432c8d13847a0c80b822ef. El checkpoint de la unidad registra
+el SHA/árbol final del procedimiento y sus revisiones; no usar una rama mutable
+como prueba de identidad. No se ha inspeccionado de nuevo el panel autenticado:
+su estado actual no se deduce de notas anteriores.
+
+1. IDENTIFICAR EL DESTINO, ANTES DE GUARDAR NADA
+
+Sesión HTTPS del propietario: https://hvdnby.easypanel.host
+Proyecto: crm-inmobiliario. Tipo: COMPOSE. Servicio: crm-telecom-runtime.
+La cabecera debe mostrar los tres datos. Si falta el servicio, hay duplicados
+o el tipo no es Compose, detenerse y registrar el hecho; no crear/reemplazar
+otro destino por parecido de nombre.
+
+No tocar la App gestionada crm-telecom-staging ni el servicio crm-staging.
+El nombre interno crm-telecom-staging DENTRO del nuevo Compose es un contenedor
+distinto de esa App gestionada. Su identidad se comprueba por el proyecto Compose
+crm-inmobiliario_crm-telecom-runtime y sus etiquetas, nunca por buscar 'crm*'.
+
+Anotar primero, sin valores de secretos: estado, contenedores/ID, fuente,
+versiones/implementaciones, imagen/digest, dominios, recursos y errores del nuevo
+Compose. Anotar también el estado/métricas de los servicios existentes y n8n
+para compararlos después. No abrir sus entornos ni credenciales.
+Capturas sólo si no contienen datos privados, valores, tokens o claves.
+
+2. PAQUETE DE ENTRADA QUE DEBE ENTREGAR CLAUDE
+
+Antes de preparar una promoción se necesita: PR/commit/árbol revisados; recibo
+staging.image.receipt.v1 auténtico; procedencia y escaneos del MISMO artefacto;
+prueba de privacidad/vínculo de GHCR y limpieza de credenciales; revisiones
+independientes exactas; configuración pública ligada a la imagen; compatibilidad
+con el ledger alojado; método de descarga seguro y evidencia de su prueba.
+Los campos del recibo son los de tools/asier_staging_channel/contract.mjs.
+No aceptar un config ID como manifest digest, un tag como fuente final, un JSON
+sintético ni un recibo tras resultado parcial o limpieza fallida.
+
+PR210 fce0e999675d811e8f3e813b9fad4a081a51f392 tiene laboratorio OCI SUCCESS,
+run40863379096/job123412004907. Prueba build/scan/push/readback/pull en loopback
+con configuración sintética. No acredita GHCR privado, procedencia autenticada,
+política aceptada o piloto alojado. No incorporar #210 automáticamente.
+
+ESTADO ACTUAL: NO HAY RECIBO PRIVADO STAGING ACEPTADO EN ESTE PROCEDIMIENTO.
+La política versionada sigue PROPOSED/PENDING. App y helpers deben rechazar el
+arranque gestionado. No cambiar a desarrollo, editar la política manualmente,
+montar otra política sobre la imagen ni añadir un flag de aprobación.
+
+3. FUENTE Y CONFIGURACIÓN QUE SE REVISARÁN, SIN ARRANCAR
+
+Fuente canónica: tools/asier_staging_network/compose.proposed.yaml del commit
+aceptado. Un solo digest GHCR privado para los tres roles. APP_IMAGE se obtiene
+del image_reference del recibo verificado: no hay un valor inventado para pegar.
+No sección build, container_name, puertos publicados, socket Docker, host network,
+SSH agent, volúmenes de otras aplicaciones ni comandos adicionales.
+
+Si se usa Fuente Git: repositorio Asier-Comba/CRM-Telecomunicaciones, build path
+raíz y archivo tools/asier_staging_network/compose.proposed.yaml. El campo ref
+debe admitir el commit aceptado y se comprobarán HEAD/árbol reales. Si no puede
+fijarse y verificarse, BLOCKED; no sustituirlo por main o una rama que avance.
+Alternativa sólo revisada: pegar en Fuente Inline el YAML exacto obtenido del
+commit aceptado y comparar su huella con el origen antes de guardar.
+La imagen sigue procediendo del build GitHub por digest, no de un build en VPS.
+
+Revisar que EasyPanel no haya importado automáticamente .env.example del repo.
+El entorno de ESTE servicio contiene sólo las referencias necesarias; no editar
+el entorno global del proyecto. Guardar fuente/entorno no es desplegar.
+No configurar un deployment trigger ni un flujo automático para este piloto.
+
+Variables de interpolación (sólo nombres):
+  APP_IMAGE
+  APP_ENV_FILE
+  CRM_INGRESS_CREDENTIAL_FILE
+
+Variables del runtime (sólo nombres; las constantes ya están en el YAML revisado):
+  PLATFORM_TARGET, NODE_ENV, APP_ENV
+  NEXT_PUBLIC_APP_URL, PRODUCT_V1_ORIGIN, NEXT_PUBLIC_SUPABASE_URL
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+  PRODUCT_V1_ENABLED, PRODUCT_STAGING_INTEGRATION
+  PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED, PRODUCT_STAGING_USER_IDS
+  BACKUP_RETENTION_DAYS
+  PRODUCT_DOCUMENT_LIBRARY_ENABLED, PRODUCT_DOCUMENT_CONTENT_ENABLED
+  PRODUCT_DOCUMENT_MAINTENANCE_ENABLED, AI_ENABLED, CRM_EMAIL_ENABLED
+  NEXT_PUBLIC_ENABLE_DEMO_DATA, NEXT_PUBLIC_FORCE_OFFLINE_DEV
+Sólo App: HOSTNAME, PORT. No inventar IDs de usuarios ni credenciales.
+No añadir SUPABASE_SERVICE_ROLE_KEY, AGENT_TOOL_SECRET, ASSISTANT_PROVIDER,
+NEXT_PUBLIC_SUPABASE_ANON_KEY, OPENAI_*, SMTP_*, N8N_* o META_*.
+Credenciales de GHCR no son variables del Compose ni del contenedor.
+
+APP_ENV_FILE es un archivo privado externo a Git, con configuración admitida,
+protegido y estable. No mostrarlo, pegarlo en chat o exportarlo en un informe.
+El origen del secreto ingress es /etc/crm-telecom-runtime/ingress.json: archivo
+regular, UID65532, modo0400, sin symlink; sólo claves username/password. El
+propietario prepara su contenido por canal seguro. No se proporciona un valor
+ejemplo. Sólo ingress monta /run/secrets/crm-staging-ingress. Revisar metadatos,
+no cat ni dump de contenido. Las credenciales nunca van a imagen, Git o logs.
+
+Lectura de metadatos del secreto, sin contenido, por el propietario:
+  stat --format='uid=%u mode=%a type=%F links=%h' -- /etc/crm-telecom-runtime/ingress.json
+Esperado: UID65532, modo400, archivo regular, un enlace; no symlink. Esto no
+valida la contraseña, su formato ni la capacidad de autenticación del runtime.
+
+4. REDES, RECURSOS Y SALUD: CONTRATO QUE NO PUEDE CAMBIAR EL PANEL
+
+App interna: sólo crm-private, overlay/internal/attachable, alias fijo; DNS
+upstream127.0.0.1 con los límites del YAML, sin salida o red compartida directa.
+Ingress: crm-private + easypanel existente. Sólo él recibe tráfico del dominio.
+Egress: crm-private + crm-outbound exclusiva; sin acceso a easypanel. Destino
+fijo Auth/REST del proyecto Supabase; Storage/otros destinos siguen denegados.
+No modificar ninguna red existente ni Traefik global.
+Si no está presente el Swarm/red external requerido, BLOCKED; no inicializar
+otro Swarm ni reconfigurar el clúster para hacer funcionar este servicio.
+
+Límites revisados propuestos: App768MiB/0,75CPU; ingress256MiB/0,25CPU;
+egress256MiB/0,25CPU. Total1280MiB/1,25CPU. Esto NO mide capacidad disponible:
+registrar memoria/CPU/disco actuales y margen con las aplicaciones existentes.
+Si falta margen, BLOCKED; no contratar recursos, subir límites o parar otras apps.
+Tres roles UID/GID65532, raíz sólo lectura, cap_dropALL, no-new-privileges,
+reinicio acotado y logs acotados. Mantener tmpfs y gracia35s del YAML.
+
+App: healthcheck del Dockerfile a /api/health/live, intervalo30s, timeout5s,
+inicio30s. Helpers: TCP local8080, intervalo30s, timeout5s, inicio10s.
+Un TCP abierto o live200 no acredita readiness, Auth, RLS o seguridad.
+Readiness real: /api/health/ready usa HEAD por egress, presupuesto3s, sin
+redirect ni reintento directo. not_ready503 impide aceptación.
+
+5. ORIGEN, DOMINIO, PRIVACIDAD Y CALLBACKS
+
+Origen exacto: https://crm-telecom-staging.hvdnby.easypanel.host
+Supabase exacto: https://zgwotxnyqzfuzcnmgvtn.supabase.co
+Coincidencia entre build, runtime y recibo mediante public_build_sha256.
+No imprimir los valores de configuración para probarla.
+
+Dominios de ESTE Compose: hostname anterior, destino INTERNO
+crm-telecom-ingress, HTTP, puerto8080, ruta /. HTTPS externo con certificado
+válido y sin advertencias. Nunca apuntar al App3000 o al egress.
+La ruta guardada no demuestra que exista un backend ni que sea privado.
+Mantener la autenticación de ingress revisada; no duplicarla en otro lugar ni
+dar por aprobado un cambio de mecanismo. Sin Basic debe devolver401 antes de
+consultar CRM. Basic no sustituye Auth de Supabase ni permisos de empresa.
+
+Comparar origen de callbacks, /auth/callback, Site URL y redirect allowlist del
+Supabase existente mediante revisión de configuración autorizada. Ninguna
+modificación Supabase está incluida. Si falta la conformidad, BLOCKED y handoff
+al propietario responsable. No cambiar callbacks o permitir comodines para salir
+del paso. Cookies Secure y scope del dominio; registrar sólo atributos/nombres.
+
+6. PREFLIGHT EFECTIVO ANTES DE CUALQUIER IMPLEMENTACIÓN
+
+El YAML revisado no prueba el resultado de EasyPanel. Se necesita el documento
+EFECTIVO que el panel usará, con el proyecto exacto, sin redes/puertos añadidos,
+sin cambios de comandos, imagen, límites o pull_policy. La interfaz de issues
+de Compose no acredita por sí sola redes/DNS. Si el panel no permite obtenerlo
+antes de up con un método soportado y revisado, BLOCKED: no pulsar Implementar
+para descubrir qué ha hecho ni ejecutar después service update como parche.
+
+Inventariar todos los archivos de entrada, overrides, perfiles, opciones y
+contexto de interpolación empleados. Cualquier entrada no revisada bloquea el
+plan. No aceptar una normalización local como prueba de transformaciones
+posteriores. Verificar el contexto Docker local; no heredar selectores remotos
+o configuración de otro servicio. La receta siguiente normaliza los archivos
+suministrados; por sí sola NO exporta un plan de EasyPanel.
+
+Un responsable con acceso autorizado puede renderizar SÓLO la fuente efectiva
+identificada, sin arrancar contenedores. En un directorio de revisión privado y
+estable, con permisos restringidos y salida que no se publique:
+
+  ( umask 077; set -C
+    docker compose --project-name crm-inmobiliario_crm-telecom-runtime \
+      --file "$COMPOSE_SOURCE_FILE" config --format json > "$COMPOSE_RESOLVED_JSON"
+  )
+
+Las variables de esta receta son rutas privadas verificadas por el propietario;
+no valores de entorno de la app. No ejecutar si no están definidas. Resolver
+en un destino nuevo por intento: conservar snapshots y fallos anteriores.
+env_file/interpolación contra el contexto real del panel. No enseñar JSON
+resuelto, inspect completo o env a terceros: pueden contener configuración privada.
+
+En el puesto de revisión con Node24 y checkout exacto revisado:
+
+  node --experimental-transform-types tools/asier_staging_network/manual-preflight.mjs \
+    --compose "$COMPOSE_RESOLVED_JSON" --receipt "$VERIFIED_RECEIPT_JSON" \
+    --expected "$EXPECTED_IDENTITY_JSON" --policy "$BAKED_POLICY_JSON" \
+    --binding "$BAKED_PUBLIC_BINDING_JSON"
+
+Los cinco JSON proceden del contexto real y del MISMO artefacto verificado;
+policy/binding son los horneados en esa imagen, no copias retocadas para el test.
+No se aporta JSON ACCEPTED de ejemplo. Los padres de los archivos deben ser
+privados/estables: el lector no ofrece defensa frente a escritores hostiles del
+directorio. Lee archivos regulares acotados, no symlinks/hardlinks, y no ejecuta
+Docker, red, subprocess, escritura o despliegue. No lee el secreto de ingress.
+
+Esperado: CONFIGURATION_CHECKED, exit0, errors[], cinco input_sha256 y
+values_included:false/mutation_performed:false/external_evidence_verified:false/
+deploying_authorized:false. BLOCKED/exit2 detiene la promoción. CONFIGURATION_CHECKED
+sólo comprueba consistencia: no autentica recibo/revisores ni concede permiso.
+El CLI mantiene source_evidence:NOT_AUTHENTICATED y
+effective_plan_status:EFFECTIVE_PLAN_UNVERIFIED, incluso si la consistencia pasa.
+La revisión de fuente y la prueba del plan efectivo son evidencias separadas.
+Los artefactos/JSON/credenciales se transportan por canal seguro, nunca en chat.
+
+Desbloqueo concreto del plan efectivo: obtener de W5/Claude o soporte una receta
+soportada para ESTA versión del panel que produzca, sin up, el artefacto posterior
+a las transformaciones. La entrega debe identificar versión, archivos/overrides/
+perfiles/opciones, huellas del origen y resultado, forma de demostrar que up usará
+esos mismos bytes sin regeneración posterior, y prueba de redes/puertos/comandos/
+pull_policy/límites. Revisar la receta y su evidencia antes de ejecutarla. Inspect,
+lista de issues, hash de una rama o un docker compose config aislado no bastan.
+
+7. CONDICIONES ACUMULATIVAS PARA UNA PROMOCIÓN POSTERIOR
+
+TODAS deben tener evidencia de SHA/digest y revisión independiente en #67:
+artefacto privado aceptado y descargado exactamente por digest; limpieza de su
+configuración de credenciales; política horneada legítimamente aceptada; preflight
+efectivo; conformidad de origen/callbacks/schema; protección de acceso; límites y
+capacidad; redes persistentes revisadas y plan de rollback. No construir en VPS.
+pull_policy:never exige caché verificada: si el digest falta, detenerse, no cambiar
+a always/missing ni guardar un token global. La persistencia del panel debe estar
+acreditada; la verificación real tras recreación es además obligatoria para aceptar.
+
+Si algo falta, estado BLOCKED y NO solicitar Implementar. El laboratorio OCI,
+el scan LOCAL, #207 o un PASS propio no sustituyen esas condiciones.
+Sólo tras dejar constancia de su cumplimiento y la aprobación independiente,
+el propietario podrá aplicar la configuración autorizada EXCLUSIVAMENTE a la
+cabecera Compose indicada en1 y ejecutar la promoción acordada por digest.
+No hay una orden de hacer ese clic ahora.
+
+8. PRUEBAS POSTERIORES: NO DECLARAR ÉXITO POR RUNNING
+
+Verificar tres contenedores del proyecto exacto y ningún puerto host; misma
+referencia por digest, config ID del recibo, comandos y límites esperados.
+Verificar endpoints/redes reales por metadata filtrada, nunca inspect/env completo.
+Después comprobar persistencia de las mismas condiciones tras UNA recreación
+autorizada del nuevo servicio, no de otros. Si el panel inyecta la red compartida
+en App/egress, detener sólo el nuevo servicio; no arreglar la red global.
+
+HTTPS anónimo:401 con desafío Basic y sin contenido del CRM, incluso en health.
+Con acceso privado: live200/statusalive y ready200/statusready/no-store.
+502,503,504 o timeouts no cuentan como rechazo correcto ni readinessPASS.
+Login en /login con el owner sintético EXISTENTE y confirmado, dentro de la cohorte.
+El propietario introduce su contraseña sólo en la página. No crear usuarios,
+fixtures, migraciones o resets alojados como parte de este procedimiento.
+
+Con Basic pero sin sesión CRM, una API protegida publicada debe devolver401.
+Autenticado fuera de cohorte: API403/access_denied; la UI vuelve al acceso.
+Para tenant A/B y viewer usar únicamente identidades/objetos sintéticos existentes
+y autorizados. Ejecutar la receta de endpoint/operación/resultado exactos del
+contrato de producto, con positivo A, negativo B/viewer y lectura A de control.
+No adivinar IDs, consultar datos reales, escribir para probar denegación o aceptar
+un error de transporte como aislamiento. Registrar sólo resultado/código y huellas.
+Si faltan fixtures/receta aprobada, aceptación multiempresa PENDIENTE.
+
+Abrir Dashboard, Clientes y Cartera; leer un registro sintético existente y
+comprobar el mismo registro tras recarga y una nueva lectura autorizada.
+Abrir Documentos: biblioteca D1/contenido/mantenimiento permanecen deshabilitados
+en BASE87+Storage88; verificar cierre esperado y ausencia de llamadas de bytes.
+No contabilizar esa deshabilitación como funcionalidad documental completa.
+Confirmar rechazo de salida directa App, aliases internos y destinos no permitidos
+usando sólo canarios/recetas aprobados y controles positivos equivalentes; no sondear
+IPs/puertos o datos de otras aplicaciones para comprobarlo.
+Comparar finalmente la línea base de los servicios existentes, sin modificarlos.
+
+9. ROLLBACK DEL NUEVO SERVICIO
+
+Primera implantación sin versión anterior aceptada: parar ÚNICAMENTE
+crm-inmobiliario / Compose crm-telecom-runtime. Desactivar sólo su ruta nueva si
+es necesario y su pertenencia está verificada. Conservar fuente, recibo, evidencia
+y errores seguros. No Destroy, docker prune, bajada global, borrado de volúmenes,
+retag/delete en GHCR, cambio DNS/Traefik global ni rollback de Supabase.
+
+Si ya existe una versión previa aceptada: usar su recibo/digest, binding y
+configuración compatibles con el ledger actual; verificar de nuevo sus gates y
+preflight. Si no coincide el binding o no hay compatibilidad de schema, BLOCKED.
+No reconstruir ficticiamente un 'anterior' desde un tag. Tras la vuelta, repetir
+health/readiness/privacidad/Auth/recarga y comparación de servicios existentes.
+Detenerse ante cualquier duda de identidad o alcance; no parar el App original.
+
+10. EVIDENCIA QUE SE ENTREGA, SIN DATOS PRIVADOS
+
+Fecha/hora; operador; panel/proyecto/tipo/servicio; SOURCE/TREE/EXECUTED SHA;
+recibo y manifest/config digest; huellas de YAML/JSON/policy/binding; revisión
+independiente exacta; resultado de cada gate; contenedores/salud/redes/recursos
+filtrados; TLS/desafío anónimo/readiness/Auth/tenants/recarga; comparación de
+servicios anteriores; rollback disponible/ejecutado; estado final y siguiente paso.
+No publicar contraseñas, tokens, cookies, env/inspect/JSON completos, raw scans,
+datos de clientes o capturas privadas.
+
+Contrato legible por máquina: manual-deployment-contract.json.
+Fuentes de UI, sujetas a la versión instalada: https://easypanel.io/docs/services/compose
+El panel documenta Source Git/Inline, environment, dominios y up --build -d;
+no se deduce de ello una previsualización sin up ni aislamiento real aceptado.
