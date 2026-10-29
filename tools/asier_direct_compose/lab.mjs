@@ -28,6 +28,7 @@ try{
  for(const [name,value]of Object.entries(files))writeFileSync(join(bundle,name),JSON.stringify(value),{mode:0o600})
  writeFileSync(join(bundle,'interpolation.env'),'',{mode:0o600})
  for(const name of ['compose-bin','interpolation.env',...Object.keys(files)])inventory[name]=sha256(readFileSync(join(bundle,name)))
+ report.executor_sha256=inventory['compose-bin'];report.compose_version=call(['compose','version','--short']);report.engine_version=call(['version','--format','{{.Server.Version}}']);report.engine_api=call(['version','--format','{{.Server.APIVersion}}'])
  await executePreparation(bundle,inventory,'config')
  report.checks.push('real_pinned_compose_locked_config_and_direct_preflight')
  call(['swarm','init','--advertise-addr','127.0.0.1']);swarm=true
