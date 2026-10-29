@@ -1,6 +1,7 @@
 import {composePreflightV1} from '../asier_staging_network/compose-preflight.mjs'
 export const project='crm-telecom-direct'
 export const ingressAlias='crm-telecom-direct-ingress'
+export const directNetworkPlan=Object.freeze(['crm-private','crm-outbound'].map(key=>Object.freeze({name:project+'_'+key,driver:'overlay',internal:key==='crm-private',attachable:true,owner:project})))
 const old='crm-inmobiliario_crm-telecom-runtime'
 export function directConfiguration(configuration){
  const c=structuredClone(configuration)
@@ -8,7 +9,7 @@ export function directConfiguration(configuration){
  c.name=project
  for(const name of ['crm-private','crm-outbound']){
   if(c.networks[name].name!==old+'_'+name)throw Error('SOURCE_NETWORK_INVALID')
-  c.networks[name].name=project+'_'+name
+  c.networks[name]={name:project+'_'+name,external:true}
  }
  const s=c.secrets['crm-staging-ingress']
  if(s.name!==undefined)s.name=project+'_crm-staging-ingress'
@@ -21,8 +22,10 @@ export function directPreflight(input){
  if(c.name!==project)throw Error()
  c.name=old
  for(const name of ['crm-private','crm-outbound']){
-  if(c.networks[name].name!==project+'_'+name)throw Error()
-  c.networks[name].name=old+'_'+name
+  if(JSON.stringify(Object.keys(c.networks[name]).sort())!==JSON.stringify(['external','name'])||c.networks[name].external!==true||c.networks[name].name!==project+'_'+name)throw Error()
+  const evidence=input.networks?.find(n=>n.Name===project+'_'+name)
+  if(!evidence||evidence.Driver!=='overlay'||evidence.Scope!=='swarm'||evidence.Attachable!==true||evidence.Internal!==(name==='crm-private')||evidence.Labels?.['crm.direct.owner']!==project)throw Error()
+  c.networks[name]={name:old+'_'+name,driver:'overlay',internal:name==='crm-private',attachable:true,labels:{'crm.scope':'crm-telecom-staging'}}
  }
  if(JSON.stringify(c.services['crm-telecom-ingress'].networks.easypanel)!==JSON.stringify({aliases:[ingressAlias]}))throw Error()
  c.services['crm-telecom-ingress'].networks.easypanel=null
@@ -30,11 +33,4 @@ export function directPreflight(input){
  if(s.name!==undefined){if(s.name!==project+'_crm-staging-ingress')throw Error();s.name=old+'_crm-staging-ingress'}
  return {...composePreflightV1({...input,configuration:c}),destination:{project,ingressAlias},deploying_authorized:false}
  }catch{return {status:'BLOCKED',errors:['DIRECT_IDENTITY_INVALID'],deploying_authorized:false}}
-}
-export function invocation({directory,source,environment,docker,composeHash},operation){
- for(const p of [directory,source,environment,docker])if(typeof p!=='string'||!/^\/[a-zA-Z0-9_./-]+$/.test(p)||p.split('/').includes('..'))throw Error('ABSOLUTE_PROTECTED_PATH_REQUIRED')
- if(!/^[a-f0-9]{64}$/.test(composeHash))throw Error('EXECUTOR_HASH_REQUIRED')
- if(!['config','dry-run','stop'].includes(operation))throw Error('EXECUTION_NOT_AUTHORIZED')
- const args=['--host','unix:///var/run/docker.sock','compose','--project-name',project,'--project-directory',directory,'--env-file',environment,'--file',source]
- return {executable:docker,args:[...args,...operation==='config'?['config','--format','json']:operation==='dry-run'?['--dry-run','up','--no-build','--pull','never','-d']:['stop']],shell:false,deploying_authorized:false}
 }

@@ -1,9 +1,12 @@
 import {spawnSync} from 'node:child_process'
-import {mkdtempSync,writeFileSync,rmSync,lstatSync,chmodSync} from 'node:fs'
+import {mkdtempSync,writeFileSync,rmSync,lstatSync,chmodSync,mkdirSync,copyFileSync,readFileSync} from 'node:fs'
 import {join} from 'node:path'
 import {randomBytes} from 'node:crypto'
 import {resolve4} from 'node:dns/promises'
 import {localDockerCallV1} from '../asier_staging_network/local-docker.mjs'
+import {fixture} from './synthetic-fixture.mjs'
+import {executePreparation} from './executor.mjs'
+import {sha256} from './session.mjs'
 const env=process.env
 if(process.platform!=='linux'||env.GITHUB_ACTIONS!=='true'||env.RUNNER_ENVIRONMENT!=='github-hosted'||env.GITHUB_EVENT_NAME!=='pull_request'||env.GITHUB_REPOSITORY!=='Asier-Comba/CRM-Telecomunicaciones'||!env.RUNNER_TEMP||!/^[a-f0-9]{40}$/.test(env.EXPECTED_SOURCE??''))throw Error('DISPOSABLE_ONLY')
 const dir=mkdtempSync(join(env.RUNNER_TEMP,'crm-direct-')),docker=localDockerCallV1(env,dir),project='crm-direct-lab-'+env.EXPECTED_SOURCE.slice(0,12)
@@ -14,6 +17,16 @@ let swarm=false,started=false,sentinel
 try{
  const g=spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'});if(g.stdout.trim()!==env.EXPECTED_SOURCE)throw Error('SOURCE_MISMATCH')
  if(!lstatSync('/var/run/docker.sock').isSocket()||call(['ps','-aq'])||call(['info','--format','{{.Swarm.LocalNodeState}}'])!=='inactive')throw Error('EMPTY_ENGINE_REQUIRED')
+ const plugin=JSON.parse(call(['info','--format','{{json .ClientInfo.Plugins}}'])).find(p=>p.Name==='compose')
+ if(!plugin?.Path)throw Error('COMPOSE_BINARY_PATH_REQUIRED')
+ const bundle=join(dir,'preparation');mkdirSync(bundle,{mode:0o700});copyFileSync(plugin.Path,join(bundle,'compose-bin'));chmodSync(join(bundle,'compose-bin'),0o700)
+ const sample=fixture(),inventory={}
+ const files={'compose.json':sample.configuration,'receipt.json':sample.receipt,'expected.json':sample.expected,'binding.json':sample.binding,'policy.json':sample.policy,'networks.json':sample.networks}
+ for(const [name,value]of Object.entries(files))writeFileSync(join(bundle,name),JSON.stringify(value),{mode:0o600})
+ writeFileSync(join(bundle,'interpolation.env'),'',{mode:0o600})
+ for(const name of ['compose-bin','interpolation.env',...Object.keys(files)])inventory[name]=sha256(readFileSync(join(bundle,name)))
+ await executePreparation(bundle,inventory,'config')
+ report.checks.push('real_pinned_compose_locked_config_and_direct_preflight')
  call(['swarm','init','--advertise-addr','127.0.0.1']);swarm=true
  const image='node:24.21.0-trixie-slim@sha256:c83040f7e24bacea68e58a0b96a484ba430bf24abb2973eab7ba4701144b7b63'
  call(['pull',image],{timeout:180000})
