@@ -8,7 +8,7 @@ const env=process.env
 if(process.platform!=='linux'||env.GITHUB_ACTIONS!=='true'||env.RUNNER_ENVIRONMENT!=='github-hosted'||env.GITHUB_EVENT_NAME!=='pull_request'||env.GITHUB_REPOSITORY!=='Asier-Comba/CRM-Telecomunicaciones'||!env.RUNNER_TEMP||!/^[a-f0-9]{40}$/.test(env.EXPECTED_SOURCE??''))throw Error('DISPOSABLE_ONLY')
 const dir=mkdtempSync(join(env.RUNNER_TEMP,'crm-direct-')),docker=localDockerCallV1(env,dir),project='crm-direct-lab-'+env.EXPECTED_SOURCE.slice(0,12)
 const report={source:env.EXPECTED_SOURCE,status:'FAIL',checks:[],cleanup:false,STAGING_DEPLOYED:false,RELEASE_NOT_ACCEPTED:true,scope:'SYNTHETIC_APP_REAL_GATEWAYS_COMPOSE'}
-function call(args,options={}){const r=docker(args,options);if(r.status!==0)throw Error('DOCKER_OPERATION_FAILED');return r.stdout.trim()}
+function call(args,options={}){report.phase=args[0]==='compose'?'compose_'+args.find(v=>['up','down','ps'].includes(v)):args[0];const r=docker(args,options);if(r.status!==0){report.failure_category=String(r.stderr).match(/unknown flag|permission denied|not found|invalid mount config|invalid reference format|port is already allocated|cannot create a swarm scoped network|not a docker command/i)?.[0]??'UNCLASSIFIED';throw Error('DOCKER_OPERATION_FAILED')}return r.stdout.trim()}
 const compose=(...args)=>call(['compose','-p',project,'-f',join(dir,'compose.json'),...args])
 let swarm=false,started=false,sentinel
 try{
@@ -19,7 +19,8 @@ try{
  call(['pull',image],{timeout:180000})
  const username='crm_lab',password=randomBytes(36).toString('base64url'),secret=join(dir,'ingress.json')
  writeFileSync(secret,JSON.stringify({username,password}),{mode:0o400});chmodSync(secret,0o444)
- const networks={'private':{driver:'overlay',attachable:true,internal:true},shared:{driver:'overlay',attachable:true},outbound:{driver:'overlay',attachable:true}}
+ call(['network','create','--driver','overlay','--attachable',project+'_shared'])
+ const networks={'private':{driver:'overlay',attachable:true,internal:true},shared:{external:true,name:project+'_shared'},outbound:{driver:'overlay',attachable:true}}
  const services={}
  for(const role of ['app','ingress','egress']){
  const name=role==='app'?'crm-telecom-staging':'crm-telecom-'+role
@@ -53,7 +54,7 @@ try{
  report.status='PASS'
 }catch(e){report.error=/^[A-Z0-9_]+$/.test(e.message)?e.message:'LAB_FAILED'}
 finally{
- try{if(sentinel)call(['rm','-f',sentinel]);if(started)compose('down');if(swarm)call(['swarm','leave','--force']);report.cleanup=call(['ps','-aq'])===''}catch{report.cleanup=false}
+ try{if(sentinel)call(['rm','-f',sentinel]);if(started)compose('down');if(swarm){call(['network','rm',project+'_shared']);call(['swarm','leave','--force'])}report.cleanup=call(['ps','-aq'])===''}catch{report.cleanup=false}
  if(!report.cleanup)report.status='FAIL'
  writeFileSync(join(env.RUNNER_TEMP,'direct-compose.safe.json'),JSON.stringify(report))
  rmSync(dir,{recursive:true,force:true})
