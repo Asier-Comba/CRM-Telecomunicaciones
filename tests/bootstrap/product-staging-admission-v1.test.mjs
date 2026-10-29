@@ -48,7 +48,7 @@ test('private cohort is canonical bounded immutable and cannot use wildcards or 
 
 test('cohort uses only confirmed non-anonymous root Auth identity, never editable metadata',()=>{
  assert.equal(admission.stagingIdentityAllowedV1(policy,registered(actor)),true)
- for(const user of [null,{},[],{...registered(other),user_metadata:{id:actor,email:'synthetic@example.invalid',role:'owner'}},{...registered(actor),email:'actual@example.com'},{...registered(actor),is_anonymous:true},{...registered(actor),is_anonymous:undefined},{...registered(actor),email_confirmed_at:null},Object.create(registered(actor)),{...registered(actor),get id(){throw Error('private')}}])assert.equal(admission.stagingIdentityAllowedV1(policy,user),false)
+ for(const user of [null,{},[],{...registered(other),user_metadata:{id:actor,email:'synthetic@example.invalid',role:'owner'}},{...registered(actor),email:'not-an-email'},{...registered(actor),is_anonymous:true},{...registered(actor),is_anonymous:undefined},{...registered(actor),email_confirmed_at:null},Object.create(registered(actor)),{...registered(actor),get id(){throw Error('private')}}])assert.equal(admission.stagingIdentityAllowedV1(policy,user),false)
  assert.equal(admission.stagingIdentityAllowedV1(policy,{...registered(actor),role:'service_role',user_metadata:{role:'owner'}}),true) // admission grants no workspace role
 })
 
@@ -182,4 +182,31 @@ test('NODE_ENV is only taken from the build-inlined value for the runtime proces
  assert.equal(admission.readStagingAdmissionV1(withoutNodeEnv).status,'invalid')
  assert.equal(admission.readStagingAdmissionV1({...withoutNodeEnv,NODE_ENV:'development'}).status,'invalid')
  assert.equal(admission.readStagingAdmissionV1(env).status,'enabled')
+})
+
+test('actual Proxy and server factory admit both confirmed pilot UUIDs without domain enrollment',async()=>{
+ const pilotUsers=[{...registered(actor),email:'pilot.one@example.com'},{...registered(other),email:'pilot.two@example.org'}]
+ const unlisted={...registered('10000000-0000-4000-8000-000000000003'),email:pilotUsers[0].email}
+ for(const environment of [
+  {...env,PRODUCT_STAGING_USER_IDS:actor+','+other},
+  {...env,PRODUCT_STAGING_USER_IDS:actor+','+other,PRODUCT_V1_ORIGIN:admission.stagingEasyPanelOriginV1,PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED:'true'}
+ ]){
+  for(const user of [...pilotUsers,unlisted]){
+   const accepted=pilotUsers.includes(user),proxy=proxyFixture({data:{user},error:null},environment)
+   const response=await proxy.proxy(new next.NextRequest(environment.PRODUCT_V1_ORIGIN+'/api/product/v1/queries'))
+   if(accepted)assert.equal(response.headers.get('x-middleware-next'),'1')
+   else assert.equal(response.status,403)
+   let reads=0
+   const factory=actual('src/lib/server/supabase-user.ts',{
+    'next/headers':{cookies:async()=>({getAll:()=>[],set(){}})},
+    './product-staging-admission-v1':admission,'./product-private-egress-v1':egress,
+    '@supabase/ssr':{createServerClient(_url,_key,options){
+     assert.equal(options.cookieOptions.secure,true)
+     if(environment.PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED==='true')assert.equal(typeof options.global.fetch,'function')
+     return{auth:{getUser:async()=>{reads++;return{data:{user},error:null}},getSession(){assert.fail('SESSION_NOT_AUTHORITY')}}}
+    }}
+   },environment)
+   assert.equal(Boolean(await factory.createUserServerClient()),accepted);assert.equal(reads,1)
+  }
+ }
 })
