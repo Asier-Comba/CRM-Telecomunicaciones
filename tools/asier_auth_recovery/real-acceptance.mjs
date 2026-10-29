@@ -9,9 +9,12 @@ import {independentCleanup} from '../asier_documents_global/independent-cleanup.
 import {authOrigin as origin,authEndpoint,authAppEnvironment,localActionLink} from './policy.mjs'
 import {safeAuthLocation,safeAuthResponse} from './observation.mjs'
 import {responseForAction} from '../asier_compat62/response-action.mjs'
+import {realPkceAcceptance} from './pkce-acceptance.mjs'
+import {pkceScopeGuard} from './pkce-policy.mjs'
 
 export async function realAuthRecoveryAcceptance({url,anon,service,check,report,spawn}){
- if(process.platform!=='linux'||process.env.CI!=='true'||process.env.GITHUB_ACTIONS!=='true'||process.env.DOCUMENTS_GLOBAL_AUTH!=='true'||process.env.AUTH_RECOVERY_ACCEPTANCE!=='true'||process.env.DOCUMENTS_GLOBAL_SCOPE!=='AUTH_RECOVERY_ONLY'||url!==authEndpoint)throw Error('D1_GLOBAL_AUTH_DISPOSABLE_LOOPBACK_ONLY')
+ const pkce=pkceScopeGuard(process.env)
+ if(process.platform!=='linux'||process.env.CI!=='true'||process.env.GITHUB_ACTIONS!=='true'||process.env.DOCUMENTS_GLOBAL_AUTH!=='true'||(!pkce&&(process.env.AUTH_RECOVERY_ACCEPTANCE!=='true'||process.env.DOCUMENTS_GLOBAL_SCOPE!=='AUTH_RECOVERY_ONLY'))||url!==authEndpoint)throw Error('D1_GLOBAL_AUTH_DISPOSABLE_LOOPBACK_ONLY')
  const admin=createClient(url,service,{auth:{persistSession:false,autoRefreshToken:false}})
  const email='auth-recovery-'+randomUUID()+'@example.invalid',password=()=>randomBytes(32).toString('base64url')+'!Aa1'
  const canary='PRIVATE_SYNTHETIC_AUTH_ERROR',contexts=[],pages=[]
@@ -78,6 +81,7 @@ export async function realAuthRecoveryAcceptance({url,anon,service,check,report,
   for(let attempt=0;attempt<20;attempt++){try{if((await fetch(origin+'/login',{signal:AbortSignal.timeout(15000)})).status===200){ready=true;break}}catch{}if(spawnFailed||server.exitCode!==null)break;await new Promise(done=>setTimeout(done,250))}
   check(ready,'own_loopback_auth_login_page_ready')
   browser=await chromium.launch()
+  if(pkce){await realPkceAcceptance({url,anon,admin,fresh,check,report,phase});return}
   phase('actual_invite_callback_and_induced_update_error')
   const first=await fresh(),secret=password();const invite=await link('invite');phase('navigate_actual_invite');await first.page.goto(invite);await form(first.page,secret);await actualSession(first.ctx)
   let puts=0,induced=false

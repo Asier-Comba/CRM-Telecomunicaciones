@@ -13,14 +13,15 @@ jobs:
   auth-recovery:
     # Separate exact-head opt-in after independent review; no automatic rerun
     # and no inheritance of Documents FULL/LATE acceptance.
-    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, format('AUTH_RECOVERY_RUN_SHA={0}', github.event.pull_request.head.sha))
+    if: github.event.pull_request.head.repo.full_name == github.repository && (contains(github.event.pull_request.body, format('AUTH_RECOVERY_RUN_SHA={0}', github.event.pull_request.head.sha)) || contains(github.event.pull_request.body, format('AUTH_PKCE_RUN_SHA={0}', github.event.pull_request.head.sha)))
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
       CI: 'true'
       DOCUMENTS_GLOBAL_AUTH: 'true'
-      DOCUMENTS_GLOBAL_SCOPE: AUTH_RECOVERY_ONLY
-      AUTH_RECOVERY_ACCEPTANCE: 'true'
+      DOCUMENTS_GLOBAL_SCOPE: ${{ contains(github.event.pull_request.body, format('AUTH_PKCE_RUN_SHA={0}', github.event.pull_request.head.sha)) && 'AUTH_PKCE_ONLY' || 'AUTH_RECOVERY_ONLY' }}
+      AUTH_RECOVERY_ACCEPTANCE: ${{ contains(github.event.pull_request.body, format('AUTH_RECOVERY_RUN_SHA={0}', github.event.pull_request.head.sha)) && 'true' || 'false' }}
+      AUTH_PKCE_ACCEPTANCE: ${{ contains(github.event.pull_request.body, format('AUTH_PKCE_RUN_SHA={0}', github.event.pull_request.head.sha)) && 'true' || 'false' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
@@ -31,6 +32,13 @@ jobs:
           node-version-file: .nvmrc
       - run: npm ci
       - name: Boundaries and existing component regressions
+        # Unit fixtures select their own scopes. Never inherit activation from
+        # the real-resource step's job environment into those child processes.
+        env:
+          DOCUMENTS_GLOBAL_SCOPE: ''
+          DOCUMENTS_GLOBAL_AUTH: 'false'
+          AUTH_RECOVERY_ACCEPTANCE: 'false'
+          AUTH_PKCE_ACCEPTANCE: 'false'
         run: |
           node --experimental-transform-types --test tests/auth-recovery/*.test.mjs tests/documents-pro/global-runner-guards.test.mjs
           node --test tests/bootstrap/password-recovery-errors.test.mjs
