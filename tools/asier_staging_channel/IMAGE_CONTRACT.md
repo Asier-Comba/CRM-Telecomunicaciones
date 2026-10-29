@@ -135,8 +135,14 @@ Steps (code in `publish-candidate.mjs`, shared build code in `candidate-build.mj
   exist on the default branch for dispatch, then dispatch with `--ref` at the
   reviewed branch whose head is the reviewed SHA.
 - The publisher requires an existing private package linked to this repo. First
-  creation (bootstrap seed, `bootstrap-private-package.mjs`) still has no
-  reviewed transport; proposed: `crane copy` of the pinned seed. Blocker.
+  creation is the inactive `bootstrap` job (`mode: bootstrap`, `bootstrap-transport.mjs`):
+  absence must be proven by BOTH an authenticated package-API 404 and an
+  authenticated registry `tags/list` 404 (403/unknown = unproven); then only the
+  pinned public seed (`bootstrapSeedV1`, the existing Dockerfile build base) is
+  copied digest-preserving to `:bootstrap-<sha>`; then private + repo-linked +
+  anonymous denial are required. Separate owner key
+  `STAGING_IMAGE_BOOTSTRAP_APPROVED_SOURCE`; no CRM code, receipt or attestation.
+  Owner should confirm the new package is private and linked before candidate.
 - `GITHUB_TOKEN` may get 403 on the user package API (`readPackage`): the job then
   fails closed. If so a fine-grained read token is an owner decision.
 - GHCR has no tag immutability: the absent-tag preflight cannot exclude a race

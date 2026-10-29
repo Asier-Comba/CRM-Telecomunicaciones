@@ -6,6 +6,11 @@ on:
         description: Full 40-hex SHA independently reviewed; must equal the dispatched ref's head
         type: string
         required: true
+      mode:
+        description: bootstrap = create the private package from the pinned public seed only; candidate = publish the CRM image
+        type: choice
+        options: [candidate, bootstrap]
+        required: true
 permissions: {}
 concurrency:
   group: staging-image-publish
@@ -17,7 +22,7 @@ jobs:
     # Even then the job also requires: dispatch at the reviewed SHA itself
     # (github.sha == input, so provenance names the built source) and the
     # protected environment variable STAGING_IMAGE_APPROVED_SOURCE == that SHA.
-    if: false
+    if: false && inputs.mode == 'candidate'
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     environment: staging-image-publish
@@ -78,3 +83,38 @@ jobs:
             ${{ runner.temp }}/staging-image-receipt.json
           retention-days: 90
           if-no-files-found: warn
+
+  bootstrap:
+    # INACTIVE BY DESIGN, same review rule. Copies only the pinned public base
+    # (bootstrapSeedV1) to :bootstrap-<sha> after authenticated absence proof,
+    # then requires private + repository-linked + anonymous denial. No CRM code,
+    # no receipt, no attestation. Separate owner key from candidate publication.
+    if: false && inputs.mode == 'bootstrap'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    environment: staging-image-publish
+    permissions:
+      contents: read
+      packages: write
+    env:
+      REVIEWED_SOURCE_SHA: ${{ inputs.reviewed_source_sha }}
+      STAGING_IMAGE_BOOTSTRAP_APPROVED_SOURCE: ${{ vars.STAGING_IMAGE_BOOTSTRAP_APPROVED_SOURCE }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.reviewed_source_sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version-file: .nvmrc}
+      - name: Install exact checksum-verified crane
+        run: |
+          curl --fail --location --silent --show-error https://github.com/google/go-containerregistry/releases/download/v0.22.1/go-containerregistry_Linux_x86_64.tar.gz -o "$RUNNER_TEMP/crane.tar.gz"
+          echo "0ab7a1d6932a213aed964ce97666c3077fe691c8606413674a8b3e0b9ec4cda0  $RUNNER_TEMP/crane.tar.gz" | sha256sum --check
+          mkdir "$RUNNER_TEMP/channel-crane"
+          tar -xzf "$RUNNER_TEMP/crane.tar.gz" -C "$RUNNER_TEMP/channel-crane" crane
+          rm "$RUNNER_TEMP/crane.tar.gz"
+      - name: Prove absence, copy pinned seed digest-preserving, verify private binding
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CRANE_BIN: ${{ runner.temp }}/channel-crane/crane
+        run: node --experimental-transform-types tools/asier_staging_channel/publish-candidate.mjs bootstrap

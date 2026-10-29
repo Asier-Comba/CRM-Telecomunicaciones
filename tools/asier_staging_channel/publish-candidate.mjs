@@ -11,11 +11,13 @@ import {createCraneSession} from './crane-session.mjs'
 import {createGhcrReadTransport} from './ghcr-read-transport.mjs'
 import {publishCandidateV1} from './publish-driver.mjs'
 import {prefetchComposeImageV1} from './compose-pull-session.mjs'
+import {bootstrapPrivatePackageV1} from './bootstrap-private-package.mjs'
+import {bootstrapPortsV1} from './bootstrap-transport.mjs'
 import {scanResultV1,ghAttestationVerifyV1,anonymousProbeV1,privacyResultV1} from './candidate-verifiers.mjs'
 import {localDockerCallV1,runnerDockerSocketV1} from '../asier_staging_network/local-docker.mjs'
 
 const publicNames=['NEXT_PUBLIC_APP_URL','NEXT_PUBLIC_SUPABASE_URL','NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY']
-const codes=/^(SOURCE_|TREE_|LAB_TAG|IMAGE_|LAYOUT_|OCI_|STAGING_|CANDIDATE_|PROVENANCE_|SCAN_|GHCR_|PULL_|PUBLISH_)[A-Z0-9_]*$/
+const codes=/^(BOOTSTRAP_|SOURCE_|TREE_|LAB_TAG|IMAGE_|LAYOUT_|OCI_|STAGING_|CANDIDATE_|PROVENANCE_|SCAN_|GHCR_|PULL_|PUBLISH_)[A-Z0-9_]*$/
 
 /** Protected manual job only. The run's own commit must be the reviewed source,
  * so the Sigstore certificate's source digest is the built source, and the
@@ -88,12 +90,27 @@ export async function publishPhase(env=process.env){
  return report
 }
 
+// First creation of the private package with the pinned public seed only. Its own
+// owner key (STAGING_IMAGE_BOOTSTRAP_APPROVED_SOURCE) cannot approve a candidate.
+export async function bootstrapPhase(env=process.env){
+ const source=publishGateV1({...env,STAGING_IMAGE_APPROVED_SOURCE:env.STAGING_IMAGE_BOOTSTRAP_APPROVED_SOURCE}),temp=await realpath(resolve(env.RUNNER_TEMP))
+ if(!inside(temp,env.CRANE_BIN))throw Error('PUBLISH_STATE_INVALID')
+ const anonymous=await mkdtemp(join(temp,'crm-crane-anon-')),auth=await mkdtemp(join(temp,'crm-crane-auth-'));await chmod(auth,0o700)
+ const crane=(args,{auth:useAuth=false,input}={})=>{const folder=useAuth?auth:anonymous;const r=spawnSync(env.CRANE_BIN,args,{env:{PATH:env.PATH,HOME:folder,DOCKER_CONFIG:folder},encoding:'utf8',timeout:20*60*1000,maxBuffer:1024*1024,input,shell:false});if(r.status!==0)throw Error('BOOTSTRAP_CRANE_FAILED');return args[0]==='config'?r.stdout:r.stdout.trim()}
+ const removed=async folder=>{await rm(folder,{recursive:true});try{await access(folder)}catch(error){if(error?.code==='ENOENT')return;throw error}throw Error('STAGING_AUTH_DIRECTORY_REMAINS')}
+ try{
+  const ports=bootstrapPortsV1({reviewedSource:source,approvedSource:env.STAGING_IMAGE_BOOTSTRAP_APPROVED_SOURCE,token:env.GH_TOKEN,actor:env.GITHUB_ACTOR,crane,openAuth:async()=>{},closeAuth:async()=>removed(auth)})
+  return await bootstrapPrivatePackageV1({reviewedSource:source,env,token:env.GH_TOKEN,ports})
+ }finally{await rm(anonymous,{recursive:true,force:true});await rm(auth,{recursive:true,force:true})}
+}
+const inside=(root,path)=>typeof path==='string'&&resolve(path).startsWith(root+sep)
+
 if(process.argv[1]===fileURLToPath(import.meta.url)){
  const phase=process.argv[2],env=process.env
  try{
-  const report=phase==='build'?await buildPhase(env):phase==='publish'?await publishPhase(env):(()=>{throw Error('PUBLISH_PHASE_INVALID')})()
+  const report=phase==='build'?await buildPhase(env):phase==='publish'?await publishPhase(env):phase==='bootstrap'?await bootstrapPhase(env):(()=>{throw Error('PUBLISH_PHASE_INVALID')})()
   console.log(JSON.stringify(report))
   if(phase==='publish'){writeFileSync(join(resolve(env.RUNNER_TEMP),'staging-image-publication.safe.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx'});if(report.receipt)writeFileSync(join(resolve(env.RUNNER_TEMP),'staging-image-receipt.json'),JSON.stringify(report.receipt,null,2)+'\n',{flag:'wx'})}
-  if(phase==='publish'?report.result!=='PASS':report.result!=='BUILT_NOT_PUBLISHED')process.exitCode=1
+  if(phase==='build'?report.result!=='BUILT_NOT_PUBLISHED':report.result!=='PASS')process.exitCode=1
  }catch(error){console.error(JSON.stringify({result:'FAIL',phase,error:codes.test(error?.message??'')?error.message:'PUBLISH_SAFE_FAILURE'}));process.exitCode=1}
 }
