@@ -19,8 +19,8 @@ try{
  call(['pull',image],{timeout:180000})
  const username='crm_lab',password=randomBytes(36).toString('base64url'),secret=join(dir,'ingress.json')
  writeFileSync(secret,JSON.stringify({username,password}),{mode:0o400});chmodSync(secret,0o444)
- call(['network','create','--driver','overlay','--attachable',project+'_shared'])
- const networks={'private':{driver:'overlay',attachable:true,internal:true},shared:{external:true,name:project+'_shared'},outbound:{driver:'overlay',attachable:true}}
+ for(const n of ['private','shared','outbound'])call(['network','create','--driver','overlay','--attachable',...n==='private'?['--internal']:[], '--label','crm.direct.lab='+project,project+'_'+n])
+ const networks=Object.fromEntries(['private','shared','outbound'].map(n=>[n,{external:true,name:project+'_'+n}]))
  const services={}
  for(const role of ['app','ingress','egress']){
  const name=role==='app'?'crm-telecom-staging':'crm-telecom-'+role
@@ -46,6 +46,9 @@ try{
  probe(sentinel,{kind:'outside',canaryIp,appIp,supabaseIp:ip,username,password})
  probe(app,{kind:'internal',canaryIp,supabaseIp:ip})
  compose('up','--no-build','--pull','never','--force-recreate','-d','crm-telecom-staging')
+ const recreated=JSON.parse(compose('ps','--format','json').split('\n').filter(Boolean).map(l=>l).join('\n').startsWith('[')?compose('ps','--format','json'):'['+compose('ps','--format','json').split('\n').join(',')+']').find(v=>v.Service==='crm-telecom-staging').ID
+ if(recreated===app)throw Error('APP_NOT_RECREATED')
+ probe(recreated,{kind:'internal',canaryIp,supabaseIp:ip})
  if(inspect(sentinel).Id!==before)throw Error('FOREIGN_PROJECT_CHANGED')
  report.checks.push('recreate_does_not_change_foreign_container')
  compose('down');started=false
@@ -54,9 +57,9 @@ try{
  report.status='PASS'
 }catch(e){report.error=/^[A-Z0-9_]+$/.test(e.message)?e.message:'LAB_FAILED'}
 finally{
- try{if(sentinel)call(['rm','-f',sentinel]);if(started)compose('down');if(swarm){call(['network','rm',project+'_shared']);call(['swarm','leave','--force'])}report.cleanup=call(['ps','-aq'])===''}catch{report.cleanup=false}
+ try{if(sentinel)call(['rm','-f',sentinel]);if(started)compose('down');if(swarm){for(const n of ['private','shared','outbound'])call(['network','rm',project+'_'+n]);call(['swarm','leave','--force'])}report.cleanup=call(['ps','-aq'])===''&&call(['network','ls','--filter','label=crm.direct.lab='+project,'--format','{{.ID}}'])===''&&call(['info','--format','{{.Swarm.LocalNodeState}}'])==='inactive'}catch{report.cleanup=false}
  if(!report.cleanup)report.status='FAIL'
- writeFileSync(join(env.RUNNER_TEMP,'direct-compose.safe.json'),JSON.stringify(report))
- rmSync(dir,{recursive:true,force:true})
+ try{rmSync(dir,{recursive:true,force:true})}catch{report.cleanup=false;report.status='FAIL';report.error='DIRECTORY_CLEANUP_FAILED'}
+ writeFileSync(join(env.RUNNER_TEMP,'direct-compose.safe.json'),JSON.stringify(report),{flag:'wx'})
 }
 console.log(JSON.stringify(report));if(report.status!=='PASS')process.exitCode=1
