@@ -45,7 +45,7 @@ export default function AuthCallbackPage() {
       const credentialKeys = ['access_token', 'refresh_token']
       const hasLinkCredentials = credentialKeys.some(key => searchParams.has(key) || hashParams.has(key))
       // Capture the opaque values privately, then remove them before any await
-      // or SDK initialization. Ordinary PKCE/code handling stays unchanged.
+      // or SDK initialization. Fragment validation stays separate from PKCE.
       const accessToken = hashParams.get('access_token')
       const refreshToken = hashParams.get('refresh_token')
       if (hasLinkCredentials) window.history.replaceState(null, '', '/auth/callback')
@@ -125,9 +125,13 @@ export default function AuthCallbackPage() {
           return
         }
       }
-      if (code) {
-        const { error } = await supabase.auth.exchangeCodeForSession(code)
-        if (error) {
+      if (!hasLinkCredentials) {
+        // createBrowserClient already exchanges PKCE during initialization.
+        // Inspect that result rather than consuming the code a second time.
+        const initialized = await supabase.auth.initialize()
+        if (initialized.error || new URLSearchParams(window.location.search).has('code') ||
+            new URLSearchParams(window.location.hash.replace(/^#/, '')).has('code')) {
+          // An unconsumed code must not fall back to a previously stored session.
           redirectToLoginError('No se ha podido crear la sesión de Supabase.')
           return
         }

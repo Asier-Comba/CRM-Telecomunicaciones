@@ -145,8 +145,8 @@ test('causal: returned provider errors never become user-visible raw diagnostics
  assert.equal(h.messages.error.length,1);assert.equal(JSON.stringify(h.messages).includes('private-provider-canary'),false)
  assert.equal(h.button().props.loading,false);assert.equal(h.messages.routes.length,0)
 })
-for(const operation of ['getSession','exchangeCodeForSession'])test('causal: rejected '+operation+' ends checking and exposes only the inactive-link recovery state',async()=>{
- const h=screen({search:operation==='exchangeCodeForSession'?'?code=synthetic-code':'',[operation]:async()=>{throw Error('private-initialization-canary')}})
+for(const operation of ['getSession','initialize'])test('causal: rejected '+operation+' ends checking and exposes only the inactive-link recovery state',async()=>{
+ const h=screen({search:operation==='initialize'?'?code=synthetic-code':'',[operation]:async()=>{throw Error('private-initialization-canary')}})
  await h.mount().catch(()=>{})
  assert.equal(h.text().includes('Verificando enlace seguro'),false)
  assert.equal(h.text().includes('Enlace no activo'),true);assert.equal(h.form(),undefined)
@@ -182,13 +182,13 @@ for(const options of [{unconfigured:true},{getSession:async()=>({data:{session:n
  assert.equal(h.counts().updates,0);assert.equal(h.messages.routes.length,0);assert.equal(h.text().includes('private-session-canary'),false)
 })
 
-for(const operation of ['getSession','exchangeCodeForSession'])test('callback causal: rejected '+operation+' reaches safe login recovery instead of remaining pending',async()=>{
- const h=screen({callback:true,search:operation==='exchangeCodeForSession'?'?code=synthetic-code':'',[operation]:async()=>{throw Error('private-callback-canary')}})
+for(const operation of ['getSession','initialize'])test('callback causal: rejected '+operation+' reaches safe login recovery instead of remaining pending',async()=>{
+ const h=screen({callback:true,search:operation==='initialize'?'?code=synthetic-code':'',[operation]:async()=>{throw Error('private-callback-canary')}})
  await h.mount().catch(()=>{})
  assert.equal(h.timers.length,1);assert.equal(h.timers[0].ms,900)
  assert.equal(h.text().includes('private-callback-canary'),false);assert.equal(h.messages.storageRemovals.length,0)
  h.runTimers();assert.deepEqual(h.messages.routes,['/login?error=callback']);assert.equal(h.counts().updates,0)
- assert.equal(h.counts()[operation==='getSession'?'sessionReads':'codeExchanges'],1,'no automatic exchange/recovery retry')
+ assert.equal(h.counts()[operation==='getSession'?'sessionReads':'initializations'],1,'no automatic exchange/recovery retry')
 })
 for(const type of ['invite','recovery'])test('callback '+type+' still sends an existing session to password setup, without changing it',async()=>{
  const h=screen({callback:true,search:'?type='+type});await h.mount()
@@ -197,10 +197,10 @@ for(const type of ['invite','recovery'])test('callback '+type+' still sends an e
 })
 test('ordinary callback session preserves its dashboard transition and performs no password mutation',async()=>{
  const h=screen({callback:true,search:'?code=synthetic-code'});await h.mount()
- assert.equal(h.counts().codeExchanges,1);assert.equal(h.counts().sessionReads,1);assert.equal(h.timers[0].ms,600)
+ assert.equal(h.counts().codeExchanges,0);assert.equal(h.counts().initializations,1);assert.equal(h.counts().sessionReads,1);assert.equal(h.timers[0].ms,600)
  h.runTimers();assert.deepEqual(h.messages.routes,['/dashboard']);assert.equal(h.counts().updates,0)
 })
-for(const options of [{getSession:async()=>({data:{session:null},error:null})},{getSession:async()=>({data:{session:null},error:{message:'private-callback-canary'}})},{exchangeCodeForSession:async()=>({error:{message:'private-callback-canary'}}),search:'?code=synthetic-code'},{unconfigured:true},{hash:'#error_description=private-callback-canary'}])test('callback unavailable/invalid flows keep the existing safe login recovery',async()=>{
+for(const options of [{getSession:async()=>({data:{session:null},error:null})},{getSession:async()=>({data:{session:null},error:{message:'private-callback-canary'}})},{initialize:async()=>({error:{message:'private-callback-canary'}}),search:'?code=synthetic-code'},{unconfigured:true},{hash:'#error_description=private-callback-canary'}])test('callback unavailable/invalid flows keep the existing safe login recovery',async()=>{
  const h=screen({callback:true,...options});await h.mount();assert.equal(h.timers.length,1);assert.equal(h.timers[0].ms,900)
  assert.equal(h.text().includes('private-callback-canary'),false);assert.equal(h.messages.storageRemovals.length,0)
  h.runTimers();assert.deepEqual(h.messages.routes,['/login?error=callback']);assert.equal(h.counts().updates,0)
