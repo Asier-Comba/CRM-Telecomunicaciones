@@ -1,0 +1,70 @@
+W4 GIT COMMAND AND EXECUTABLE METADATA PREFLIGHT — INACTIVE MODULE
+
+No CLI, route, workflow or automatic invocation is added. Ordinary mode returns
+NOT_RUN before filesystem/process activity. The actual historical producer stays
+disconnected/BLOCKED. This module never supplies object IDs to any process.
+Existing scanner/decoder/transport/producer modules are unchanged in this unit.
+
+Structured future command
+fixedGitProducerCommandV1 validates a canonical absolute Linux repository path
+and returns only private argv/environment accessors. Nothing is executed and no
+path/command is enumerable in JSON. Arguments are fixed, without a shell:
+--no-lazy-fetch --no-replace-objects --no-optional-locks --no-pager
+-c safe.directory=<path> -c core.hooksPath=/dev/null -c core.fsmonitor=false
+-c credential.helper= -c protocol.allow=never -C <path> cat-file --batch
+Repository path remains one argument even with spaces; control, relative, URL,
+traversal or noncanonical paths are rejected. Repository identity, trust, object
+availability and authorization are NOT established by this lexical constructor.
+
+Environment is newly constructed, not inherited: LC_ALL=C, disabled global/system
+Git config, prompt, lazy fetch, replacement objects and optional locks. No HOME,
+PATH, credential, SSH, tracing, LD_* or GIT_CONFIG_COUNT variables are copied.
+These flags are Git controls, not an OS network sandbox or proof of provenance.
+
+Metadata-only entry
+gitExecutableMetadataPreflightV1 needs explicit EXECUTABLE_METADATA_ONLY mode,
+independently reviewed expected SHA256 and exact version, and a trusted Linux
+executable. Tests use controlled private Node script fixtures, never actual Git.
+No actual executable/preflight invocation is authorized merely by this source.
+
+The named candidate must be canonical/nonsymlink, regular/single-link, root or
+effective-uid owned, not group/world writable and executable, 1byte..64MiB.
+It is opened O_NOFOLLOW, its named and descriptor identities matched, and SHA256
+computed from bounded reads. BigInt identity/mode/ownership/size/nanosecond times
+are checked before and after each probe and against the named file at completion.
+Children execute via /proc/<parentpid>/fd/<retainedfd>, preserving the opened file
+identity. Trusted procfs/runtime/filesystem and stable root/euid remain premises.
+
+Only these fixed probes can execute, with cwd=/, stdin ignored, shell false,
+fresh environment, SIGKILL timeout<=5s and bounded stdout/stderr:
+1. --version (exit0)
+2. --no-lazy-fetch --no-replace-objects --no-optional-locks --no-pager --version
+   (exit0, identical reviewed version)
+3. cat-file -h (exit129, advertises distinct --batch and --batch-check options)
+No repository, remote, object lookup, Git help pager, filters or stdin values.
+Flag acceptance/help advertisement is recorded as such, not semantic validation
+of actual object transport. Pure capture parser has no execution authority.
+
+All raw captured bytes remain private and are cleared; raw errors/help/path/env
+never enter the safe result. Only fixed codes, version, SHA256, counts and closed
+capability booleans are returned. JS strings/engine copies are not secure erasure.
+spawnSync waits for its synchronous process/stdio result; its timeout cannot prove
+absence of arbitrary descendants or interrupt indefinitely blocked kernel I/O.
+It is not a substitute for the separately reviewed asynchronous history transport
+exit/stdout/close protocol. No executable can be authenticated solely by a caller
+JSON/hash assertion; enrollment/provenance and execution approval stay external.
+
+Result EXECUTABLE_METADATA_CHECKED always keeps repository_verified=false,
+real_history_authorized=false, publishing_authorized=false, security_accepted=false.
+It is neither producer admission nor accepted image/hosting/STAGING evidence.
+Before any real history connection: independent review and exact-source approved
+metadata execution, trusted repository/private transfer enrollment, object
+availability evidence and separate authorization for the actual three-object run.
+The ten UNKNOWN findings and all historical failures remain unchanged.
+
+Verification
+node --test tools/asier_staging_channel/git-producer-preflight.test.mjs
+15 contracts:9 portable and6 Linux descriptor/process fixture contracts.
+Require15PASS/0FAIL/0CANCELLED/0SKIP on exact new source in Linux. Windows9PASS/
+6SKIP does not qualify the executable probes. No actual Git or history read.
+Prior70 Linux belongs to82c3dde3/f362 only; it is not transferred to this source.
