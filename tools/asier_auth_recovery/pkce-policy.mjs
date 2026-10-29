@@ -38,9 +38,10 @@ export function assertLocalMailTransport(containers){
  const auth=containers.find(c=>c.Name==='/supabase_auth_crm-telecom-local')
  const mail=containers.find(c=>c.Name==='/supabase_inbucket_crm-telecom-local')
  if(!auth||!mail||auth.State?.Running!==true||mail.State?.Running!==true||mail.State?.Health?.Status!=='healthy')throw Error('D1_GLOBAL_AUTH_PKCE_LOCAL_MAIL_NOT_READY')
- const a=environment(auth),m=environment(mail)
+ const a=environment(auth),m=environment(mail),hook=a.get('GOTRUE_HOOK_SEND_EMAIL_ENABLED')
  if(a.get('GOTRUE_SMTP_HOST')!=='supabase_inbucket_crm-telecom-local'||a.get('GOTRUE_SMTP_PORT')!=='1025'||
-    a.get('GOTRUE_SMTP_USER')||a.get('GOTRUE_SMTP_PASS')||a.get('GOTRUE_HOOK_SEND_EMAIL_ENABLED')==='true'||
+    a.get('GOTRUE_SMTP_USER')||a.get('GOTRUE_SMTP_PASS')||
+    (hook!==undefined&&hook!=='false')||a.get('GOTRUE_HOOK_SEND_EMAIL_URI')||a.get('GOTRUE_HOOK_SEND_EMAIL_SECRETS')||
     [...m].some(([key,value])=>/^MP_(SMTP_RELAY|SMTP_FORWARD|SEND_API)/.test(key)&&value))throw Error('D1_GLOBAL_AUTH_PKCE_EXTERNAL_MAIL_FORBIDDEN')
  const ports=mail.NetworkSettings?.Ports?.['8025/tcp']
  if(!Array.isArray(ports)||!ports.length||ports.some(p=>p.HostPort!=='54324'))throw Error('D1_GLOBAL_AUTH_PKCE_MAIL_PORT_MISMATCH')
