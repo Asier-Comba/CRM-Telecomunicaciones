@@ -26,8 +26,8 @@ forma/etiquetas no autentican creación ni autorización.
 REDES: FUTURA FASE SUJETA A AUTORIZACIÓN
 Nunca adoptar una red existente por coincidencia de nombre/etiquetas.
 En una futura ejecución se debe bloquear ante cualquier colisión, crear sólo
-las dos redes nuevas del plan, registrar sus IDs devueltos y leer por esos IDs:
-nombre, overlay/swarm, attachable=true, privada internal=true, salida
+ las dos redes nuevas del plan, registrar sus IDs devueltos y leer por esos IDs:
+ nombre, bridge/local, attachable=true, privada internal=true, salida
 internal=false, etiquetas, ausencia de endpoints ajenos y propiedad del diario.
 La recreación reutiliza únicamente IDs del diario auténtico; un cambio bloquea.
 bindNetworkIds liga external.name al ID completo, no al nombre de red. Se exigen
@@ -133,6 +133,16 @@ Primeros laboratorios772c1cc7/e1246dbb/8cfded77 fallaron y se conservan.
 no distinguía causa de creación/visibilidad/resolución. Tras precreación explícita
 con referencias externas, afe52232/run40899625370/job123538032243 PASS.
 Esto demuestra esa combinación de laboratorio, no una causa universal.
+La repetición519c falló pese a precreación;2f9f también falló al referenciar
+IDs completos. Ninguno se reintenta ni se reinterpreta como PASS. Esos dos
+resultados descartan considerar la propuesta overlay estable con esta evidencia.
+La variante directa actual usa bridges PROPIAS para un único daemon, manteniendo
+la overlay easypanel existente intacta. Es una adaptación explícita del transporte
+directo, sujeta a revisión y decisión final; la solución canónica206 no cambia.
+https://docs.docker.com/engine/network/drivers/bridge/
+Internal no es aislamiento absoluto del host: el gateway y servicios del host
+pueden seguir siendo accesibles. No se acredita confinamiento ante un host
+hostil. Mover roles a otro nodo requeriría otra arquitectura/revisión.
 Lab reutiliza gateway.mjs y App sintética, no una imagen privada aceptada,
 Supabase Auth completo, capacidad del VPS o política real ACCEPTED.
 El último SHA, pruebas y revisiones exactas se registran en211/#67.

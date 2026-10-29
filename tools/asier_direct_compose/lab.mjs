@@ -34,9 +34,9 @@ try{
  const username='crm_lab',password=randomBytes(36).toString('base64url'),secret=join(dir,'ingress.json')
  writeFileSync(secret,JSON.stringify({username,password}),{mode:0o400});chmodSync(secret,0o444)
  for(const n of ['private','shared','outbound']){
- created[n]=call(['network','create','--driver','overlay','--attachable',...n==='private'?['--internal']:[], '--label','crm.direct.lab='+project,project+'_'+n])
+ created[n]=call(['network','create','--driver',n==='shared'?'overlay':'bridge','--attachable',...n==='private'?['--internal']:[], '--label','crm.direct.lab='+project,project+'_'+n])
  const actual=JSON.parse(call(['network','inspect',created[n]]))[0]
- if(actual.Id!==created[n]||actual.Name!==project+'_'+n||actual.Driver!=='overlay'||actual.Scope!=='swarm'||!actual.Attachable||actual.Internal!==(n==='private'))throw Error('CREATED_NETWORK_READBACK_FAILED')
+ if(actual.Id!==created[n]||actual.Name!==project+'_'+n||actual.Driver!==(n==='shared'?'overlay':'bridge')||actual.Scope!==(n==='shared'?'swarm':'local')||!actual.Attachable||actual.Internal!==(n==='private'))throw Error('CREATED_NETWORK_READBACK_FAILED')
  }
  const networks=Object.fromEntries(['private','shared','outbound'].map(n=>[n,{external:true,name:created[n]}]))
  const services={}
