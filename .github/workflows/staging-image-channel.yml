@@ -1,0 +1,79 @@
+name: Staging image channel (OCI lab; GHCR publication closed)
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    paths:
+      - 'infra/deployment/Dockerfile'
+      - 'package-lock.json'
+      - 'scripts/platform/**'
+      - 'tools/asier_staging_channel/**'
+      - 'tools/asier_staging_network/compose-preflight*.mjs'
+      - '.github/workflows/staging-image-channel.yml'
+      - '.github/workflows/staging-image-publish.yml'
+permissions:
+  contents: read
+concurrency:
+  group: staging-image-channel-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version-file: .nvmrc}
+      - name: Simulated channel contracts (doubles only; not registry evidence)
+        run: node --test tools/asier_staging_channel/*.test.mjs
+
+  oci-lab:
+    # Opt-in per exact head SHA, like the runtime lab. Real build/scan/push/pull,
+    # but only to a loopback registry on this disposable runner: no GHCR, no
+    # token, no package permission, no deployment and no consumable receipt.
+    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, format('IMAGE_CHANNEL_LAB_SHA={0}', github.event.pull_request.head.sha))
+    needs: contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version-file: .nvmrc}
+      - name: Install exact checksum-verified image scanner (same pin as enterprise)
+        run: |
+          curl --fail --location --silent --show-error https://github.com/aquasecurity/trivy/releases/download/v0.75.0/trivy_0.75.0_Linux-64bit.tar.gz -o "$RUNNER_TEMP/trivy.tar.gz"
+          echo "c6e65abddb348e25f10549df887045629cf28cc72453cd1c63acb717316b3f3f  $RUNNER_TEMP/trivy.tar.gz" | sha256sum --check
+          mkdir "$RUNNER_TEMP/channel-scanner"
+          tar -xzf "$RUNNER_TEMP/trivy.tar.gz" -C "$RUNNER_TEMP/channel-scanner" trivy
+          rm "$RUNNER_TEMP/trivy.tar.gz"
+          echo "$RUNNER_TEMP/channel-scanner" >> "$GITHUB_PATH"
+      - name: Install exact checksum-verified crane (digest-preserving OCI push)
+        run: |
+          curl --fail --location --silent --show-error https://github.com/google/go-containerregistry/releases/download/v0.22.1/go-containerregistry_Linux_x86_64.tar.gz -o "$RUNNER_TEMP/crane.tar.gz"
+          echo "0ab7a1d6932a213aed964ce97666c3077fe691c8606413674a8b3e0b9ec4cda0  $RUNNER_TEMP/crane.tar.gz" | sha256sum --check
+          mkdir "$RUNNER_TEMP/channel-crane"
+          tar -xzf "$RUNNER_TEMP/crane.tar.gz" -C "$RUNNER_TEMP/channel-crane" crane
+          rm "$RUNNER_TEMP/crane.tar.gz"
+      - name: Existing Dockerfile → OCI layout → scan → loopback push/readback → pull by digest
+        env:
+          CRANE_BIN: ${{ runner.temp }}/channel-crane/crane
+        run: node --experimental-transform-types tools/asier_staging_channel/image-channel-lab.mjs
+      - name: Runtime dependency audit of the exact lockfile (high/critical fail)
+        if: always()
+        run: npm audit --package-lock-only --omit=dev --audit-level=high
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: staging-image-channel-lab-safe
+          path: ${{ runner.temp }}/staging-image-channel-lab.safe.json
+          retention-days: 14
+          if-no-files-found: error
+
+  # GHCR publication is not in this workflow: no packages/id-token/attestations
+  # permission here. The protected, INACTIVE job is staging-image-publish.yml
+  # (see tools/asier_staging_channel/IMAGE_CONTRACT.md section 4).
