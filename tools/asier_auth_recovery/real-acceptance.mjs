@@ -7,12 +7,14 @@ import {createServerClient} from '@supabase/ssr'
 import {chromium,expect} from '@playwright/test'
 import {independentCleanup} from '../asier_documents_global/independent-cleanup.mjs'
 import {authOrigin as origin,authEndpoint,authAppEnvironment,localActionLink} from './policy.mjs'
+import {safeAuthLocation,safeAuthResponse} from './observation.mjs'
 
 export async function realAuthRecoveryAcceptance({url,anon,service,check,report,spawn}){
  if(process.platform!=='linux'||process.env.CI!=='true'||process.env.GITHUB_ACTIONS!=='true'||process.env.DOCUMENTS_GLOBAL_AUTH!=='true'||process.env.AUTH_RECOVERY_ACCEPTANCE!=='true'||process.env.DOCUMENTS_GLOBAL_SCOPE!=='AUTH_RECOVERY_ONLY'||url!==authEndpoint)throw Error('D1_GLOBAL_AUTH_DISPOSABLE_LOOPBACK_ONLY')
  const admin=createClient(url,service,{auth:{persistSession:false,autoRefreshToken:false}})
  const email='auth-recovery-'+randomUUID()+'@example.invalid',password=()=>randomBytes(32).toString('base64url')+'!Aa1'
- const canary='PRIVATE_SYNTHETIC_AUTH_ERROR',contexts=[]
+ const canary='PRIVATE_SYNTHETIC_AUTH_ERROR',contexts=[],pages=[]
+ const network=[];report.auth_network=network
  let userId,server,browser,spawnFailed=false
  const phase=name=>{report.auth_phase=name;console.log(JSON.stringify({kind:'auth_recovery_progress',phase:name}))}
  async function link(type){
@@ -25,6 +27,8 @@ export async function realAuthRecoveryAcceptance({url,anon,service,check,report,
  async function fresh(){
   const ctx=await browser.newContext({viewport:{width:1440,height:960}});contexts.push(ctx)
   const page=await ctx.newPage();page.setDefaultTimeout(30000)
+  pages.push(page)
+  page.on('response',response=>{if(network.length<32){const safe=safeAuthResponse(response.url(),response.status(),response.headers().location);if(safe)network.push(safe)}})
   let pageErrors=0;page.on('pageerror',()=>{pageErrors++})
   return{ctx,page,errors:()=>pageErrors}
  }
@@ -36,9 +40,12 @@ export async function realAuthRecoveryAcceptance({url,anon,service,check,report,
   check(!verified.error&&verified.data.user?.id===userId&&!verified.data.user.is_anonymous&&!!verified.data.user.email_confirmed_at,'actual_browser_session_verified_by_local_auth')
  }
  async function form(page,secret){
+  phase('await_reset_url')
   await page.waitForURL(origin+'/reset-password')
+  phase('await_reset_button_enabled')
   await expect(page.getByRole('button',{name:'Actualizar password',exact:true})).toBeEnabled()
   check(new URL(page.url()).hash===''&&!new URL(page.url()).search,'callback_tokens_absent_from_reset_url')
+  phase('fill_reset_password')
   await page.getByLabel('Nuevo password',{exact:true}).fill(secret)
   await page.getByLabel('Confirmar password',{exact:true}).fill(secret)
  }
@@ -70,7 +77,7 @@ export async function realAuthRecoveryAcceptance({url,anon,service,check,report,
   check(ready,'own_loopback_auth_login_page_ready')
   browser=await chromium.launch()
   phase('actual_invite_callback_and_induced_update_error')
-  const first=await fresh(),secret=password();await first.page.goto(await link('invite'));await form(first.page,secret);await actualSession(first.ctx)
+  const first=await fresh(),secret=password();const invite=await link('invite');phase('navigate_actual_invite');await first.page.goto(invite);await form(first.page,secret);await actualSession(first.ctx)
   let puts=0,induced=false
   const endpoint=url+'/auth/v1/user'
   await first.page.route(endpoint,async route=>{
@@ -114,6 +121,20 @@ export async function realAuthRecoveryAcceptance({url,anon,service,check,report,
   await third.page.screenshot({path:resolve(captures,'induced-callback-error-login.png')})
   report.scenarios={invite_actual_auth:'PASS',induced_update_error:'PASS',explicit_retry_actual_auth:'PASS',recovery_actual_auth:'PASS',induced_local_cleanup_error:'PASS'}
   report.auth_scope='ONE_SYNTHETIC_ACCOUNT_NO_WORKSPACE_GRANTS_NO_HOSTED_ACCEPTANCE'
+ }catch(error){
+  const page=pages.at(-1)
+  report.auth_failure_kind=error?.name==='TimeoutError'?'TIMEOUT':'OTHER'
+  if(page&&!page.isClosed()){
+   const observation={location:safeAuthLocation(page.url())}
+   try{
+    observation.reset_button_count=await page.getByRole('button',{name:'Actualizar password',exact:true}).count()
+    observation.inactive_link_count=await page.getByText('Enlace no activo',{exact:true}).count()
+    observation.safe_callback_message_count=await page.getByText('No se ha podido confirmar la sesión.',{exact:true}).count()
+    observation.password_input_count=await page.locator('input[type="password"]').count()
+   }catch{observation.dom_read='UNAVAILABLE'}
+   report.auth_failure_observation=observation
+  }
+  throw error
  }finally{
   const cleanup=await independentCleanup([...contexts.map(ctx=>()=>ctx.close()),()=>browser?.close(),()=>stopServer()])
   report.auth_process_cleanup=cleanup.failed?'FAIL':'PASS'
