@@ -5,6 +5,7 @@ import {resolve,join,sep} from 'node:path'
 import {Readable,Transform} from 'node:stream'
 import {createGunzip} from 'node:zlib'
 import {registryImageEvidence} from './oci-evidence.mjs'
+import {openPrivateScanInputV1,isPrivateScanInputV1} from './private-scan-input.mjs'
 
 // Inactive library: no CLI, network, subprocess, registry, provider or deployment.
 // Only exact ORIGINAL literal bytes are compared. Encoded/nested payloads and
@@ -103,6 +104,7 @@ async function validateLayerTar(chunks,matcher,state){
  }finally{await iterator.return?.()}
 }
 async function ownedLayout(root){
+ if(isPrivateScanInputV1(root))return root
  if(typeof root!=='string'||resolve(root)!==root)fail('OCI_LAYOUT_DIRECTORY_REQUIRED')
  if(!(await lstat(root)).isDirectory()||(await lstat(root)).isSymbolicLink()||await realpath(root)!==root)fail('OCI_LAYOUT_DIRECTORY_REQUIRED')
  for(const p of ['blobs','blobs/sha256']){const s=await lstat(join(root,p));if(!s.isDirectory()||s.isSymbolicLink())fail('OCI_LAYOUT_SYMLINK')}
@@ -110,6 +112,10 @@ async function ownedLayout(root){
 }
 async function* fileChunks(root,relative,max,state){
  state.tick()
+ if(isPrivateScanInputV1(root)){
+  for await(const bytes of root.chunks(relative,max)){state.tick();yield Buffer.from(bytes)}
+  return
+ }
  const path=join(root,relative)
  if(!path.startsWith(root+sep))fail('OCI_LAYOUT_PATH_INVALID')
  const before=await lstat(path)
@@ -192,6 +198,36 @@ export async function scanHistoricalLiteralsV1({layout,expected,readHistoricalBl
  finally{
   for(const b of owned)b.fill(0)
   if(attempted){try{if(await cleanupHistory()!==true)fail('CLEANUP_NOT_CONFIRMED');result.cleanup='PASS'}catch{result.cleanup='FAIL';result.result='BLOCKED';result.error='HISTORY_CLEANUP_FAILED'}}
+ }
+ return result
+}
+
+// Operational intake for pre-materialized LOCAL private files only. The caller
+// explicitly transfers ownership of an exact three-file disposable directory.
+// No arbitrary reader/cleanup callback can assert this boundary was verified.
+// Existing low-level readers remain test/legacy trusted-port interfaces.
+export async function scanPrivateHistoricalLiteralsV1({layout,historyDirectory,consumeHistoryDirectory,expected,limits}={}){
+ const blocked={version:'staging.private-historical-input.v1',result:'BLOCKED',input_boundary:'NOT_VERIFIED',resolved_findings:0,cleanup:'NOT_STARTED',error:'PRIVATE_INPUT_BLOCKED',publishing_authorized:false,deploying_authorized:false,security_accepted:false}
+ let image,history,result=blocked
+ const transfers=[]
+ try{
+  if(consumeHistoryDirectory!==true||typeof layout!=='string'||typeof historyDirectory!=='string'||layout===historyDirectory||layout.startsWith(historyDirectory+'/')||historyDirectory.startsWith(layout+'/'))fail('PRIVATE_INPUT_BLOCKED')
+  image=await openPrivateScanInputV1(layout)
+  const names=[...new Set(historicalLiteralDescriptorsV1.map(d=>d.blob))]
+  history=await openPrivateScanInputV1(historyDirectory,{historyNames:names})
+  result=await scanHistoricalLiteralsV1({layout:image,expected,limits,
+   readHistoricalBlob:async id=>{const bytes=await history.read(id,META);transfers.push(bytes);return bytes},
+   cleanupHistory:async()=>{let valid=true;try{await history.verify()}catch{valid=false}await history.consumeHistory();if(!valid)fail('PRIVATE_INPUT_BLOCKED');return true}
+  })
+  await image.verify()
+  result.input_boundary='LINUX_FD_PINNED_PRIVATE_LOCAL_INPUT'
+ }catch{
+  result={...result,result:'BLOCKED',input_boundary:'NOT_VERIFIED',error:'PRIVATE_INPUT_BLOCKED'}
+ }finally{
+  for(const bytes of transfers)bytes.fill(0)
+  // Setup failure after accepting transfer still attempts its owned cleanup.
+  if(history&&result.cleanup==='NOT_STARTED')try{await history.consumeHistory();result.cleanup='PASS'}catch{result.cleanup='FAIL'}
+  for(const session of [history,image])if(session)try{await session.close()}catch{result.result='BLOCKED';result.error='PRIVATE_INPUT_CLOSE_FAILED'}
  }
  return result
 }

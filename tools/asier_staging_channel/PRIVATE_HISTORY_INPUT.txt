@@ -1,0 +1,63 @@
+W4 PRIVATE HISTORY INPUT — INACTIVE LIBRARY CONTRACT
+
+Entry: scanPrivateHistoricalLiteralsV1, not a CLI or publication capability.
+The existing low-level scanner/reader ports remain legacy or synthetic test
+interfaces. Their PASS does not attest the private-input boundary.
+
+Supported boundary
+- Linux with /proc/self/fd, O_DIRECTORY, O_NOFOLLOW and a trusted local filesystem.
+- Caller supplies an already materialized OCI directory and a separate disposable
+  history directory. No network, Git process, registry or provider is contacted.
+- Both roots and traversed child directories must be owned by the effective uid,
+  mode 0700. Files must have that uid, mode 0600, one link, and the same device.
+- Every path component is opened without following symlinks. Descendant reads
+  use retained parent descriptors through Linux procfs, not re-resolved paths.
+- History intake accepts exactly the three pinned Git object names and nothing
+  else, at most 1 MiB per file. All three handles are pinned before extraction.
+  Original object SHA1, line SHA256, exact ASCII quotes/offsets remain mandatory.
+- OCI leaf names are restricted to oci-layout, index.json and SHA256 blob paths.
+  At most 512 file handles are retained. Existing OCI digests, tar, compressed,
+  expanded and deadline bounds remain enforced. Metadata reads are at most 1 MiB.
+- Reads use explicit offsets and 64 KiB buffers. BigInt identity, size, mode,
+  ownership, link count, mtimeNs and ctimeNs are checked before/after reads and at
+  final verification. Filesystem writes by the same trusted uid are not allowed
+  during the session. Inputs are not made immutable by chmod or by a JSON flag.
+
+Explicit transfer and cleanup
+- consumeHistoryDirectory:true is required. It transfers only the exact private
+  three-file disposable directory; never point it at a repository or shared data.
+- On accepted intake, cleanup checks each original identity then unlinks only
+  those three files through the retained directory descriptor. No recursive
+  deletion; no replaced/foreign file or OCI directory is deleted.
+- The directory is removed only when empty and its named path still has the
+  original directory identity. Rename, replacement, extra files, mutation or
+  unsuccessful cleanup block the result. Setup rejection does not assume
+  ownership of invalid caller storage; it remains the producer's responsibility.
+- All acquired handles are closed, including failed setup. Owned transfer,
+  extraction and iterator buffers are cleared where reachable. JavaScript
+  strings, engine copies, GC/OS caches and deletion are NOT secure erasure.
+- No values, fragments, raw errors, input paths or secret logs are returned.
+  Counts and pinned descriptor/digest identities are the intended output.
+
+Trust and limits
+- A trusted producer must collect the exact three objects into this disposable
+  private directory without logs or a shared intermediary. That producer's
+  transport, actual three-object receipt and a complete real-image scan are NOT
+  provided or qualified by this change. No extraction of real values is claimed.
+- Hostile same-uid processes, root, ptrace, a compromised kernel/procfs/storage,
+  network filesystems and indefinitely stalled kernel I/O are outside this
+  contract. A separately controlled process deadline is still required for such
+  operational failure; this library cannot interrupt a blocked kernel syscall.
+- No new caller-set verified flag, cleanup callback or private-policy assertion
+  can create authority. JSON input cannot instantiate the process-local session.
+- The ten historical literals remain provenance UNKNOWN. This does not declare
+  them fixtures, invalid, safe, revoked, active, or tied to any provider/project.
+- No image privacy/provenance/absence, hosting, deployment or security acceptance
+  is granted. Publishing/deploying/security flags remain false even on PASS.
+
+Verification
+node --test tools/asier_staging_channel/scan-historical-literals.test.mjs \
+  tools/asier_staging_channel/private-scan-input.test.mjs
+The 20 original tests retain their assertions. The new file has 13 contracts;
+11 require Linux and explicitly skip on Windows. A supported Linux run must
+have all 33 tests PASS and zero skips. Windows results cannot qualify Linux.
