@@ -62,6 +62,8 @@ try{
  if(JSON.stringify(inspect(app).HostConfig.Dns)!=='["127.0.0.1"]')throw Error('APP_DNS_CHANGED')
  report.checks.push('three_roles_limits_no_ports_readonly','private_app_network_only')
  const iface=spawnSync('ip',['-j','address','show','dev','br-'+created.private.slice(0,12)],{encoding:'utf8',shell:false,timeout:10000})
+ if(iface.status===0)report.private_bridge_address_types=JSON.parse(iface.stdout).flatMap(i=>i.addr_info.map(a=>({family:a.family,scope:a.scope})))
+ report.app_nonloopback_ipv6=call(['exec',app,'node','-e','console.log(Object.values(require("node:os").networkInterfaces()).flat().filter(a=>a.family==="IPv6"&&!a.internal).length)'])
  if(iface.status!==0||JSON.parse(iface.stdout).some(i=>i.addr_info.length!==0))throw Error('PRIVATE_HOST_ADDRESS_PRESENT')
  hostCanary=fork(new URL('./host-canary.mjs',import.meta.url),[],{env:{CRM_OWNED_HOST_CANARY:'true'},execArgv:[],silent:true})
  const hostPort=String(await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('HOST_CANARY_START_FAILED')),10000);hostCanary.once('message',m=>{clearTimeout(timer);if(!Number.isInteger(m?.port)||m.port<1||m.port>65535)reject(Error('HOST_CANARY_START_FAILED'));else resolve(m.port)});hostCanary.once('error',reject)}))
