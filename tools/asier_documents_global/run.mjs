@@ -3,9 +3,12 @@ import {existsSync,readFileSync,writeFileSync} from 'node:fs'
 import {resolve} from 'node:path'
 import {loadOwnedConsumerD1V1} from '../../scripts/security/native-postgres/owned-consumer-migrations-d1-v1.mjs'
 import {realGlobalDocumentsAcceptance} from './real-acceptance.mjs'
+import {realAuthRecoveryAcceptance} from '../asier_auth_recovery/real-acceptance.mjs'
 const project='crm-telecom-local'
 const diagnostic=process.env.DOCUMENTS_GLOBAL_SCOPE==='LATE_ROLE_ONLY'
+const recovery=process.env.DOCUMENTS_GLOBAL_SCOPE==='AUTH_RECOVERY_ONLY'
 const report={acceptance_scope:diagnostic?'LATE_ROLE_DIAGNOSTIC_ONLY':'FULL',contract:diagnostic?'documents.global.d1.late-diagnostic.v1':'documents.global.d1.acceptance.v1',result:'NOT_RUN',checks:[],folders:'NOT_IMPLEMENTED_CONTRACT_PENDING',private_bytes:'OFF',hosted:'NOT_RUN',storage_security_acceptance:'NOT_GRANTED',storage_88_adopted:false}
+if(recovery)Object.assign(report,{acceptance_scope:'LOCAL_AUTH_BROWSER_ONLY',contract:'auth.recovery.local.acceptance.v1',documents:'OFF',ai:'OFF',workspace_acceptance:'NOT_RUN',STAGING_DEPLOYED:false,STAGING_ACCEPTED:false})
 let started=false,phase='preflight'
 function command(bin,args,options={}){
  const r=spawnSync(bin,args,{encoding:'utf8',timeout:120000,maxBuffer:20*1024*1024,...options})
@@ -18,7 +21,8 @@ function command(bin,args,options={}){
 }
 const check=(ok,name)=>{report.checks.push({name,result:ok?'PASS':'FAIL'});if(!ok)throw Error('D1_GLOBAL_CHECK_FAILED')}
 try{
- if(process.env.DOCUMENTS_GLOBAL_SCOPE&&!diagnostic)throw Error('D1_GLOBAL_UNKNOWN_ACCEPTANCE_SCOPE')
+ if(process.env.DOCUMENTS_GLOBAL_SCOPE&&!diagnostic&&!recovery)throw Error('D1_GLOBAL_UNKNOWN_ACCEPTANCE_SCOPE')
+ if(recovery&&process.env.AUTH_RECOVERY_ACCEPTANCE!=='true')throw Error('D1_GLOBAL_AUTH_RECOVERY_OPT_IN_REQUIRED')
  if(process.platform!=='linux'||process.env.CI!=='true'||process.env.GITHUB_ACTIONS!=='true'||process.env.DOCUMENTS_GLOBAL_AUTH!=='true')throw Error('D1_GLOBAL_EXPLICIT_DISPOSABLE_CI_ONLY')
  if(['SUPABASE_ACCESS_TOKEN','SUPABASE_DB_PASSWORD','SUPABASE_SERVICE_ROLE_KEY','NEXT_PUBLIC_SUPABASE_URL'].some(k=>process.env[k])||existsSync('supabase/.temp/project-ref'))throw Error('D1_GLOBAL_HOSTED_CONFIG_FORBIDDEN')
  if(['.env','.env.local','.env.development','.env.development.local'].some(path=>existsSync(path)))throw Error('D1_GLOBAL_DOTENV_FORBIDDEN')
@@ -40,7 +44,8 @@ try{
  const versions=sql('select version from supabase_migrations.schema_migrations order by version').split('\n')
  check(JSON.stringify(versions)===JSON.stringify(profile.migrations.map(m=>m.name.slice(0,14))),'all_exact_profile_versions_applied_in_order')
  phase='global_auth_browser_acceptance'
- await realGlobalDocumentsAcceptance({url,anon,service,sql,command,check,report,spawn})
+ if(recovery)await realAuthRecoveryAcceptance({url,anon,service,check,report,spawn})
+ else await realGlobalDocumentsAcceptance({url,anon,service,sql,command,check,report,spawn})
  report.result='PASS'
 }catch(error){
  report.result='FAIL';report.failed_phase=phase;report.error=/^D1_GLOBAL_[A-Z0-9_]{1,100}$/.test(error?.message??'')?error.message:'D1_GLOBAL_SAFE_UNCLASSIFIED_FAILURE';process.exitCode=1

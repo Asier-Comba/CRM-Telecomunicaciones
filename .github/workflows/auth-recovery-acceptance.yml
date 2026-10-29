@@ -1,0 +1,60 @@
+name: Disposable real Auth recovery browser acceptance
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    paths:
+      - 'tools/asier_auth_recovery/**'
+      - 'tools/asier_documents_global/run.mjs'
+      - 'tests/auth-recovery/**'
+      - '.github/workflows/auth-recovery-acceptance.yml'
+permissions:
+  contents: read
+jobs:
+  auth-recovery:
+    # Separate exact-head opt-in after independent review; no automatic rerun
+    # and no inheritance of Documents FULL/LATE acceptance.
+    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, format('AUTH_RECOVERY_RUN_SHA={0}', github.event.pull_request.head.sha))
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      DOCUMENTS_GLOBAL_AUTH: 'true'
+      DOCUMENTS_GLOBAL_SCOPE: AUTH_RECOVERY_ONLY
+      AUTH_RECOVERY_ACCEPTANCE: 'true'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - name: Boundaries and existing component regressions
+        run: |
+          node --experimental-transform-types --test tests/auth-recovery/*.test.mjs tests/documents-pro/global-runner-guards.test.mjs
+          node --test tests/bootstrap/password-recovery-errors.test.mjs
+      - name: Pinned Chromium actual launch prerequisite
+        timeout-minutes: 6
+        run: |
+          npx playwright install chromium
+          node --input-type=module -e 'import {chromium} from "@playwright/test"; const browser=await chromium.launch(); await browser.close();'
+      - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359
+        with:
+          version: 2.119.0
+      - name: Reused disposable resource with Auth-only dispatch
+        run: node --experimental-transform-types tools/asier_documents_global/run.mjs
+      - name: Safe result including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: auth-recovery-local-safe
+          path: ${{ runner.temp }}/documents-global-d1.safe.json
+          retention-days: 7
+      - name: Only synthetic token-free masked browser captures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: auth-recovery-local-ui
+          path: ${{ runner.temp }}/auth-recovery-local-ui
+          retention-days: 7

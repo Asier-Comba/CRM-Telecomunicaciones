@@ -1,0 +1,40 @@
+AUTH_RECOVERY_REAL_ACCEPTANCE — root CLAIM67/6505140705, 2026-10-29
+
+Base: reviewed PR213 ed41d18c4048b2d90fd7ddf9abba3d6bd3b06419.
+Need: component doubles do not verify generated invite/recovery links, cookie
+session establishment, actual password changes or local GoTrue readback.
+No product code changes in this unit; no hosted acceptance claimed.
+
+Reuses tools/asier_documents_global/run.mjs, the same exact BASE87_PLUS_D1
+loader, CLI2.119.0, one project, empty-runner guard and no-backup teardown.
+Only new explicit AUTH_RECOVERY_ONLY dispatch. FULL/LATE defaults unchanged.
+Existing config already permits http://127.0.0.1:3000/auth/callback.
+No config, migrations, RPC, DTO, grants, Storage88, accounts or hosted changes.
+All Document/AI flags OFF. Service key stays in Node fixture; never Next/browser.
+No email sent: local admin.generateLink creates only synthetic example.invalid
+invite/recovery links. Random passwords and links never logged or retained.
+Official contract: https://supabase.com/docs/reference/javascript/auth-admin-generatelink
+Installed SDK GenerateLinkParams/Response independently checked.
+
+Workflow is dormant until separate PR-body opt-in AUTH_RECOVERY_RUN_SHA=<head>
+after W4/W5 review of exact SOURCE/TREE. Later source changes invalidate marker.
+Linux/GitHub-CI/explicit-scope/explicit-Auth flags required. No hosted keys or
+dotenv accepted. No local browser control or VPS resource is used.
+
+Scenarios:
+1. Real invite -> actual callback -> password form -> verified Auth session.
+2. Induced browser PUT400 with private synthetic canary -> safe fixed message,
+   released button and exactly one request through error settlement.
+3. Explicit human-equivalent retry -> real password write -> actual ordinary
+   signInWithPassword + getUser readback for the same synthetic identity.
+4. Fresh context, actual recovery link -> password write and Auth readback.
+5. Real session plus induced localStorage.removeItem failure -> safe login,
+   no unhandled page error, no password write and verified cookie session.
+The two induced errors do NOT establish an actual provider/server defect.
+Browser contexts/process independently cleaned; existing runner owns stack stop.
+Only masked token-free synthetic screenshots and closed report retained.
+
+LOCAL_AUTH_BROWSER_ONLY is not workspace/role/RLS/two-human/two-computer proof.
+STAGING_DEPLOYED=false; STAGING_ACCEPTED=false; PRODUCTION_NOT_APPROVED.
+Original213 bootstrap714/715 FAIL remains; new tests do not erase that run.
+Actual runner result/CI/SOURCE/TREE and limited reviews belong in PR/#67 handoff.
