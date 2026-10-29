@@ -17,16 +17,17 @@ export async function executePreparation(directory,inventory,operation,spawn=spa
  if(report.status!=='CONFIGURATION_CHECKED')throw Error('DIRECT_PREFLIGHT_BLOCKED')
  if((lstatSync(join(directory,'compose-bin')).mode&0o100)===0)throw Error('PINNED_EXECUTOR_NOT_EXECUTABLE')
  verify()
- const args=['--project-name',project,'--project-directory',directory,'--env-file',join(directory,'interpolation.env'),'--file',join(directory,'compose.json'),...operation==='config'?['config','--format','json']:['--dry-run','up','--no-build','--pull','never','-d']]
- const config=join(directory,'empty-docker-config');mkdirSync(config,{mode:0o700})
+ const base=['--project-name',project,'--project-directory',directory,'--env-file',join(directory,'interpolation.env'),'--file',join(directory,'compose.json')]
+ const run=tail=>{
+ verify();const config=join(directory,'empty-docker-config');mkdirSync(config,{mode:0o700})
  let result
- try{result=spawn(join(directory,'compose-bin'),args,{env:{PATH:'/usr/bin:/bin',HOME:directory,DOCKER_HOST:'unix:///var/run/docker.sock',DOCKER_CONFIG:config,COMPOSE_DISABLE_ENV_FILE:'1'},shell:false,encoding:'utf8',timeout:60000,maxBuffer:1048576})}finally{rmSync(config,{recursive:true})}
- if(result.status!==0)throw Error('PREPARATION_EXECUTOR_FAILED')
- verify()
- if(operation==='config'){
+ try{result=spawn(join(directory,'compose-bin'),[...base,...tail],{env:{PATH:'/usr/bin:/bin',HOME:directory,DOCKER_HOST:'unix:///var/run/docker.sock',DOCKER_CONFIG:config,COMPOSE_DISABLE_ENV_FILE:'1'},shell:false,encoding:'utf8',timeout:60000,maxBuffer:1048576})}finally{rmSync(config,{recursive:true})}
+ if(result.status!==0)throw Error('PREPARATION_EXECUTOR_FAILED');verify();return result
+ }
+ let result=run(['config','--format','json'])
  const resolved=directPreflight({...input,configuration:JSON.parse(result.stdout)})
  if(resolved.status!=='CONFIGURATION_CHECKED'){const error=Error('EXECUTOR_CONFIG_DRIFT');error.codes=resolved.errors;throw error}
- }
+ if(operation==='dry-run')result=run(['--dry-run','up','--no-build','--pull','never','-d'])
  return {status:'PREPARATION_ONLY',operation,output_sha256:sha256(result.stdout),deploying_authorized:false,STAGING_DEPLOYED:false}
  })
 }
