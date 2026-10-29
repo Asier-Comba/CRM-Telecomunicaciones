@@ -53,14 +53,23 @@ test('snapshot age cannot be bypassed by future, invalid or noncanonical timesta
  f.snapshot.captured_at=new Date(now-targetProfileV1.max_age_ms).toISOString();assert.equal(check(f).status,'SNAPSHOT_CONSISTENT')
 })
 for(const kind of ['containers','services','networks','volumes'])for(const signal of ['name','compose_project','crm_owner'])test('initial namespace conflict '+kind+'/'+signal,()=>{
- const f=fixture(),r=row('z'.repeat(64),'not-the-project')
+ const f=fixture(),r=row(kind==='containers'?'d'.repeat(64):kind==='volumes'?'not-the-project':'d'.repeat(25),'not-the-project')
  r[signal]=signal==='name'?'crm-telecom-direct-existing':'crm-telecom-direct';f.snapshot.resources[kind].push(r)
+ if(kind==='volumes')r.id=r.name
  if(kind==='containers')f.snapshot.info.Containers++
  denied(f,'TARGET_NAMESPACE_OCCUPIED')
 })
 test('foreign prefix lookalike is not claimed as this project',()=>{
  const f=fixture();f.snapshot.resources.containers[0].name='crm-telecom-directly-different';assert.equal(check(f).status,'SNAPSHOT_CONSISTENT')
  f.snapshot.resources.containers[0].compose_project='';f.snapshot.resources.containers[0].crm_owner='';assert.equal(check(f).status,'SNAPSHOT_CONSISTENT')
+})
+test('causal: truncated or malformed resource IDs and a volume ID/name mismatch cannot be consistent',()=>{
+ for(const bad of ['\n',' ','x','a'.repeat(12),'A'.repeat(64),'g'.repeat(64)]){
+  const f=fixture();f.snapshot.resources.containers[0].id=bad;denied(f,'TARGET_INVENTORY_INVALID')
+ }
+ const service=fixture();service.snapshot.resources.services=[row('x','foreign-service')];denied(service,'TARGET_INVENTORY_INVALID')
+ const network=fixture();network.snapshot.resources.networks.push(row('x','foreign-network'));denied(network,'TARGET_INVENTORY_INVALID')
+ const volume=fixture();volume.snapshot.resources.volumes[0].id='different-volume';denied(volume,'TARGET_INVENTORY_INVALID')
 })
 test('duplicate, truncated, missing and malformed inventory fails closed',()=>{
  const f=fixture();f.snapshot.resources.containers=[];denied(f,'TARGET_CONTAINER_INVENTORY_INCOMPLETE')
