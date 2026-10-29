@@ -1,5 +1,6 @@
 import {connect,isIP} from 'node:net'
 import {fileURLToPath} from 'node:url'
+export function gatewayTarget(value){if(value===undefined||value==='')return 'ABSENT';if(typeof value==='string'&&isIP(value)===4)return 'IPV4';throw Error('GATEWAY_TARGET_INVALID')}
 export function probeHostCanary({host,port,mode,timeout=1500}){
  if(isIP(host)!==4||!Number.isInteger(port)||port<1||port>65535||!['positive','negative'].includes(mode)||!Number.isInteger(timeout)||timeout<1)throw Error('PROBE_INPUT_INVALID')
  return new Promise(resolve=>{

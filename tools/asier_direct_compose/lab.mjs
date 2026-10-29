@@ -8,6 +8,7 @@ import {fixture} from './synthetic-fixture.mjs'
 import {executePreparation} from './executor.mjs'
 import {sha256} from './session.mjs'
 import {privateHostAddressBoundary} from './contract.mjs'
+import {gatewayTarget} from './host-probe.mjs'
 const env=process.env
 if(process.platform!=='linux'||env.GITHUB_ACTIONS!=='true'||env.RUNNER_ENVIRONMENT!=='github-hosted'||env.GITHUB_EVENT_NAME!=='pull_request'||env.GITHUB_REPOSITORY!=='Asier-Comba/CRM-Telecomunicaciones'||!env.RUNNER_TEMP||!/^[a-f0-9]{40}$/.test(env.EXPECTED_SOURCE??''))throw Error('DISPOSABLE_ONLY')
 const dir=mkdtempSync(join(env.RUNNER_TEMP,'crm-direct-')),docker=localDockerCallV1(env,dir),project='crm-direct-lab-'+env.EXPECTED_SOURCE.slice(0,12)
@@ -70,8 +71,10 @@ try{
  const hostPort=String(await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('HOST_CANARY_START_FAILED')),10000);hostCanary.once('message',m=>{clearTimeout(timer);if(!Number.isInteger(m?.port)||m.port<1||m.port>65535)reject(Error('HOST_CANARY_START_FAILED'));else resolve(m.port)});hostCanary.once('error',reject)}))
  const hostIp=JSON.parse(call(['network','inspect',created.outbound]))[0].IPAM.Config[0].Gateway
  const privateGateway=JSON.parse(call(['network','inspect',created.private]))[0].IPAM.Config[0].Gateway
+ const gatewayAbsent=gatewayTarget(privateGateway)==='ABSENT'
+ report.private_gateway_probe=gatewayAbsent?'NOT_APPLICABLE_NO_GATEWAY_ASSIGNED':'REQUIRED_IPV4_PROBE'
  const reachable=(c,ip,mode='negative')=>{const raw=docker(['exec',c,'node','tools/asier_direct_compose/host-probe.mjs',ip??'',hostPort,mode]);let r;try{r=JSON.parse(raw.stdout)}catch{throw Error('HOST_PROBE_JSON_INVALID')}report.host_probes??=[];report.host_probes.push({role:c===egress?'egress':c===app?'app':c===sentinel?'sentinel':'recreated_app',target:ip===hostIp?'HOST_LISTENER':'PRIVATE_GATEWAY',mode,exit:raw.status,status:['DENIED','OPEN','CONNECTED','PROBE_ERROR'].includes(r.status)?r.status:'INVALID',connected:typeof r.connected==='boolean'?r.connected:null,reason:/^[A-Z_]{1,64}$/.test(r.reason??'')?r.reason:'INVALID'});if(raw.status!==0)throw Error('HOST_PROBE_EXECUTION_FAILED');if(r.status==='DENIED'&&(r.connected!==false||!['NO_CONNECTION_TIMEOUT','ECONNREFUSED','ENETUNREACH','EHOSTUNREACH','ETIMEDOUT'].includes(r.reason))||r.status==='OPEN'&&(r.connected!==true||r.reason!=='IDENTIFIED'))throw Error('HOST_PROBE_OUTPUT_INVALID');return r.status}
- if(reachable(egress,hostIp,'positive')!=='OPEN'||reachable(app,hostIp)!=='DENIED'||reachable(app,privateGateway)!=='DENIED'||reachable(egress,hostIp,'positive')!=='OPEN')throw Error('HOST_CANARY_BOUNDARY_FAILED')
+ if(reachable(egress,hostIp,'positive')!=='OPEN'||reachable(app,hostIp)!=='DENIED'||!gatewayAbsent&&reachable(app,privateGateway)!=='DENIED'||reachable(egress,hostIp,'positive')!=='OPEN')throw Error('HOST_CANARY_BOUNDARY_FAILED')
  report.checks.push('host_listener_positive_from_outbound','host_listener_denied_from_private_app','private_bridge_has_no_host_ipv4')
  foreignVolume=project+'-foreign-volume';call(['volume','create',foreignVolume])
  const volumeBefore=call(['volume','inspect',foreignVolume])
@@ -95,7 +98,7 @@ try{
  const recreatedIp=address(recreated,'private')
  probe(sentinel,{kind:'outside',canaryIp,appIp:recreatedIp,supabaseIp:ip,username,password})
  probe(recreated,{kind:'internal',canaryIp,supabaseIp:ip})
- if(reachable(sentinel,hostIp,'positive')!=='OPEN'||reachable(recreated,hostIp)!=='DENIED'||reachable(recreated,privateGateway)!=='DENIED'||reachable(sentinel,hostIp,'positive')!=='OPEN')throw Error('RECREATED_APP_REACHES_HOST')
+ if(reachable(sentinel,hostIp,'positive')!=='OPEN'||reachable(recreated,hostIp)!=='DENIED'||!gatewayAbsent&&reachable(recreated,privateGateway)!=='DENIED'||reachable(sentinel,hostIp,'positive')!=='OPEN')throw Error('RECREATED_APP_REACHES_HOST')
  report.checks.push('recreated_app_host_listener_denied')
  if(inspect(sentinel).Id!==before)throw Error('FOREIGN_PROJECT_CHANGED')
  report.checks.push('recreate_does_not_change_foreign_container')
