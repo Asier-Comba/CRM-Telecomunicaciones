@@ -28,3 +28,4 @@ for(const [name,mutate]of Object.entries({
  const input=fixture();assert.equal(directPreflight(input).status,'CONFIGURATION_CHECKED');mutate(input.configuration);const result=directPreflight(input);assert.equal(result.status,'BLOCKED');assert.equal(result.deploying_authorized,false)
 })
 test('PROPOSED policy stays blocking even with consistent synthetic identity',()=>{const i=fixture();i.policy.status='PROPOSED';assert.equal(directPreflight(i).status,'BLOCKED')})
+test('source converter must not sanitize malformed IPAM into acceptance',()=>{const c=model();c.networks['crm-private'].ipam=[];assert.throws(()=>directConfiguration(c))})

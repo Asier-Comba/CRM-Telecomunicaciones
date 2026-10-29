@@ -10,7 +10,7 @@ export function directConfiguration(configuration){
  for(const name of ['crm-private','crm-outbound']){
   if(c.networks[name].name!==old+'_'+name)throw Error('SOURCE_NETWORK_INVALID')
   const n=c.networks[name]
-  if(Object.keys(n).some(k=>!['name','driver','internal','attachable','labels','ipam'].includes(k))||n.driver!=='overlay'||n.attachable!==true||(name==='crm-private'?n.internal!==true:n.internal!==undefined&&n.internal!==false)||JSON.stringify(n.labels)!==JSON.stringify({'crm.scope':'crm-telecom-staging'})||n.ipam!==undefined&&(n.ipam===null||Object.keys(n.ipam).length!==0))throw Error('SOURCE_NETWORK_INVALID')
+  if(Object.keys(n).some(k=>!['name','driver','internal','attachable','labels','ipam'].includes(k))||n.driver!=='overlay'||n.attachable!==true||(name==='crm-private'?n.internal!==true:n.internal!==undefined&&n.internal!==false)||JSON.stringify(n.labels)!==JSON.stringify({'crm.scope':'crm-telecom-staging'})||n.ipam!==undefined&&(n.ipam===null||typeof n.ipam!=='object'||Array.isArray(n.ipam)||Object.keys(n.ipam).length!==0))throw Error('SOURCE_NETWORK_INVALID')
   c.networks[name]={name:project+'_'+name,external:true}
  }
  const s=c.secrets['crm-staging-ingress']
