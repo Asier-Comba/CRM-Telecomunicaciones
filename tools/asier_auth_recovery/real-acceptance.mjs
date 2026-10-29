@@ -163,9 +163,14 @@ export async function realAuthRecoveryAcceptance({url,anon,service,check,report,
     const target=new URL(request.url())
     if(target.origin!==url)return
     if(target.pathname==='/auth/v1/user'&&request.method()==='PUT')evidence.password_writes++
-    if(target.pathname==='/auth/v1/token'&&target.searchParams.get('grant_type')==='refresh_token')evidence.refresh_requests++
-    const address=new URL(trial.page.url())
-    if(address.hash.includes('access_token=')||address.hash.includes('refresh_token='))evidence.credential_url_at_auth_request=true
+    const refreshRequest=target.pathname==='/auth/v1/token'&&target.searchParams.get('grant_type')==='refresh_token'
+    if(refreshRequest)evidence.refresh_requests++
+    // An unrelated prior-session read is not admission of the link's access.
+    // The header is compared privately and never retained or reported.
+    if(refreshRequest||target.pathname==='/auth/v1/user'&&request.headers().authorization==='Bearer '+access){
+     const address=new URL(trial.page.url())
+     if(address.hash.includes('access_token=')||address.hash.includes('refresh_token='))evidence.credential_url_at_auth_request=true
+    }
    })
    let prior=null
    if(priorActor){
@@ -183,7 +188,7 @@ export async function realAuthRecoveryAcceptance({url,anon,service,check,report,
    const after=await browserIdentity(trial.ctx),address=new URL(trial.page.url())
    check(address.origin===origin&&address.pathname==='/login'&&!address.hash&&!address.searchParams.has('access_token')&&!address.searchParams.has('refresh_token'),'real_negative_pair_returns_to_token_free_login_'+name)
    check(prior?after?.id===prior.id&&after?.session===prior.session:after===null,'real_negative_pair_preserves_prior_or_absent_cookie_session_'+name)
-   check(evidence.password_writes===0&&trial.errors()===0&&evidence.refresh_requests===expectedRefreshes&&!evidence.credential_url_at_auth_request,'real_negative_pair_no_password_write_or_early_credential_request_'+name)
+   check(evidence.password_writes===0&&trial.errors()===0&&evidence.refresh_requests===expectedRefreshes&&!evidence.credential_url_at_auth_request,'real_negative_pair_no_password_write_or_early_link_credential_request_'+name)
    evidence.result='PASS';evidence.prior_session=prior?'PRESERVED':'ABSENT'
    await trial.ctx.close()
   }
