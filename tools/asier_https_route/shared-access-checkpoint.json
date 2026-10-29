@@ -1,0 +1,61 @@
+{
+  "kind": "OBSERVED_SHARED_ACCESS_CHECKPOINT_NOT_DEPLOYMENT_APPROVAL",
+  "date": "2026-10-29",
+  "source_examined": "20d58da824a77dfdeeff99045d99a5319fe0cd34",
+  "claim": 6503343397,
+  "origin": "https://crm-telecom-staging.hvdnby.easypanel.host",
+  "external_observation": {
+    "http_status": 502,
+    "remote_ipv4": "187.77.166.196",
+    "redirect": null,
+    "tls_verified": true,
+    "tls_protocol": "TLSv1.3",
+    "certificate_subject": "*.hvdnby.easypanel.host",
+    "certificate_issuer": "Lets Encrypt YE1",
+    "certificate_not_before_utc": "2026-10-24T00:42:48Z",
+    "certificate_not_after_utc": "2027-01-22T00:42:47Z",
+    "certificate_sha256": "162D1FB68FC7405C00CD0E20410628CFF8FBD625745E61A8A4656D9345586DF2",
+    "credentials_supplied": false,
+    "internal_route_destination": "NOT_OBSERVED",
+    "private_ingress_identity": "NOT_VERIFIED",
+    "basic_protection": "NOT_VERIFIED_502_IS_NOT_401"
+  },
+  "auth_read_only_observation": {
+    "project_matches_existing_binding": true,
+    "participant_emails_confirmed_privately_by_owner": true,
+    "owner_workspace_and_roles_confirmed": true,
+    "ASIER": {"auth_account_exists": true, "email_confirmed": true, "active_owner_membership": true, "preferred_workspace_matches": true},
+    "OIER": {"auth_account_exists": false, "desired_role": "member", "membership_created": false},
+    "target_workspace": "EXISTING_OWNER_CONFIRMED_WORKSPACE",
+    "personal_identifiers_in_this_file": false,
+    "supabase_mutated": false,
+    "auth_admin_operation_available_in_connector": false
+  },
+  "admission_reproduction": {
+    "type": "PURE_FUNCTION_NO_NETWORK_NO_AUTH",
+    "same_allowlisted_uuid_confirmed_nonanonymous_synthetic_email": true,
+    "same_allowlisted_uuid_confirmed_nonanonymous_personal_email": false,
+    "unknown_uuid_synthetic_email": false,
+    "cause": "stagingIdentityAllowedV1 requires example.invalid email",
+    "fix_owner": "W4_SEPARATE_CLAIM_REVIEW_REQUIRED"
+  },
+  "image": {
+    "pr": 210,
+    "observed_source": "a2367fa82adc37f343acc53f3f45b57bb6a46b34",
+    "pr_declares_real_publication": "NONE",
+    "publication_jobs": "INACTIVE",
+    "authentic_private_digest_accepted": false,
+    "owner": "CLAUDE"
+  },
+  "states": {
+    "SUBDOMAIN_READY": false,
+    "IMAGE_PRIVATE_VERIFIED": false,
+    "STAGING_DEPLOYED": false,
+    "STAGING_ACCEPTED": false,
+    "RELEASE": "NOT_ACCEPTED"
+  },
+  "new_deployment_performed": false,
+  "vps_browser_or_authenticated_panel_access": false,
+  "lab_repeated": false,
+  "states_describe_this_candidate_not_inventory_of_unobserved_vps_containers": true
+}
