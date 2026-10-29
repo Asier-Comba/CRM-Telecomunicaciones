@@ -1,0 +1,84 @@
+W4 PRIVATE HISTORY PRODUCER — REVIEWABLE PLAN, NOT AN ACTIVE PRODUCER
+
+Scope of this source
+Only a pure bounded binary Git --batch decoder and synthetic tests are active.
+No child process, Git object retrieval, filesystem materialization, network or
+historical extraction is implemented or executed by these new files.
+The previously qualified Linux private-input module is unchanged.
+
+Implemented prerequisite
+private-history-batch.mjs owns copies of bounded chunks, admits exactly three
+ordered object replies, requires canonical ASCII '<sha1> blob <size> LF', exact
+binary size and trailing LF, independently recomputes Git blob identity, rejects
+extra/truncated/error replies, and clears owned partial buffers on abort/failure.
+At most 1MiB/object, 3*(1MiB+100) aggregate bytes, 1024 chunks and 30s elapsed;
+limits may only decrease. finish/abort are terminal. Public pinned factory and
+request use only the exact three IDs from the unchanged ten descriptors.
+Returned buffers are private capabilities, never report/JSON/log content.
+syntheticGitBatchDecoderV1 is a low-level test API with no acceptance authority.
+
+Proposed next implementation, before any actual-object run
+1. Accept an explicitly reviewed local Git object repository and trusted Linux
+   Git executable. No repository URL, clone, fetch, provider credentials, shell,
+   dotenv, environment-provided executable or general command callback.
+   Read back executable identity/digest for the exact runner; record supported
+   Git version and fixed command contract. Binary provenance remains a trusted
+   runtime prerequisite, not authenticated by a caller JSON string/hash.
+2. Invoke one child with fixed arguments:
+   git --no-lazy-fetch --no-replace-objects --no-optional-locks --no-pager
+       -c safe.directory=<reviewed-local-repository>
+       -c core.hooksPath=/dev/null -c core.fsmonitor=false
+       -C <reviewed-local-repository> cat-file --batch
+   No --filters, --textconv, --follow-symlinks, revision/path expressions or
+   caller object substitutions. Only pinnedHistoryRequestV1 goes to stdin.
+   Exact executable invocation has no shell; repository and executable paths
+   are validated regular/local identities, not executable text interpolation.
+3. Child environment is newly constructed, not inherited: disable system/global
+   Git configs, prompts, lazy fetch, replacements, optional locks and tracing;
+   do not pass HOME, GIT_CONFIG_COUNT, GIT_TRACE, LD_*, SSH or credential variables.
+   Repository configuration/alternates/local storage and the runtime executable
+   remain explicit trust inputs; missing promisor objects must block, never fetch.
+4. stdout is consumed only as bounded binary into pinnedHistoryBatchDecoderV1.
+   stderr is discarded, never console forwarded or retained. Stream/process
+   errors and timeouts become fixed codes. No raw URL, path, stderr or bytes in
+   errors/reports. Enforce max bytes during receipt, not after child completion.
+5. Child deadline kills only its own child, waits for actual close, rejects late
+   output and tries all cleanup independently. No orphan rejection or retry.
+   If process close cannot be confirmed within bounded termination, return
+   BLOCKED/PROCESS_CLEANUP_UNKNOWN, never accept the transfer or select a rerun.
+   Need synthetic child tests for exit-before-close, timeout, overflow, EPIPE,
+   nonzero exit, late output, spawn failure and independent cleanup failure.
+6. Only after complete verified batch: create a nonce disposable directory via
+   a retained trusted private-parent descriptor, mode0700, three exclusive
+   O_NOFOLLOW|O_EXCL files mode0600 named by exact pinned IDs. Enforce all handles
+   and path identities; no shared intermediary, atomic overwrite or archive.
+   Flush/close files and hand the directory to scanPrivateHistoricalLiteralsV1
+   with consumeHistoryDirectory:true. Do not serialize or publish that path.
+7. If creation/handoff/scanning fails, clean only explicitly owned identity-
+   matched files/directory, attempt process/handle/buffer cleanup independently,
+   verify absence and return BLOCKED if any cleanup cannot be proved. Never
+   recursively delete repository, shared storage, parent or image directory.
+
+Review/authority and remaining evidence
+- This plan requires independent source review before subprocess/materialization
+  code is connected, and a separate explicit exact-source actual-object run.
+  The current delegation explicitly excludes extraction of real values.
+- No supplied/approved real producer invocation, executable/repository receipt,
+  transfer directory, actual three-object materialization or ten extraction is
+  claimed. These are BLOCKERS, not inferred failures of Git or the historical IDs.
+- Existing scanner must still validate original object/line/offset descriptors.
+  Producer success alone cannot classify the ten provenance UNKNOWN literals.
+- No publisher/workflow/registry/OCI build, hosted, staging, policy or release
+  change. No actual values/fragments, environment data, passwords or credentials
+  are artifacts. Reports may contain counts, fixed codes and pinned hashes only.
+- Clearing reachable buffers/deleting files is not secure erasure. Hostile same
+  uid/root/kernel/storage and indefinitely blocked kernel I/O remain outside the
+  current input trust boundary; do not turn a process flag into that proof.
+
+Primary protocol contracts
+https://git-scm.com/docs/git-cat-file (BATCH OUTPUT)
+https://git-scm.com/docs/git (--no-lazy-fetch, --no-replace-objects)
+
+Synthetic verification only
+node --test tools/asier_staging_channel/private-history-batch.test.mjs
+Expected13PASS/0FAIL/0SKIP on supported Node. This does not run Git or read objects.
