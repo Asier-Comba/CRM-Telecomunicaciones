@@ -70,8 +70,8 @@ try{
  const hostPort=String(await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('HOST_CANARY_START_FAILED')),10000);hostCanary.once('message',m=>{clearTimeout(timer);if(!Number.isInteger(m?.port)||m.port<1||m.port>65535)reject(Error('HOST_CANARY_START_FAILED'));else resolve(m.port)});hostCanary.once('error',reject)}))
  const hostIp=JSON.parse(call(['network','inspect',created.outbound]))[0].IPAM.Config[0].Gateway
  const privateGateway=JSON.parse(call(['network','inspect',created.private]))[0].IPAM.Config[0].Gateway
- const reachable=(c,ip)=>call(['exec',c,'node','-e','const s=require("node:net").connect({host:process.argv[1],port:Number(process.argv[2])});let done=false,data="";const end=v=>{if(done)return;done=true;s.destroy();console.log(v)};s.setTimeout(1500);s.on("data",b=>{data+=b;if(data==="CRM_DIRECT_OWNED_HOST_CANARY")end("OPEN")});s.once("end",()=>end("MISMATCH"));s.once("timeout",()=>end("DENIED"));s.once("error",()=>end("DENIED"));',ip,hostPort])
- if(reachable(egress,hostIp)!=='OPEN'||reachable(app,hostIp)!=='DENIED'||reachable(app,privateGateway)!=='DENIED'||reachable(egress,hostIp)!=='OPEN')throw Error('HOST_CANARY_BOUNDARY_FAILED')
+ const reachable=(c,ip,mode='negative')=>{const r=JSON.parse(call(['exec',c,'node','tools/asier_direct_compose/host-probe.mjs',ip,hostPort,mode]));if(r.status==='DENIED'&&(r.connected!==false||!['NO_CONNECTION_TIMEOUT','ECONNREFUSED','ENETUNREACH','EHOSTUNREACH','ETIMEDOUT'].includes(r.reason))||r.status==='OPEN'&&(r.connected!==true||r.reason!=='IDENTIFIED'))throw Error('HOST_PROBE_OUTPUT_INVALID');return r.status}
+ if(reachable(egress,hostIp,'positive')!=='OPEN'||reachable(app,hostIp)!=='DENIED'||reachable(app,privateGateway)!=='DENIED'||reachable(egress,hostIp,'positive')!=='OPEN')throw Error('HOST_CANARY_BOUNDARY_FAILED')
  report.checks.push('host_listener_positive_from_outbound','host_listener_denied_from_private_app','private_bridge_has_no_host_ipv4')
  foreignVolume=project+'-foreign-volume';call(['volume','create',foreignVolume])
  const volumeBefore=call(['volume','inspect',foreignVolume])
@@ -95,7 +95,7 @@ try{
  const recreatedIp=address(recreated,'private')
  probe(sentinel,{kind:'outside',canaryIp,appIp:recreatedIp,supabaseIp:ip,username,password})
  probe(recreated,{kind:'internal',canaryIp,supabaseIp:ip})
- if(reachable(sentinel,hostIp)!=='OPEN'||reachable(recreated,hostIp)!=='DENIED'||reachable(recreated,privateGateway)!=='DENIED'||reachable(sentinel,hostIp)!=='OPEN')throw Error('RECREATED_APP_REACHES_HOST')
+ if(reachable(sentinel,hostIp,'positive')!=='OPEN'||reachable(recreated,hostIp)!=='DENIED'||reachable(recreated,privateGateway)!=='DENIED'||reachable(sentinel,hostIp,'positive')!=='OPEN')throw Error('RECREATED_APP_REACHES_HOST')
  report.checks.push('recreated_app_host_listener_denied')
  if(inspect(sentinel).Id!==before)throw Error('FOREIGN_PROJECT_CHANGED')
  report.checks.push('recreate_does_not_change_foreign_container')
