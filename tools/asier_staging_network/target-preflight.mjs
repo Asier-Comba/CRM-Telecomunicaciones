@@ -15,6 +15,7 @@ const hash=x=>createHash('sha256').update(x).digest('hex')
 const response=errors=>({version:'crm.target-preflight.v1',status:errors.length?'BLOCKED':'SNAPSHOT_CONSISTENT',errors:[...new Set(errors)],values_included:false,snapshot_authenticated:false,inventory_completeness_authenticated:false,capacity_accepted:false,capacity_scope:'MEMORY_AND_CPU_LOWER_BOUNDS_ONLY_NOT_RESERVATION',route_verified:false,hosted_preflight_accepted:false,deploying_authorized:false,STAGING_DEPLOYED:false})
 const resourceKinds=['containers','services','networks','volumes']
 const namespace=name=>name===targetProfileV1.project||name.startsWith(targetProfileV1.project+'-')||name.startsWith(targetProfileV1.project+'_')
+const resourceIdentity=(kind,r)=>typeof r.id==='string'&&(kind==='volumes'?r.id===r.name:kind==='services'?/^[a-z0-9]{25}$/.test(r.id):kind==='containers'?/^[a-f0-9]{64}$/.test(r.id):/^(?:[a-f0-9]{64}|[a-z0-9]{25})$/.test(r.id))
 
 /** Compare minimized operator snapshots with an independently reviewed target
  * binding. Neither JSON, hashes, timestamps nor supplied expected IDs establish
@@ -47,7 +48,7 @@ export function targetSnapshotPreflightV1(input,now=Date.now()){
     if(!Array.isArray(rows)||rows.length>10000){errors.push('TARGET_INVENTORY_INVALID');continue}
     const seenIds=new Set(),seenNames=new Set()
     for(const r of rows){
-     if(!keys(r,['id','name','compose_project','crm_owner'])||typeof r.id!=='string'||!r.id.length||r.id.length>128||typeof r.name!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_.-]{0,254}$/.test(r.name)||![r.compose_project,r.crm_owner].every(x=>x===null||typeof x==='string'&&x.length<=255)){
+     if(!keys(r,['id','name','compose_project','crm_owner'])||!resourceIdentity(kind,r)||typeof r.name!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_.-]{0,254}$/.test(r.name)||![r.compose_project,r.crm_owner].every(x=>x===null||typeof x==='string'&&x.length<=255)){
       errors.push('TARGET_INVENTORY_INVALID');continue
      }
      if(seenIds.has(r.id)||seenNames.has(r.name))errors.push('TARGET_INVENTORY_DUPLICATE')

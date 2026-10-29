@@ -35,7 +35,9 @@ SNAPSHOT.json exact top-level keys:
  resources: containers/services/networks/volumes arrays, ALL FOUR required.
  memory_available_bytes: current available memory, not MemTotal/free-cache guess.
 Every resource projection has exactly id,name,compose_project,crm_owner.
- id/name: actual full resource identity/name; volumes use name as identity.
+ id/name: actual full resource identity/name; container64lowercasehex,
+          service25lowercasealphanumeric, network64hex or25SwarmID;
+          volumes require id exactly equal to their valid name.
  compose_project: only com.docker.compose.project label value, or null/empty.
  crm_owner: only crm.direct.owner label value, or null/empty.
 Strip Docker inspect's single leading slash from a container name when building
