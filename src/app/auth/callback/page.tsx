@@ -125,7 +125,7 @@ export default function AuthCallbackPage() {
           return
         }
       }
-      if (!hasLinkCredentials) {
+      if (!hasLinkCredentials && (searchParams.has('code') || hashParams.has('code'))) {
         // createBrowserClient already exchanges PKCE during initialization.
         // Inspect that result rather than consuming the code a second time.
         const initialized = await supabase.auth.initialize()

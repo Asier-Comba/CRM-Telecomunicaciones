@@ -35,7 +35,7 @@ const fetch=async(input)=>{
 };
 const make=()=>createBrowserClient('http://127.0.0.1:54321','SYNTHETIC_ANON',{isSingleton:false,cookies:{getAll:()=>[...cookies].map(([name,value])=>({name,value})),setAll:items=>{for(const {name,value}of items){if(value)cookies.set(name,value);else cookies.delete(name)}}},auth:{autoRefreshToken:false},global:{fetch}});
 const sender=make();await sender.auth.initialize();
-if(mode.kind!=='positive'){
+if(!['positive','cached'].includes(mode.kind)){
  const seeded=await sender.auth.setSession(fixture);
  if(seeded.error||!seeded.data.session)throw Error('SYNTHETIC_PRIOR_SESSION_SETUP_FAILED');
 }
@@ -45,15 +45,22 @@ if(['positive','failed','hash'].includes(mode.kind)){
 }
 await sender.auth.stopAutoRefresh();
 const path=mode.callback?'/auth/callback':'/reset-password';
-address=new URL('http://127.0.0.1:3000'+path+(mode.kind==='ordinary'?'':mode.kind==='hash'?'#code=SYNTHETIC_CODE':'?code=SYNTHETIC_CODE'+(mode.callback?'&type=recovery':'')));
+address=mode.kind==='cached'?new URL('http://127.0.0.1:3000/auth/callback#type=invite&access_token='+access+'&refresh_token=synthetic-refresh'):new URL('http://127.0.0.1:3000'+path+(mode.kind==='ordinary'?'':mode.kind==='hash'?'#code=SYNTHETIC_CODE':'?code=SYNTHETIC_CODE'+(mode.callback?'&type=recovery':'')));
 const receiver=mode.kind==='singleton'?sender:make();
 const original=receiver.auth.exchangeCodeForSession.bind(receiver.auth);
 receiver.auth.exchangeCodeForSession=(...args)=>{manual++;return original(...args)};
+let bridge_completed=false,cached_error=false;
+if(mode.kind==='cached'){
+ cached_error=!!(await receiver.auth.initialize()).error;
+ const callback=screen({callback:true,client:receiver,window,temporaryGetUser:async()=>({data:{user},error:null}),refreshSession:async()=>({data:{session:fixture,user},error:null})});
+ await callback.mount();callback.runTimers();bridge_completed=callback.messages.routes[0]==='/reset-password';
+ address=new URL('http://127.0.0.1:3000/reset-password');
+}
 const h=screen({callback:mode.callback,client:receiver,window});
 await h.mount();h.runTimers();
 const readback=await receiver.auth.getSession();
 await receiver.auth.stopAutoRefresh();
-console.log(JSON.stringify({form:!!h.form(),routes:h.messages.routes,manual,exchange,recover,denied,session:readback.data.session?.user?.id===uid,code_remaining:address.searchParams.has('code')||new URLSearchParams(address.hash.slice(1)).has('code'),raw_error_rendered:h.text().includes('PRIVATE_SYNTHETIC_CANARY'),network_calls:0}));
+console.log(JSON.stringify({form:!!h.form(),routes:h.messages.routes,manual,exchange,recover,denied,session:readback.data.session?.user?.id===uid,code_remaining:address.searchParams.has('code')||new URLSearchParams(address.hash.slice(1)).has('code'),raw_error_rendered:h.text().includes('PRIVATE_SYNTHETIC_CANARY'),bridge_completed,cached_error,network_calls:0}));
 `
 
 function run(mode){
@@ -64,6 +71,11 @@ function run(mode){
  assert.equal(observed.denied,0);assert.equal(observed.network_calls,0);assert.equal(observed.raw_error_rendered,false)
  return observed
 }
+test('causal installed SDK and both components: admitted fragment reaches reset despite an earlier cached initialization error',()=>{
+ const value=run({callback:false,kind:'cached'})
+ assert.equal(value.cached_error,true);assert.equal(value.bridge_completed,true)
+ assert.equal(value.form,true);assert.equal(value.session,true);assert.equal(value.manual,0);assert.equal(value.exchange,0)
+})
 
 for(const callback of [false,true]){
  test('causal installed SDK: '+(callback?'callback':'reset')+' accepts the automatically exchanged PKCE code exactly once',()=>{
