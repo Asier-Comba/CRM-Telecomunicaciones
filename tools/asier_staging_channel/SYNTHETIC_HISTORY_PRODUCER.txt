@@ -1,0 +1,66 @@
+W4 SYNTHETIC TRANSPORT AND PRIVATE MATERIALIZATION — NOT REAL HISTORY
+
+Entry: syntheticPrivateHistoryProducerV1. Only explicit SYNTHETIC_ONLY invokes
+a supplied trusted fixture child. Default/ordinary/real modes do not invoke it.
+The exact three actual pinned history IDs are explicitly rejected in synthetic
+controllers. producePinnedHistoryTransferV1 always returns BLOCKED with no I/O.
+No Git executable/repository is selected and no Git object retrieval exists.
+
+Process protocol
+- The fixed synthetic IDs alone are sent to stdin, without shell interpolation.
+- Binary stdout feeds the previously reviewed bounded Git batch decoder. Receipt
+  is accepted only after stdin finish, exit0, stdout end and matching close0.
+  exit alone never establishes output completion. stderr is discarded/cleared.
+- Output/IO/child errors, overflow and deadline trigger own-child termination.
+  SIGTERM, bounded wait, SIGKILL and bounded wait are attempted without retry.
+  Missing close means BLOCKED/cleanup UNKNOWN, not process absence. Late bytes
+  are cleared and late errors absorbed; returned metadata does not turn green.
+- No raw error/command/path/output buffer enters the JSON-safe receipt. Its
+  nonenumerable one-shot takeObjects method transfers buffer ownership; dispose
+  clears untaken data. Consumer must clear transferred buffers independently.
+- Synthetic Node child fixtures test actual process/stdout closure, including a
+  bounded writer whose output arrives after its owning child's exit event.
+  These Node fixtures do not attest Git provenance or a real Git invocation.
+
+Private storage protocol
+- Existing Linux descriptor traversal/0700 effective-uid private parent is reused.
+  A nonce directory is created through that retained parent descriptor. Exactly
+  three regular0600 files use exclusive/no-follow creation; exact captured IDs,
+  Git hash, bytes, same filesystem and file identities are verified. Sync/close
+  precede the synthetic consumer. Inputs are captured once before any await.
+- Consumer receives a transient private path only as a trusted callback argument;
+  it is never a report field. The JSON-safe result contains fixed codes/counts.
+- On success or failure, independent cleanup unlinks only original identity-
+  matching files. Replaced or additional files survive and force BLOCKED.
+  No recursive delete, parent/repository/image deletion or overwrite exists.
+  Empty nonce directory removal is checked against its retained original inode;
+  already-removed original storage is distinguished from a replacement path.
+- All owned buffers and acquired handles are cleaned even when consumer throws.
+  Cleanup failure/unknown is reported honestly and cannot produce an accepted
+  transfer. This is not secure erasure or protection against hostile same uid,
+  root, compromised kernel/storage or indefinitely blocked kernel I/O.
+
+Remaining blockers before connecting actual Git
+The reviewed plan PRIVATE_HISTORY_PRODUCER_PROPOSAL.txt remains in force:
+reviewed trusted executable/repository identities, exact Git help/version and
+binary identity receipt, no-lazy-fetch/no-replacements/fixed-argv/env guards,
+local object availability, independent security/ownership reviews and separately
+authorized exact-source real run. No JSON approval flag grants those premises.
+No historical object, real ten-literal extraction, publisher, workflow, provider,
+image or hosted acceptance is part of this implementation or its tests.
+
+Tests: 15 transport contracts (1 Linux-specific inherited-stdout fixture),
+9 producer contracts (7 Linux-specific), plus the
+13 unchanged decoder contracts and 33 earlier scanner/input contracts.
+Supported Linux must execute all70PASS/0FAIL/0CANCELLED/0SKIP on new exact source.
+Windows skips those 8 new Linux contracts plus12 earlier Linux-specific checks.
+Those skips do not qualify the new storage or inherited-stdout implementation.
+The first Windows execution before this explicit platform restriction had
+14/15 transport PASS and1FAIL: parent exit0/close0, stdout bytes0. That observation
+is retained, not relabeled as a process-transport PASS or general root cause.
+
+node --test tools/asier_staging_channel/scan-historical-literals.test.mjs \
+ tools/asier_staging_channel/private-scan-input.test.mjs \
+ tools/asier_staging_channel/private-history-batch.test.mjs \
+ tools/asier_staging_channel/synthetic-history-transport.test.mjs \
+ tools/asier_staging_channel/synthetic-history-producer.test.mjs

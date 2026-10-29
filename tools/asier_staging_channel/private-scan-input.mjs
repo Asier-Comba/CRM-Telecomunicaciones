@@ -1,10 +1,12 @@
-import {open,lstat,readdir,unlink,rmdir} from 'node:fs/promises'
+import {open,lstat,readdir,unlink,rmdir,mkdtemp} from 'node:fs/promises'
 import {constants} from 'node:fs'
 import {isAbsolute,normalize,sep} from 'node:path'
+import {createHash} from 'node:crypto'
 
 // Linux /proc descriptor-relative traversal. The trusted euid (and root) must
 // not concurrently modify these private inputs. No protection against root or
-// hostile code sharing that euid is claimed. No network, process or file writes.
+// hostile code sharing that euid is claimed. No network/process. Reader APIs do
+// not write; the explicit nonce transfer construction helper is isolated below.
 const sessions=new WeakSet()
 const reject=()=>{throw Error('PRIVATE_INPUT_BLOCKED')}
 const same=(a,b)=>['dev','ino','size','mtimeNs','ctimeNs','mode','uid','nlink'].every(k=>a[k]===b[k])
@@ -120,3 +122,70 @@ export async function openPrivateScanInputV1(path,{historyNames}={}){
  }
 }
 export const isPrivateScanInputV1=value=>sessions.has(value)
+
+// Low-level owned transfer construction. No Git/retrieval or history acceptance.
+// The synthetic public controller rejects real pinned object identities before
+// reaching this writer. This helper itself never creates a producer authority.
+export async function withPrivateTransferFilesV1({parent,objects,consume}={}){
+ const report={result:'BLOCKED',cleanup:'NOT_STARTED',error:'PRIVATE_TRANSFER_BLOCKED',files_written:0,publishing_authorized:false,security_accepted:false}
+ const owned=[],names=[],records=[],acquired=new Set();let root,child,name,ready=false,clean=true
+ try{
+  if(typeof consume!=='function'||!Array.isArray(objects)||objects.length!==3)reject()
+  for(const row of objects){
+   const id=row?.id,value=row?.bytes
+   if(typeof id!=='string'||!/^[a-f0-9]{40}$/.test(id)||!Buffer.isBuffer(value)||value.length<1||value.length>1024*1024)reject()
+   const bytes=Buffer.from(value);owned.push(bytes);names.push(id)
+   if(createHash('sha1').update(Buffer.from('blob '+bytes.length+'\0')).update(bytes).digest('hex')!==id)reject()
+  }
+  if(new Set(names).size!==3)reject()
+  root=await directory(parent);acquired.add(root.handle)
+  const created=await mkdtemp(fdpath(root.handle)+'/history-transfer-');name=created.slice(created.lastIndexOf('/')+1)
+  report.cleanup='PENDING'
+  child=await open(fdpath(root.handle)+'/'+name,flags|constants.O_DIRECTORY);acquired.add(child)
+  const childIdentity=await child.stat({bigint:true})
+  if(!privateStat(childIdentity,true)||childIdentity.dev!==root.stat.dev)reject()
+  for(let i=0;i<owned.length;i++){
+   const handle=await open(fdpath(child)+'/'+names[i],constants.O_RDWR|constants.O_CREAT|constants.O_EXCL|constants.O_NOFOLLOW,0o600)
+   acquired.add(handle)
+   const createdIdentity=await handle.stat({bigint:true}),record={id:names[i],stat:createdIdentity};records.push(record)
+   if(!privateStat(createdIdentity,false)||createdIdentity.dev!==root.stat.dev)reject()
+   try{
+    await handle.writeFile(owned[i]);await handle.sync();record.stat=await handle.stat({bigint:true})
+    if(!privateStat(record.stat,false)||record.stat.dev!==root.stat.dev||record.stat.ino!==createdIdentity.ino||record.stat.size!==BigInt(owned[i].length))reject()
+   }finally{
+    // A partial own write must still be eligible for identity-checked cleanup.
+    try{const latest=await handle.stat({bigint:true});if(privateStat(latest,false)&&latest.dev===createdIdentity.dev&&latest.ino===createdIdentity.ino)record.stat=latest}catch{}
+   }
+   await handle.close();acquired.delete(handle);report.files_written++
+  }
+  const namedRoot=await lstat(root.path,{bigint:true}),namedChild=await lstat(root.path+'/'+name,{bigint:true})
+  if(namedRoot.dev!==root.stat.dev||namedRoot.ino!==root.stat.ino||!privateStat(namedRoot,true)||namedChild.dev!==childIdentity.dev||namedChild.ino!==childIdentity.ino||!privateStat(namedChild,true))reject()
+  ready=await consume(root.path+'/'+name)===true
+ }catch{ready=false}
+ finally{
+  if(root&&name){
+   if(child){
+    for(const row of records){
+     try{const path=fdpath(child)+'/'+row.id,s=await lstat(path,{bigint:true});if(!same(row.stat,s))reject();await unlink(path)}catch(error){if(error?.code!=='ENOENT')clean=false}
+    }
+    try{
+     if((await readdir(fdpath(child))).length!==0)reject()
+     const path=fdpath(root.handle)+'/'+name,s=await lstat(path,{bigint:true}),original=await child.stat({bigint:true})
+     if(s.dev!==original.dev||s.ino!==original.ino||!privateStat(s,true))reject()
+     await rmdir(path)
+     try{await lstat(path);reject()}catch(error){if(error?.code!=='ENOENT')throw error}
+     if((await child.stat({bigint:true})).nlink!==0n)reject()
+    }catch(error){
+     // A consumer may already remove the original owned directory; verify
+     // its retained inode is unlinked, never delete a replacement path.
+     try{if(error?.code!=='ENOENT'||(await child.stat({bigint:true})).nlink!==0n)clean=false}catch{clean=false}
+    }
+   }else clean=false
+   report.cleanup=clean?'PASS':'FAIL'
+  }
+  for(const handle of [...acquired].reverse())try{await handle.close()}catch{clean=false;report.cleanup='FAIL'}
+  for(const bytes of owned)bytes.fill(0)
+ }
+ if(ready&&clean&&report.cleanup==='PASS'){report.result='SYNTHETIC_TRANSFER_PASS';report.error=null}
+ return report
+}
