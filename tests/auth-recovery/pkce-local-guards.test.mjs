@@ -43,6 +43,20 @@ test('local SMTP readback rejects external destinations, credentials, hooks, rel
   c=>c[0].Config.Env.push('GOTRUE_SMTP_HOST=duplicate'),c=>c[1].NetworkSettings.Ports['8025/tcp'][0].HostPort='8025',c=>c.push(c[1]),
  ]){const value=containers();mutate(value);assert.throws(()=>assertLocalMailTransport(value),error=>/^D1_GLOBAL_AUTH_PKCE_/.test(error.message)&&!error.message.includes('PRIVATE'))}
 })
+test('causal: hook enablement accepts only absent or canonical false, never alternate Go boolean spellings',()=>{
+ const disabled=containers();disabled[0].Config.Env.push('GOTRUE_HOOK_SEND_EMAIL_ENABLED=false')
+ assert.equal(assertLocalMailTransport(disabled),true)
+ for(const value of ['1','TRUE','True','t','T','true','0','FALSE','f','','unknown']){
+  const fixture=containers();fixture[0].Config.Env.push('GOTRUE_HOOK_SEND_EMAIL_ENABLED='+value)
+  assert.throws(()=>assertLocalMailTransport(fixture),error=>error.message==='D1_GLOBAL_AUTH_PKCE_EXTERNAL_MAIL_FORBIDDEN')
+ }
+})
+test('causal: an email hook URI or secret is forbidden even with canonical disabled flag',()=>{
+ for(const entry of ['GOTRUE_HOOK_SEND_EMAIL_URI=https://outside.invalid/SYNTHETIC','GOTRUE_HOOK_SEND_EMAIL_SECRETS=SYNTHETIC_ONLY']){
+  const fixture=containers();fixture[0].Config.Env.push('GOTRUE_HOOK_SEND_EMAIL_ENABLED=false',entry)
+  assert.throws(()=>assertLocalMailTransport(fixture),error=>error.message==='D1_GLOBAL_AUTH_PKCE_EXTERNAL_MAIL_FORBIDDEN')
+ }
+})
 test('email body supplies only one exact local recovery link for the synthetic recipient',()=>{
  assert.equal(localRecoveryEmailLink(message(),email),link)
  for(const mutate of [m=>m.To[0].Address='other@example.invalid',m=>m.To.push({Address:email}),m=>m.HTML=m.HTML.replace('127.0.0.1:54321','outside.invalid'),m=>m.HTML=m.HTML.replace('type=recovery','type=invite'),m=>m.HTML=m.HTML.replace('SYNTHETIC_ONLY',''),m=>m.HTML=m.HTML.replace('reset-password','dashboard'),m=>m.HTML=m.HTML.replace('verify?','verify?access_token=PRIVATE&'),m=>m.HTML=m.HTML.replace('verify?','verify?token=duplicate&'),m=>m.HTML+='<a href="https://outside.invalid/PRIVATE">other</a>',m=>m.HTML='x'.repeat(65537)]){
