@@ -14,15 +14,15 @@ test('executor fixed namespace, local daemon and no modifying lifecycle exposed'
  for(const key of ['directory','source','environment','docker'])assert.throws(()=>invocation({...config,[key]:'/safe/../foreign'},'config'))
  assert.throws(()=>invocation({...config,composeHash:'mutable'},'config'))
 })
-test('lock excludes another operator and changed inputs fail before continuation',{skip:process.platform==='win32'},()=>{
+test('lock excludes another operator and changed inputs fail before continuation',{skip:process.platform==='win32'},async()=>{
  const d=mkdtempSync(join(tmpdir(),'crm-direct-'));const f=join(d,'source');writeFileSync(f,'original',{mode:0o600})
  try{
- protectedSession(d,{source:sha256('original')},verify=>{
- assert.throws(()=>protectedSession(d,{},()=>{}))
+ await protectedSession(d,{source:sha256('original')},async verify=>{
+ await assert.rejects(protectedSession(d,{},()=>{}))
  writeFileSync(f,'changed');assert.throws(verify,/INPUT_HASH_CHANGED/)
  writeFileSync(f,'original')
  })
  assert.equal(existsSync(join(d,'.crm-direct.lock')),false)
- assert.throws(()=>protectedSession(d,{source:sha256('other')},()=>assert.fail()))
+ await assert.rejects(protectedSession(d,{source:sha256('other')},()=>assert.fail()))
  }finally{rmSync(d,{recursive:true})}
 })
