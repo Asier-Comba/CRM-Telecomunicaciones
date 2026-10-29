@@ -1,0 +1,247 @@
+{
+  "version": "staging.effective-plan.investigation.v1",
+  "date": "2026-10-29",
+  "status": "BLOCKER_NO_SUPPORTED_PREAPPLY_PLAN_DEMONSTRATED",
+  "baseline": {
+    "pr": 206,
+    "source": "02560566bb0fa4dcbda42d2880c9ae047d8c990a",
+    "tree": "9ece87152c36d9e05c04d81b23fca72d4db32512"
+  },
+  "scope": {
+    "browser_used": false,
+    "vps_accessed": false,
+    "authenticated_panel_api_called": false,
+    "hosted_changes": false,
+    "main_modified": false,
+    "documents_increment": false
+  },
+  "version_evidence": {
+    "easypanel_target": "2.38",
+    "basis": "OWNER_MISSION_AND_PREVIOUS_CONTEXT",
+    "installed_patch_and_digest": "NOT_CURRENTLY_VERIFIED",
+    "public_release": "2.38.0",
+    "public_release_date": "2026-10-22",
+    "engine_and_server_compose": "NOT_CURRENTLY_VERIFIED",
+    "previous_linux_lab_docker_compose": "2.38.2",
+    "local_windows_parser_docker_compose": "5.3.0",
+    "parser_versions_prove_easypanel_version": false
+  },
+  "sources": [
+    {
+      "id": "EP_COMPOSE",
+      "url": "https://easypanel.io/docs/services/compose",
+      "observation": "Deploy command and configuration documented; no complete pre-apply plan/apply binding documented."
+    },
+    {
+      "id": "EP_INSPECT",
+      "url": "https://easypanel.io/docs/api/services/compose/inspectComposeService",
+      "observation": "Configuration/details GET; no documented final-plan integrity contract."
+    },
+    {
+      "id": "EP_ISSUES",
+      "url": "https://easypanel.io/docs/api/services/compose/getComposeIssues",
+      "observation": "Conflict check, not complete effective-plan proof."
+    },
+    {
+      "id": "EP_DEPLOY",
+      "url": "https://easypanel.io/docs/api/services/compose/deployComposeService",
+      "observation": "Published request has projectName/serviceName/forceRebuild; no dryRun or plan hash/token."
+    },
+    {
+      "id": "EP_CLI",
+      "url": "https://easypanel.io/docs/cli",
+      "observation": "Commands depend on connected server; installed manifest not read."
+    },
+    {
+      "id": "EP_RELEASE",
+      "url": "https://easypanel.io/changelog/2-38-0",
+      "observation": "Public release existence does not prove installed version."
+    },
+    {
+      "id": "DOCKER_CONFIG",
+      "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+      "observation": "Normalizes supplied inputs only."
+    },
+    {
+      "id": "DOCKER_CLI",
+      "url": "https://docs.docker.com/reference/cli/docker/compose/",
+      "observation": "Dry-run previews chosen invocation, not a later panel invocation."
+    },
+    {
+      "id": "DOCKER_UP",
+      "url": "https://docs.docker.com/reference/cli/docker/compose/up/",
+      "observation": "No-build/pull controls documented; no-start/create still create resources."
+    },
+    {
+      "id": "DOCKER_ENV",
+      "url": "https://docs.docker.com/compose/how-tos/environment-variables/envvars/",
+      "observation": "Account for inherited Compose/Docker selectors."
+    },
+    {
+      "id": "DOCKER_OVERLAY",
+      "url": "https://docs.docker.com/engine/network/drivers/overlay/",
+      "observation": "Standalone containers can join attachable overlay in existing Swarm."
+    }
+  ],
+  "effective_plan_rows": [
+    {
+      "control": "identity",
+      "proposed": "crm-inmobiliario / Compose crm-telecom-runtime / exact three roles",
+      "current_proof": "REVIEWED_SOURCE_ONLY"
+    },
+    {
+      "control": "image",
+      "proposed": "One authentic accepted private manifest digest; pull_policy never; no build",
+      "current_proof": "ARTIFACT_PENDING"
+    },
+    {
+      "control": "input_closure",
+      "proposed": "Ordered original/generated files, env-files, profiles, CWD, Docker endpoint, selectors, hashes",
+      "current_proof": "NOT_VERIFIED"
+    },
+    {
+      "control": "networks",
+      "proposed": "App private only; ingress private+easypanel; egress private+own outbound",
+      "current_proof": "NOT_VERIFIED"
+    },
+    {
+      "control": "ports",
+      "proposed": "No host ports; only own HTTPS route to ingress8080",
+      "current_proof": "NOT_VERIFIED"
+    },
+    {
+      "control": "resources",
+      "proposed": "App768MiB/0.75CPU; each helper256MiB/0.25CPU",
+      "current_proof": "NOT_VERIFIED"
+    },
+    {
+      "control": "privileges_and_secrets",
+      "proposed": "UID65532/read-only/cap-dropALL/no-new-privileges; ingress secret only",
+      "current_proof": "NOT_VERIFIED"
+    },
+    {
+      "control": "commands",
+      "proposed": "Image App CMD; exact runtime.mjs ingress/egress; no hooks/extra entrypoint/profiles",
+      "current_proof": "NOT_VERIFIED"
+    },
+    {
+      "control": "health_and_capabilities",
+      "proposed": "Canonical live/readiness; documents/AI/providersOFF",
+      "current_proof": "REVIEWED_SOURCE_ONLY"
+    },
+    {
+      "control": "policy",
+      "proposed": "Authentic accepted baked policy and independent reviews",
+      "current_proof": "PROPOSED_PENDING_IS_BLOCKING"
+    },
+    {
+      "control": "executor",
+      "proposed": "Installed panel/digest/Compose/Engine/API plus every mutation argv",
+      "current_proof": "NOT_CURRENTLY_VERIFIED"
+    },
+    {
+      "control": "apply_binding",
+      "proposed": "Supported no-apply generation linked to later exact inputs/argv without hidden regeneration",
+      "current_proof": "NOT_DEMONSTRATED"
+    }
+  ],
+  "rejected_substitutes": [
+    "isolated docker compose config",
+    "dry-run of another invocation",
+    "empty compatibility issues",
+    "source/settings export alone",
+    "inspect after deployment",
+    "synthetic/loopback receipt",
+    "PROPOSED policy",
+    "public changelog as installed-version proof",
+    "patched internal panel executor"
+  ],
+  "closure_bundle": [
+    "exact installed executor identity",
+    "complete ordered input inventory",
+    "post-transformation model with private hashes",
+    "full mutation argv/context",
+    "supported future-apply binding with exclusion and revalidation",
+    "exact independent W5/W4 review"
+  ],
+  "alternative": {
+    "kind": "DIRECT_COMPOSE_EXCLUSIVE",
+    "status": "TECHNICALLY_VIABLE_CONDITIONAL_OWNER_DECISION",
+    "executed": false,
+    "changes_manager": true,
+    "satisfies_literal_no_regeneration": false,
+    "owner_must_accept_different_control_model": true,
+    "requires_reviewed_namespace_adapter": true,
+    "existing_preflight_accepts_other_namespace": false,
+    "requires_exact_own_ingress_dns_and_route": true,
+    "no_global_traefik_or_network_changes": true,
+    "requires_protected_frozen_inputs_and_executor": true,
+    "requires_lock_and_hash_recheck": true,
+    "config_and_dry_run_are_transactional_plan": false,
+    "post_apply_acceptance_still_required": true,
+    "authorization_requested_now": false
+  },
+  "claude_handoff": {
+    "pr": 210,
+    "observed_source": "cf9293fdd853f8317f4d728fad7a69c9548082a1",
+    "automatically_integrated": false,
+    "receipt_version": "staging.image.receipt.v1",
+    "receipt_fields": [
+      "version",
+      "source",
+      "tree",
+      "lockfile_sha256",
+      "dockerfile_sha256",
+      "public_build_sha256",
+      "image_config_digest",
+      "manifest_digest",
+      "image_reference",
+      "visibility"
+    ],
+    "shape_check_authenticates_receipt": false,
+    "required_external_evidence": [
+      "same manifest provenance and scans",
+      "private repository linkage and anonymous denial",
+      "temporary digest pull/readback/credential cleanup",
+      "accepted baked policy/public binding/exact independent reviews"
+    ],
+    "authentic_image_closes_panel_plan_blocker": false
+  },
+  "compatibility": {
+    "runtime_code_changed": false,
+    "compose_source_changed": false,
+    "supabase_schema_changed": false,
+    "hosted_schema_not_revalidated": true,
+    "base87_storage88_compatibility_preserved": true,
+    "documents_enabled": false,
+    "ai_enabled": false,
+    "providers_enabled": false
+  },
+  "tests": {
+    "executed_source": "02560566bb0fa4dcbda42d2880c9ae047d8c990a",
+    "local_node": "24.20.0",
+    "focused": {
+      "passed": 106,
+      "failed": 0,
+      "skipped": 1,
+      "skip": "Parser opt-in disabled"
+    },
+    "omitted_parser_executed_separately": {
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "version": "5.3.0",
+      "engine_or_container_operations": false
+    },
+    "hosted_acceptance": "NOT_RUN",
+    "new_documentary_source_execution_claimed": false
+  },
+  "authority": {
+    "external_evidence_verified": false,
+    "effective_plan_status": "EFFECTIVE_PLAN_UNVERIFIED",
+    "publishing_authorized": false,
+    "deploying_authorized": false,
+    "request_implement_now": false,
+    "staging_accepted": false
+  }
+}
