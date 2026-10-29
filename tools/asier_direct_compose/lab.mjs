@@ -7,6 +7,7 @@ import {localDockerCallV1} from '../asier_staging_network/local-docker.mjs'
 import {fixture} from './synthetic-fixture.mjs'
 import {executePreparation} from './executor.mjs'
 import {sha256} from './session.mjs'
+import {createServer} from 'node:net'
 const env=process.env
 if(process.platform!=='linux'||env.GITHUB_ACTIONS!=='true'||env.RUNNER_ENVIRONMENT!=='github-hosted'||env.GITHUB_EVENT_NAME!=='pull_request'||env.GITHUB_REPOSITORY!=='Asier-Comba/CRM-Telecomunicaciones'||!env.RUNNER_TEMP||!/^[a-f0-9]{40}$/.test(env.EXPECTED_SOURCE??''))throw Error('DISPOSABLE_ONLY')
 const dir=mkdtempSync(join(env.RUNNER_TEMP,'crm-direct-')),docker=localDockerCallV1(env,dir),project='crm-direct-lab-'+env.EXPECTED_SOURCE.slice(0,12)
@@ -14,6 +15,7 @@ const report={source:env.EXPECTED_SOURCE,status:'FAIL',checks:[],cleanup:false,S
 function call(args,options={}){report.phase=args[0]==='compose'?'compose_'+args.find(v=>['up','down','ps'].includes(v)):args[0];const r=docker(args,options);if(r.status!==0){report.failure_phase??=report.phase;report.failure_category=String(r.stderr).match(/unknown flag|permission denied|not found|invalid mount config|invalid reference format|port is already allocated|cannot create a swarm scoped network|not a docker command/i)?.[0]??'UNCLASSIFIED';console.error('SYNTHETIC_RUNNER_ONLY_DOCKER_ERROR',String(r.stderr).slice(0,2000));throw Error('DOCKER_OPERATION_FAILED')}return r.stdout.trim()}
 const compose=(...args)=>call(['compose','-p',project,'-f',join(dir,'compose.json'),...args])
 let swarm=false,started=false,sentinel,foreignVolume
+let hostCanary
 const created={}
 try{
  const g=spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'});if(g.stdout.trim()!==env.EXPECTED_SOURCE)throw Error('SOURCE_MISMATCH')
@@ -34,9 +36,10 @@ try{
  const username='crm_lab',password=randomBytes(36).toString('base64url'),secret=join(dir,'ingress.json')
  writeFileSync(secret,JSON.stringify({username,password}),{mode:0o400});chmodSync(secret,0o444)
  for(const n of ['private','shared','outbound']){
- created[n]=call(['network','create','--driver',n==='shared'?'overlay':'bridge','--attachable',...n==='private'?['--internal']:[], '--label','crm.direct.lab='+project,project+'_'+n])
+ created[n]=call(['network','create','--driver',n==='shared'?'overlay':'bridge','--attachable',...n==='private'?['--internal','--opt','com.docker.network.bridge.gateway_mode_ipv4=isolated']:[], '--label','crm.direct.lab='+project,project+'_'+n])
  const actual=JSON.parse(call(['network','inspect',created[n]]))[0]
  if(actual.Id!==created[n]||actual.Name!==project+'_'+n||actual.Driver!==(n==='shared'?'overlay':'bridge')||actual.Scope!==(n==='shared'?'swarm':'local')||!actual.Attachable||actual.Internal!==(n==='private'))throw Error('CREATED_NETWORK_READBACK_FAILED')
+ if(n==='private'&&actual.Options?.['com.docker.network.bridge.gateway_mode_ipv4']!=='isolated')throw Error('PRIVATE_GATEWAY_NOT_ISOLATED')
  }
  const networks=Object.fromEntries(['private','shared','outbound'].map(n=>[n,{external:true,name:created[n]}]))
  const services={}
@@ -56,6 +59,13 @@ try{
  spec(app,805306368,750000000,['private']);spec(ingress,268435456,250000000,['private','shared']);spec(egress,268435456,250000000,['private','outbound'])
  if(JSON.stringify(inspect(app).HostConfig.Dns)!=='["127.0.0.1"]')throw Error('APP_DNS_CHANGED')
  report.checks.push('three_roles_limits_no_ports_readonly','private_app_network_only')
+ const iface=spawnSync('ip',['-j','-4','address','show','dev','br-'+created.private.slice(0,12)],{encoding:'utf8',shell:false,timeout:10000})
+ if(iface.status!==0||JSON.parse(iface.stdout).some(i=>i.addr_info.length!==0))throw Error('PRIVATE_HOST_ADDRESS_PRESENT')
+ hostCanary=createServer(s=>s.destroy());await new Promise((resolve,reject)=>{hostCanary.once('error',reject);hostCanary.listen(0,'0.0.0.0',resolve)})
+ const hostPort=String(hostCanary.address().port),hostIp=JSON.parse(call(['network','inspect',created.outbound]))[0].IPAM.Config[0].Gateway
+ const reachable=(c,ip)=>call(['exec',c,'node','-e','const s=require("node:net").connect({host:process.argv[1],port:Number(process.argv[2])});let done=false;const end=v=>{if(done)return;done=true;s.destroy();console.log(v)};s.setTimeout(1500);s.once("connect",()=>end("OPEN"));s.once("timeout",()=>end("DENIED"));s.once("error",()=>end("DENIED"));',ip,hostPort])
+ if(reachable(egress,hostIp)!=='OPEN'||reachable(app,hostIp)!=='DENIED')throw Error('HOST_CANARY_BOUNDARY_FAILED')
+ report.checks.push('host_listener_positive_from_outbound','host_listener_denied_from_private_app','private_bridge_has_no_host_ipv4')
  foreignVolume=project+'-foreign-volume';call(['volume','create',foreignVolume])
  const volumeBefore=call(['volume','inspect',foreignVolume])
  const sharedBefore=call(['network','inspect',project+'_shared','--format','{{.ID}}'])
@@ -77,6 +87,8 @@ try{
  const recreatedIp=address(recreated,'private')
  probe(sentinel,{kind:'outside',canaryIp,appIp:recreatedIp,supabaseIp:ip,username,password})
  probe(recreated,{kind:'internal',canaryIp,supabaseIp:ip})
+ if(reachable(recreated,hostIp)!=='DENIED')throw Error('RECREATED_APP_REACHES_HOST')
+ report.checks.push('recreated_app_host_listener_denied')
  if(inspect(sentinel).Id!==before)throw Error('FOREIGN_PROJECT_CHANGED')
  report.checks.push('recreate_does_not_change_foreign_container')
  compose('down');started=false
@@ -87,6 +99,7 @@ try{
  report.status='PASS'
 }catch(e){report.error=/^[A-Z0-9_]+$/.test(e.message)?e.message:'LAB_FAILED';if(Array.isArray(e.codes))report.config_errors=e.codes}
 finally{
+ if(hostCanary)await new Promise(resolve=>hostCanary.close(resolve))
  try{if(sentinel)call(['rm','-f',sentinel]);if(foreignVolume)call(['volume','rm',foreignVolume]);if(started)compose('down');if(swarm){for(const id of Object.values(created))call(['network','rm',id]);call(['swarm','leave','--force'])}report.cleanup=call(['ps','-aq'])===''&&call(['network','ls','--filter','label=crm.direct.lab='+project,'--format','{{.ID}}'])===''&&call(['info','--format','{{.Swarm.LocalNodeState}}'])==='inactive'}catch{report.cleanup=false}
  if(!report.cleanup)report.status='FAIL'
  try{rmSync(dir,{recursive:true,force:true})}catch{report.cleanup=false;report.status='FAIL';report.error='DIRECTORY_CLEANUP_FAILED'}

@@ -15,6 +15,6 @@ export function fixture(){
  for(const n of ['crm-private','crm-outbound'])c.networks[n].name=c.name+'_'+n
  c.secrets['crm-staging-ingress']={name:c.name+'_crm-staging-ingress',file:'/etc/crm-telecom-runtime/ingress.json'}
  const policy={version:'product.staging.runtime.v1',status:'ACCEPTED',origin:'https://crm-telecom-staging.hvdnby.easypanel.host',auth:'supabase-managed',capabilities:{ai:false,crm_mail:false,n8n:false,document_content:false,document_maintenance:false},reviews:{w2:'APPROVED',w5:'APPROVED',w4:'APPROVED'},production_accepted:false}
- const networks=['crm-private','crm-outbound'].map((n,i)=>({Id:(i?'b':'a').repeat(64),CreatedId:(i?'b':'a').repeat(64),Name:'crm-telecom-direct_'+n,Driver:'bridge',Scope:'local',Attachable:true,Internal:n==='crm-private',Labels:{'crm.direct.owner':'crm-telecom-direct'}}))
+ const networks=['crm-private','crm-outbound'].map((n,i)=>({Id:(i?'b':'a').repeat(64),CreatedId:(i?'b':'a').repeat(64),Name:'crm-telecom-direct_'+n,Driver:'bridge',Scope:'local',Attachable:true,Internal:n==='crm-private',Options:i?{}:{'com.docker.network.bridge.gateway_mode_ipv4':'isolated'},Labels:{'crm.direct.owner':'crm-telecom-direct'}}))
  return {configuration:bindNetworkIds(directConfiguration(c),networks),receipt,expected,policy,binding,networks}
 }
