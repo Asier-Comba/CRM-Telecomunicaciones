@@ -1,0 +1,222 @@
+{
+  "version": "staging.manual-deployment.contract.v1",
+  "status": "BLOCKED_NOT_A_DEPLOYMENT_AUTHORIZATION",
+  "baseline": {
+    "pr": 206,
+    "source": "6564dac14a43823fa25a8ffc5ff773c1fd668bc3",
+    "tree": "0bc4e6ce8706e7d99f432c8d13847a0c80b822ef"
+  },
+  "target": {
+    "panel_origin": "https://hvdnby.easypanel.host",
+    "project": "crm-inmobiliario",
+    "type": "compose",
+    "service": "crm-telecom-runtime",
+    "compose_project": "crm-inmobiliario_crm-telecom-runtime",
+    "original_app_do_not_modify": "crm-telecom-staging",
+    "other_service_do_not_modify": "crm-staging"
+  },
+  "origin": {
+    "https": "https://crm-telecom-staging.hvdnby.easypanel.host",
+    "supabase": "https://zgwotxnyqzfuzcnmgvtn.supabase.co",
+    "ingress_service": "crm-telecom-ingress",
+    "ingress_port": 8080,
+    "internal_upstream_protocol": "http",
+    "application_port": 3000,
+    "callback_path": "/auth/callback",
+    "callback_query_values_logged": false
+  },
+  "source": {
+    "compose_file": "tools/asier_staging_network/compose.proposed.yaml",
+    "all_roles_same_private_manifest_digest": true,
+    "mutable_tag_allowed": false,
+    "build_section_allowed": false,
+    "pull_policy": "never",
+    "git_ref_must_resolve_to_reviewed_source": true,
+    "effective_panel_config_required_before_up": true,
+    "unsupported_preview_or_transformation": "BLOCKED"
+  },
+  "networks": {
+    "application": [
+      "crm-private"
+    ],
+    "ingress": [
+      "crm-private",
+      "easypanel"
+    ],
+    "egress": [
+      "crm-private",
+      "crm-outbound"
+    ],
+    "crm_private": {
+      "driver": "overlay",
+      "internal": true,
+      "attachable": true
+    },
+    "crm_outbound": {
+      "driver": "overlay",
+      "attachable": true
+    },
+    "easypanel": {
+      "existing_external": true,
+      "mutate": false
+    },
+    "application_dns": [
+      "127.0.0.1"
+    ],
+    "host_ports_allowed": false,
+    "docker_socket_allowed": false,
+    "host_network_allowed": false,
+    "foreign_connectivity_probes_allowed": false
+  },
+  "resources": {
+    "application": {
+      "memory_mib": 768,
+      "cpu": 0.75
+    },
+    "ingress": {
+      "memory_mib": 256,
+      "cpu": 0.25
+    },
+    "egress": {
+      "memory_mib": 256,
+      "cpu": 0.25
+    },
+    "total_memory_mib": 1280,
+    "total_cpu": 1.25,
+    "capacity_measured": false,
+    "capacity_not_inferred_from_limits": true,
+    "user": "65532:65532",
+    "read_only": true,
+    "cap_drop": [
+      "ALL"
+    ],
+    "no_new_privileges": true,
+    "restart": "on-failure:3",
+    "stop_grace_seconds": 35,
+    "log_max_size": "5m",
+    "log_max_files": 2
+  },
+  "health": {
+    "application_liveness": "/api/health/live",
+    "application_health_interval_seconds": 30,
+    "application_health_timeout_seconds": 5,
+    "application_health_start_seconds": 30,
+    "gateway_probe": "TCP_127.0.0.1_8080_ONLY",
+    "gateway_interval_seconds": 30,
+    "gateway_timeout_seconds": 5,
+    "gateway_start_seconds": 10,
+    "readiness": "/api/health/ready",
+    "readiness_provider_budget_ms": 3000,
+    "tcp_or_liveness_is_auth_acceptance": false
+  },
+  "variable_names": {
+    "compose_interpolation": [
+      "APP_IMAGE",
+      "APP_ENV_FILE",
+      "CRM_INGRESS_CREDENTIAL_FILE"
+    ],
+    "runtime": [
+      "PLATFORM_TARGET",
+      "NODE_ENV",
+      "APP_ENV",
+      "NEXT_PUBLIC_APP_URL",
+      "PRODUCT_V1_ORIGIN",
+      "NEXT_PUBLIC_SUPABASE_URL",
+      "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+      "PRODUCT_V1_ENABLED",
+      "PRODUCT_STAGING_INTEGRATION",
+      "PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED",
+      "PRODUCT_STAGING_USER_IDS",
+      "BACKUP_RETENTION_DAYS",
+      "PRODUCT_DOCUMENT_LIBRARY_ENABLED",
+      "PRODUCT_DOCUMENT_CONTENT_ENABLED",
+      "PRODUCT_DOCUMENT_MAINTENANCE_ENABLED",
+      "AI_ENABLED",
+      "CRM_EMAIL_ENABLED",
+      "NEXT_PUBLIC_ENABLE_DEMO_DATA",
+      "NEXT_PUBLIC_FORCE_OFFLINE_DEV"
+    ],
+    "app_only": [
+      "HOSTNAME",
+      "PORT"
+    ],
+    "forbidden": [
+      "SUPABASE_SERVICE_ROLE_KEY",
+      "AGENT_TOOL_SECRET",
+      "ASSISTANT_PROVIDER",
+      "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "OPENAI_*",
+      "SMTP_*",
+      "N8N_*",
+      "META_*"
+    ]
+  },
+  "credential": {
+    "host_path": "/etc/crm-telecom-runtime/ingress.json",
+    "container_path": "/run/secrets/crm-staging-ingress",
+    "mount_only": "crm-telecom-ingress",
+    "owner_uid": 65532,
+    "mode": "0400",
+    "regular_file": true,
+    "no_symlink": true,
+    "values_in_chat_git_image_or_report": false
+  },
+  "preflight": {
+    "command_file": "tools/asier_staging_network/manual-preflight.mjs",
+    "required_options": [
+      "--compose",
+      "--receipt",
+      "--expected",
+      "--policy",
+      "--binding"
+    ],
+    "success_status": "CONFIGURATION_CHECKED",
+    "success_exit": 0,
+    "blocked_exit": 2,
+    "values_included": false,
+    "mutation_performed": false,
+    "external_evidence_verified": false,
+    "publishing_authorized": false,
+    "deploying_authorized": false
+  },
+  "release_gates": {
+    "compose_input_inventory": "NOT_VERIFIED",
+    "accepted_private_artifact": "PENDING_CLAUDE_DELIVERY",
+    "exact_independent_reviews": "PENDING",
+    "accepted_baked_policy": "PENDING_TRACKED_POLICY_PROPOSED",
+    "effective_panel_spec": "NOT_VERIFIED",
+    "actual_network_and_pull_persistence": "NOT_VERIFIED",
+    "capacity_and_other_service_baseline": "NOT_MEASURED",
+    "secure_credentials_and_existing_auth_cohort": "NOT_VERIFIED",
+    "schema_compatibility_hosted_ledger": "NOT_CURRENTLY_VERIFIED"
+  },
+  "post_checks": [
+    "exact_running_manifest_and_config",
+    "three_roles_health",
+    "anonymous_https_401_basic",
+    "private_liveness_200_alive",
+    "private_readiness_200_ready",
+    "real_getUser_admitted_synthetic_owner",
+    "no_session_api_401",
+    "authenticated_noncohort_api_403",
+    "tenant_A_B_and_viewer_contract_negatives",
+    "dashboard_clients_portfolio_read_reload",
+    "documents_explicitly_off_no_storage",
+    "no_direct_application_egress_or_foreign_network",
+    "same_spec_and_digest_after_authorized_recreation",
+    "previous_services_unchanged"
+  ],
+  "rollback": {
+    "initial": "STOP_NEW_COMPOSE_ONLY_AND_DISABLE_ONLY_ITS_OWN_ROUTE_IF_NEEDED",
+    "upgrade": "PREVIOUS_ACCEPTED_RECEIPT_DIGEST_AND_COMPATIBLE_CONFIG_AFTER_PREFLIGHT",
+    "destroy_or_global_prune": false,
+    "delete_or_retag_registry": false,
+    "rollback_database": false
+  },
+  "authority": {
+    "owner_scope_already_authorized": true,
+    "request_implement_now": false,
+    "release_accepted": false,
+    "deploying_authorized": false
+  }
+}
