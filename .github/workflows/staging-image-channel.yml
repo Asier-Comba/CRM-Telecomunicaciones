@@ -9,6 +9,7 @@ on:
       - 'tools/asier_staging_channel/**'
       - 'tools/asier_staging_network/compose-preflight*.mjs'
       - '.github/workflows/staging-image-channel.yml'
+      - '.github/workflows/staging-image-publish.yml'
 permissions:
   contents: read
 concurrency:
@@ -73,7 +74,6 @@ jobs:
           retention-days: 14
           if-no-files-found: error
 
-  # GHCR publication is deliberately absent: no packages/id-token/attestations
-  # permission exists in this workflow. The proposed protected job is specified
-  # in tools/asier_staging_channel/IMAGE_CONTRACT.md and needs W4/W5 review of an
-  # exact SHA plus owner promotion permission before it may be added.
+  # GHCR publication is not in this workflow: no packages/id-token/attestations
+  # permission here. The protected, INACTIVE job is staging-image-publish.yml
+  # (see tools/asier_staging_channel/IMAGE_CONTRACT.md section 4).

@@ -1,0 +1,80 @@
+name: Staging image publication (protected; INACTIVE)
+on:
+  workflow_dispatch:
+    inputs:
+      reviewed_source_sha:
+        description: Full 40-hex SHA independently reviewed; must equal the dispatched ref's head
+        type: string
+        required: true
+permissions: {}
+concurrency:
+  group: staging-image-publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    # INACTIVE BY DESIGN. Removing `if: false` is a separately reviewed change
+    # (W4+W5 exact-SHA review and owner promotion permission), never an input.
+    # Even then the job also requires: dispatch at the reviewed SHA itself
+    # (github.sha == input, so provenance names the built source) and the
+    # protected environment variable STAGING_IMAGE_APPROVED_SOURCE == that SHA.
+    if: false
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    environment: staging-image-publish
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+    env:
+      REVIEWED_SOURCE_SHA: ${{ inputs.reviewed_source_sha }}
+      STAGING_IMAGE_APPROVED_SOURCE: ${{ vars.STAGING_IMAGE_APPROVED_SOURCE }}
+      STAGING_PUBLIC_APP_URL: ${{ vars.STAGING_PUBLIC_APP_URL }}
+      STAGING_PUBLIC_SUPABASE_URL: ${{ vars.STAGING_PUBLIC_SUPABASE_URL }}
+      STAGING_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ vars.STAGING_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ inputs.reviewed_source_sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with: {node-version-file: .nvmrc}
+      - name: Install exact checksum-verified scanner and crane
+        run: |
+          curl --fail --location --silent --show-error https://github.com/aquasecurity/trivy/releases/download/v0.75.0/trivy_0.75.0_Linux-64bit.tar.gz -o "$RUNNER_TEMP/trivy.tar.gz"
+          echo "c6e65abddb348e25f10549df887045629cf28cc72453cd1c63acb717316b3f3f  $RUNNER_TEMP/trivy.tar.gz" | sha256sum --check
+          curl --fail --location --silent --show-error https://github.com/google/go-containerregistry/releases/download/v0.22.1/go-containerregistry_Linux_x86_64.tar.gz -o "$RUNNER_TEMP/crane.tar.gz"
+          echo "0ab7a1d6932a213aed964ce97666c3077fe691c8606413674a8b3e0b9ec4cda0  $RUNNER_TEMP/crane.tar.gz" | sha256sum --check
+          mkdir "$RUNNER_TEMP/channel-scanner" "$RUNNER_TEMP/channel-crane"
+          tar -xzf "$RUNNER_TEMP/trivy.tar.gz" -C "$RUNNER_TEMP/channel-scanner" trivy
+          tar -xzf "$RUNNER_TEMP/crane.tar.gz" -C "$RUNNER_TEMP/channel-crane" crane
+          rm "$RUNNER_TEMP/trivy.tar.gz" "$RUNNER_TEMP/crane.tar.gz"
+          echo "$RUNNER_TEMP/channel-scanner" >> "$GITHUB_PATH"
+      - name: Runtime dependency audit of the exact lockfile (high/critical fail)
+        run: npm audit --package-lock-only --omit=dev --audit-level=high
+      - id: build
+        name: Build existing Dockerfile, scan, verify OCI layout (nothing published)
+        run: node --experimental-transform-types tools/asier_staging_channel/publish-candidate.mjs build
+      - id: attest
+        name: Provenance for the exact layout manifest digest (pre-push)
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-name: ghcr.io/asier-comba/crm-telecom-staging
+          subject-digest: ${{ steps.build.outputs.subject_digest }}
+          push-to-registry: false
+      - name: Verify provenance and scan, digest-preserving private push, readback, privacy, pull by digest
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_BIN: /usr/bin/gh
+          CRANE_BIN: ${{ runner.temp }}/channel-crane/crane
+          BUNDLE_PATH: ${{ steps.attest.outputs.bundle-path }}
+        run: node --experimental-transform-types tools/asier_staging_channel/publish-candidate.mjs publish
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: staging-image-publication-safe
+          path: |
+            ${{ runner.temp }}/staging-image-publication.safe.json
+            ${{ runner.temp }}/staging-image-receipt.json
+          retention-days: 90
+          if-no-files-found: warn

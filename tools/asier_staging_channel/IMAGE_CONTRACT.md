@@ -53,53 +53,64 @@ and `pull_policy: never`, so the digest must be prefetched first with
 The lab emits `staging.image.lab-receipt.v1`, which `validateReceipt` rejects by
 shape; it can never reach Compose.
 
-## 4. Proposed protected publication job (NOT in any workflow)
+## 4. Protected publication job (`staging-image-publish.yml`, INACTIVE)
 
-Add only after W4+W5 review of the exact workflow SHA and owner promotion
-permission. Trigger `workflow_dispatch` on the default branch with input
-`reviewed_source_sha`; `environment: staging-image-publish` with required
-reviewer; job permissions exactly `contents: read, packages: write,
-id-token: write, attestations: write`; no other job gets them.
+The job exists but is unreachable (`if: false`). Removing that line is a
+separately reviewed change after W4+W5 review of the exact SHA and owner
+promotion permission. Even when active it runs only if ALL of these hold:
+manual `workflow_dispatch` on a GitHub-hosted runner in this repository;
+`github.sha == inputs.reviewed_source_sha` (dispatch at the reviewed ref, so the
+Sigstore certificate's source digest IS the built source); and the protected
+environment `staging-image-publish` variable `STAGING_IMAGE_APPROVED_SOURCE`
+equals that SHA (second key). Workflow-level `permissions: {}`; the job alone
+has `contents: read, packages: write, id-token: write, attestations: write`.
 
-1. Checkout `reviewed_source_sha`, `persist-credentials: false`; assert HEAD and
-   clean tree; compute §2 identity with the real public values (`vars.*`, never
-   secrets).
-2. Same path as the lab: `docker build --provenance=false --sbom=false` with the
-   five labels → `docker image save` → `verifyOciLayoutV1`.
-3. Gates, each recorded, none waivable: `image-scan.mjs` (trivy 0.75.0 vuln +
-   secret on the built image), `npm audit --omit=dev --audit-level=high`, and W4's
-   historical-literal layer scanner once delivered (until then: BLOCKED).
-4. `actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8`
-   (v4.2.2), `subject-name: ghcr.io/asier-comba/crm-telecom-staging`,
-   `subject-digest: <layout manifest digest>`, `push-to-registry: false`.
-   The repo is public, so this writes a public Sigstore/Rekor entry (repo,
-   workflow, commit, digest; no secrets or values). Owner must accept that.
-5. `verifyEvidence` port = `gh attestation verify <layout manifest blob> --bundle
-   <bundle> --repo Asier-Comba/CRM-Telecomunicaciones --signer-workflow
-   .../staging-image-channel.yml` plus the scan JSON subject check.
-6. `publishCandidateV1` with `ghcr-read-transport` (package/tag/manifest reads)
-   and `createCraneSession({repository: ghcr})` as `publisher.createSession`.
-   Preconditions it enforces: package exists, private, linked to this repo
-   (before and after); tag `sha-<source>-config-<public>` absent (only a 404
-   counts); push; raw readback; receipt only if manifest = attested subject and
+Steps (code in `publish-candidate.mjs`, shared build code in `candidate-build.mjs`):
+1. Checkout the SHA without persisted credentials; pinned trivy 0.75.0 and crane
+   0.22.1 (sha256 checked); `npm audit --omit=dev --audit-level=high`.
+2. `build` phase: the same `buildCandidateLayoutV1` the lab ran (existing
+   Dockerfile, five labels, existing scan gate, `docker image save` OCI layout,
+   `verifyOciLayoutV1`). The scan must PASS before anything is attested.
+3. `actions/attest-build-provenance@4d10147…` (v4.2.2) on
+   `ghcr.io/asier-comba/crm-telecom-staging` + layout manifest digest,
+   `push-to-registry: false`. Public repo ⇒ public Sigstore/Rekor entry (repo,
+   workflow, commit, digest; no values). The owner must accept that.
+4. `publish` phase: re-verify the layout (digest unchanged since attestation),
+   then `publishCandidateV1` with real ports:
+   - `verifyEvidence` = `scanResultV1` (pinned scanner, exact image/source, zero
+     findings) + `ghAttestationVerifyV1` (`gh attestation verify <manifest blob>
+     --bundle --repo --signer-workflow --source-digest --predicate-type
+     --deny-self-hosted-runners`, then `provenanceResultV1` re-checks subject
+     name+digest, signer workflow, hosted runner, dispatch trigger, source SHA);
+   - publisher = `ghcr-read-transport` + `createCraneSession` (digest-preserving).
+   The receipt exists only if the registry manifest = attested subject and
    credential cleanup PASS.
-7. Privacy check: anonymous token request for the repository must be denied.
-8. Temporary pull by digest on the runner via `prefetchComposeImageV1`; Id must
-   equal `image_config_digest`; config dir removed and proven absent.
-9. Upload receipt JSON (digests only) as artifact; post SHA/tree/digest to #67.
+5. Privacy: package API `visibility: private` AND authenticated 200 for the
+   digest AND anonymous token/manifest denied (`privacyResultV1`).
+6. Temporary pull by digest: `prefetchComposeImageV1` with real ports (owned 0700
+   config, stdin login, Id = config digest, logout + removal proven).
+7. Artifacts: `staging-image-publication.safe.json` (always) and
+   `staging-image-receipt.json` (only on full PASS), 90 days.
 
 ## 5. Evidence classes: never mix them
 
-- SIMULATED: all `*.test.mjs` (doubles for registry, credentials, verifier).
-  Includes the negative matrix: different manifest, same config/different
-  manifest, modified layer, mutable tag, expired credential, network error,
-  partial publish, cleanup failure, non-private package, package turning
-  public, unknown provenance, provenance for another subject.
-- REAL LAB: `oci-lab` job: real build of the existing Dockerfile with
-  synthetic public bindings, real trivy, real layout verification, real
-  digest-preserving push/readback/pull on a loopback registry. Not GHCR, not
-  private, not provenance, not promotable.
-- REAL REGISTRY: none yet. Requires §4 approved and run.
+- SIMULATED: all `*.test.mjs` (doubles for registry, credentials, Sigstore,
+  verifier). Includes the negative matrix: different manifest, same
+  config/different manifest, modified layer, mutable tag, expired credential,
+  network error, partial publish, cleanup failure, non-private package,
+  package turning public, unknown provenance, provenance for another subject;
+  and verifier truth tables for provenance, scan, privacy and the publish gate.
+- REAL LAB: Actions run 40863379096 on `fce0e99` (contracts + `oci-lab`
+  success). Docker 28.0.4/overlay2, crane 0.22.1; config
+  `sha256:24d3a9d7…19bd5`, manifest `sha256:46efb1ec…8bd12`, 32 uncompressed
+  layers (~222 MB); trivy PASS, 0 HIGH/CRITICAL, 0 secrets; loopback push digest
+  preserved, overwrite guard, pull by digest, cleanup true. Synthetic public
+  key: not promotable. Artifact `staging-image-channel-lab-safe` zip digest
+  `sha256:af782bfd…48c9`; JSON sha256 `0bb43db0…37eb`.
+- REAL REGISTRY (read-only observation, 29/10): anonymous GHCR token for
+  `asier-comba/crm-telecom-staging` → 403 (repository absent); a public image →
+  200/200. Nothing was written.
+- REAL PUBLICATION: none. No digest exists in GHCR.
 
 ## 6. Rollback by previous digest (Work executes; W5 provides inputs)
 
@@ -116,21 +127,27 @@ id-token: write, attestations: write`; no other job gets them.
 6. Work switches the Compose `image` to `R_prev.image_reference` and redeploys
    under its own gates; record both digests in #67.
 
-## 7. Known limits / open findings
+## 7. Known limits / open findings (blockers before first publish)
 
-- GHCR has no tag immutability: the absent-tag preflight cannot exclude a
-  race with another writer that holds package write. Mitigation: a single
-  environment-gated writer; consumers use digests only.
-- The publisher requires an existing private package. First creation (the
-  bootstrap seed in `bootstrap-private-package.mjs`) still has no reviewed
-  transport, and this is the next blocker. `crane copy` of the pinned seed is
-  the proposed transport.
-- On the classic Docker store, `docker image save` layers are uncompressed
-  (larger). GHCR private storage/transfer quota and cost are NOT verified, so
-  confirm 0 EUR before the first publish.
+- Activation prerequisites (owner): create environment `staging-image-publish`
+  with required reviewer and a deployment-branch policy limited to reviewed
+  refs; set `STAGING_IMAGE_APPROVED_SOURCE` per candidate; the workflow file must
+  exist on the default branch for dispatch, then dispatch with `--ref` at the
+  reviewed branch whose head is the reviewed SHA.
+- The publisher requires an existing private package linked to this repo. First
+  creation (bootstrap seed, `bootstrap-private-package.mjs`) still has no
+  reviewed transport; proposed: `crane copy` of the pinned seed. Blocker.
+- `GITHUB_TOKEN` may get 403 on the user package API (`readPackage`): the job then
+  fails closed. If so a fine-grained read token is an owner decision.
+- GHCR has no tag immutability: the absent-tag preflight cannot exclude a race
+  with another package writer. Single environment-gated writer; digests only.
+- Anonymous denial alone cannot distinguish private from absent; privacy PASS
+  always requires the authenticated read of the same digest.
+- Layers are uncompressed (~222 MB per candidate on the lab). GHCR quota/cost
+  NOT verified; confirm 0 EUR before the first publish.
 - `docker-session.mjs` (existing, unchanged) stays usable after a failed
-  cleanup: `cleaned` is set only on success. `crane-session.mjs` closes the
-  session first. Low severity; for W4/W5 to decide.
-- W4 historical findings remain open. Trivy's secret scan inspects the final
-  layers only; it does not replace W4's historical-literal layer scan or the
-  git-history audit.
+  cleanup; `crane-session.mjs` closes first. Low; for W4/W5.
+- W4's historical literal layer scanner is not yet delivered; trivy's secret
+  scan covers final layers only and does not replace it or the git-history
+  audit. All-ref audit: 28 inherited findings (base 467 refs/1753 commits =
+  28; `fce0e99` 468/1754 = 28; this branch adds none). Not resolved here.
