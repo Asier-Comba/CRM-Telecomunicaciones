@@ -4,7 +4,7 @@ import {createRequire} from 'node:module'
 const require=createRequire(import.meta.url),ts=require('typescript')
 const linkSession='00000000-0000-4000-8000-000000000062'
 const token=(claims={})=>'e30.'+Buffer.from(JSON.stringify({sub:'synthetic-link-user',session_id:linkSession,exp:Math.floor(Date.now()/1000)+3600,...claims})).toString('base64url')+'.c3ludGhldGlj'
-const originalAccess=token(),renewedAccess=token({iat:1})
+const renewedAccess=token({iat:1})
 const session=()=>({access_token:renewedAccess,refresh_token:'synthetic-renewed-refresh',user:{id:'synthetic-link-user'}})
 
 // Actual component and event/effect bodies, with hook/JSX/SDK doubles only.
