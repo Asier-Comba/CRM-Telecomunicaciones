@@ -4,8 +4,8 @@ export function safeAuthLocation(value){
  try{
   const url=new URL(value)
   const path=['/login','/auth/callback','/reset-password','/auth/v1/verify'].includes(url.pathname)?url.pathname:'OTHER'
-  const hash=new URLSearchParams(url.hash.replace(/^#/,'')),flow=hash.get('type')??url.searchParams.get('type')
-  return{origin:url.origin===authOrigin?'APP_LOOPBACK':url.origin===authEndpoint?'AUTH_LOOPBACK':'OTHER',path,has_query:!!url.search,has_hash:!!url.hash,has_session_tokens:hash.has('access_token')||hash.has('refresh_token'),has_code:url.searchParams.has('code'),has_error:hash.has('error')||hash.has('error_description')||url.searchParams.has('error'),flow:['invite','recovery','signup'].includes(flow)?flow:'OTHER'}
+  const hash=new URLSearchParams(url.hash.replace(/^#/,'')),flow=url.searchParams.get('type')||hash.get('type')
+  return{origin:url.origin===authOrigin?'APP_LOOPBACK':url.origin===authEndpoint?'AUTH_LOOPBACK':'OTHER',path,has_query:!!url.search,has_hash:!!url.hash,has_session_tokens:hash.has('access_token')||hash.has('refresh_token'),has_code:url.searchParams.has('code')||hash.has('code'),has_error:['error','error_description'].some(key=>hash.has(key)||url.searchParams.has(key)),flow:['invite','recovery','signup'].includes(flow)?flow:'OTHER'}
  }catch{return{origin:'INVALID',path:'OTHER'}}
 }
 

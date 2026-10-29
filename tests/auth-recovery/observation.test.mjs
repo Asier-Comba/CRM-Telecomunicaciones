@@ -2,6 +2,13 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import {safeAuthLocation,safeAuthResponse} from '../../tools/asier_auth_recovery/observation.mjs'
 
+test('observation follows callback query-first fallback and recognizes hash code and query error description',()=>{
+ const safe=safeAuthLocation('http://127.0.0.1:3000/auth/callback?type=invite&error_description=PRIVATE_ERROR#type=recovery&code=PRIVATE_CODE')
+ assert.equal(safe.flow,'invite');assert.equal(safe.has_error,true);assert.equal(safe.has_code,true)
+ const fallback=safeAuthLocation('http://127.0.0.1:3000/auth/callback?type=#type=recovery')
+ assert.equal(fallback.flow,'recovery');assert.equal(JSON.stringify(safe).includes('PRIVATE_'),false)
+})
+
 test('safe navigation observation retains only closed origin/path/flow and presence booleans',()=>{
  const safe=safeAuthLocation('http://127.0.0.1:3000/auth/callback?code=PRIVATE_CODE#access_token=PRIVATE_ACCESS&refresh_token=PRIVATE_REFRESH&type=invite')
  assert.deepEqual(safe,{origin:'APP_LOOPBACK',path:'/auth/callback',has_query:true,has_hash:true,has_session_tokens:true,has_code:true,has_error:false,flow:'invite'})
