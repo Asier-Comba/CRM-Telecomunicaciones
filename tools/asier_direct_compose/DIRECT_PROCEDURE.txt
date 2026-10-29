@@ -1,0 +1,132 @@
+CRM TELECOM — COMPOSE DIRECTO: PREPARACIÓN EXCLUSIVA
+29/10/2026 · Draft211 · STAGING_DEPLOYED=false · RELEASE_NOT_ACCEPTED
+
+Autorizado: implementar y revisar fuera del VPS. No autorizado: ejecución en
+VPS, cambio de gestor, redes alojadas, dominio o Implementar. EasyPanel206
+079ad746 queda intacto y recuperable. No hay otro Dockerfile/empaquetador,
+runtime, gateways o workflow GHCR. Claude mantiene210 y el artefacto privado.
+
+IDENTIDAD Y CONTRATO
+Proyecto Docker Compose: crm-telecom-direct. Sin container_name.
+Alias externo exclusivo de ingress: crm-telecom-direct-ingress.
+Redes propias: crm-telecom-direct_crm-private y
+crm-telecom-direct_crm-outbound. La red easypanel existente nunca se crea,
+borra o modifica con esta alternativa. Sólo ingress se conecta a ella.
+Los nombres DNS privados de App/egress se mantienen para no cambiar runtime.
+
+directConfiguration adapta únicamente el modelo normalizado original.
+directPreflight invierte sólo la identidad revisada y llama al preflight
+existente: no relaja puertos, volúmenes, comandos, capacidades, límites,
+healthchecks, documento/IA/proveedoresOFF, imagen por digest o política.
+Las redes propias usan referencias external:true/name: la creación explícita
+y su inspección son una fase separada. El modelo no afirma probar su propiedad.
+El inventario networks.json debe proceder de lectura auténtica del Engine;
+forma/etiquetas no autentican creación ni autorización.
+
+REDES: FUTURA FASE SUJETA A AUTORIZACIÓN
+Nunca adoptar una red existente por coincidencia de nombre/etiquetas.
+En una futura ejecución se debe bloquear ante cualquier colisión, crear sólo
+las dos redes nuevas del plan, registrar sus IDs devueltos y leer por esos IDs:
+nombre, overlay/swarm, attachable=true, privada internal=true, salida
+internal=false, etiquetas, ausencia de endpoints ajenos y propiedad del diario.
+La recreación reutiliza únicamente IDs del diario auténtico; un cambio bloquea.
+No inicializar/reconfigurar Swarm alojado. No borrar por prefijo ni usar prune.
+La limpieza separada de redes propias exige IDs del diario y ausencia de
+endpoints. Detener App no autoriza borrar redes o modificar easypanel.
+
+PAQUETE PRIVADO PARA LA PREPARACIÓN
+Directorio estable con padres de confianza, propietario del proceso y modo700.
+Archivos regulares de un enlace, propietario correcto, sin acceso grupo/otros:
+compose-bin (standalone, ejecutable700), compose.json, interpolation.env,
+receipt.json, expected.json, policy.json, binding.json, networks.json.
+La imagen usa el Dockerfile original y el digest privado auténtico de Claude.
+Variables se conservan del contrato206/manual-deployment-contract.json: sólo
+nombres en informes. Ninguna credencial de GHCR es variable del contenedor.
+
+El inventario de hashes debe reconstruirse y aceptarse desde fuentes
+independientes: binario/versionado verificado, commit/árbol/Dockerfile/lockfile,
+fingerprint público y evidencias auténticas de imagen. expected derivado del
+propio receipt no aporta contraste independiente. No usar fixture de tests,
+política sintética o PROPOSED/PENDING como autorización.
+
+executePreparation(directory, inventory, 'config'|'dry-run') es una función de
+preparación sin CLI de activación ni opción up/stop/down. Fija el namespace,
+archivo/directorio/env-file, binario standalone, endpoint local Unix y entorno
+cerrado. No resuelve plugins mediante PATH ni hereda DOCKER_*/COMPOSE_*.
+Lee bytes del binario bajo el mismo inventario protegido; no basta una cadena
+con formato hash. Rechaza inventarios incompletos y configuración no admitida.
+Captura salida privada y devuelve sólo su hash, nunca contenido de entorno.
+
+protectedSession adquiere lock exclusivo, copia inventario, lee por descriptor
+sin seguir symlinks cuando el SO lo admite, verifica identidad/enlaces, limita
+bytes, compara hashes antes/después y mantiene el lock hasta terminar callbacks
+asíncronos. Verifica el modelo resuelto con el preflight existente.
+El directorio Docker temporal empieza vacío y se elimina antes de finalizar.
+Un fallo conserva FAIL. No es protección contra un administrador hostil;
+requiere padres estables, exclusión operativa y ausencia de otros escritores.
+config/dry-run reinterpretan entradas: no son garantía transaccional.
+
+SECUENCIA FUTURA, NO ORDEN DE EJECUCIÓN
+1. Aceptar revisiones y cerrar artefacto/política, origen, capacidad/coste0,
+   esquema y ruta HTTPS. Recoger línea base de otros servicios sin sus secretos.
+2. Decisión explícita final del propietario para cambio de gestor y ejecución.
+3. Confirmar ningún gestor EasyPanel puede arrancar simultáneamente este
+   runtime. Conservar su fuente/configuración/recuperación; no destruirlo.
+4. Preparar bundle privado, verificar binarios y entradas con inventario
+   independiente; las variables sensibles se introducen fuera del chat/Git.
+5. Descarga temporal verificada del digest y limpieza de credenciales por el
+   protocolo de Claude. Sin pull automático: caché ausente bloquea.
+6. Fase de redes exclusivas/diario por IDs, sólo después de autorización.
+7. Preparación config/dry-run bajo lock y mismo contexto/entradas. Revisar
+   resumen seguro y huellas; no reinterpolar informalmente el JSON privado.
+8. La aplicación futura requerirá una vía revisada adicional y autorización.
+   El ejecutor de esta unidad deliberadamente no tiene capacidad up.
+9. Inspección posterior por IDs del diario: imagen/configdigest, tres roles,
+   límites768/256/256MiB y0,75/0,25/0,25CPU, UID65532, read-only,
+   cap-dropALL, no-new-privileges, DNS, healthchecks, redes y cero puertos host.
+10.401 anónimo/Basic privado, live/ready, getUser auténtico, cohorte/tenants/
+   roles negativos, persistencia y recarga/recreación, comparación de servicios
+   previos. Documentos/IA/proveedoresOFF. No SQL/Auth alojado modificado.
+
+HTTPS EXISTENTE — BLOCKER_ROUTE_EXTERNAL_INGRESS
+Objetivo: conservar https://crm-telecom-staging.hvdnby.easypanel.host y enviar
+sólo su ruta CRM al alias de ingress8080 mediante configuración por dominio.
+No se publica ningún puerto adicional ni se toca Traefik global.
+EasyPanel App documenta custom destination como pista viable:
+https://easypanel.io/docs/services/app
+Compose sólo documenta servicio interno; API de dominios no especifica
+suficientemente el destino externo (destinationType unknown):
+https://easypanel.io/docs/api/domains/updateDomain .
+No inventar JSON, habilitar un App puente o cambiar dominio para demostrarlo.
+Faltan captura/contrato soportado de la instalación exacta, ruta guardada y
+recuperable, resolución del alias desde el proxy y prueba sin tráfico ajeno.
+Si requiere editar configuración global, la ruta no satisface esta autorización.
+Ninguna llamada al panel/VPS se ha usado para resolver este punto.
+
+RECUPERACIÓN
+En laboratorio se recrea sólo App, se comprueba nueva identidad y se repiten
+fronteras; un contenedor testigo externo al proyecto debe sobrevivir intacto.
+Para una futura primera promoción fallida: detener sólo proyecto directo por
+ID/etiquetas verificadas y restaurar únicamente su propia ruta si se autorizó.
+No arrancar EasyPanel como rollback sin comprobar que nunca hay dos gestores.
+Para upgrade: digest anterior aceptado, entradas/política compatibles, mismo
+protocolo de revisión; nunca rollback Supabase, eliminación de volúmenes ajenos
+o retag de imagen. La ruta anterior y la solución206 se conservan fuera de Git.
+
+COMPARACIÓN PARA DECIDIR
+EasyPanel: gestión/HTTPS integrada; plan final antes de Deploy no acreditado.
+Compose directo: identidad/argv/entradas controladas y revisables; propietario
+asume ciclo de vida y diario de IDs, todavía falta ruta HTTPS soportada.
+Ambas vías: misma imagen/runtime/política, mismas exigencias de seguridad y
+Auth alojada, dependencia del digest auténtico, sin aceptación automática.
+La preparación directa no convierte el laboratorio sintético en piloto real.
+
+EVIDENCIA Y LÍMITES
+Primeros laboratorios772c1cc7/e1246dbb/8cfded77 fallaron y se conservan.
+8c: compose_up no encontró overlay outbound; no probes, limpiezaPASS. El error
+no distinguía causa de creación/visibilidad/resolución. Tras precreación explícita
+con referencias externas, afe52232/run40899625370/job123538032243 PASS.
+Esto demuestra esa combinación de laboratorio, no una causa universal.
+Lab reutiliza gateway.mjs y App sintética, no una imagen privada aceptada,
+Supabase Auth completo, capacidad del VPS o política real ACCEPTED.
+El último SHA, pruebas y revisiones exactas se registran en211/#67.

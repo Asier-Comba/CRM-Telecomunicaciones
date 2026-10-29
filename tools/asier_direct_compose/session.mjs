@@ -7,7 +7,7 @@ export const sha256=bytes=>createHash('sha256').update(bytes).digest('hex')
 export async function protectedSession(directory,expected,callback){
  expected=Object.freeze({...expected})
  const dir=lstatSync(directory)
- if(!dir.isDirectory()||dir.isSymbolicLink()||(dir.mode&0o077)!==0)throw Error('PRIVATE_DIRECTORY_REQUIRED')
+ if(!dir.isDirectory()||dir.isSymbolicLink()||(dir.mode&0o077)!==0||typeof process.getuid==='function'&&dir.uid!==process.getuid())throw Error('PRIVATE_DIRECTORY_REQUIRED')
  const lock=join(directory,'.crm-direct.lock');let fd
  try{
  fd=openSync(lock,constants.O_CREAT|constants.O_EXCL|constants.O_WRONLY,0o600)
@@ -16,7 +16,7 @@ export async function protectedSession(directory,expected,callback){
  if(!/^[a-zA-Z0-9_.-]+$/.test(name)||! /^[a-f0-9]{64}$/.test(hash))throw Error('INPUT_IDENTITY_INVALID')
  const path=join(directory,name),s=lstatSync(path,{bigint:true})
  const limit=name==='compose-bin'?128*1024*1024:1024*1024
- if(!s.isFile()||s.nlink!==1n||(Number(s.mode)&0o077)!==0||s.size>BigInt(limit))throw Error('PRIVATE_FILE_REQUIRED')
+ if(!s.isFile()||s.nlink!==1n||s.uid!==BigInt(dir.uid)||(Number(s.mode)&0o077)!==0||s.size>BigInt(limit))throw Error('PRIVATE_FILE_REQUIRED')
  const input=openSync(path,constants.O_RDONLY|(constants.O_NOFOLLOW??0))
  try{
  const before=fstatSync(input,{bigint:true})
