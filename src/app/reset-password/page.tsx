@@ -30,40 +30,39 @@ export default function ResetPasswordPage() {
 
   useEffect(() => {
     const prepareSession = async () => {
-      const supabase = getSupabaseBrowserClient()
-      if (!supabase) {
-        setChecking(false)
-        return
-      }
+      try {
+        const supabase = getSupabaseBrowserClient()
+        if (!supabase) return
 
-      const searchParams = new URLSearchParams(window.location.search)
-      const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''))
-      const getParam = (key: string) => searchParams.get(key) || hashParams.get(key)
-      const errorDescription = getParam('error_description') || getParam('error')
-      if (errorDescription) {
-        setSessionReady(false)
-        setChecking(false)
-        return
-      }
-
-      const code = getParam('code')
-      if (code) {
-        const { error } = await supabase.auth.exchangeCodeForSession(code)
-        if (error) {
+        const searchParams = new URLSearchParams(window.location.search)
+        const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''))
+        const getParam = (key: string) => searchParams.get(key) || hashParams.get(key)
+        const errorDescription = getParam('error_description') || getParam('error')
+        if (errorDescription) {
           setSessionReady(false)
-          setChecking(false)
           return
         }
-      }
 
-      const { data, error } = await supabase.auth.getSession()
-      if (error) {
+        const code = getParam('code')
+        if (code) {
+          const { error } = await supabase.auth.exchangeCodeForSession(code)
+          if (error) {
+            setSessionReady(false)
+            return
+          }
+        }
+
+        const { data, error } = await supabase.auth.getSession()
+        if (error) {
+          setSessionReady(false)
+          return
+        }
+        setSessionReady(Boolean(data.session))
+      } catch {
         setSessionReady(false)
+      } finally {
         setChecking(false)
-        return
       }
-      setSessionReady(Boolean(data.session))
-      setChecking(false)
     }
 
     void prepareSession()
@@ -80,23 +79,25 @@ export default function ResetPasswordPage() {
       return
     }
 
-    const supabase = getSupabaseBrowserClient()
-    if (!supabase) {
-      toast.error('Faltan variables de Supabase')
-      return
-    }
-
     setLoading(true)
-    const { error } = await supabase.auth.updateUser({ password })
-    setLoading(false)
+    try {
+      const supabase = getSupabaseBrowserClient()
+      if (!supabase) {
+        toast.error('Acceso no disponible', { description: 'Contacta con el responsable interno.' })
+        return
+      }
+      const { error } = await supabase.auth.updateUser({ password })
+      if (error) throw error
 
-    if (error) {
-      toast.error('No se pudo actualizar', { description: error.message })
-      return
+      toast.success('Contraseña actualizada', { description: 'Ya puedes acceder al CRM con la nueva contraseña.' })
+      router.replace('/login?status=password-updated')
+    } catch {
+      toast.error('No se pudo confirmar el cambio', {
+        description: 'Prueba a iniciar sesión. Si no puedes acceder, solicita un nuevo enlace desde el login.',
+      })
+    } finally {
+      setLoading(false)
     }
-
-    toast.success('Contraseña actualizada', { description: 'Ya puedes acceder al CRM con la nueva contraseña.' })
-    router.replace('/login?status=password-updated')
   }
 
   return (
