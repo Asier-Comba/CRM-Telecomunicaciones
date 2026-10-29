@@ -6,6 +6,7 @@ const old='crm-inmobiliario_crm-telecom-runtime'
 export function bindNetworkIds(configuration,networks){
  const c=structuredClone(configuration)
  if(c.name!==project)throw Error('DIRECT_PROJECT_REQUIRED')
+ if(!Array.isArray(networks)||networks.length!==2||new Set(networks.map(n=>n.Id)).size!==2)throw Error('DISTINCT_CREATED_NETWORKS_REQUIRED')
  for(const key of ['crm-private','crm-outbound']){
  const n=networks.find(n=>n.Name===project+'_'+key)
  if(!n||!/^[a-z0-9]{25}$/.test(n.Id)||n.Id!==n.CreatedId)throw Error('CREATED_NETWORK_ID_REQUIRED')
@@ -34,6 +35,7 @@ export function directPreflight(input){
  try{
  const c=structuredClone(input.configuration)
  if(c.name!==project)throw Error()
+ if(!Array.isArray(input.networks)||input.networks.length!==2||new Set(input.networks.map(n=>n.Id)).size!==2)throw Error()
  c.name=old
  for(const name of ['crm-private','crm-outbound']){
   if(c.networks[name].ipam!==undefined){if(c.networks[name].ipam===null||typeof c.networks[name].ipam!=='object'||Array.isArray(c.networks[name].ipam)||Object.keys(c.networks[name].ipam).length!==0)throw Error();delete c.networks[name].ipam}

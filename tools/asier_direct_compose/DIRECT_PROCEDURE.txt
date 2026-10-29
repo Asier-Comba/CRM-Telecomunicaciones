@@ -30,6 +30,12 @@ las dos redes nuevas del plan, registrar sus IDs devueltos y leer por esos IDs:
 nombre, overlay/swarm, attachable=true, privada internal=true, salida
 internal=false, etiquetas, ausencia de endpoints ajenos y propiedad del diario.
 La recreación reutiliza únicamente IDs del diario auténtico; un cambio bloquea.
+bindNetworkIds liga external.name al ID completo, no al nombre de red. Se exigen
+dos IDs distintos coincidentes con CreatedId y lectura por ID. Esto está
+soportado por Compose networks/name y su implementación2.38.2; no demuestra por
+sí solo haber curado la intermitencia de overlays. El FAIL519c se conserva:
+compose_up no encontró outbound pese a precreación. No reintento automático.
+https://docs.docker.com/reference/compose-file/networks/#name
 No inicializar/reconfigurar Swarm alojado. No borrar por prefijo ni usar prune.
 La limpieza separada de redes propias exige IDs del diario y ausencia de
 endpoints. Detener App no autoriza borrar redes o modificar easypanel.

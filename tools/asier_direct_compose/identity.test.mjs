@@ -29,3 +29,12 @@ for(const [name,mutate]of Object.entries({
 })
 test('PROPOSED policy stays blocking even with consistent synthetic identity',()=>{const i=fixture();i.policy.status='PROPOSED';assert.equal(directPreflight(i).status,'BLOCKED')})
 test('source converter must not sanitize malformed IPAM into acceptance',()=>{const c=model();c.networks['crm-private'].ipam=[];assert.throws(()=>directConfiguration(c))})
+for(const kind of ['sameID','unrecordedID','wrongDriver','wrongInternal','nameInsteadOfID'])test('recorded network identity rejects '+kind,()=>{
+ const i=fixture();assert.equal(directPreflight(i).status,'CONFIGURATION_CHECKED')
+ if(kind==='sameID')i.networks[1].Id=i.networks[0].Id
+ if(kind==='unrecordedID')i.networks[0].CreatedId='z'.repeat(25)
+ if(kind==='wrongDriver')i.networks[0].Driver='bridge'
+ if(kind==='wrongInternal')i.networks[0].Internal=false
+ if(kind==='nameInsteadOfID')i.configuration.networks['crm-private'].name=i.networks[0].Name
+ assert.equal(directPreflight(i).status,'BLOCKED')
+})
