@@ -2,12 +2,32 @@ CRM TELECOM — SHARED ACCESS, OWNER-CONFIRMED TWO-PERSON PILOT
 29/10/2026. Continue20d58/ddc6; no new architecture or packaging.
 
 CURRENT EXECUTABLE NEXT STEP
-Owner readback: existing HTTPS panel session -> crm-inmobiliario -> Compose
-crm-telecom-runtime -> Domains -> exact existing CRM hostname/path /.
-Return row destination and literal destination-type options, without selecting
-another option or saving. Cancel and check unchanged baseline. Missing service,
-row or duplicates: stop and report. Full safeguards: OWNER_READ_ONLY_CHECK.txt.
-No browser retry/bypass or panel write by agent. No duplicate subdomain.
+Consume W5's existing user-authorized readback; do NOT ask the owner to repeat
+that visit. Attribution and fields are in the adjacent JSON and comment6503480878:
+https://github.com/Asier-Comba/CRM-Telecomunicaciones/issues/67#issuecomment-6503480878
+Exact Compose crm-inmobiliario/crm-telecom-runtime -> Domains, unique CRM row /,
+HTTPS checked, unchanged upstream before/after closing editor:
+http://crm-inmobiliario_crm-telecom-runtime_crm-telecom-ingress:8080/
+Destination fields observed: HTTP (HTTPS alternative),8080,/,Compose service
+crm-telecom-ingress. No destination-type selector exposed in that Details view.
+SSL/Middlewares not inspected; exact version/time not recorded; evidence is
+tool-returned AX/DOM, not an archived screenshot. No selection change or Save.
+This is separately attributed W5 evidence, not root browser access, not proof
+of universal product absence, effective proxy config, connectivity or lifecycle.
+Earlier OWNER_READ_ONLY_CHECK.txt/20d58 remains the historical checklist; this
+new observation supersedes its request for the same visit, not its safeguards.
+No duplicate subdomain, browser bypass or new panel write is requested.
+
+Next route work: determine a SUPPORTED external-destination/lifecycle contract
+from this observed configuration. One narrow identity hypothesis has been sent
+to W5 for review: whether the proxy demonstrably resolves the displayed upstream
+hostname through the shared network, allowing that exclusive alias on the direct
+ingress. UI text alone is not evidence of that backend mechanism. Do NOT add the
+alias, reuse an occupied name, deploy or repeat the lab to discover unsupported
+panel behavior. Actual alias ownership/collision, provider selection, original
+Compose lifecycle and recreation remain unverified. This hypothesis is not a
+new accepted route or an alternative authorization. If unsupported, retain the
+conditional App-domain metadata investigation already recorded in20d58.
 
 WHAT CHANGED IN THIS UNIT
 Unauthenticated external connection validates TLS and hostname; GET and HEAD
