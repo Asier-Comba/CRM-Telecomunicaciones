@@ -25,13 +25,15 @@ export function screen(options={}){
  }
  const compiled=ts.transpileModule(source,{fileName:'page.tsx',compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX},transformers:{before:[observe]}}).outputText
  assert.equal(observations,1,'effect observation must identify exactly one call')
- const states=[],effects=[],timers=[],messages={error:[],success:[],routes:[],storageRemovals:[],history:[],temporaryOptions:[]};let cursor=0,registered=false,updates=0,sessionReads=0,codeExchanges=0,sessionSets=0,userReads=0,temporaryReads=0,refreshes=0,temporaryStops=0
+ const states=[],effects=[],timers=[],messages={error:[],success:[],routes:[],storageRemovals:[],history:[],temporaryOptions:[]};let cursor=0,registered=false,updates=0,sessionReads=0,codeExchanges=0,sessionSets=0,userReads=0,temporaryReads=0,refreshes=0,temporaryStops=0,initializations=0
  const temporary={auth:{
   async getUser(access){temporaryReads++;return options.temporaryGetUser?options.temporaryGetUser(access):{data:{user:{id:'synthetic-link-user'}},error:null}},
   async refreshSession(input){refreshes++;assert.deepEqual(input,{refresh_token:'synthetic-refresh'});return options.refreshSession?options.refreshSession(input):{data:{session:session(),user:{id:'synthetic-link-user'}},error:null}},
   async stopAutoRefresh(){temporaryStops++;if(options.stopTemporary)await options.stopTemporary()},
  }}
+ const environment=options.window??{location:{search:options.search??'',hash:options.hash??''},history:{replaceState:(_state,_title,path)=>messages.history.push(path)},localStorage:{removeItem:key=>messages.storageRemovals.push(key)}}
  const client={auth:{
+  async initialize(){initializations++;if(options.initialize)return options.initialize();const params=new URLSearchParams(environment.location.search);params.delete('code');environment.location.search=params.size?'?'+params.toString():'';return{error:null}},
   async getSession(){sessionReads++;return options.getSession?options.getSession():{data:{session:{}},error:null}},
   async exchangeCodeForSession(code){codeExchanges++;return options.exchangeCodeForSession?options.exchangeCodeForSession(code):{error:null}},
   async setSession(input){sessionSets++;return options.setSession?options.setSession(input):{data:{session:{user:{id:'synthetic-link-user'}},user:{id:'synthetic-link-user'}},error:null}},
@@ -49,13 +51,13 @@ export function screen(options={}){
   '@/lib/supabase':{getSupabaseBrowserClient:()=>options.unconfigured?null:(options.client??client)}
  }
  const exports={}
- new Function('require','exports','window','setTimeout',compiled)(name=>{assert.ok(Object.hasOwn(modules,name),'unexpected import '+name);return modules[name]},exports,options.window??{location:{search:options.search??'',hash:options.hash??''},history:{replaceState:(_state,_title,path)=>messages.history.push(path)},localStorage:{removeItem:key=>messages.storageRemovals.push(key)}},(fn,ms)=>{timers.push({fn,ms});return timers.length})
+ new Function('require','exports','window','setTimeout',compiled)(name=>{assert.ok(Object.hasOwn(modules,name),'unexpected import '+name);return modules[name]},exports,environment,(fn,ms)=>{timers.push({fn,ms});return timers.length})
  const render=()=>{cursor=0;const tree=exports.default();registered=true;return tree}
  const nodes=node=>Array.isArray(node)?node.flatMap(nodes):node&&typeof node==='object'&&node.props?[node,...nodes(node.props.children)]:[]
  const text=node=>Array.isArray(node)?node.map(text).join(' '):typeof node==='string'?node:node&&typeof node==='object'&&node.props?text(node.props.children):''
  const form=()=>nodes(render()).find(n=>n.type==='form')
  const button=()=>nodes(render()).find(n=>n.type===Button&&n.props.loading!==undefined)
- return {messages,form,button,timers,runTimers(){for(const timer of timers.splice(0))timer.fn()},text:()=>text(render()),counts:()=>({updates,sessionReads,codeExchanges,sessionSets,userReads,temporaryReads,refreshes,temporaryStops}),
+ return {messages,form,button,timers,runTimers(){for(const timer of timers.splice(0))timer.fn()},text:()=>text(render()),counts:()=>({updates,sessionReads,codeExchanges,sessionSets,userReads,temporaryReads,refreshes,temporaryStops,initializations}),
   async mount(){render();for(const effect of effects)await effect()},
   async replayEffect(){for(const effect of effects)await effect()},
   fill(password='Synthetic-test-only-42',confirmation=password){const fields=nodes(render()).filter(n=>n.type==='input'&&n.props.type==='password');assert.equal(fields.length,2);fields[0].props.onChange({target:{value:password}});fields[1].props.onChange({target:{value:confirmation}})},
