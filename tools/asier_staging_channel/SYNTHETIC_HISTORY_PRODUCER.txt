@@ -3,7 +3,9 @@ W4 SYNTHETIC TRANSPORT AND PRIVATE MATERIALIZATION — NOT REAL HISTORY
 Entry: syntheticPrivateHistoryProducerV1. Only explicit SYNTHETIC_ONLY invokes
 a supplied trusted fixture child. Default/ordinary/real modes do not invoke it.
 The exact three actual pinned history IDs are explicitly rejected in synthetic
-controllers. producePinnedHistoryTransferV1 always returns BLOCKED with no I/O.
+controllers. producePinnedHistoryTransferV1 returns NOT_RUN without input and
+BLOCKED/REAL_HISTORY_ISSUER_NOT_CONFIGURED with any input, with no I/O. No real
+issuer exists; even an opaque synthetic executable lease cannot authorize it.
 No Git executable/repository is selected and no Git object retrieval exists.
 
 Process protocol

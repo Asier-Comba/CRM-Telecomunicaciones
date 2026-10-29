@@ -28,7 +28,8 @@ const wipe=rows=>rows.forEach(row=>row.bytes.fill(0))
 test('ordinary and real modes never invoke a child or create transfer data',async()=>{
  let invoked=0
  for(const mode of [undefined,'ORDINARY','PINNED_REAL'])assert.equal((await collectSyntheticHistoryTransportV1({mode,startSyntheticChild:()=>{invoked++}})).result,'NOT_RUN')
- assert.equal((await producePinnedHistoryTransferV1()).error,'REAL_HISTORY_PRODUCER_NOT_CONNECTED');assert.equal(invoked,0)
+ assert.equal((await producePinnedHistoryTransferV1()).result,'NOT_RUN')
+ assert.equal((await producePinnedHistoryTransferV1({approved:true})).error,'REAL_HISTORY_ISSUER_NOT_CONFIGURED');assert.equal(invoked,0)
 })
 test('synthetic mode rejects pinned real object requests and invalid budgets before invocation',async()=>{
  let invoked=0
