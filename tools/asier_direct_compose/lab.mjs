@@ -14,6 +14,7 @@ const report={source:env.EXPECTED_SOURCE,status:'FAIL',checks:[],cleanup:false,S
 function call(args,options={}){report.phase=args[0]==='compose'?'compose_'+args.find(v=>['up','down','ps'].includes(v)):args[0];const r=docker(args,options);if(r.status!==0){report.failure_phase??=report.phase;report.failure_category=String(r.stderr).match(/unknown flag|permission denied|not found|invalid mount config|invalid reference format|port is already allocated|cannot create a swarm scoped network|not a docker command/i)?.[0]??'UNCLASSIFIED';console.error('SYNTHETIC_RUNNER_ONLY_DOCKER_ERROR',String(r.stderr).slice(0,2000));throw Error('DOCKER_OPERATION_FAILED')}return r.stdout.trim()}
 const compose=(...args)=>call(['compose','-p',project,'-f',join(dir,'compose.json'),...args])
 let swarm=false,started=false,sentinel,foreignVolume
+const created={}
 try{
  const g=spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'});if(g.stdout.trim()!==env.EXPECTED_SOURCE)throw Error('SOURCE_MISMATCH')
  if(!lstatSync('/var/run/docker.sock').isSocket()||call(['ps','-aq'])||call(['info','--format','{{.Swarm.LocalNodeState}}'])!=='inactive')throw Error('EMPTY_ENGINE_REQUIRED')
@@ -32,8 +33,12 @@ try{
  call(['pull',image],{timeout:180000})
  const username='crm_lab',password=randomBytes(36).toString('base64url'),secret=join(dir,'ingress.json')
  writeFileSync(secret,JSON.stringify({username,password}),{mode:0o400});chmodSync(secret,0o444)
- for(const n of ['private','shared','outbound'])call(['network','create','--driver','overlay','--attachable',...n==='private'?['--internal']:[], '--label','crm.direct.lab='+project,project+'_'+n])
- const networks=Object.fromEntries(['private','shared','outbound'].map(n=>[n,{external:true,name:project+'_'+n}]))
+ for(const n of ['private','shared','outbound']){
+ created[n]=call(['network','create','--driver','overlay','--attachable',...n==='private'?['--internal']:[], '--label','crm.direct.lab='+project,project+'_'+n])
+ const actual=JSON.parse(call(['network','inspect',created[n]]))[0]
+ if(actual.Id!==created[n]||actual.Name!==project+'_'+n||actual.Driver!=='overlay'||actual.Scope!=='swarm'||!actual.Attachable||actual.Internal!==(n==='private'))throw Error('CREATED_NETWORK_READBACK_FAILED')
+ }
+ const networks=Object.fromEntries(['private','shared','outbound'].map(n=>[n,{external:true,name:created[n]}]))
  const services={}
  for(const role of ['app','ingress','egress']){
  const name=role==='app'?'crm-telecom-staging':'crm-telecom-'+role
@@ -43,9 +48,10 @@ try{
  const ids=JSON.parse(compose('ps','--format','json').split('\n').filter(Boolean).map(l=>l).join('\n').startsWith('[')?compose('ps','--format','json'):'['+compose('ps','--format','json').split('\n').join(',')+']')
  const id=role=>ids.find(v=>v.Service===role).ID
  const inspect=c=>JSON.parse(call(['inspect',c]))[0]
+ const address=(c,key)=>Object.values(inspect(c).NetworkSettings.Networks).find(n=>n.NetworkID===created[key]).IPAddress
  const app=id('crm-telecom-staging'),ingress=id('crm-telecom-ingress'),egress=id('crm-telecom-egress')
  const spec=(c,m,cpu,names)=>{
- const i=inspect(c);if(i.HostConfig.Memory!==m||i.HostConfig.NanoCpus!==cpu||!i.HostConfig.ReadonlyRootfs||i.Config.User!=='65532:65532'||JSON.stringify(Object.keys(i.NetworkSettings.Networks).sort())!==JSON.stringify(names.map(n=>project+'_'+n).sort())||!i.HostConfig.CapDrop.includes('ALL')||!i.HostConfig.SecurityOpt.includes('no-new-privileges:true')||i.HostConfig.PortBindings&&Object.keys(i.HostConfig.PortBindings).length)throw Error('PHYSICAL_SPEC_MISMATCH')
+ const i=inspect(c);if(i.HostConfig.Memory!==m||i.HostConfig.NanoCpus!==cpu||!i.HostConfig.ReadonlyRootfs||i.Config.User!=='65532:65532'||JSON.stringify(Object.values(i.NetworkSettings.Networks).map(n=>n.NetworkID).sort())!==JSON.stringify(names.map(n=>created[n]).sort())||!i.HostConfig.CapDrop.includes('ALL')||!i.HostConfig.SecurityOpt.includes('no-new-privileges:true')||i.HostConfig.PortBindings&&Object.keys(i.HostConfig.PortBindings).length)throw Error('PHYSICAL_SPEC_MISMATCH')
  }
  spec(app,805306368,750000000,['private']);spec(ingress,268435456,250000000,['private','shared']);spec(egress,268435456,250000000,['private','outbound'])
  if(JSON.stringify(inspect(app).HostConfig.Dns)!=='["127.0.0.1"]')throw Error('APP_DNS_CHANGED')
@@ -54,7 +60,7 @@ try{
  const volumeBefore=call(['volume','inspect',foreignVolume])
  const sharedBefore=call(['network','inspect',project+'_shared','--format','{{.ID}}'])
  sentinel=call(['run','-d','--name',project+'-sentinel','--network',project+'_shared','--network-alias','crm-telecom-ingress-canary','--mount','type=volume,source='+foreignVolume+',target=/foreign','--mount','type=bind,source='+process.cwd()+',target=/candidate,readonly','--workdir','/candidate','--env','CRM_DISPOSABLE_SWARM_FIXTURE=true',image,'node','tools/asier_staging_network/swarm-fixture.mjs','canary'])
- const before=inspect(sentinel).Id,canaryIp=inspect(sentinel).NetworkSettings.Networks[project+'_shared'].IPAddress,appIp=inspect(app).NetworkSettings.Networks[project+'_private'].IPAddress
+ const before=inspect(sentinel).Id,canaryIp=address(sentinel,'shared'),appIp=address(app,'private')
  const ip=(await resolve4('zgwotxnyqzfuzcnmgvtn.supabase.co'))[0]
  // Probe uses the established real gateway boundary tests, no hosted credentials/writes.
  function probe(c,input){const r=docker(['exec','-i',c,'node','--experimental-transform-types','tools/asier_staging_network/swarm-probe.mjs'],{input:JSON.stringify(input)});const p=JSON.parse(r.stdout);report.checks.push(...p.checks);if(r.status!==0||p.result!=='PASS')throw Error(p.failed_check??'PROBE_FAILED')}
@@ -68,7 +74,7 @@ try{
  if(recreated===app)throw Error('APP_NOT_RECREATED')
  spec(recreated,805306368,750000000,['private'])
  if(JSON.stringify(inspect(recreated).HostConfig.Dns)!=='["127.0.0.1"]')throw Error('APP_DNS_CHANGED')
- const recreatedIp=inspect(recreated).NetworkSettings.Networks[project+'_private'].IPAddress
+ const recreatedIp=address(recreated,'private')
  probe(sentinel,{kind:'outside',canaryIp,appIp:recreatedIp,supabaseIp:ip,username,password})
  probe(recreated,{kind:'internal',canaryIp,supabaseIp:ip})
  if(inspect(sentinel).Id!==before)throw Error('FOREIGN_PROJECT_CHANGED')
@@ -81,7 +87,7 @@ try{
  report.status='PASS'
 }catch(e){report.error=/^[A-Z0-9_]+$/.test(e.message)?e.message:'LAB_FAILED';if(Array.isArray(e.codes))report.config_errors=e.codes}
 finally{
- try{if(sentinel)call(['rm','-f',sentinel]);if(foreignVolume)call(['volume','rm',foreignVolume]);if(started)compose('down');if(swarm){for(const n of ['private','shared','outbound'])call(['network','rm',project+'_'+n]);call(['swarm','leave','--force'])}report.cleanup=call(['ps','-aq'])===''&&call(['network','ls','--filter','label=crm.direct.lab='+project,'--format','{{.ID}}'])===''&&call(['info','--format','{{.Swarm.LocalNodeState}}'])==='inactive'}catch{report.cleanup=false}
+ try{if(sentinel)call(['rm','-f',sentinel]);if(foreignVolume)call(['volume','rm',foreignVolume]);if(started)compose('down');if(swarm){for(const id of Object.values(created))call(['network','rm',id]);call(['swarm','leave','--force'])}report.cleanup=call(['ps','-aq'])===''&&call(['network','ls','--filter','label=crm.direct.lab='+project,'--format','{{.ID}}'])===''&&call(['info','--format','{{.Swarm.LocalNodeState}}'])==='inactive'}catch{report.cleanup=false}
  if(!report.cleanup)report.status='FAIL'
  try{rmSync(dir,{recursive:true,force:true})}catch{report.cleanup=false;report.status='FAIL';report.error='DIRECTORY_CLEANUP_FAILED'}
  writeFileSync(join(env.RUNNER_TEMP,'direct-compose.safe.json'),JSON.stringify(report),{flag:'wx'})
