@@ -40,6 +40,7 @@ try{
  const actual=JSON.parse(call(['network','inspect',created[n]]))[0]
  if(actual.Id!==created[n]||actual.Name!==project+'_'+n||actual.Driver!==(n==='shared'?'overlay':'bridge')||actual.Scope!==(n==='shared'?'swarm':'local')||!actual.Attachable||actual.Internal!==(n==='private'))throw Error('CREATED_NETWORK_READBACK_FAILED')
  if(n==='private'&&actual.Options?.['com.docker.network.bridge.gateway_mode_ipv4']!=='isolated')throw Error('PRIVATE_GATEWAY_NOT_ISOLATED')
+ if(actual.EnableIPv6!==false)throw Error('UNREVIEWED_IPV6_NETWORK')
  }
  const networks=Object.fromEntries(['private','shared','outbound'].map(n=>[n,{external:true,name:created[n]}]))
  const services={}
@@ -59,7 +60,7 @@ try{
  spec(app,805306368,750000000,['private']);spec(ingress,268435456,250000000,['private','shared']);spec(egress,268435456,250000000,['private','outbound'])
  if(JSON.stringify(inspect(app).HostConfig.Dns)!=='["127.0.0.1"]')throw Error('APP_DNS_CHANGED')
  report.checks.push('three_roles_limits_no_ports_readonly','private_app_network_only')
- const iface=spawnSync('ip',['-j','-4','address','show','dev','br-'+created.private.slice(0,12)],{encoding:'utf8',shell:false,timeout:10000})
+ const iface=spawnSync('ip',['-j','address','show','dev','br-'+created.private.slice(0,12)],{encoding:'utf8',shell:false,timeout:10000})
  if(iface.status!==0||JSON.parse(iface.stdout).some(i=>i.addr_info.length!==0))throw Error('PRIVATE_HOST_ADDRESS_PRESENT')
  hostCanary=createServer(s=>s.destroy());await new Promise((resolve,reject)=>{hostCanary.once('error',reject);hostCanary.listen(0,'0.0.0.0',resolve)})
  const hostPort=String(hostCanary.address().port),hostIp=JSON.parse(call(['network','inspect',created.outbound]))[0].IPAM.Config[0].Gateway

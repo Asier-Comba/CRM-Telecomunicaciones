@@ -38,3 +38,4 @@ for(const kind of ['sameID','unrecordedID','wrongDriver','wrongInternal','nameIn
  if(kind==='nameInsteadOfID')i.configuration.networks['crm-private'].name=i.networks[0].Name
  assert.equal(directPreflight(i).status,'BLOCKED')
 })
+test('host gateway isolation and IPv6 closure are mandatory',()=>{for(const mutate of [i=>{i.networks[0].Options={}},i=>{i.networks[0].EnableIPv6=true}]){const i=fixture();assert.equal(directPreflight(i).status,'CONFIGURATION_CHECKED');mutate(i);assert.equal(directPreflight(i).status,'BLOCKED')}})

@@ -143,6 +143,12 @@ https://docs.docker.com/engine/network/drivers/bridge/
 Internal no es aislamiento absoluto del host: el gateway y servicios del host
 pueden seguir siendo accesibles. No se acredita confinamiento ante un host
 hostil. Mover roles a otro nodo requeriría otra arquitectura/revisión.
+La variante endurecida exige además gateway_mode_ipv4=isolated en la bridge
+privada e IPv6 deshabilitado en las redes propias. El laboratorio comprueba
+ausencia de direcciones en la interfaz bridge y un canario TCP del host:
+egress accede como control positivo; App debe fallar, también tras recreación.
+Esto prueba ese camino/endpoint, no aislamiento absoluto ante un administrador.
+https://docs.docker.com/engine/network/port-publishing/#gateway-modes
 Lab reutiliza gateway.mjs y App sintética, no una imagen privada aceptada,
 Supabase Auth completo, capacidad del VPS o política real ACCEPTED.
 El último SHA, pruebas y revisiones exactas se registran en211/#67.
