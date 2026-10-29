@@ -1,0 +1,27 @@
+name: Direct Compose disposable preparation
+on: [pull_request]
+permissions:
+  contents: read
+jobs:
+  direct:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version-file: .nvmrc
+      - run: npm ci
+      - run: node --experimental-transform-types --test tools/asier_direct_compose/*.test.mjs
+      - run: node --experimental-transform-types tools/asier_direct_compose/lab.mjs
+      - if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: direct-compose-safe
+          path: ${{ runner.temp }}/direct-compose.safe.json
+          if-no-files-found: error
