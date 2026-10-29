@@ -13,7 +13,7 @@ const dir=mkdtempSync(join(env.RUNNER_TEMP,'crm-direct-')),docker=localDockerCal
 const report={source:env.EXPECTED_SOURCE,status:'FAIL',checks:[],cleanup:false,STAGING_DEPLOYED:false,RELEASE_NOT_ACCEPTED:true,scope:'SYNTHETIC_APP_REAL_GATEWAYS_COMPOSE'}
 function call(args,options={}){report.phase=args[0]==='compose'?'compose_'+args.find(v=>['up','down','ps'].includes(v)):args[0];const r=docker(args,options);if(r.status!==0){report.failure_phase??=report.phase;report.failure_category=String(r.stderr).match(/unknown flag|permission denied|not found|invalid mount config|invalid reference format|port is already allocated|cannot create a swarm scoped network|not a docker command/i)?.[0]??'UNCLASSIFIED';console.error('SYNTHETIC_RUNNER_ONLY_DOCKER_ERROR',String(r.stderr).slice(0,2000));throw Error('DOCKER_OPERATION_FAILED')}return r.stdout.trim()}
 const compose=(...args)=>call(['compose','-p',project,'-f',join(dir,'compose.json'),...args])
-let swarm=false,started=false,sentinel
+let swarm=false,started=false,sentinel,foreignVolume
 try{
  const g=spawnSync('git',['rev-parse','HEAD'],{encoding:'utf8'});if(g.stdout.trim()!==env.EXPECTED_SOURCE)throw Error('SOURCE_MISMATCH')
  if(!lstatSync('/var/run/docker.sock').isSocket()||call(['ps','-aq'])||call(['info','--format','{{.Swarm.LocalNodeState}}'])!=='inactive')throw Error('EMPTY_ENGINE_REQUIRED')
@@ -44,11 +44,16 @@ try{
  const id=role=>ids.find(v=>v.Service===role).ID
  const inspect=c=>JSON.parse(call(['inspect',c]))[0]
  const app=id('crm-telecom-staging'),ingress=id('crm-telecom-ingress'),egress=id('crm-telecom-egress')
- for(const [c,m,cpu,n]of [[app,805306368,750000000,1],[ingress,268435456,250000000,2],[egress,268435456,250000000,2]]){
- const i=inspect(c);if(i.HostConfig.Memory!==m||i.HostConfig.NanoCpus!==cpu||!i.HostConfig.ReadonlyRootfs||Object.keys(i.NetworkSettings.Networks).length!==n||i.HostConfig.PortBindings&&Object.keys(i.HostConfig.PortBindings).length)throw Error('PHYSICAL_SPEC_MISMATCH')
+ const spec=(c,m,cpu,names)=>{
+ const i=inspect(c);if(i.HostConfig.Memory!==m||i.HostConfig.NanoCpus!==cpu||!i.HostConfig.ReadonlyRootfs||i.Config.User!=='65532:65532'||JSON.stringify(Object.keys(i.NetworkSettings.Networks).sort())!==JSON.stringify(names.map(n=>project+'_'+n).sort())||!i.HostConfig.CapDrop.includes('ALL')||!i.HostConfig.SecurityOpt.includes('no-new-privileges:true')||i.HostConfig.PortBindings&&Object.keys(i.HostConfig.PortBindings).length)throw Error('PHYSICAL_SPEC_MISMATCH')
  }
+ spec(app,805306368,750000000,['private']);spec(ingress,268435456,250000000,['private','shared']);spec(egress,268435456,250000000,['private','outbound'])
+ if(JSON.stringify(inspect(app).HostConfig.Dns)!=='["127.0.0.1"]')throw Error('APP_DNS_CHANGED')
  report.checks.push('three_roles_limits_no_ports_readonly','private_app_network_only')
- sentinel=call(['run','-d','--name',project+'-sentinel','--network',project+'_shared','--network-alias','crm-telecom-ingress-canary','--mount','type=bind,source='+process.cwd()+',target=/candidate,readonly','--workdir','/candidate','--env','CRM_DISPOSABLE_SWARM_FIXTURE=true',image,'node','tools/asier_staging_network/swarm-fixture.mjs','canary'])
+ foreignVolume=project+'-foreign-volume';call(['volume','create',foreignVolume])
+ const volumeBefore=call(['volume','inspect',foreignVolume])
+ const sharedBefore=call(['network','inspect',project+'_shared','--format','{{.ID}}'])
+ sentinel=call(['run','-d','--name',project+'-sentinel','--network',project+'_shared','--network-alias','crm-telecom-ingress-canary','--mount','type=volume,source='+foreignVolume+',target=/foreign','--mount','type=bind,source='+process.cwd()+',target=/candidate,readonly','--workdir','/candidate','--env','CRM_DISPOSABLE_SWARM_FIXTURE=true',image,'node','tools/asier_staging_network/swarm-fixture.mjs','canary'])
  const before=inspect(sentinel).Id,canaryIp=inspect(sentinel).NetworkSettings.Networks[project+'_shared'].IPAddress,appIp=inspect(app).NetworkSettings.Networks[project+'_private'].IPAddress
  const ip=(await resolve4('zgwotxnyqzfuzcnmgvtn.supabase.co'))[0]
  // Probe uses the established real gateway boundary tests, no hosted credentials/writes.
@@ -61,16 +66,22 @@ try{
  compose('up','--no-build','--pull','never','--force-recreate','-d','crm-telecom-staging')
  const recreated=JSON.parse(compose('ps','--format','json').split('\n').filter(Boolean).map(l=>l).join('\n').startsWith('[')?compose('ps','--format','json'):'['+compose('ps','--format','json').split('\n').join(',')+']').find(v=>v.Service==='crm-telecom-staging').ID
  if(recreated===app)throw Error('APP_NOT_RECREATED')
+ spec(recreated,805306368,750000000,['private'])
+ if(JSON.stringify(inspect(recreated).HostConfig.Dns)!=='["127.0.0.1"]')throw Error('APP_DNS_CHANGED')
+ const recreatedIp=inspect(recreated).NetworkSettings.Networks[project+'_private'].IPAddress
+ probe(sentinel,{kind:'outside',canaryIp,appIp:recreatedIp,supabaseIp:ip,username,password})
  probe(recreated,{kind:'internal',canaryIp,supabaseIp:ip})
  if(inspect(sentinel).Id!==before)throw Error('FOREIGN_PROJECT_CHANGED')
  report.checks.push('recreate_does_not_change_foreign_container')
  compose('down');started=false
  if(inspect(sentinel).Id!==before)throw Error('FOREIGN_CONTAINER_REMOVED')
+ if(call(['volume','inspect',foreignVolume])!==volumeBefore||call(['network','inspect',project+'_shared','--format','{{.ID}}'])!==sharedBefore)throw Error('FOREIGN_RESOURCE_CHANGED')
+ report.checks.push('foreign_volume_and_shared_network_preserved')
  report.checks.push('stop_remove_owned_project_preserves_foreign_container')
  report.status='PASS'
 }catch(e){report.error=/^[A-Z0-9_]+$/.test(e.message)?e.message:'LAB_FAILED';if(Array.isArray(e.codes))report.config_errors=e.codes}
 finally{
- try{if(sentinel)call(['rm','-f',sentinel]);if(started)compose('down');if(swarm){for(const n of ['private','shared','outbound'])call(['network','rm',project+'_'+n]);call(['swarm','leave','--force'])}report.cleanup=call(['ps','-aq'])===''&&call(['network','ls','--filter','label=crm.direct.lab='+project,'--format','{{.ID}}'])===''&&call(['info','--format','{{.Swarm.LocalNodeState}}'])==='inactive'}catch{report.cleanup=false}
+ try{if(sentinel)call(['rm','-f',sentinel]);if(foreignVolume)call(['volume','rm',foreignVolume]);if(started)compose('down');if(swarm){for(const n of ['private','shared','outbound'])call(['network','rm',project+'_'+n]);call(['swarm','leave','--force'])}report.cleanup=call(['ps','-aq'])===''&&call(['network','ls','--filter','label=crm.direct.lab='+project,'--format','{{.ID}}'])===''&&call(['info','--format','{{.Swarm.LocalNodeState}}'])==='inactive'}catch{report.cleanup=false}
  if(!report.cleanup)report.status='FAIL'
  try{rmSync(dir,{recursive:true,force:true})}catch{report.cleanup=false;report.status='FAIL';report.error='DIRECTORY_CLEANUP_FAILED'}
  writeFileSync(join(env.RUNNER_TEMP,'direct-compose.safe.json'),JSON.stringify(report),{flag:'wx'})
