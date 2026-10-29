@@ -5,7 +5,21 @@ import {spawnSync} from 'node:child_process'
 import {tmpdir} from 'node:os'
 import {join,resolve,dirname} from 'node:path'
 import {fileURLToPath} from 'node:url'
+import {createRequire} from 'node:module'
 import {pkceScopeGuard,assertLocalMailTransport,readLocalMailJson,localRecoveryEmailLink,localPkceCodeRedirect} from '../../tools/asier_auth_recovery/pkce-policy.mjs'
+
+test('workflow unit step isolates existing guard children from the real PKCE activation environment',()=>{
+ const yaml=createRequire(import.meta.url)('js-yaml')
+ const workflow=yaml.load(readFileSync(new URL('../../.github/workflows/auth-recovery-acceptance.yml',import.meta.url),'utf8'))
+ const steps=workflow.jobs['auth-recovery'].steps
+ const unit=steps.find(s=>s.name==='Boundaries and existing component regressions')
+ const resource=steps.find(s=>s.name==='Reused disposable resource with Auth-only dispatch')
+ assert.equal(resource.env,undefined,'resource retains the reviewed job opt-in')
+ const result=spawnSync(process.execPath,['--experimental-transform-types','--test','tests/auth-recovery/local-guards.test.mjs','tests/documents-pro/global-runner-guards.test.mjs'],{
+  cwd:fileURLToPath(new URL('../../',import.meta.url)),env:{...process.env,CI:'true',GITHUB_ACTIONS:'true',DOCUMENTS_GLOBAL_AUTH:'true',DOCUMENTS_GLOBAL_SCOPE:'AUTH_PKCE_ONLY',AUTH_RECOVERY_ACCEPTANCE:'false',AUTH_PKCE_ACCEPTANCE:'true',...unit.env},encoding:'utf8',timeout:30000,maxBuffer:131072,windowsHide:true,
+ })
+ assert.equal(result.status,0,result.stdout+result.stderr)
+})
 
 const email='pkce-00000000-0000-4000-8000-000000000001@example.invalid'
 const link='http://127.0.0.1:54321/auth/v1/verify?'+new URLSearchParams({token:'SYNTHETIC_ONLY',type:'recovery',redirect_to:'http://127.0.0.1:3000/reset-password'})

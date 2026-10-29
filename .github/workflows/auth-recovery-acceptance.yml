@@ -32,6 +32,13 @@ jobs:
           node-version-file: .nvmrc
       - run: npm ci
       - name: Boundaries and existing component regressions
+        # Unit fixtures select their own scopes. Never inherit activation from
+        # the real-resource step's job environment into those child processes.
+        env:
+          DOCUMENTS_GLOBAL_SCOPE: ''
+          DOCUMENTS_GLOBAL_AUTH: 'false'
+          AUTH_RECOVERY_ACCEPTANCE: 'false'
+          AUTH_PKCE_ACCEPTANCE: 'false'
         run: |
           node --experimental-transform-types --test tests/auth-recovery/*.test.mjs tests/documents-pro/global-runner-guards.test.mjs
           node --test tests/bootstrap/password-recovery-errors.test.mjs
