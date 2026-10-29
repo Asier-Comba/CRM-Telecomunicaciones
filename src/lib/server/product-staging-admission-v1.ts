@@ -62,8 +62,10 @@ export function stagingIdentityAllowedV1(policy: StagingAdmissionV1, user: unkno
     if (policy.status !== 'enabled' || !user || typeof user !== 'object' || Array.isArray(user)) return false
     const own = (name: string): unknown => Object.getOwnPropertyDescriptor(user, name)?.value
     const id = own('id'), email = own('email'), confirmed = own('email_confirmed_at')
-    return typeof id === 'string' && policy.userIds.includes(id) && own('is_anonymous') === false &&
-      typeof email === 'string' && email.length <= 320 && /^[^\s@]+@example\.invalid$/.test(email) &&
+    // Cohort authority is the exact configured Auth UUID, never an email domain.
+    // Confirmed getUser identities may belong to the real pilot or disposable fixtures.
+    return typeof id === 'string' && uuid.test(id) && policy.userIds.includes(id) && own('is_anonymous') === false &&
+      typeof email === 'string' && email.length <= 320 && email.trim() === email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
       typeof confirmed === 'string' && Number.isFinite(Date.parse(confirmed))
   } catch { return false }
 }
