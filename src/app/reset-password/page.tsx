@@ -43,14 +43,20 @@ export default function ResetPasswordPage() {
           return
         }
 
-        const code = getParam('code')
-        if (code) {
-          const { error } = await supabase.auth.exchangeCodeForSession(code)
-          if (error) {
+        // The SSR browser client exchanges PKCE during initialization. A second
+        // exchange would reject the valid link after its verifier was consumed.
+        if (searchParams.has('code') || hashParams.has('code')) {
+          const initialized = await supabase.auth.initialize()
+          if (initialized.error || new URLSearchParams(window.location.search).has('code') ||
+              new URLSearchParams(window.location.hash.replace(/^#/, '')).has('code')) {
+            // Missing verifier or an already initialized client can recover an old
+            // session without consuming this link. Never use that as confirmation.
             setSessionReady(false)
             return
           }
         }
+        // Without a current code, preserve session-based navigation from the
+        // verified fragment callback. initialize() may cache an older URL error.
 
         const { data, error } = await supabase.auth.getSession()
         if (error) {

@@ -1,68 +1,10 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import {readFileSync} from 'node:fs'
-import {createRequire} from 'node:module'
-const require=createRequire(import.meta.url),ts=require('typescript')
+import {screen} from '../helpers/auth-screen.mjs'
 const linkSession='00000000-0000-4000-8000-000000000062'
 const token=(claims={})=>'e30.'+Buffer.from(JSON.stringify({sub:'synthetic-link-user',session_id:linkSession,exp:Math.floor(Date.now()/1000)+3600,...claims})).toString('base64url')+'.c3ludGhldGlj'
 const originalAccess=token(),renewedAccess=token({iat:1})
 const session=()=>({access_token:renewedAccess,refresh_token:'synthetic-renewed-refresh',user:{id:'synthetic-link-user'}})
-
-// Actual component and event/effect bodies, with hook/JSX/SDK doubles only.
-// A single AST observation changes the final void effect call to a returned promise
-// so the test can await that effect. No auth branch, error or SDK call is rewritten.
-// This is component-logic evidence, not React DOM/browser or hosted Auth evidence.
-function screen(options={}){
- const source=readFileSync(new URL(options.callback?'../../src/app/auth/callback/page.tsx':'../../src/app/reset-password/page.tsx',import.meta.url),'utf8')
- let observations=0
- const observe=context=>{
-  const visit=node=>{
-   if(ts.isExpressionStatement(node)&&ts.isVoidExpression(node.expression)&&ts.isCallExpression(node.expression.expression)){
-    observations++;return ts.factory.createReturnStatement(node.expression.expression)
-   }
-   return ts.visitEachChild(node,visit,context)
-  }
-  return node=>ts.visitNode(node,visit)
- }
- const compiled=ts.transpileModule(source,{fileName:'page.tsx',compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX},transformers:{before:[observe]}}).outputText
- assert.equal(observations,1,'effect observation must identify exactly one call')
- const states=[],effects=[],timers=[],messages={error:[],success:[],routes:[],storageRemovals:[],history:[],temporaryOptions:[]};let cursor=0,registered=false,updates=0,sessionReads=0,codeExchanges=0,sessionSets=0,userReads=0,temporaryReads=0,refreshes=0,temporaryStops=0
- const temporary={auth:{
-  async getUser(access){temporaryReads++;return options.temporaryGetUser?options.temporaryGetUser(access):{data:{user:{id:'synthetic-link-user'}},error:null}},
-  async refreshSession(input){refreshes++;assert.deepEqual(input,{refresh_token:'synthetic-refresh'});return options.refreshSession?options.refreshSession(input):{data:{session:session(),user:{id:'synthetic-link-user'}},error:null}},
-  async stopAutoRefresh(){temporaryStops++;if(options.stopTemporary)await options.stopTemporary()},
- }}
- const client={auth:{
-  async getSession(){sessionReads++;return options.getSession?options.getSession():{data:{session:{}},error:null}},
-  async exchangeCodeForSession(code){codeExchanges++;return options.exchangeCodeForSession?options.exchangeCodeForSession(code):{error:null}},
-  async setSession(input){sessionSets++;return options.setSession?options.setSession(input):{data:{session:{user:{id:'synthetic-link-user'}},user:{id:'synthetic-link-user'}},error:null}},
-  async getUser(){userReads++;return options.getUser?options.getUser():{data:{user:{id:'synthetic-link-user'}},error:null}},
-  async updateUser(input){updates++;return options.updateUser?options.updateUser(input):{error:null}}
- }}
- const hooks={useState(initial){const slot=cursor++;if(!(slot in states))states[slot]=initial;return[states[slot],value=>{states[slot]=typeof value==='function'?value(states[slot]):value}]},useRef(initial){const slot=cursor++;if(!(slot in states))states[slot]={current:initial};return states[slot]},useMemo:fn=>fn(),useEffect:fn=>{if(!registered)effects.push(fn)}}
- const Button=()=>null,jsx=(type,props)=>({type,props})
- const modules={
-  react:hooks,'react/jsx-runtime':{jsx,jsxs:jsx},'next/navigation':{useRouter:()=>({replace:path=>messages.routes.push(path)})},
-  'lucide-react':new Proxy({},{get:()=>()=>null}),sonner:{toast:{error:(...args)=>messages.error.push(args),success:(...args)=>messages.success.push(args)}},
-  '@/components/Button':{Button},'@/lib/utils':{cn:()=>''},'@/lib/brand':{BRAND:{appName:'CRM'}},
-  '@supabase/supabase-js':{createClient:(_url,_key,options)=>{messages.temporaryOptions.push(options);return temporary}},
-  '@/lib/current-user':{DEMO_MODE_KEY:'synthetic-demo-mode'},
-  '@/lib/supabase':{getSupabaseBrowserClient:()=>options.unconfigured?null:client}
- }
- const exports={}
- new Function('require','exports','window','setTimeout',compiled)(name=>{assert.ok(Object.hasOwn(modules,name),'unexpected import '+name);return modules[name]},exports,{location:{search:options.search??'',hash:options.hash??''},history:{replaceState:(_state,_title,path)=>messages.history.push(path)},localStorage:{removeItem:key=>messages.storageRemovals.push(key)}},(fn,ms)=>{timers.push({fn,ms});return timers.length})
- const render=()=>{cursor=0;const tree=exports.default();registered=true;return tree}
- const nodes=node=>Array.isArray(node)?node.flatMap(nodes):node&&typeof node==='object'&&node.props?[node,...nodes(node.props.children)]:[]
- const text=node=>Array.isArray(node)?node.map(text).join(' '):typeof node==='string'?node:node&&typeof node==='object'&&node.props?text(node.props.children):''
- const form=()=>nodes(render()).find(n=>n.type==='form')
- const button=()=>nodes(render()).find(n=>n.type===Button&&n.props.loading!==undefined)
- return {messages,form,button,timers,runTimers(){for(const timer of timers.splice(0))timer.fn()},text:()=>text(render()),counts:()=>({updates,sessionReads,codeExchanges,sessionSets,userReads,temporaryReads,refreshes,temporaryStops}),
-  async mount(){render();for(const effect of effects)await effect()},
-  async replayEffect(){for(const effect of effects)await effect()},
-  fill(password='Synthetic-test-only-42',confirmation=password){const fields=nodes(render()).filter(n=>n.type==='input'&&n.props.type==='password');assert.equal(fields.length,2);fields[0].props.onChange({target:{value:password}});fields[1].props.onChange({target:{value:confirmation}})},
-  submit(){assert.ok(form(),'password form must be visible');return form().props.onSubmit({preventDefault(){}})}
- }
-}
 
 for(const type of ['invite','recovery'])test('causal: complete '+type+' fragment is admitted and independently verified before reset, even when PKCE starts empty',async()=>{
  let admitted=false
@@ -203,8 +145,8 @@ test('causal: returned provider errors never become user-visible raw diagnostics
  assert.equal(h.messages.error.length,1);assert.equal(JSON.stringify(h.messages).includes('private-provider-canary'),false)
  assert.equal(h.button().props.loading,false);assert.equal(h.messages.routes.length,0)
 })
-for(const operation of ['getSession','exchangeCodeForSession'])test('causal: rejected '+operation+' ends checking and exposes only the inactive-link recovery state',async()=>{
- const h=screen({search:operation==='exchangeCodeForSession'?'?code=synthetic-code':'',[operation]:async()=>{throw Error('private-initialization-canary')}})
+for(const operation of ['getSession','initialize'])test('causal: rejected '+operation+' ends checking and exposes only the inactive-link recovery state',async()=>{
+ const h=screen({search:operation==='initialize'?'?code=synthetic-code':'',[operation]:async()=>{throw Error('private-initialization-canary')}})
  await h.mount().catch(()=>{})
  assert.equal(h.text().includes('Verificando enlace seguro'),false)
  assert.equal(h.text().includes('Enlace no activo'),true);assert.equal(h.form(),undefined)
@@ -240,13 +182,13 @@ for(const options of [{unconfigured:true},{getSession:async()=>({data:{session:n
  assert.equal(h.counts().updates,0);assert.equal(h.messages.routes.length,0);assert.equal(h.text().includes('private-session-canary'),false)
 })
 
-for(const operation of ['getSession','exchangeCodeForSession'])test('callback causal: rejected '+operation+' reaches safe login recovery instead of remaining pending',async()=>{
- const h=screen({callback:true,search:operation==='exchangeCodeForSession'?'?code=synthetic-code':'',[operation]:async()=>{throw Error('private-callback-canary')}})
+for(const operation of ['getSession','initialize'])test('callback causal: rejected '+operation+' reaches safe login recovery instead of remaining pending',async()=>{
+ const h=screen({callback:true,search:operation==='initialize'?'?code=synthetic-code':'',[operation]:async()=>{throw Error('private-callback-canary')}})
  await h.mount().catch(()=>{})
  assert.equal(h.timers.length,1);assert.equal(h.timers[0].ms,900)
  assert.equal(h.text().includes('private-callback-canary'),false);assert.equal(h.messages.storageRemovals.length,0)
  h.runTimers();assert.deepEqual(h.messages.routes,['/login?error=callback']);assert.equal(h.counts().updates,0)
- assert.equal(h.counts()[operation==='getSession'?'sessionReads':'codeExchanges'],1,'no automatic exchange/recovery retry')
+ assert.equal(h.counts()[operation==='getSession'?'sessionReads':'initializations'],1,'no automatic exchange/recovery retry')
 })
 for(const type of ['invite','recovery'])test('callback '+type+' still sends an existing session to password setup, without changing it',async()=>{
  const h=screen({callback:true,search:'?type='+type});await h.mount()
@@ -255,10 +197,10 @@ for(const type of ['invite','recovery'])test('callback '+type+' still sends an e
 })
 test('ordinary callback session preserves its dashboard transition and performs no password mutation',async()=>{
  const h=screen({callback:true,search:'?code=synthetic-code'});await h.mount()
- assert.equal(h.counts().codeExchanges,1);assert.equal(h.counts().sessionReads,1);assert.equal(h.timers[0].ms,600)
+ assert.equal(h.counts().codeExchanges,0);assert.equal(h.counts().initializations,1);assert.equal(h.counts().sessionReads,1);assert.equal(h.timers[0].ms,600)
  h.runTimers();assert.deepEqual(h.messages.routes,['/dashboard']);assert.equal(h.counts().updates,0)
 })
-for(const options of [{getSession:async()=>({data:{session:null},error:null})},{getSession:async()=>({data:{session:null},error:{message:'private-callback-canary'}})},{exchangeCodeForSession:async()=>({error:{message:'private-callback-canary'}}),search:'?code=synthetic-code'},{unconfigured:true},{hash:'#error_description=private-callback-canary'}])test('callback unavailable/invalid flows keep the existing safe login recovery',async()=>{
+for(const options of [{getSession:async()=>({data:{session:null},error:null})},{getSession:async()=>({data:{session:null},error:{message:'private-callback-canary'}})},{initialize:async()=>({error:{message:'private-callback-canary'}}),search:'?code=synthetic-code'},{unconfigured:true},{hash:'#error_description=private-callback-canary'}])test('callback unavailable/invalid flows keep the existing safe login recovery',async()=>{
  const h=screen({callback:true,...options});await h.mount();assert.equal(h.timers.length,1);assert.equal(h.timers[0].ms,900)
  assert.equal(h.text().includes('private-callback-canary'),false);assert.equal(h.messages.storageRemovals.length,0)
  h.runTimers();assert.deepEqual(h.messages.routes,['/login?error=callback']);assert.equal(h.counts().updates,0)
