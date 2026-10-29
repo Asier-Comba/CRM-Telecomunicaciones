@@ -78,7 +78,7 @@ export default function AuthCallbackPage() {
       setTimeout(() => router.replace('/login'), 900)
     }
 
-    void completeAuth()
+    void completeAuth().catch(() => redirectToLoginError('No se ha podido confirmar la sesión.'))
   }, [router])
 
   return (
