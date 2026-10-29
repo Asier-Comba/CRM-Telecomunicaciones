@@ -68,7 +68,7 @@ try{
  if(inspect(sentinel).Id!==before)throw Error('FOREIGN_CONTAINER_REMOVED')
  report.checks.push('stop_remove_owned_project_preserves_foreign_container')
  report.status='PASS'
-}catch(e){report.error=/^[A-Z0-9_]+$/.test(e.message)?e.message:'LAB_FAILED'}
+}catch(e){report.error=/^[A-Z0-9_]+$/.test(e.message)?e.message:'LAB_FAILED';if(Array.isArray(e.codes))report.config_errors=e.codes}
 finally{
  try{if(sentinel)call(['rm','-f',sentinel]);if(started)compose('down');if(swarm){for(const n of ['private','shared','outbound'])call(['network','rm',project+'_'+n]);call(['swarm','leave','--force'])}report.cleanup=call(['ps','-aq'])===''&&call(['network','ls','--filter','label=crm.direct.lab='+project,'--format','{{.ID}}'])===''&&call(['info','--format','{{.Swarm.LocalNodeState}}'])==='inactive'}catch{report.cleanup=false}
  if(!report.cleanup)report.status='FAIL'

@@ -23,7 +23,10 @@ export async function executePreparation(directory,inventory,operation,spawn=spa
  try{result=spawn(join(directory,'compose-bin'),args,{env:{PATH:'/usr/bin:/bin',HOME:directory,DOCKER_HOST:'unix:///var/run/docker.sock',DOCKER_CONFIG:config,COMPOSE_DISABLE_ENV_FILE:'1'},shell:false,encoding:'utf8',timeout:60000,maxBuffer:1048576})}finally{rmSync(config,{recursive:true})}
  if(result.status!==0)throw Error('PREPARATION_EXECUTOR_FAILED')
  verify()
- if(operation==='config'&&directPreflight({...input,configuration:JSON.parse(result.stdout)}).status!=='CONFIGURATION_CHECKED')throw Error('EXECUTOR_CONFIG_DRIFT')
+ if(operation==='config'){
+ const resolved=directPreflight({...input,configuration:JSON.parse(result.stdout)})
+ if(resolved.status!=='CONFIGURATION_CHECKED'){const error=Error('EXECUTOR_CONFIG_DRIFT');error.codes=resolved.errors;throw error}
+ }
  return {status:'PREPARATION_ONLY',operation,output_sha256:sha256(result.stdout),deploying_authorized:false,STAGING_DEPLOYED:false}
  })
 }
