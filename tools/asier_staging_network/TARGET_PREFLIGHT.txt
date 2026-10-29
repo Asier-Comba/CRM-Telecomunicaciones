@@ -1,0 +1,105 @@
+CRM TARGET SNAPSHOT PREFLIGHT — INITIAL DIRECT-RUNTIME ENROLLMENT ONLY
+
+Need: existing configuration/image checks validate a proposed model, not the
+identity of the actual Docker daemon or an empty target namespace. This separate
+read-only check rejects an inconsistent/stale target snapshot BEFORE any initial
+network/container creation. It does not inspect the VPS itself or create a third
+architecture. It does not change206/210/211 or their execution controls.
+
+Invocation on already-collected PRIVATE files:
+node tools/asier_staging_network/target-preflight.mjs --expected EXPECTED.json --snapshot SNAPSHOT.json
+Fixed flag order, two regular single-link JSON files, each at most4MiB.
+Exit0 = SNAPSHOT_CONSISTENT; exit2 = BLOCKED. Output contains only coded results
+and input-byte hashes. Hashes establish no provenance or approval.
+No subprocess, Docker/network request, environment lookup or file writes.
+Protect files/parent directories through the operator's OS permissions and stable
+ownership. FD identity/bounded reading is not a hostile-parent/root guarantee.
+No hosted collection or execution is authorized by these instructions.
+
+INPUT CONTRACTS (OUR MINIMIZED SNAPSHOTS, NOT A DOCKER/EASYPANEL API PAYLOAD)
+EXPECTED.json exact keys:
+ version: crm.target.expected.v1
+ daemon_id, swarm_node_id, shared_network_id: actual independently enrolled IDs.
+No default/example target ID is a real VPS binding. Do not derive the expected
+IDs from the same unreviewed snapshot. Their trusted enrollment remains external.
+
+SNAPSHOT.json exact top-level keys:
+ version: crm.target.snapshot.v1
+ captured_at: UTC ISO timestamp with milliseconds, e.g. YYYY-MM-DDTHH:mm:ss.sssZ.
+ info: required Docker info fields ID,ServerVersion,OSType,Architecture,NCPU,
+       MemTotal,Containers,Swarm(NodeID,LocalNodeState,ControlAvailable).
+ server: required Docker version SERVER fields Version,ApiVersion,Os,Arch.
+ compose_version: exact output value from the actual standalone executor, not
+                  the Docker plugin listed on PATH and not EasyPanel's version.
+ shared_network: network inspect Id,Name,Driver,Scope,Attachable,Internal,Ingress.
+ resources: containers/services/networks/volumes arrays, ALL FOUR required.
+ memory_available_bytes: current available memory, not MemTotal/free-cache guess.
+Every resource projection has exactly id,name,compose_project,crm_owner.
+ id/name: actual full resource identity/name; volumes use name as identity.
+ compose_project: only com.docker.compose.project label value, or null/empty.
+ crm_owner: only crm.direct.owner label value, or null/empty.
+Strip Docker inspect's single leading slash from a container name when building
+this explicit projection. Do not alter names, truncate IDs or infer absent labels.
+No Env/commands/mounts/credentials, raw service configuration or arbitrary labels
+belong in this projection. Do not publish these private files.
+
+The command families to obtain the source data are supported Docker READS:
+ docker info --format '{{json .}}'
+ docker version --format '{{json .Server}}'
+ docker network inspect <exact enrolled easypanel network ID>
+ docker ps --all --no-trunc
+ docker service ls --no-trunc
+ docker network ls --no-trunc
+ docker volume ls
+They are documentation references, NOT an implemented collection script and were
+NOT executed against the VPS in this unit. Raw info/inspect output can include
+unrelated or private metadata: inspect locally and construct ONLY the minimized
+projection; never paste raw dumps or credentials. Full collection, common daemon,
+time and provenance remain operator/reviewer obligations. A supplied JSON array
+cannot prove its own completeness. Container count is cross-checked against
+info.Containers; that does not authenticate any other inventory count.
+
+CHECKS AND DELIBERATE LIMITS
+- Linux/amd64 Swarm manager, exact independently enrolled daemon/node/network IDs.
+- Existing qualified combination only: Engine28.0.4/API1.48/standaloneCompose2.38.2.
+  These are the211 lab versions, NOT asserted VPS facts. Any differing combination
+  needs compatibility review; do not edit the evidence to match or auto-upgrade.
+- Existing easypanel overlay/swarm/attachable, not internal or Swarm ingress.
+  No network option/member modification or reverse-proxy contract inferred.
+- Captured timestamp must not be future, invalid or older than5minutes. This is
+  a conservative software freshness budget, not an authenticated trusted clock.
+- Reject names matching crm-telecom-direct or its -/_ prefixes, or exact project
+  ownership labels, across all four inventories. The initial namespace must be
+  empty even if a colliding name is stopped. No automatic adoption or deletion.
+  This is NOT the upgrade/recovery procedure for an existing own-resource journal.
+- Missing/duplicate/malformed inventory fails; a missing shared-network entry
+  cannot pass merely because a separate inspect file says the network exists.
+- Reject available memory below aggregate runtime limits1280MiB or fewer CPU
+  cores than aggregate1.25CPU. These are NECESSARY LOWER BOUNDS ONLY. No CPU load,
+  other-service headroom, reservation, OOM guarantee or actual capacity acceptance
+  is inferred, including when lower bounds pass. Actual capacity still needs
+  reviewed measurements/reserves and the existing-service baseline.
+
+Every result keeps snapshot_authenticated=false,
+inventory_completeness_authenticated=false,capacity_accepted=false,
+route_verified=false,hosted_preflight_accepted=false,deploying_authorized=false,
+STAGING_DEPLOYED=false. No JSON status is a promotion credential.
+The approved image/digest, baked policy, exclusive HTTPS route, operator trust,
+effective execution path, locks, own-resource journal, rollback and real hosted
+acceptance remain separate gates. Do not wire this CLI to up or to a policy switch.
+After collection, reread identity/inventories immediately before any later
+authorized mutation; a snapshot is not an atomic plan or transaction guarantee.
+
+Evidence: focused tests use reserved synthetic IDs and regular temp files;
+child process test invokes only this Node CLI, not Docker. Symlink negative must
+also execute on Linux; a Windows privilege skip is not that evidence. No new
+physical lab was needed to test this pure comparator; old36PASS remain atddc6.
+
+Primary source references, read29/10/2026:
+https://docs.docker.com/reference/cli/docker/system/info/
+https://docs.docker.com/reference/cli/docker/version/
+https://docs.docker.com/reference/cli/docker/network/inspect/
+https://docs.docker.com/reference/cli/docker/container/ls/
+https://docs.docker.com/reference/cli/docker/service/ls/
+https://docs.docker.com/reference/cli/docker/network/ls/
+https://docs.docker.com/reference/cli/docker/volume/ls/
