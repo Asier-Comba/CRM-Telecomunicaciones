@@ -45,7 +45,7 @@ if(['positive','failed','hash'].includes(mode.kind)){
 }
 await sender.auth.stopAutoRefresh();
 const path=mode.callback?'/auth/callback':'/reset-password';
-address=new URL('http://127.0.0.1:3000'+path+(mode.kind==='ordinary'?'':mode.kind==='hash'?'#code=SYNTHETIC_CODE':'?code=SYNTHETIC_CODE'));
+address=new URL('http://127.0.0.1:3000'+path+(mode.kind==='ordinary'?'':mode.kind==='hash'?'#code=SYNTHETIC_CODE':'?code=SYNTHETIC_CODE'+(mode.callback?'&type=recovery':'')));
 const receiver=mode.kind==='singleton'?sender:make();
 const original=receiver.auth.exchangeCodeForSession.bind(receiver.auth);
 receiver.auth.exchangeCodeForSession=(...args)=>{manual++;return original(...args)};
@@ -68,7 +68,7 @@ function run(mode){
 for(const callback of [false,true]){
  test('causal installed SDK: '+(callback?'callback':'reset')+' accepts the automatically exchanged PKCE code exactly once',()=>{
   const value=run({callback,kind:'positive'})
-  assert.equal(callback?value.routes[0]==='/dashboard':value.form,true)
+  assert.equal(callback?value.routes[0]==='/reset-password':value.form,true)
   assert.equal(value.manual,0);assert.equal(value.exchange,1);assert.equal(value.recover,1)
   assert.equal(value.code_remaining,false);assert.equal(value.session,true)
  })
