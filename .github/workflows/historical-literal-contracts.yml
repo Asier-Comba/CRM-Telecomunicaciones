@@ -1,0 +1,71 @@
+name: Git metadata preflight synthetic Linux qualification
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+    paths:
+      - '.github/workflows/historical-literal-contracts.yml'
+permissions:
+  contents: read
+jobs:
+  synthetic-linux:
+    if: github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, format('PRIVATE_HISTORY_LINUX_SHA={0}', github.event.pull_request.head.sha))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      REVIEWED_SCANNER_SOURCE: 6d2352639103973b3d45ff19c481c91d900f6cba
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Require the unchanged W4 source closure, except this qualification workflow
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha }}"
+          git diff --exit-code "$REVIEWED_SCANNER_SOURCE" HEAD -- . ':(exclude).github/workflows/historical-literal-contracts.yml'
+          git diff --exit-code
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '24.22.1'
+      - name: Verify exact metadata preflight and synthetic fixture bytes
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync} from 'node:fs';
+          import {createHash} from 'node:crypto';
+          const pins = {
+            'git-producer-preflight.mjs': '9f9f415e9c86254eed066f24ec8d8ce941c6105fc8c2e92f1071e2e3de8aed8f',
+            'git-producer-preflight.test.mjs': 'fad2cda5b9c43c045857e8e871c51a1d42e0f2305a9e92dcbddd8bce2cd73d1a'
+          };
+          for (const [name, expected] of Object.entries(pins)) {
+            const actual = createHash('sha256').update(readFileSync('tools/asier_staging_channel/' + name)).digest('hex');
+            if (actual !== expected) throw Error('SCANNER_SOURCE_BYTES_MISMATCH');
+          }
+          console.log('EXACT_W4_METADATA_PREFLIGHT_BYTES_CHECKED; actual Git executable provenance not inferred');
+          NODE
+      - name: Fifteen new metadata contracts with private Node executable fixtures only
+        shell: bash
+        run: |
+          node --test --test-reporter=tap tools/asier_staging_channel/git-producer-preflight.test.mjs > "$RUNNER_TEMP/historical-literals.synthetic.tap"
+      - name: Require fifteen passes, zero failures, cancellations and skips
+        if: always()
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import {readFileSync} from 'node:fs';
+          import {join} from 'node:path';
+          const lines = readFileSync(join(process.env.RUNNER_TEMP, 'historical-literals.synthetic.tap'), 'utf8').split(/\r?\n/);
+          for (const [name, expected] of Object.entries({tests:15,pass:15,fail:0,cancelled:0,skipped:0})) {
+            const matches = lines.filter(line => line.startsWith('# ' + name + ' '));
+            if (matches.length !== 1 || matches[0] !== '# ' + name + ' ' + expected) throw Error('SYNTHETIC_LINUX_COVERAGE_INCOMPLETE');
+          }
+          console.log('15_METADATA_SYNTHETIC_LINUX_TESTS_PASS; REAL_GIT_PROBES_NOT_RUN; REAL_HISTORY_TRANSPORT_NOT_RUN; IMAGE_PRIVATE_VERIFIED=false; STAGING_DEPLOYED=false');
+          NODE
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: git-metadata-preflight-synthetic-linux
+          path: ${{ runner.temp }}/historical-literals.synthetic.tap
+          retention-days: 14
+          if-no-files-found: error
