@@ -110,7 +110,12 @@ if(process.argv[1]===fileURLToPath(import.meta.url)){
  try{
   const report=phase==='build'?await buildPhase(env):phase==='publish'?await publishPhase(env):phase==='bootstrap'?await bootstrapPhase(env):(()=>{throw Error('PUBLISH_PHASE_INVALID')})()
   console.log(JSON.stringify(report))
-  if(phase==='publish'){writeFileSync(join(resolve(env.RUNNER_TEMP),'staging-image-publication.safe.json'),JSON.stringify(report,null,2)+'\n',{flag:'wx'});if(report.receipt)writeFileSync(join(resolve(env.RUNNER_TEMP),'staging-image-receipt.json'),JSON.stringify(report.receipt,null,2)+'\n',{flag:'wx'})}
+  if(phase==='publish'){
+   const temp=resolve(env.RUNNER_TEMP),write=(name,value)=>writeFileSync(join(temp,name),JSON.stringify(value,null,2)+'\n',{flag:'wx'})
+   write('staging-image-publication.safe.json',report)
+   // Work's manual-preflight takes --receipt and --expected; both exist only on full PASS.
+   if(report.receipt){const {source,tree,lockfile_sha256,dockerfile_sha256,public_build_sha256}=report.receipt;write('staging-image-receipt.json',report.receipt);write('staging-image-expected.json',{source,tree,lockfile_sha256,dockerfile_sha256,public_build_sha256})}
+  }
   if(phase==='build'?report.result!=='BUILT_NOT_PUBLISHED':report.result!=='PASS')process.exitCode=1
  }catch(error){console.error(JSON.stringify({result:'FAIL',phase,error:codes.test(error?.message??'')?error.message:'PUBLISH_SAFE_FAILURE'}));process.exitCode=1}
 }

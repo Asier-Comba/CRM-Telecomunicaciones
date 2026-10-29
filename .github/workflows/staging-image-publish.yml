@@ -81,6 +81,7 @@ jobs:
           path: |
             ${{ runner.temp }}/staging-image-publication.safe.json
             ${{ runner.temp }}/staging-image-receipt.json
+            ${{ runner.temp }}/staging-image-expected.json
           retention-days: 90
           if-no-files-found: warn
 

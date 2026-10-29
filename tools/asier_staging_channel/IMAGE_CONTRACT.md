@@ -107,6 +107,14 @@ Steps (code in `publish-candidate.mjs`, shared build code in `candidate-build.mj
   preserved, overwrite guard, pull by digest, cleanup true. Synthetic public
   key: not promotable. Artifact `staging-image-channel-lab-safe` zip digest
   `sha256:af782bfd…48c9`; JSON sha256 `0bb43db0…37eb`.
+- REAL LAB re-runs: `ed7b2d7` run 40865966928 (config `sha256:10c2b698…`,
+  manifest `sha256:f2c80173…`) and `cf9293f` run 40866321392 (config
+  `sha256:d1ddd193…`, manifest `sha256:69fec6b7…`, 222418432 bytes): both PASS
+  with 0 HIGH/CRITICAL, 0 secrets, digest preserved, pull by digest, cleanup.
+  Digests differ per SHA because the source labels differ.
+- NOT DONE: W4 historical-literal layer scan, including the ten UNKNOWN-
+  provenance fingerprints. W4's scanner (`ff2d4f4`, WIP, unpublished) and its
+  contract are not available to W5; nothing is classified here.
 - REAL REGISTRY (read-only observation, 29/10): anonymous GHCR token for
   `asier-comba/crm-telecom-staging` → 403 (repository absent); a public image →
   200/200. Nothing was written.
