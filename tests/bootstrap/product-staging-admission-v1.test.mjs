@@ -210,3 +210,12 @@ test('actual Proxy and server factory admit both confirmed pilot UUIDs without d
   }
  }
 })
+
+test('Vercel feedback origin is admitted only exactly, with direct transport and the same cohort gate',()=>{
+ const v={...env,PRODUCT_V1_ORIGIN:admission.stagingVercelOriginV1}
+ assert.equal(admission.readStagingAdmissionV1(v).status,'enabled')
+ for(const suffix of ['/','/path','?x=1','#part',' '])assert.equal(admission.readStagingAdmissionV1({...v,PRODUCT_V1_ORIGIN:v.PRODUCT_V1_ORIGIN+suffix}).status,'invalid')
+ assert.equal(admission.readStagingAdmissionV1({...v,PRODUCT_V1_ORIGIN:'https://crm-telecom-demo-git-x.vercel.app'}).status,'invalid')
+ assert.equal(admission.readStagingAdmissionV1({...v,PRODUCT_STAGING_PRIVATE_EGRESS_ENABLED:'true'}).status,'invalid')
+ assert.equal(admission.stagingIdentityAllowedV1(admission.readStagingAdmissionV1(v),registered(other)),false)
+})
