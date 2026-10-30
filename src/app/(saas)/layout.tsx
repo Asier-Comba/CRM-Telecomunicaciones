@@ -21,7 +21,9 @@ export default async function SaasLayout({
     return <p role="alert">La integración local no está disponible con esta configuración.</p>
   const tenant = integrated ? await resolveTenantContext() : null
   if (tenant && 'error' in tenant) redirect('/login')
-  if (tenant && !tenant.email.endsWith('@example.invalid'))
+  // Owner-named non-synthetic accounts (exact Auth UUIDs) may use the shareable Vercel preview.
+  const ownerIds = (process.env.PRODUCT_STAGING_OWNER_IDS ?? '').split(',').filter(Boolean)
+  if (tenant && !tenant.email.endsWith('@example.invalid') && !ownerIds.includes(tenant.userId))
     return <p role="alert">Este entorno admite únicamente identidades sintéticas de prueba.</p>
   const role = tenant && !('error' in tenant) ? tenant.role : null
   return (
